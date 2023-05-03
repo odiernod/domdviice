@@ -1,0 +1,189 @@
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/* end of reset tool */
+canvas
+{
+    position: absolute;
+    left: 1480px;
+    top: 26px;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    z-index: -1;
+}
+img
+{
+display: block;
+}
+table.instrument1
+{
+position:absolute;
+left:26px;
+top:25px;
+}
+table.instrument2
+{
+position:absolute;
+left:719px;
+top:25px;
+}
+table.instrument3
+{
+position:absolute;
+left:26px;
+top:502px;
+}
+div.instrumentimg1
+{
+position:absolute;
+left:26px;
+top:25px;
+z-index:-1;
+}
+div.instrumentimg2
+{
+position:absolute;
+left:719px;
+top:25px;
+z-index:-1;
+}
+div.instrumentimg3
+{
+position:absolute;
+left:26px;
+top:502px;
+z-index:-1;
+}
+textarea.textlog
+{
+position:absolute;
+left:26px;
+top:950px;
+}
+input.tempo
+{
+position:absolute;
+left:1420px;
+top:950px;
+resize:none;
+}
+button.player
+{
+position:absolute;
+left:1420px;
+top:980px;
+}
+table.treble1
+{
+position:absolute;
+left:1616px;
+top:76px;
+}
+table.treble2
+{
+position:absolute;
+left:1644px;
+top:60px;
+}
+table.treble3
+{
+position:absolute;
+left:1672px;
+top:65px;
+}
+table.treble4
+{
+position:absolute;
+left:1701px;
+top:81px;
+}
+table.bass1
+{
+position:absolute;
+left:1616px;
+top:517px;
+}
+table.bass2
+{
+position:absolute;
+left:1644px;
+top:532px;
+}
+table.bass3
+{
+position:absolute;
+left:1672px;
+top:508px;
+}
+table.bass4
+{
+position:absolute;
+left:1701px;
+top:555px;
+}
+button.ver
+{
+position:absolute;
+left:235px;
+top:455px;
+width:220px;
+z-index:1;
+}
+table.chooser
+{
+position:absolute;
+left:717px;
+top:473px;
+}
+body
+{
+background-image:url('bg.png');
+background-repeat:no-repeat;
+background-position:left top;
+}

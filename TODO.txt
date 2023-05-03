@@ -1,0 +1,2 @@
+alternate color for "duplicate notes" on harmonica (consider various possible implementations)
+add minor tunings
