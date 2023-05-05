@@ -342,7 +342,11 @@ $(document).ready(function(){
     </td>
     <td>
     <button id='displayScale'>Display Scale</button>
+    </td>
+    <td>
     <button id='clearScale'>Clear Scale</button>
+    </td>
+    <td>
     <button id='scaleDegrees'>Color Individual Notes</button>
     </td>
     </tr>
@@ -606,7 +610,15 @@ async function playChord(duration, notes) {
         for (let p of px) p.src = p.getAttribute('originalSrc')
     }
 }
+
+document.body.style.zoom = "80%";
 window.scrollTo(0,0);
+//$('body').css({
+//                transform: 'scale('+(.7)+')', // set zoom
+//                transformOrigin: '50% 0' // set transform scale base
+//            });
+//$('body').css({ width: '100%' });
+
 while (top!=self) alert("For security reasons, framing is not allowed.");
 </script>
 </body>
