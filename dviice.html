@@ -141,6 +141,8 @@ function showScale(scale, key) {
     for (let i = 1; i < scaleNotes.length; i++) {
         var scaleTones = tones[scaleNotes[i]];
         for (let j = 0; j < scaleTones.length; j++){
+           if (showScaleDegrees) {highlightDegree(scaleTones[j], i+1);}
+           else
             highlight(scaleTones[j]);
         }
     }
@@ -189,6 +191,11 @@ $(document).ready(function(){
             // Load the instrument.
             $("#instrument" + $("#zoneMenu").val()).html(instrument[$("#instrumentMenu").val() + $("#tuneMenu").val()]);
             attachAll("instrument" + $("#zoneMenu").val());
+            if (scaleMode) {
+                var scale = $("#scaleMenu").val()
+                var key = $("#keyMenu").val()
+                showScale(scale, key);
+            }
         });
     $('#instrumentimg1').html(img.diatonicrichter)
     $('#instrument1').html(instrument.diatonicrichterc)
@@ -204,6 +211,20 @@ $(document).ready(function(){
         $("#" + clef).html(instrument[clef])
         attachAll(clef); 
     }
+});
+
+// when scaleDegrees button is clicked toggle individual scale colors
+$(document).ready(function(){
+    $('#scaleDegrees').click(function (){
+        showScaleDegrees = !showScaleDegrees;
+        $('#scaleDegrees').html(showScaleDegrees?'Default Note Colors':
+                              'Color Individual Notes')
+        if (scaleMode) {
+                var scale = $("#scaleMenu").val()
+                var key = $("#keyMenu").val()
+                showScale(scale, key);
+            }
+        });
 });
 
 // when displayScale button is clicked, display the selected scale
@@ -300,6 +321,7 @@ $(document).ready(function(){
     <option value='bebopsubdominant'>Bebop Subdominant</option>
     <option value='hindu'>Hindu</option>
     <option value='spanish'>Spanish</option>
+    <option value='fullchromatic'>Full Chromatic</option>
     </select>
     </td>
     <td>
@@ -321,10 +343,11 @@ $(document).ready(function(){
     <td>
     <button id='displayScale'>Display Scale</button>
     <button id='clearScale'>Clear Scale</button>
+    <button id='scaleDegrees'>Color Individual Notes</button>
     </td>
     </tr>
     </table>
-<font size="+1">&nbsp; DVIICE created by <a href="https://tigerhawkt3.com/">tigerhawkt3</a>, Scale Displayer and Wilde Harmonica Tunings added by Dominick O'Dierno | <a href="help.html">Help</a></font>
+<font size="+1">&nbsp; DVIICE originally created by <a href="https://tigerhawkt3.com/">tigerhawkt3</a>, Scale Displayer and Wilde Harmonica Tunings added by Dominick O'Dierno | <a href="help.html">Help</a></font>
 
 <div class="instrumentimg1" id="instrumentimg1" ondragstart='return false;' ondrop='return false;'><img src="diatonic.png"></div>
 <table class="instrument1" id="instrument1" ondragstart='return false;' ondrop='return false;'></table>
@@ -357,7 +380,8 @@ rows="10" cols="195" class="textlog" id="textlog">
 
 <script type="text/javascript">
 let sweep;
-let scaleMode;
+let scaleMode = false;
+let showScaleDegrees = false;
 let bend_origin;
 let tempo = 500;
 let tempo_wheel = document.getElementById('tempo')
@@ -396,10 +420,13 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 function highlight(name) {
-        for (var p of Array.from(document.getElementsByName(name))) p.src = "blue.png";
+    for (var p of Array.from(document.getElementsByName(name))) p.src = "blue.png";
+}
+function highlightDegree(name, degree) {
+    for (var p of Array.from(document.getElementsByName(name))) p.src = "deg" + degree.toString() + ".png";
 }
 function highlightred(name) {
-        for (var p of Array.from(document.getElementsByName(name))) p.src = "red.png";
+    for (var p of Array.from(document.getElementsByName(name))) p.src = "red.png";
 }
 function doMouseOver() {
     if (!scaleMode) highlight(this.name);

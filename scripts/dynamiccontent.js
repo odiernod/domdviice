@@ -7,7 +7,7 @@ img = {diatonicrichter: '<img src="diatonic.png">',
        diatonicwildetuned: '<img src="wildetuned.png">',
        diatonicwildeminor: '<img src="wildeminor.png">',
        diatonicpowerbender: '<img src="powerbender.png">',
-       ukuleletxt: '<img src="ukulele.png">'}
+       ukulele: '<img src="ukulele.png">'}
 menu = {chromatic12: "<option value='c4'>Standard (C4)</option><option value='c3'>Tenor (C3)</option>",
         chromatic16: "<option value='c3'>Standard (C3)</option>",
         diatonicminor: `<option value='ab'>Abm</option>
@@ -8467,4 +8467,5 @@ scales = {blues: [1,0,0,1,0,1,1,1,0,0,1,0],
        bebopsubdominant: [1,0,1,0,1,1,0,1,0,1,1,1],
        hindu: [1,0,1,0,1,1,0,1,1,0,1,0],
        spanish: [1,1,0,0,1,1,0,1,1,0,1,0],
+       fullchromatic: [1,1,1,1,1,1,1,1,1,1,1,1]
        }
