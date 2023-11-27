@@ -1,1 +1,7 @@
-alternate color for "duplicate notes" on harmonica (consider various possible implementations)
+auto generate keys for harmonica tunings
+provide a way for harmonica and guitar to show the individual notes
+remove the "play with your keyboard" functionality
+remove need for background images
+create "scale and key finder"
+provide an option to show the actual note on the harmonica and guitar
+provide better scaling layout for web browser or phone

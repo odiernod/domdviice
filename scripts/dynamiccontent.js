@@ -25,6 +25,7 @@ menu = {chromatic12: "<option value='c4'>Standard (C4)</option><option value='c3
         diatonicwildetuned: `<option value='c'>C</option>
 <option value='g'>G</option>
 <option value='d'>D</option>
+<option value='lowd'>LowD</option>
 <option value='a'>A</option>
 <option value='bb'>Bb</option>
 <option value='b'>B</option>
@@ -1913,6 +1914,79 @@ diatonicwildetunedd:
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="A5s" tone="932.33" src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+</tr>`,
+diatonicwildetunedlowd:
+`﻿<tr>
+<td><img name="F3"src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="F4" src="blank.png" width="63" height="63"></td>
+<td><img name="G4s" src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="F5" src="blank.png" width="63" height="63"></td>
+<td><img name="A5s" src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+</tr>
+<tr>
+<td><img name="D3" src="blank.png" width="63" height="63"></td>
+<td><img name="F3s" src="blank.png" width="63" height="63"></td>
+<td><img name="A3" src="blank.png" width="63" height="63"></td>
+<td><img name="D4" src="blank.png" width="63" height="63"></td>
+<td><img name="F4s" src="blank.png" width="63" height="63"></td>
+<td><img name="F4s" src="blank.png" width="63" height="63"></td>
+<td><img name="A4" src="blank.png" width="63" height="63"></td>
+<td><img name="D5" src="blank.png" width="63" height="63"></td>
+<td><img name="F5s" src="blank.png" width="63" height="63"></td>
+<td><img name="B5" src="blank.png" width="63" height="63"></td>
+</tr>
+<tr>
+<td><img name="E3" src="blank.png" width="63" height="63"></td>
+<td><img name="A3" src="blank.png" width="63" height="63"></td>
+<td><img name="C4s" src="blank.png" width="63" height="63"></td>
+<td><img name="E4" src="blank.png" width="63" height="63"></td>
+<td><img name="G4" src="blank.png" width="63" height="63"></td>
+<td><img name="A4" src="blank.png" width="63" height="63"></td>
+<td><img name="C5s" src="blank.png" width="63" height="63"></td>
+<td><img name="E5" src="blank.png" width="63" height="63"></td>
+<td><img name="A5" src="blank.png" width="63" height="63"></td>
+<td><img name="D6" src="blank.png" width="63" height="63"></td>
+</tr>
+<tr>
+<td><img name="D3s" src="blank.png" width="63" height="63"></td>
+<td><img name="G3s" src="blank.png" width="63" height="63"></td>
+<td><img name="C4" src="blank.png" width="63" height="63"></td>
+<td><img name="D4s" src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="G4s" src="blank.png" width="63" height="63"></td>
+<td><img name="C5" src="blank.png" width="63" height="63"></td>
+<td><img name="D5s" src="blank.png" width="63" height="63"></td>
+<td><img name="G5s" src="blank.png" width="63" height="63"></td>
+<td><img name="C6s" src="blank.png" width="63" height="63"></td>
+</tr>
+<tr>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="G3" src="blank.png" width="63" height="63"></td>
+<td><img name="B3" src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="G4" src="blank.png" width="63" height="63"></td>
+<td><img name="B4" src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="G5" src="blank.png" width="63" height="63"></td>
+<td><img name="C6" src="blank.png" width="63" height="63"></td>
+</tr>
+<tr>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="A3s" src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="A4s" src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
@@ -8455,6 +8529,7 @@ scales = {blues: [1,0,0,1,0,1,1,1,0,0,1,0],
        harmonicminor: [1,0,1,1,0,1,0,1,1,0,0,1],
        melodicminor: [1,0,1,1,0,1,0,1,0,1,0,1],
        mixolydian: [1,0,1,0,1,1,0,1,0,1,1,0],
+       mixeduplydian: [1,0,1,1,1,1,1,1,0,1,1,0],
        dorian: [1,0,1,1,0,1,0,1,0,1,1,0],
        aeolian: [1,0,1,1,0,1,0,1,1,0,1,0],
        phrygian: [1,1,0,1,0,1,0,1,1,0,1,0],
@@ -8468,5 +8543,13 @@ scales = {blues: [1,0,0,1,0,1,1,1,0,0,1,0],
        hindu: [1,0,1,0,1,1,0,1,1,0,1,0],
        spanish: [1,1,0,0,1,1,0,1,1,0,1,0],
        wholetone: [1,0,1,0,1,0,1,0,1,0,1,0],
-       fullchromatic: [1,1,1,1,1,1,1,1,1,1,1,1]
+       fullchromatic: [1,1,1,1,1,1,1,1,1,1,1,1],
+       ichord: [1,0,0,0,1,0,0,1,0,0,0,0],
+       i7chord: [1,0,0,0,1,0,0,1,0,0,0,1],       
+       iichord: [0,0,1,0,0,1,0,0,0,1,0,0],
+       ii7chord: [1,0,1,0,0,1,0,0,0,1,0,0],
+       ivchord: [1,0,0,0,0,1,0,0,0,1,0,0],
+       iv7chord: [1,0,0,1,0,1,0,0,0,1,0,0],
+       vchord: [0,0,1,0,0,0,0,1,0,0,0,1],
+       v7chord: [0,0,1,0,0,1,0,1,0,0,0,1]
        }
