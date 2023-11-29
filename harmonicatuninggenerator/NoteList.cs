@@ -280,6 +280,12 @@ public class NoteList
         return toNoteIndex - fromNoteIndex;
     }
 
+    public Note GetNote(string NoteName, int semitoneDistance)
+    {
+        var startingNote = orderedNotes.First( note => note.NoteName == NoteName);
+        return GetNote(startingNote, semitoneDistance);
+    }
+
     public Note GetNote(Note startingNote, int semitoneDistance)
     {
 
@@ -291,5 +297,6 @@ public class NoteList
 
     }    
     
+
 
 }

@@ -1,0 +1,15 @@
+C:\Users\jodierd\source\DVIICE\domdviice\harmonicatuninggenerator\bin\Debug\net7.0\harmonicatuninggenerator.exe
+C:\Users\jodierd\source\DVIICE\domdviice\harmonicatuninggenerator\bin\Debug\net7.0\harmonicatuninggenerator.deps.json
+C:\Users\jodierd\source\DVIICE\domdviice\harmonicatuninggenerator\bin\Debug\net7.0\harmonicatuninggenerator.runtimeconfig.json
+C:\Users\jodierd\source\DVIICE\domdviice\harmonicatuninggenerator\bin\Debug\net7.0\harmonicatuninggenerator.dll
+C:\Users\jodierd\source\DVIICE\domdviice\harmonicatuninggenerator\bin\Debug\net7.0\harmonicatuninggenerator.pdb
+C:\Users\jodierd\source\DVIICE\domdviice\harmonicatuninggenerator\obj\Debug\net7.0\harmonicatuninggenerator.csproj.AssemblyReference.cache
+C:\Users\jodierd\source\DVIICE\domdviice\harmonicatuninggenerator\obj\Debug\net7.0\harmonicatuninggenerator.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jodierd\source\DVIICE\domdviice\harmonicatuninggenerator\obj\Debug\net7.0\harmonicatuninggenerator.AssemblyInfoInputs.cache
+C:\Users\jodierd\source\DVIICE\domdviice\harmonicatuninggenerator\obj\Debug\net7.0\harmonicatuninggenerator.AssemblyInfo.cs
+C:\Users\jodierd\source\DVIICE\domdviice\harmonicatuninggenerator\obj\Debug\net7.0\harmonicatuninggenerator.csproj.CoreCompileInputs.cache
+C:\Users\jodierd\source\DVIICE\domdviice\harmonicatuninggenerator\obj\Debug\net7.0\harmonicatuninggenerator.dll
+C:\Users\jodierd\source\DVIICE\domdviice\harmonicatuninggenerator\obj\Debug\net7.0\refint\harmonicatuninggenerator.dll
+C:\Users\jodierd\source\DVIICE\domdviice\harmonicatuninggenerator\obj\Debug\net7.0\harmonicatuninggenerator.pdb
+C:\Users\jodierd\source\DVIICE\domdviice\harmonicatuninggenerator\obj\Debug\net7.0\harmonicatuninggenerator.genruntimeconfig.cache
+C:\Users\jodierd\source\DVIICE\domdviice\harmonicatuninggenerator\obj\Debug\net7.0\ref\harmonicatuninggenerator.dll

@@ -1,4 +1,7 @@
 auto generate keys for harmonica tunings
+  paddy richter
+  easy diatonic
+  valved versions?
 provide a way for harmonica and guitar to show the individual notes
 remove the "play with your keyboard" functionality
 remove need for background images
