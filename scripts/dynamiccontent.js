@@ -6,7 +6,7 @@ img = {diatonicrichter: '<img src="diatonic.png">',
        chromatic16: '<img src="chromatic16.png">',
        diatonicminor: '<img src="diatonicminor.png">',
        diatonicwildetuned: '<img src="wildetuned.png">',
-       paddywildetuned: '<img src="wildetuned.png">',
+       paddywildetuned: '<img src="paddywilde.png">',
        diatonicwildeminor: '<img src="wildeminor.png">',
        diatonicpowerbender: '<img src="powerbender.png">',
        ukulele: '<img src="ukulele.png">'}

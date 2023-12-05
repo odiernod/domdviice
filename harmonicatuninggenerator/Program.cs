@@ -5,5 +5,5 @@ using Namespace;
 var generator = new TuningGenerator();
 
 
-generator.Generate(new PaddyWildeHarmonicaTuning());
+generator.Generate(new PaddyRichterHarmonicaTuning());
 
