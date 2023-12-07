@@ -1,27 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Instrument Comparator and Scale Displayer</title>
+<title>Compare Instruments, Alternate Tunings, and Display Scales</title>
 <meta name="google-site-verification" content="olHl8uiFXMySsnI5oNglFjNkfGOy0udu50WoaPlh3zg" />
-<meta name="description" content="Digital Virtual Instantaneous Instrument Comparator and Emulator and Scale Displayer">
-<meta name="keywords" content="harmonica, guitar">
+<meta name="description" content="Compare Instruments, Alternate Tunings, and Display Scales">
+<meta name="keywords" content="harmonica, guitar, piano, tunings, wilde tuned, powerbender, scales, rock, blues, jazz">
 <meta name="author" content="Dominick O'Dierno, originally TigerhawkT3">
 <link rel="stylesheet" type="text/css" href="style.css">
 <!--
-    This page was originally conceived, designed, and coded for
+    The note comparator format and instrument display was originally conceived, designed, and coded for
     www.tigerhawkt3.com, David "TigerhawkT3"
-    "Farranor" Muller, except for the noted segments.
-    Many, many thanks to "Old Pedant" at
-    www.codingforums.com for the original streamlined
-    highlighting function and extensive troubleshooting
-    help. Thanks to www.softsynth.com for the original
-    Web Audio API file and tone-generating javascript code.
-    Additional thanks for keeping it up to date when
-    Google changes things. :)
+    "Farranor" Muller.
 
     meta tags and title had to be changed as Google kept incorrectly reporting page a phishing
 
-    Wilde Tuned and Wilde Minor Tuned harmonicas as well as 
+    Multiple different harmonica tunings, including the Wilde Tuned and Wilde Minor Tuned harmonicas as well as 
     scale displayer added by Dominick O'Dierno, odiernod on github
 -->
 </head>
@@ -366,7 +359,7 @@ $(document).ready(function(){
     </td>
     </tr>
     </table>
-<font size="+1">&nbsp; DVIICE originally created by <a href="https://tigerhawkt3.com/">tigerhawkt3</a>, Scale Displayer and Wilde Harmonica Tunings added by Dominick O'Dierno | <a href="help.html">Help</a></font>
+<a href="help.html">Help</a></font>
 
 <div class="instrumentimg1" id="instrumentimg1" ondragstart='return false;' ondrop='return false;'><img src="diatonic.png"></div>
 <table class="instrument1" id="instrument1" ondragstart='return false;' ondrop='return false;'></table>
@@ -386,25 +379,15 @@ $(document).ready(function(){
 <table class="bass3" id="bass3" ondragstart='return false;' ondrop='return false;'></table>
 <table class="bass4" id="bass4" ondragstart='return false;' ondrop='return false;'></table>
 
-<textarea
-placeholder="Type notes in this text box for an easy record! For example, type the following for &quot;The Minstrel Boy&quot; (180BPM):
-wa,sv  bmnbvn , 2t `/t2. , `bn,n4bbbbvv `a,s2vv `bmnbv2n , t `/t. , bn,n4bbb vvv `et / 2. `/t2/ . ,  `,2.  `n2n `n 4. / t  `wt2v  `bmnbv4nn,,t `/t2. , `bn,n4bbbbvv  `
-Click outside this box if you don't want played notes to show up. Use spaces for rests.
-Enter a BPM in the box to the right (default 120) and hit the play button below it to play back your song."
-rows="10" cols="195" class="textlog" id="textlog">
-</textarea>
-<input type='number' placeholder="BPM" min='0' max='60000' class="tempo" id="tempo"></input>
-<button onclick="playback()" class="player">Play!</button>
-<canvas id='pitchwheel' width="135" height="855" onmousedown="startBend(event)"></canvas>
+
+
 
 <script type="text/javascript">
 let sweep;
 let scaleMode = false;
 let showScaleDegrees = true;
-let bend_origin;
-let tempo = 500;
-let tempo_wheel = document.getElementById('tempo')
-tempo_wheel.addEventListener('change', function(evt) { tempo = 60000/tempo_wheel.valueAsNumber || 500 }, false);
+
+
 // IE and Edge can't iterate over iterator objects in a for-each loop like Chrome
 // and Firefox can, so those objects are converted to arrays with Array.from()
 function attachAll( inTable ) {
@@ -430,9 +413,6 @@ var multipliers = {"Z":0, "X":1, "C":2, "A":3, "S":4, "D":5}
 var multiplier = 3;
 let highlighting = {};
 let pluck = true;
-var canvas = $('#pitchwheel')[0]
-var context = canvas.getContext('2d');
-context.font = '12px Arial';
 function sleep(ms) {
     // a sleep function. usage:
     // async func() { await sleep(1000) }
@@ -466,60 +446,19 @@ function doMouseDown() {
 function playElement(element) {
     $('#version').attr('desktop')?clickVoice.start(parseFloat($(element).attr('tone')), 1, pluck):$('#'+$(element).attr('name'))[0].play()
 }
-function startBend(event) {
-    event.preventDefault();
-    bend_origin = event.clientY;
-    var box = canvas.getBoundingClientRect()
-    var top = bend_origin-box.top
-    $('#pitchwheel').on('mousemove', doBend);
-    // canvas x1,y1,x2,y2 is 1480,26,1480+135,26+855, semitone every 100px
-    for (let i=(top)%100; i<box.height; i+=100) {
-        context.beginPath();
-        context.moveTo(0, i);
-        context.lineTo(box.width, i);
-        context.closePath();
-        context.stroke();
-        let below = i > top
-        if (i!=top) context.fillText(  (below?'':'+')
-                                     + -parseInt((i-top)/100)
-                                     + ' semitone', 5, i-(i<50?-15:5)) // put top label below line
-        else context.fillText('origin', 5, i-5)
-    }
-}
-function doBend(event) {
-    let value = (bend_origin - event.clientY)/100;
-    for (let voice of voices) voice.changeBend(value)
-    for (let channel of channels) channel.changeBend(value)
-}
+
 function mouseUp() {
     // stop bending
     for (let voice of voices) voice.stopBend()
     for (let channel of channels) channel.stopBend()
-    $('#pitchwheel').off('mousemove', doBend);
-    // canvas x1,y1,x2,y2 is 1480,26,1480+135,26+855, semitone every 100px
-    var box = canvas.getBoundingClientRect()
-    context.clearRect(0,0,box.width,box.height)
-    // and stop playing
+
     sweep = false;
     clickVoice.stop();
 }
 // keyboard controls
 function press(event, size=1) {
     var event = event.key.toUpperCase()
-    if ('`12345'.includes(event)) {
-        clickVoice.vibrato(event)
-        for (let channel of channels)
-            channel.vibrato(event)
-    }
-    else if ("ZXCASD".includes(event))
-        multiplier = multipliers[event]
-    else if ('QWER'.includes(event)) {
-        clickVoice.waveform(event)
-        for (let channel of channels)
-            channel.waveform(event)
-    }
-    else if (event == '<') pluck = false;
-    else if (event == '>') pluck = true;
+    
     if (!(event in note_names)) return;
     for (let channel of channels) if (channel.note == event) return;
     let chan;
@@ -534,7 +473,7 @@ function press(event, size=1) {
         chan = channels.shift()
         channels.push(chan)
     }
-    var additional = 'T6Y7UI9O0P-['.includes(event)
+    
     var note_name = note_names[event][0] + (multiplier+additional+1) + note_names[event].slice(1,2)
     if ($('#version').attr('desktop')) {
         chan.start(pitches[event] * (2**multiplier), size, pluck)
@@ -546,85 +485,11 @@ function press(event, size=1) {
 }
 function release(event) {
     var event = event.key.toUpperCase()
-    if ("VGBHNMK,L.;/T6Y7UI9O0P-[".includes(event)) {
-        let chan;
-        for (let channel of channels)
-            if (channel.note == event) {
-                channel.note = null;
-                channel.stop()
-                for (var p of highlighting[event]) p.src = p.getAttribute("originalSrc");
-                return;
-            }
     }
-}
 document.onkeydown = press;
 document.onkeyup = release;
 // end of keyboard controls
-async function playback() {
-    let chord = null;
-    var text = document.getElementById('textlog')
-    for (let c of (text.value.slice(text.selectionStart, text.selectionEnd) || text.value).toUpperCase()) {
-        if (c == '(') chord = [];
-        else if (c == ')') {
-            if (chord[0] == ':') tempo = 60000/parseInt(chord.slice(1).join('')) // e.g. (:120)
-            else if (chord.includes(':')) {
-                // chord should be "(<beats>:[<vibrato><waveform><octave><key>][<vibrato>...])"
-                let splt = chord.indexOf(':')
-                let duration = tempo * chord.slice(0, splt)
-                let notes = chord.slice(splt+1)
-                playChord(duration, notes)
-            }
-            else {
-                // chord should be ([<note>][<note>]...)
-                for (let e of chord) press({key:e}, chord.length)
-                await sleep(tempo)
-                for (let e of chord) release({key:e})
-            }
-            chord = null;
-        }
-        else if (chord != null) chord.push(c)
-        else if (c == ' ' || c == '_' || c in note_names) {
-            press({key:c})
-            await sleep(tempo)
-            release({key:c})
-        }
-        else press({key:c})
-    }
-}
-// <4:`qat3wau> `aeb  <4:`qab`qak1qa.>    n,
-// chord with vib0 sine wave and vib3 tri wave with square note,
-// accompanied by square note,
-// followed by chord with vib0 sine, vib0 sine, and vib0 sine,
-// followed by 2 square notes
-// remember to follow a chord with spaces for rests if you don't want simultaneous play
-// simple C-E-G chord:
-// `wav<1:`wav`wan> <3:`wav`wan1wa,>
-// this function is only for fully-specified chords with mixed instruments,
-// vibrato levels, and octave pairs! simply do e.g. (vn,) for basic/uniform chords
-async function playChord(duration, notes) {
-    let groups = [];
-    let pix = [];
-    while (notes.length) groups.push(notes.splice(0, 4))
-    for (let i=0; i<groups.length; ++i) {
-        [vib, wave, oct, key] = groups[i]
-        let voice = voices[i]
-        let multiplier = multipliers[oct]
-        let additional = 'T6Y7UI9O0P-['.includes(key)
-        let note_name = note_names[key][0] + (multiplier+additional+1) + note_names[key].slice(1,2)
-        pix.push(Array.from(document.getElementsByName(note_name)));
-        for (p of pix[pix.length-1]) p.src = 'blue.png'
-        voice.vibrato(vib)
-        voice.waveform(wave)
-        voice.start(pitches[key] * (2**multiplier), groups.length, pluck)
-    }
-    await sleep(duration)
-    for (let voice of voices) {
-        voice.stop()
-    }
-    for (let px of pix) {
-        for (let p of px) p.src = p.getAttribute('originalSrc')
-    }
-}
+
 
 document.body.style.zoom = "80%";
 window.scrollTo(0,0);
