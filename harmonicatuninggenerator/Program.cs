@@ -1,9 +1,10 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using harmonicatuninggenerator;
 using Namespace;
 
 var generator = new TuningGenerator();
 
 
-generator.Generate(new PaddyRichterHarmonicaTuning());
+generator.Generate(new Diminished10Tuning());
 

@@ -84,7 +84,11 @@ public class TuningGenerator
             tuningName + "ab:",
             tAb.ToHtml(),
             tuningName + "a:",
-            tA.ToHtml()
+            tA.ToHtml(),
+            tuningName + "bb:",
+            tBb.ToHtml(),
+            tuningName + "b:",
+            tB.ToHtml()
         };
 
         File.AppendAllLines(tuningName + ".txt", lines);

@@ -1,4 +1,4 @@
-paddywildetunedc:
+diatonicwildetunedc:
 `<tr>
 <td><img name="D4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="G4s" src="blank.png" width="63" height="63"></td>"
@@ -14,11 +14,11 @@ paddywildetunedc:
 <tr>
 <td><img name="C4" src="blank.png" width="63" height="63"></td>"
 <td><img name="E4" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4" src="blank.png" width="63" height="63"></td>"
+<td><img name="G4" src="blank.png" width="63" height="63"></td>"
 <td><img name="C5" src="blank.png" width="63" height="63"></td>"
 <td><img name="E5" src="blank.png" width="63" height="63"></td>"
 <td><img name="E5" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5" src="blank.png" width="63" height="63"></td>"
+<td><img name="G5" src="blank.png" width="63" height="63"></td>"
 <td><img name="C6" src="blank.png" width="63" height="63"></td>"
 <td><img name="E6" src="blank.png" width="63" height="63"></td>"
 <td><img name="A6" src="blank.png" width="63" height="63"></td>"
@@ -50,17 +50,29 @@ paddywildetunedc:
 <tr>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="F4" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="A4" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="F5" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="A5" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="F6" src="blank.png" width="63" height="63"></td>"
 <td><img name="A6s" src="blank.png" width="63" height="63"></td>"
 </tr>
+<tr>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="G4s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="G5s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+</tr>
 `,
-paddywildetuneddb:
+diatonicwildetuneddb:
 `<tr>
 <td><img name="E4" src="blank.png" width="63" height="63"></td>"
 <td><img name="A4" src="blank.png" width="63" height="63"></td>"
@@ -76,11 +88,11 @@ paddywildetuneddb:
 <tr>
 <td><img name="C4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="F4" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="G4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="C5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="F5" src="blank.png" width="63" height="63"></td>"
 <td><img name="F5" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="G5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="C6s" src="blank.png" width="63" height="63"></td>"
 <td><img name="F6" src="blank.png" width="63" height="63"></td>"
 <td><img name="A6s" src="blank.png" width="63" height="63"></td>"
@@ -112,17 +124,29 @@ paddywildetuneddb:
 <tr>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="F4s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="F5s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="F6s" src="blank.png" width="63" height="63"></td>"
 <td><img name="B6" src="blank.png" width="63" height="63"></td>"
 </tr>
+<tr>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="A4" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="A5" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+</tr>
 `,
-paddywildetunedd:
+diatonicwildetunedd:
 `<tr>
 <td><img name="F4" src="blank.png" width="63" height="63"></td>"
 <td><img name="A4s" src="blank.png" width="63" height="63"></td>"
@@ -138,11 +162,11 @@ paddywildetunedd:
 <tr>
 <td><img name="D4" src="blank.png" width="63" height="63"></td>"
 <td><img name="F4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B4" src="blank.png" width="63" height="63"></td>"
+<td><img name="A4" src="blank.png" width="63" height="63"></td>"
 <td><img name="D5" src="blank.png" width="63" height="63"></td>"
 <td><img name="F5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="F5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B5" src="blank.png" width="63" height="63"></td>"
+<td><img name="A5" src="blank.png" width="63" height="63"></td>"
 <td><img name="D6" src="blank.png" width="63" height="63"></td>"
 <td><img name="F6s" src="blank.png" width="63" height="63"></td>"
 <td><img name="B6" src="blank.png" width="63" height="63"></td>"
@@ -174,17 +198,29 @@ paddywildetunedd:
 <tr>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="G4" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="B4" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="G5" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="B5" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="G6" src="blank.png" width="63" height="63"></td>"
 <td><img name="C7" src="blank.png" width="63" height="63"></td>"
 </tr>
+<tr>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+</tr>
 `,
-paddywildetunedlowd:
+diatonicwildetunedlowd:
 `<tr>
 <td><img name="F3" src="blank.png" width="63" height="63"></td>"
 <td><img name="A3s" src="blank.png" width="63" height="63"></td>"
@@ -200,11 +236,11 @@ paddywildetunedlowd:
 <tr>
 <td><img name="D3" src="blank.png" width="63" height="63"></td>"
 <td><img name="F3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B3" src="blank.png" width="63" height="63"></td>"
+<td><img name="A3" src="blank.png" width="63" height="63"></td>"
 <td><img name="D4" src="blank.png" width="63" height="63"></td>"
 <td><img name="F4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="F4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B4" src="blank.png" width="63" height="63"></td>"
+<td><img name="A4" src="blank.png" width="63" height="63"></td>"
 <td><img name="D5" src="blank.png" width="63" height="63"></td>"
 <td><img name="F5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="B5" src="blank.png" width="63" height="63"></td>"
@@ -236,17 +272,29 @@ paddywildetunedlowd:
 <tr>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="G3" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="B3" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="G4" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="B4" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="G5" src="blank.png" width="63" height="63"></td>"
 <td><img name="C6" src="blank.png" width="63" height="63"></td>"
 </tr>
+<tr>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="A3s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+</tr>
 `,
-paddywildetunedeb:
+diatonicwildetunedeb:
 `<tr>
 <td><img name="F4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="B4" src="blank.png" width="63" height="63"></td>"
@@ -262,11 +310,11 @@ paddywildetunedeb:
 <tr>
 <td><img name="D4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="G4" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5" src="blank.png" width="63" height="63"></td>"
+<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="D5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="G5" src="blank.png" width="63" height="63"></td>"
 <td><img name="G5" src="blank.png" width="63" height="63"></td>"
-<td><img name="C6" src="blank.png" width="63" height="63"></td>"
+<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="D6s" src="blank.png" width="63" height="63"></td>"
 <td><img name="G6" src="blank.png" width="63" height="63"></td>"
 <td><img name="C7" src="blank.png" width="63" height="63"></td>"
@@ -298,17 +346,29 @@ paddywildetunedeb:
 <tr>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="G4s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="C5" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="G5s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="C6" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="G6s" src="blank.png" width="63" height="63"></td>"
 <td><img name="C7s" src="blank.png" width="63" height="63"></td>"
 </tr>
+<tr>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="B4" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="B5" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+</tr>
 `,
-paddywildetunede:
+diatonicwildetunede:
 `<tr>
 <td><img name="G4" src="blank.png" width="63" height="63"></td>"
 <td><img name="C5" src="blank.png" width="63" height="63"></td>"
@@ -324,11 +384,11 @@ paddywildetunede:
 <tr>
 <td><img name="E4" src="blank.png" width="63" height="63"></td>"
 <td><img name="G4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="B4" src="blank.png" width="63" height="63"></td>"
 <td><img name="E5" src="blank.png" width="63" height="63"></td>"
 <td><img name="G5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="G5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="B5" src="blank.png" width="63" height="63"></td>"
 <td><img name="E6" src="blank.png" width="63" height="63"></td>"
 <td><img name="G6s" src="blank.png" width="63" height="63"></td>"
 <td><img name="C7s" src="blank.png" width="63" height="63"></td>"
@@ -360,17 +420,29 @@ paddywildetunede:
 <tr>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="A4" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="A5" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="A6" src="blank.png" width="63" height="63"></td>"
 <td><img name="D7" src="blank.png" width="63" height="63"></td>"
 </tr>
+<tr>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="C5" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="C6" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+</tr>
 `,
-paddywildetunedlowe:
+diatonicwildetunedlowe:
 `<tr>
 <td><img name="G3" src="blank.png" width="63" height="63"></td>"
 <td><img name="C4" src="blank.png" width="63" height="63"></td>"
@@ -386,11 +458,11 @@ paddywildetunedlowe:
 <tr>
 <td><img name="E3" src="blank.png" width="63" height="63"></td>"
 <td><img name="G3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="B3" src="blank.png" width="63" height="63"></td>"
 <td><img name="E4" src="blank.png" width="63" height="63"></td>"
 <td><img name="G4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="G4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="B4" src="blank.png" width="63" height="63"></td>"
 <td><img name="E5" src="blank.png" width="63" height="63"></td>"
 <td><img name="G5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="C6s" src="blank.png" width="63" height="63"></td>"
@@ -422,17 +494,29 @@ paddywildetunedlowe:
 <tr>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="A3" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="A4" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="A5" src="blank.png" width="63" height="63"></td>"
 <td><img name="D6" src="blank.png" width="63" height="63"></td>"
 </tr>
+<tr>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="C4" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="C5" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+</tr>
 `,
-paddywildetunedf:
+diatonicwildetunedf:
 `<tr>
 <td><img name="G4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="C5s" src="blank.png" width="63" height="63"></td>"
@@ -448,11 +532,11 @@ paddywildetunedf:
 <tr>
 <td><img name="F4" src="blank.png" width="63" height="63"></td>"
 <td><img name="A4" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5" src="blank.png" width="63" height="63"></td>"
+<td><img name="C5" src="blank.png" width="63" height="63"></td>"
 <td><img name="F5" src="blank.png" width="63" height="63"></td>"
 <td><img name="A5" src="blank.png" width="63" height="63"></td>"
 <td><img name="A5" src="blank.png" width="63" height="63"></td>"
-<td><img name="D6" src="blank.png" width="63" height="63"></td>"
+<td><img name="C6" src="blank.png" width="63" height="63"></td>"
 <td><img name="F6" src="blank.png" width="63" height="63"></td>"
 <td><img name="A6" src="blank.png" width="63" height="63"></td>"
 <td><img name="D7" src="blank.png" width="63" height="63"></td>"
@@ -484,17 +568,29 @@ paddywildetunedf:
 <tr>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="A4s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="D5" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="A5s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="D6" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="A6s" src="blank.png" width="63" height="63"></td>"
 <td><img name="D7s" src="blank.png" width="63" height="63"></td>"
 </tr>
+<tr>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+</tr>
 `,
-paddywildetunedlowf:
+diatonicwildetunedlowf:
 `<tr>
 <td><img name="G3s" src="blank.png" width="63" height="63"></td>"
 <td><img name="C4s" src="blank.png" width="63" height="63"></td>"
@@ -510,11 +606,11 @@ paddywildetunedlowf:
 <tr>
 <td><img name="F3" src="blank.png" width="63" height="63"></td>"
 <td><img name="A3" src="blank.png" width="63" height="63"></td>"
-<td><img name="D4" src="blank.png" width="63" height="63"></td>"
+<td><img name="C4" src="blank.png" width="63" height="63"></td>"
 <td><img name="F4" src="blank.png" width="63" height="63"></td>"
 <td><img name="A4" src="blank.png" width="63" height="63"></td>"
 <td><img name="A4" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5" src="blank.png" width="63" height="63"></td>"
+<td><img name="C5" src="blank.png" width="63" height="63"></td>"
 <td><img name="F5" src="blank.png" width="63" height="63"></td>"
 <td><img name="A5" src="blank.png" width="63" height="63"></td>"
 <td><img name="D6" src="blank.png" width="63" height="63"></td>"
@@ -546,17 +642,29 @@ paddywildetunedlowf:
 <tr>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="A3s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="D4" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="A4s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="D5" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="A5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="D6s" src="blank.png" width="63" height="63"></td>"
 </tr>
+<tr>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+</tr>
 `,
-paddywildetunedgb:
+diatonicwildetunedgb:
 `<tr>
 <td><img name="A3" src="blank.png" width="63" height="63"></td>"
 <td><img name="D4" src="blank.png" width="63" height="63"></td>"
@@ -572,11 +680,11 @@ paddywildetunedgb:
 <tr>
 <td><img name="F3s" src="blank.png" width="63" height="63"></td>"
 <td><img name="A3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="D4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="F4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="A4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="A4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="F5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="A5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="D6s" src="blank.png" width="63" height="63"></td>"
@@ -608,17 +716,29 @@ paddywildetunedgb:
 <tr>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="B3" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="D4s" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="B4" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="B5" src="blank.png" width="63" height="63"></td>"
 <td><img name="E6" src="blank.png" width="63" height="63"></td>"
 </tr>
+<tr>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="D4" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="D5" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+</tr>
 `,
-paddywildetunedg:
+diatonicwildetunedg:
 `<tr>
 <td><img name="A3s" src="blank.png" width="63" height="63"></td>"
 <td><img name="D4s" src="blank.png" width="63" height="63"></td>"
@@ -634,11 +754,11 @@ paddywildetunedg:
 <tr>
 <td><img name="G3" src="blank.png" width="63" height="63"></td>"
 <td><img name="B3" src="blank.png" width="63" height="63"></td>"
-<td><img name="E4" src="blank.png" width="63" height="63"></td>"
+<td><img name="D4" src="blank.png" width="63" height="63"></td>"
 <td><img name="G4" src="blank.png" width="63" height="63"></td>"
 <td><img name="B4" src="blank.png" width="63" height="63"></td>"
 <td><img name="B4" src="blank.png" width="63" height="63"></td>"
-<td><img name="E5" src="blank.png" width="63" height="63"></td>"
+<td><img name="D5" src="blank.png" width="63" height="63"></td>"
 <td><img name="G5" src="blank.png" width="63" height="63"></td>"
 <td><img name="B5" src="blank.png" width="63" height="63"></td>"
 <td><img name="E6" src="blank.png" width="63" height="63"></td>"
@@ -670,17 +790,29 @@ paddywildetunedg:
 <tr>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="C4" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="E4" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="C5" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="E5" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="C6" src="blank.png" width="63" height="63"></td>"
 <td><img name="F6" src="blank.png" width="63" height="63"></td>"
 </tr>
+<tr>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="D4s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+</tr>
 `,
-paddywildetunedhighg:
+diatonicwildetunedhighg:
 `<tr>
 <td><img name="A4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="D5s" src="blank.png" width="63" height="63"></td>"
@@ -696,11 +828,11 @@ paddywildetunedhighg:
 <tr>
 <td><img name="G4" src="blank.png" width="63" height="63"></td>"
 <td><img name="B4" src="blank.png" width="63" height="63"></td>"
-<td><img name="E5" src="blank.png" width="63" height="63"></td>"
+<td><img name="D5" src="blank.png" width="63" height="63"></td>"
 <td><img name="G5" src="blank.png" width="63" height="63"></td>"
 <td><img name="B5" src="blank.png" width="63" height="63"></td>"
 <td><img name="B5" src="blank.png" width="63" height="63"></td>"
-<td><img name="E6" src="blank.png" width="63" height="63"></td>"
+<td><img name="D6" src="blank.png" width="63" height="63"></td>"
 <td><img name="G6" src="blank.png" width="63" height="63"></td>"
 <td><img name="B6" src="blank.png" width="63" height="63"></td>"
 <td><img name="E7" src="blank.png" width="63" height="63"></td>"
@@ -732,17 +864,29 @@ paddywildetunedhighg:
 <tr>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="C5" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="E5" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="C6" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="E6" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="C7" src="blank.png" width="63" height="63"></td>"
 <td><img name="F7" src="blank.png" width="63" height="63"></td>"
 </tr>
+<tr>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="D6s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+</tr>
 `,
-paddywildetunedab:
+diatonicwildetunedab:
 `<tr>
 <td><img name="B3" src="blank.png" width="63" height="63"></td>"
 <td><img name="E4" src="blank.png" width="63" height="63"></td>"
@@ -758,11 +902,11 @@ paddywildetunedab:
 <tr>
 <td><img name="G3s" src="blank.png" width="63" height="63"></td>"
 <td><img name="C4" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4" src="blank.png" width="63" height="63"></td>"
+<td><img name="D4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="G4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="C5" src="blank.png" width="63" height="63"></td>"
 <td><img name="C5" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5" src="blank.png" width="63" height="63"></td>"
+<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="G5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="C6" src="blank.png" width="63" height="63"></td>"
 <td><img name="F6" src="blank.png" width="63" height="63"></td>"
@@ -794,17 +938,29 @@ paddywildetunedab:
 <tr>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="C4s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="F4" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="C5s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="F5" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="C6s" src="blank.png" width="63" height="63"></td>"
 <td><img name="F6s" src="blank.png" width="63" height="63"></td>"
 </tr>
+<tr>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="E4" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="E5" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+</tr>
 `,
-paddywildetuneda:
+diatonicwildetuneda:
 `<tr>
 <td><img name="C4" src="blank.png" width="63" height="63"></td>"
 <td><img name="F4" src="blank.png" width="63" height="63"></td>"
@@ -820,11 +976,11 @@ paddywildetuneda:
 <tr>
 <td><img name="A3" src="blank.png" width="63" height="63"></td>"
 <td><img name="C4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="E4" src="blank.png" width="63" height="63"></td>"
 <td><img name="A4" src="blank.png" width="63" height="63"></td>"
 <td><img name="C5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="C5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="E5" src="blank.png" width="63" height="63"></td>"
 <td><img name="A5" src="blank.png" width="63" height="63"></td>"
 <td><img name="C6s" src="blank.png" width="63" height="63"></td>"
 <td><img name="F6s" src="blank.png" width="63" height="63"></td>"
@@ -856,17 +1012,29 @@ paddywildetuneda:
 <tr>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="D4" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="D5" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="D6" src="blank.png" width="63" height="63"></td>"
 <td><img name="G6" src="blank.png" width="63" height="63"></td>"
 </tr>
+<tr>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="F4" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="F5" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+</tr>
 `,
-paddywildetunedbb:
+diatonicwildetunedbb:
 `<tr>
 <td><img name="C4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="F4s" src="blank.png" width="63" height="63"></td>"
@@ -882,11 +1050,11 @@ paddywildetunedbb:
 <tr>
 <td><img name="A3s" src="blank.png" width="63" height="63"></td>"
 <td><img name="D4" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4" src="blank.png" width="63" height="63"></td>"
+<td><img name="F4" src="blank.png" width="63" height="63"></td>"
 <td><img name="A4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="D5" src="blank.png" width="63" height="63"></td>"
 <td><img name="D5" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5" src="blank.png" width="63" height="63"></td>"
+<td><img name="F5" src="blank.png" width="63" height="63"></td>"
 <td><img name="A5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="D6" src="blank.png" width="63" height="63"></td>"
 <td><img name="G6" src="blank.png" width="63" height="63"></td>"
@@ -918,17 +1086,29 @@ paddywildetunedbb:
 <tr>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="D4s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="G4" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="D5s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="G5" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="D6s" src="blank.png" width="63" height="63"></td>"
 <td><img name="G6s" src="blank.png" width="63" height="63"></td>"
 </tr>
+<tr>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+</tr>
 `,
-paddywildetunedb:
+diatonicwildetunedb:
 `<tr>
 <td><img name="D4" src="blank.png" width="63" height="63"></td>"
 <td><img name="G4" src="blank.png" width="63" height="63"></td>"
@@ -944,11 +1124,11 @@ paddywildetunedb:
 <tr>
 <td><img name="B3" src="blank.png" width="63" height="63"></td>"
 <td><img name="D4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="B4" src="blank.png" width="63" height="63"></td>"
 <td><img name="D5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="D5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="B5" src="blank.png" width="63" height="63"></td>"
 <td><img name="D6s" src="blank.png" width="63" height="63"></td>"
 <td><img name="G6s" src="blank.png" width="63" height="63"></td>"
@@ -980,13 +1160,25 @@ paddywildetunedb:
 <tr>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="E4" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="G4s" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="E5" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="G5s" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="E6" src="blank.png" width="63" height="63"></td>"
 <td><img name="A6" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="G4" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="G5" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
 </tr>
 `,

@@ -1,15 +1,15 @@
-paddywildetunedc:
+valvedpaddy123tunedc:
 `<tr>
+<td><img name="B3" src="blank.png" width="63" height="63"></td>"
 <td><img name="D4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="G4s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="B4" src="blank.png" width="63" height="63"></td>"
 <td><img name="D5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="G5s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="B5" src="blank.png" width="63" height="63"></td>"
 <td><img name="D6s" src="blank.png" width="63" height="63"></td>"
 <td><img name="G6s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="B6" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
 <td><img name="C4" src="blank.png" width="63" height="63"></td>"
@@ -17,185 +17,185 @@ paddywildetunedc:
 <td><img name="A4" src="blank.png" width="63" height="63"></td>"
 <td><img name="C5" src="blank.png" width="63" height="63"></td>"
 <td><img name="E5" src="blank.png" width="63" height="63"></td>"
-<td><img name="E5" src="blank.png" width="63" height="63"></td>"
 <td><img name="A5" src="blank.png" width="63" height="63"></td>"
 <td><img name="C6" src="blank.png" width="63" height="63"></td>"
 <td><img name="E6" src="blank.png" width="63" height="63"></td>"
 <td><img name="A6" src="blank.png" width="63" height="63"></td>"
+<td><img name="C7" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
 <td><img name="D4" src="blank.png" width="63" height="63"></td>"
 <td><img name="G4" src="blank.png" width="63" height="63"></td>"
 <td><img name="B4" src="blank.png" width="63" height="63"></td>"
 <td><img name="D5" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5" src="blank.png" width="63" height="63"></td>"
 <td><img name="G5" src="blank.png" width="63" height="63"></td>"
 <td><img name="B5" src="blank.png" width="63" height="63"></td>"
 <td><img name="D6" src="blank.png" width="63" height="63"></td>"
 <td><img name="G6" src="blank.png" width="63" height="63"></td>"
-<td><img name="C7" src="blank.png" width="63" height="63"></td>"
-</tr>
-<tr>
-<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F6s" src="blank.png" width="63" height="63"></td>"
 <td><img name="B6" src="blank.png" width="63" height="63"></td>"
-</tr>
-<tr>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="F4" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="F5" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="F6" src="blank.png" width="63" height="63"></td>"
-<td><img name="A6s" src="blank.png" width="63" height="63"></td>"
-</tr>
-`,
-paddywildetuneddb:
-`<tr>
-<td><img name="E4" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="E5" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="E6" src="blank.png" width="63" height="63"></td>"
-<td><img name="A6" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-</tr>
-<tr>
-<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F6" src="blank.png" width="63" height="63"></td>"
-<td><img name="A6s" src="blank.png" width="63" height="63"></td>"
-</tr>
-<tr>
-<td><img name="D4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C6" src="blank.png" width="63" height="63"></td>"
-<td><img name="D6s" src="blank.png" width="63" height="63"></td>"
-<td><img name="G6s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C7s" src="blank.png" width="63" height="63"></td>"
-</tr>
-<tr>
-<td><img name="D4" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4" src="blank.png" width="63" height="63"></td>"
-<td><img name="B4" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="G5" src="blank.png" width="63" height="63"></td>"
-<td><img name="B5" src="blank.png" width="63" height="63"></td>"
-<td><img name="D6" src="blank.png" width="63" height="63"></td>"
-<td><img name="G6" src="blank.png" width="63" height="63"></td>"
-<td><img name="C7" src="blank.png" width="63" height="63"></td>"
-</tr>
-<tr>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="F6s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B6" src="blank.png" width="63" height="63"></td>"
-</tr>
-`,
-paddywildetunedd:
-`<tr>
-<td><img name="F4" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="F5" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="F6" src="blank.png" width="63" height="63"></td>"
-<td><img name="A6s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-</tr>
-<tr>
-<td><img name="D4" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B4" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B5" src="blank.png" width="63" height="63"></td>"
-<td><img name="D6" src="blank.png" width="63" height="63"></td>"
-<td><img name="F6s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B6" src="blank.png" width="63" height="63"></td>"
-</tr>
-<tr>
-<td><img name="E4" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="E5" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5" src="blank.png" width="63" height="63"></td>"
-<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
-<td><img name="E6" src="blank.png" width="63" height="63"></td>"
-<td><img name="A6" src="blank.png" width="63" height="63"></td>"
 <td><img name="D7" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
+<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C7s" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="F4" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="F5" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="F6" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+</tr>
+`,
+valvedpaddy123tuneddb:
+`<tr>
+<td><img name="C4" src="blank.png" width="63" height="63"></td>"
+<td><img name="E4" src="blank.png" width="63" height="63"></td>"
+<td><img name="A4" src="blank.png" width="63" height="63"></td>"
+<td><img name="C5" src="blank.png" width="63" height="63"></td>"
+<td><img name="E5" src="blank.png" width="63" height="63"></td>"
+<td><img name="A5" src="blank.png" width="63" height="63"></td>"
+<td><img name="C6" src="blank.png" width="63" height="63"></td>"
+<td><img name="E6" src="blank.png" width="63" height="63"></td>"
+<td><img name="A6" src="blank.png" width="63" height="63"></td>"
+<td><img name="C7" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F4" src="blank.png" width="63" height="63"></td>"
+<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F5" src="blank.png" width="63" height="63"></td>"
+<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F6" src="blank.png" width="63" height="63"></td>"
+<td><img name="A6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C7s" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
 <td><img name="D4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="G4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="C5" src="blank.png" width="63" height="63"></td>"
 <td><img name="D5s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
 <td><img name="G5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="C6" src="blank.png" width="63" height="63"></td>"
 <td><img name="D6s" src="blank.png" width="63" height="63"></td>"
 <td><img name="G6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C7" src="blank.png" width="63" height="63"></td>"
+<td><img name="D7s" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img name="D4" src="blank.png" width="63" height="63"></td>"
+<td><img name="G4" src="blank.png" width="63" height="63"></td>"
+<td><img name="B4" src="blank.png" width="63" height="63"></td>"
+<td><img name="D5" src="blank.png" width="63" height="63"></td>"
+<td><img name="G5" src="blank.png" width="63" height="63"></td>"
+<td><img name="B5" src="blank.png" width="63" height="63"></td>"
+<td><img name="D6" src="blank.png" width="63" height="63"></td>"
+<td><img name="G6" src="blank.png" width="63" height="63"></td>"
+<td><img name="B6" src="blank.png" width="63" height="63"></td>"
+<td><img name="D7" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="F6s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+</tr>
+`,
+valvedpaddy123tunedd:
+`<tr>
+<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F4" src="blank.png" width="63" height="63"></td>"
+<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F5" src="blank.png" width="63" height="63"></td>"
+<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F6" src="blank.png" width="63" height="63"></td>"
+<td><img name="A6s" src="blank.png" width="63" height="63"></td>"
 <td><img name="C7s" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img name="D4" src="blank.png" width="63" height="63"></td>"
+<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="B4" src="blank.png" width="63" height="63"></td>"
+<td><img name="D5" src="blank.png" width="63" height="63"></td>"
+<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="B5" src="blank.png" width="63" height="63"></td>"
+<td><img name="D6" src="blank.png" width="63" height="63"></td>"
+<td><img name="F6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="B6" src="blank.png" width="63" height="63"></td>"
+<td><img name="D7" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img name="E4" src="blank.png" width="63" height="63"></td>"
+<td><img name="A4" src="blank.png" width="63" height="63"></td>"
+<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="E5" src="blank.png" width="63" height="63"></td>"
+<td><img name="A5" src="blank.png" width="63" height="63"></td>"
+<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="E6" src="blank.png" width="63" height="63"></td>"
+<td><img name="A6" src="blank.png" width="63" height="63"></td>"
+<td><img name="C7s" src="blank.png" width="63" height="63"></td>"
+<td><img name="E7" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img name="D4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="G4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C5" src="blank.png" width="63" height="63"></td>"
+<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="G5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C6" src="blank.png" width="63" height="63"></td>"
+<td><img name="D6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="G6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C7" src="blank.png" width="63" height="63"></td>"
+<td><img name="D7s" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="G4" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
 <td><img name="G5" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="G6" src="blank.png" width="63" height="63"></td>"
-<td><img name="C7" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
 </tr>
 `,
-paddywildetunedlowd:
+valvedpaddy123tunedlowd:
 `<tr>
+<td><img name="C3s" src="blank.png" width="63" height="63"></td>"
 <td><img name="F3" src="blank.png" width="63" height="63"></td>"
 <td><img name="A3s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="F4" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="A4s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="F5" src="blank.png" width="63" height="63"></td>"
 <td><img name="A5s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
 <td><img name="D3" src="blank.png" width="63" height="63"></td>"
@@ -203,61 +203,61 @@ paddywildetunedlowd:
 <td><img name="B3" src="blank.png" width="63" height="63"></td>"
 <td><img name="D4" src="blank.png" width="63" height="63"></td>"
 <td><img name="F4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="B4" src="blank.png" width="63" height="63"></td>"
 <td><img name="D5" src="blank.png" width="63" height="63"></td>"
 <td><img name="F5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="B5" src="blank.png" width="63" height="63"></td>"
+<td><img name="D6" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
 <td><img name="E3" src="blank.png" width="63" height="63"></td>"
 <td><img name="A3" src="blank.png" width="63" height="63"></td>"
 <td><img name="C4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="E4" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4" src="blank.png" width="63" height="63"></td>"
 <td><img name="A4" src="blank.png" width="63" height="63"></td>"
 <td><img name="C5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="E5" src="blank.png" width="63" height="63"></td>"
 <td><img name="A5" src="blank.png" width="63" height="63"></td>"
-<td><img name="D6" src="blank.png" width="63" height="63"></td>"
+<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="E6" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
 <td><img name="D3s" src="blank.png" width="63" height="63"></td>"
 <td><img name="G3s" src="blank.png" width="63" height="63"></td>"
 <td><img name="C4" src="blank.png" width="63" height="63"></td>"
 <td><img name="D4s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
 <td><img name="G4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="C5" src="blank.png" width="63" height="63"></td>"
 <td><img name="D5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="G5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C6" src="blank.png" width="63" height="63"></td>"
+<td><img name="D6s" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="G3" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
 <td><img name="G4" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="G5" src="blank.png" width="63" height="63"></td>"
-<td><img name="C6" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
 </tr>
 `,
-paddywildetunedeb:
+valvedpaddy123tunedeb:
 `<tr>
+<td><img name="D4" src="blank.png" width="63" height="63"></td>"
 <td><img name="F4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="B4" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="D5" src="blank.png" width="63" height="63"></td>"
 <td><img name="F5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5" src="blank.png" width="63" height="63"></td>"
 <td><img name="B5" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="D6" src="blank.png" width="63" height="63"></td>"
 <td><img name="F6s" src="blank.png" width="63" height="63"></td>"
 <td><img name="B6" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="D7" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
 <td><img name="D4s" src="blank.png" width="63" height="63"></td>"
@@ -265,61 +265,61 @@ paddywildetunedeb:
 <td><img name="C5" src="blank.png" width="63" height="63"></td>"
 <td><img name="D5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="G5" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5" src="blank.png" width="63" height="63"></td>"
 <td><img name="C6" src="blank.png" width="63" height="63"></td>"
 <td><img name="D6s" src="blank.png" width="63" height="63"></td>"
 <td><img name="G6" src="blank.png" width="63" height="63"></td>"
 <td><img name="C7" src="blank.png" width="63" height="63"></td>"
+<td><img name="D7s" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
 <td><img name="F4" src="blank.png" width="63" height="63"></td>"
 <td><img name="A4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="D5" src="blank.png" width="63" height="63"></td>"
 <td><img name="F5" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="A5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="D6" src="blank.png" width="63" height="63"></td>"
 <td><img name="F6" src="blank.png" width="63" height="63"></td>"
 <td><img name="A6s" src="blank.png" width="63" height="63"></td>"
-<td><img name="D7s" src="blank.png" width="63" height="63"></td>"
+<td><img name="D7" src="blank.png" width="63" height="63"></td>"
+<td><img name="F7" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
 <td><img name="E4" src="blank.png" width="63" height="63"></td>"
 <td><img name="A4" src="blank.png" width="63" height="63"></td>"
 <td><img name="C5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="E5" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
 <td><img name="A5" src="blank.png" width="63" height="63"></td>"
 <td><img name="C6s" src="blank.png" width="63" height="63"></td>"
 <td><img name="E6" src="blank.png" width="63" height="63"></td>"
 <td><img name="A6" src="blank.png" width="63" height="63"></td>"
-<td><img name="D7" src="blank.png" width="63" height="63"></td>"
+<td><img name="C7s" src="blank.png" width="63" height="63"></td>"
+<td><img name="E7" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="G4s" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
 <td><img name="G5s" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="G6s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C7s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
 </tr>
 `,
-paddywildetunede:
+valvedpaddy123tunede:
 `<tr>
+<td><img name="D4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="G4" src="blank.png" width="63" height="63"></td>"
 <td><img name="C5" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="G5" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="C6" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="D6s" src="blank.png" width="63" height="63"></td>"
 <td><img name="G6" src="blank.png" width="63" height="63"></td>"
 <td><img name="C7" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="D7s" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
 <td><img name="E4" src="blank.png" width="63" height="63"></td>"
@@ -327,61 +327,61 @@ paddywildetunede:
 <td><img name="C5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="E5" src="blank.png" width="63" height="63"></td>"
 <td><img name="G5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="C6s" src="blank.png" width="63" height="63"></td>"
 <td><img name="E6" src="blank.png" width="63" height="63"></td>"
 <td><img name="G6s" src="blank.png" width="63" height="63"></td>"
 <td><img name="C7s" src="blank.png" width="63" height="63"></td>"
+<td><img name="E7" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
 <td><img name="F4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="B4" src="blank.png" width="63" height="63"></td>"
 <td><img name="D5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="F5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5" src="blank.png" width="63" height="63"></td>"
 <td><img name="B5" src="blank.png" width="63" height="63"></td>"
 <td><img name="D6s" src="blank.png" width="63" height="63"></td>"
 <td><img name="F6s" src="blank.png" width="63" height="63"></td>"
 <td><img name="B6" src="blank.png" width="63" height="63"></td>"
-<td><img name="E7" src="blank.png" width="63" height="63"></td>"
+<td><img name="D7s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F7s" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
 <td><img name="F4" src="blank.png" width="63" height="63"></td>"
 <td><img name="A4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="D5" src="blank.png" width="63" height="63"></td>"
 <td><img name="F5" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
 <td><img name="A5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="D6" src="blank.png" width="63" height="63"></td>"
 <td><img name="F6" src="blank.png" width="63" height="63"></td>"
 <td><img name="A6s" src="blank.png" width="63" height="63"></td>"
-<td><img name="D7s" src="blank.png" width="63" height="63"></td>"
+<td><img name="D7" src="blank.png" width="63" height="63"></td>"
+<td><img name="F7" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="A4" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
 <td><img name="A5" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="A6" src="blank.png" width="63" height="63"></td>"
-<td><img name="D7" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
 </tr>
 `,
-paddywildetunedlowe:
+valvedpaddy123tunedlowe:
 `<tr>
+<td><img name="D3s" src="blank.png" width="63" height="63"></td>"
 <td><img name="G3" src="blank.png" width="63" height="63"></td>"
 <td><img name="C4" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="D4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="G4" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="C5" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="G5" src="blank.png" width="63" height="63"></td>"
 <td><img name="C6" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="D6s" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
 <td><img name="E3" src="blank.png" width="63" height="63"></td>"
@@ -389,61 +389,61 @@ paddywildetunedlowe:
 <td><img name="C4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="E4" src="blank.png" width="63" height="63"></td>"
 <td><img name="G4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="C5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="E5" src="blank.png" width="63" height="63"></td>"
 <td><img name="G5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="C6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="E6" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
 <td><img name="F3s" src="blank.png" width="63" height="63"></td>"
 <td><img name="B3" src="blank.png" width="63" height="63"></td>"
 <td><img name="D4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="F4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4" src="blank.png" width="63" height="63"></td>"
 <td><img name="B4" src="blank.png" width="63" height="63"></td>"
 <td><img name="D5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="F5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="B5" src="blank.png" width="63" height="63"></td>"
-<td><img name="E6" src="blank.png" width="63" height="63"></td>"
+<td><img name="D6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F6s" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
 <td><img name="F3" src="blank.png" width="63" height="63"></td>"
 <td><img name="A3s" src="blank.png" width="63" height="63"></td>"
 <td><img name="D4" src="blank.png" width="63" height="63"></td>"
 <td><img name="F4" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
 <td><img name="A4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="D5" src="blank.png" width="63" height="63"></td>"
 <td><img name="F5" src="blank.png" width="63" height="63"></td>"
 <td><img name="A5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="D6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="D6" src="blank.png" width="63" height="63"></td>"
+<td><img name="F6" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="A3" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
 <td><img name="A4" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="A5" src="blank.png" width="63" height="63"></td>"
-<td><img name="D6" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
 </tr>
 `,
-paddywildetunedf:
+valvedpaddy123tunedf:
 `<tr>
+<td><img name="E4" src="blank.png" width="63" height="63"></td>"
 <td><img name="G4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="C5s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="E5" src="blank.png" width="63" height="63"></td>"
 <td><img name="G5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B5" src="blank.png" width="63" height="63"></td>"
 <td><img name="C6s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="E6" src="blank.png" width="63" height="63"></td>"
 <td><img name="G6s" src="blank.png" width="63" height="63"></td>"
 <td><img name="C7s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="E7" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
 <td><img name="F4" src="blank.png" width="63" height="63"></td>"
@@ -451,309 +451,309 @@ paddywildetunedf:
 <td><img name="D5" src="blank.png" width="63" height="63"></td>"
 <td><img name="F5" src="blank.png" width="63" height="63"></td>"
 <td><img name="A5" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5" src="blank.png" width="63" height="63"></td>"
 <td><img name="D6" src="blank.png" width="63" height="63"></td>"
 <td><img name="F6" src="blank.png" width="63" height="63"></td>"
 <td><img name="A6" src="blank.png" width="63" height="63"></td>"
 <td><img name="D7" src="blank.png" width="63" height="63"></td>"
+<td><img name="F7" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
 <td><img name="G4" src="blank.png" width="63" height="63"></td>"
 <td><img name="C5" src="blank.png" width="63" height="63"></td>"
 <td><img name="E5" src="blank.png" width="63" height="63"></td>"
 <td><img name="G5" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="C6" src="blank.png" width="63" height="63"></td>"
 <td><img name="E6" src="blank.png" width="63" height="63"></td>"
 <td><img name="G6" src="blank.png" width="63" height="63"></td>"
 <td><img name="C7" src="blank.png" width="63" height="63"></td>"
-<td><img name="F7" src="blank.png" width="63" height="63"></td>"
-</tr>
-<tr>
-<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B4" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="B5" src="blank.png" width="63" height="63"></td>"
-<td><img name="D6s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F6s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B6" src="blank.png" width="63" height="63"></td>"
 <td><img name="E7" src="blank.png" width="63" height="63"></td>"
-</tr>
-<tr>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="A6s" src="blank.png" width="63" height="63"></td>"
-<td><img name="D7s" src="blank.png" width="63" height="63"></td>"
-</tr>
-`,
-paddywildetunedlowf:
-`<tr>
-<td><img name="G3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="G4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B4" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="G5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-</tr>
-<tr>
-<td><img name="F3" src="blank.png" width="63" height="63"></td>"
-<td><img name="A3" src="blank.png" width="63" height="63"></td>"
-<td><img name="D4" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5" src="blank.png" width="63" height="63"></td>"
-<td><img name="D6" src="blank.png" width="63" height="63"></td>"
-</tr>
-<tr>
-<td><img name="G3" src="blank.png" width="63" height="63"></td>"
-<td><img name="C4" src="blank.png" width="63" height="63"></td>"
-<td><img name="E4" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5" src="blank.png" width="63" height="63"></td>"
-<td><img name="E5" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5" src="blank.png" width="63" height="63"></td>"
-<td><img name="C6" src="blank.png" width="63" height="63"></td>"
-<td><img name="F6" src="blank.png" width="63" height="63"></td>"
-</tr>
-<tr>
-<td><img name="F3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B3" src="blank.png" width="63" height="63"></td>"
-<td><img name="D4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="B4" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B5" src="blank.png" width="63" height="63"></td>"
-<td><img name="E6" src="blank.png" width="63" height="63"></td>"
-</tr>
-<tr>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="A3s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="D6s" src="blank.png" width="63" height="63"></td>"
-</tr>
-`,
-paddywildetunedgb:
-`<tr>
-<td><img name="A3" src="blank.png" width="63" height="63"></td>"
-<td><img name="D4" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="A4" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="A5" src="blank.png" width="63" height="63"></td>"
-<td><img name="D6" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-</tr>
-<tr>
-<td><img name="F3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="D4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="D6s" src="blank.png" width="63" height="63"></td>"
-</tr>
-<tr>
-<td><img name="G3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B4" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F6s" src="blank.png" width="63" height="63"></td>"
-</tr>
-<tr>
-<td><img name="G3" src="blank.png" width="63" height="63"></td>"
-<td><img name="C4" src="blank.png" width="63" height="63"></td>"
-<td><img name="E4" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="C5" src="blank.png" width="63" height="63"></td>"
-<td><img name="E5" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5" src="blank.png" width="63" height="63"></td>"
-<td><img name="C6" src="blank.png" width="63" height="63"></td>"
-<td><img name="F6" src="blank.png" width="63" height="63"></td>"
-</tr>
-<tr>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="B3" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="B4" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="B5" src="blank.png" width="63" height="63"></td>"
-<td><img name="E6" src="blank.png" width="63" height="63"></td>"
-</tr>
-`,
-paddywildetunedg:
-`<tr>
-<td><img name="A3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="D4s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="D6s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-</tr>
-<tr>
-<td><img name="G3" src="blank.png" width="63" height="63"></td>"
-<td><img name="B3" src="blank.png" width="63" height="63"></td>"
-<td><img name="E4" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4" src="blank.png" width="63" height="63"></td>"
-<td><img name="B4" src="blank.png" width="63" height="63"></td>"
-<td><img name="B4" src="blank.png" width="63" height="63"></td>"
-<td><img name="E5" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5" src="blank.png" width="63" height="63"></td>"
-<td><img name="B5" src="blank.png" width="63" height="63"></td>"
-<td><img name="E6" src="blank.png" width="63" height="63"></td>"
-</tr>
-<tr>
-<td><img name="A3" src="blank.png" width="63" height="63"></td>"
-<td><img name="D4" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5" src="blank.png" width="63" height="63"></td>"
-<td><img name="D6" src="blank.png" width="63" height="63"></td>"
-<td><img name="G6" src="blank.png" width="63" height="63"></td>"
-</tr>
-<tr>
-<td><img name="G3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F6s" src="blank.png" width="63" height="63"></td>"
-</tr>
-<tr>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="C4" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="C5" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="C6" src="blank.png" width="63" height="63"></td>"
-<td><img name="F6" src="blank.png" width="63" height="63"></td>"
-</tr>
-`,
-paddywildetunedhighg:
-`<tr>
-<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
-<td><img name="D6s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="A6s" src="blank.png" width="63" height="63"></td>"
-<td><img name="D7s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-</tr>
-<tr>
-<td><img name="G4" src="blank.png" width="63" height="63"></td>"
-<td><img name="B4" src="blank.png" width="63" height="63"></td>"
-<td><img name="E5" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5" src="blank.png" width="63" height="63"></td>"
-<td><img name="B5" src="blank.png" width="63" height="63"></td>"
-<td><img name="B5" src="blank.png" width="63" height="63"></td>"
-<td><img name="E6" src="blank.png" width="63" height="63"></td>"
-<td><img name="G6" src="blank.png" width="63" height="63"></td>"
-<td><img name="B6" src="blank.png" width="63" height="63"></td>"
-<td><img name="E7" src="blank.png" width="63" height="63"></td>"
-</tr>
-<tr>
-<td><img name="A4" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5" src="blank.png" width="63" height="63"></td>"
-<td><img name="C6" src="blank.png" width="63" height="63"></td>"
-<td><img name="D6" src="blank.png" width="63" height="63"></td>"
-<td><img name="F6s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A6" src="blank.png" width="63" height="63"></td>"
-<td><img name="D7" src="blank.png" width="63" height="63"></td>"
 <td><img name="G7" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
-<td><img name="G4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F6" src="blank.png" width="63" height="63"></td>"
-<td><img name="G6s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C7s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="B4" src="blank.png" width="63" height="63"></td>"
+<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="B5" src="blank.png" width="63" height="63"></td>"
+<td><img name="D6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="B6" src="blank.png" width="63" height="63"></td>"
+<td><img name="D7s" src="blank.png" width="63" height="63"></td>"
 <td><img name="F7s" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
 <td><img src="blank.png" width="63" height="63"></td>
+<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="A6s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+</tr>
+`,
+valvedpaddy123tunedlowf:
+`<tr>
+<td><img name="E3" src="blank.png" width="63" height="63"></td>"
+<td><img name="G3s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="E4" src="blank.png" width="63" height="63"></td>"
+<td><img name="G4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="E5" src="blank.png" width="63" height="63"></td>"
+<td><img name="G5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="E6" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img name="F3" src="blank.png" width="63" height="63"></td>"
+<td><img name="A3" src="blank.png" width="63" height="63"></td>"
+<td><img name="D4" src="blank.png" width="63" height="63"></td>"
+<td><img name="F4" src="blank.png" width="63" height="63"></td>"
+<td><img name="A4" src="blank.png" width="63" height="63"></td>"
+<td><img name="D5" src="blank.png" width="63" height="63"></td>"
+<td><img name="F5" src="blank.png" width="63" height="63"></td>"
+<td><img name="A5" src="blank.png" width="63" height="63"></td>"
+<td><img name="D6" src="blank.png" width="63" height="63"></td>"
+<td><img name="F6" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img name="G3" src="blank.png" width="63" height="63"></td>"
+<td><img name="C4" src="blank.png" width="63" height="63"></td>"
+<td><img name="E4" src="blank.png" width="63" height="63"></td>"
+<td><img name="G4" src="blank.png" width="63" height="63"></td>"
+<td><img name="C5" src="blank.png" width="63" height="63"></td>"
+<td><img name="E5" src="blank.png" width="63" height="63"></td>"
+<td><img name="G5" src="blank.png" width="63" height="63"></td>"
+<td><img name="C6" src="blank.png" width="63" height="63"></td>"
+<td><img name="E6" src="blank.png" width="63" height="63"></td>"
+<td><img name="G6" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img name="F3s" src="blank.png" width="63" height="63"></td>"
+<td><img name="B3" src="blank.png" width="63" height="63"></td>"
+<td><img name="D4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="B4" src="blank.png" width="63" height="63"></td>"
+<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="B5" src="blank.png" width="63" height="63"></td>"
+<td><img name="D6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F6s" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="A3s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+</tr>
+`,
+valvedpaddy123tunedgb:
+`<tr>
+<td><img name="F3" src="blank.png" width="63" height="63"></td>"
+<td><img name="A3" src="blank.png" width="63" height="63"></td>"
+<td><img name="D4" src="blank.png" width="63" height="63"></td>"
+<td><img name="F4" src="blank.png" width="63" height="63"></td>"
+<td><img name="A4" src="blank.png" width="63" height="63"></td>"
+<td><img name="D5" src="blank.png" width="63" height="63"></td>"
+<td><img name="F5" src="blank.png" width="63" height="63"></td>"
+<td><img name="A5" src="blank.png" width="63" height="63"></td>"
+<td><img name="D6" src="blank.png" width="63" height="63"></td>"
+<td><img name="F6" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img name="F3s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A3s" src="blank.png" width="63" height="63"></td>"
+<td><img name="D4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="D6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F6s" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img name="G3s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F4" src="blank.png" width="63" height="63"></td>"
+<td><img name="G4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F5" src="blank.png" width="63" height="63"></td>"
+<td><img name="G5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F6" src="blank.png" width="63" height="63"></td>"
+<td><img name="G6s" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img name="G3" src="blank.png" width="63" height="63"></td>"
+<td><img name="C4" src="blank.png" width="63" height="63"></td>"
+<td><img name="E4" src="blank.png" width="63" height="63"></td>"
+<td><img name="G4" src="blank.png" width="63" height="63"></td>"
+<td><img name="C5" src="blank.png" width="63" height="63"></td>"
+<td><img name="E5" src="blank.png" width="63" height="63"></td>"
+<td><img name="G5" src="blank.png" width="63" height="63"></td>"
+<td><img name="C6" src="blank.png" width="63" height="63"></td>"
+<td><img name="E6" src="blank.png" width="63" height="63"></td>"
+<td><img name="G6" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="B3" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="B4" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="B5" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+</tr>
+`,
+valvedpaddy123tunedg:
+`<tr>
+<td><img name="F3s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A3s" src="blank.png" width="63" height="63"></td>"
+<td><img name="D4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="D6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F6s" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img name="G3" src="blank.png" width="63" height="63"></td>"
+<td><img name="B3" src="blank.png" width="63" height="63"></td>"
+<td><img name="E4" src="blank.png" width="63" height="63"></td>"
+<td><img name="G4" src="blank.png" width="63" height="63"></td>"
+<td><img name="B4" src="blank.png" width="63" height="63"></td>"
+<td><img name="E5" src="blank.png" width="63" height="63"></td>"
+<td><img name="G5" src="blank.png" width="63" height="63"></td>"
+<td><img name="B5" src="blank.png" width="63" height="63"></td>"
+<td><img name="E6" src="blank.png" width="63" height="63"></td>"
+<td><img name="G6" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img name="A3" src="blank.png" width="63" height="63"></td>"
+<td><img name="D4" src="blank.png" width="63" height="63"></td>"
+<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A4" src="blank.png" width="63" height="63"></td>"
+<td><img name="D5" src="blank.png" width="63" height="63"></td>"
+<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A5" src="blank.png" width="63" height="63"></td>"
+<td><img name="D6" src="blank.png" width="63" height="63"></td>"
+<td><img name="F6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A6" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img name="G3s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F4" src="blank.png" width="63" height="63"></td>"
+<td><img name="G4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F5" src="blank.png" width="63" height="63"></td>"
+<td><img name="G5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F6" src="blank.png" width="63" height="63"></td>"
+<td><img name="G6s" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="C4" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
 <td><img name="C5" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="C6" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+</tr>
+`,
+valvedpaddy123tunedhighg:
+`<tr>
+<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="D6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="D7s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F7s" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img name="G4" src="blank.png" width="63" height="63"></td>"
+<td><img name="B4" src="blank.png" width="63" height="63"></td>"
+<td><img name="E5" src="blank.png" width="63" height="63"></td>"
+<td><img name="G5" src="blank.png" width="63" height="63"></td>"
+<td><img name="B5" src="blank.png" width="63" height="63"></td>"
+<td><img name="E6" src="blank.png" width="63" height="63"></td>"
+<td><img name="G6" src="blank.png" width="63" height="63"></td>"
+<td><img name="B6" src="blank.png" width="63" height="63"></td>"
+<td><img name="E7" src="blank.png" width="63" height="63"></td>"
+<td><img name="G7" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img name="A4" src="blank.png" width="63" height="63"></td>"
+<td><img name="D5" src="blank.png" width="63" height="63"></td>"
+<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A5" src="blank.png" width="63" height="63"></td>"
+<td><img name="D6" src="blank.png" width="63" height="63"></td>"
+<td><img name="F6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A6" src="blank.png" width="63" height="63"></td>"
+<td><img name="D7" src="blank.png" width="63" height="63"></td>"
+<td><img name="F7s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A7" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img name="G4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F5" src="blank.png" width="63" height="63"></td>"
+<td><img name="G5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F6" src="blank.png" width="63" height="63"></td>"
+<td><img name="G6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C7s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F7" src="blank.png" width="63" height="63"></td>"
+<td><img name="G7s" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="C5" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="C6" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="C7" src="blank.png" width="63" height="63"></td>"
-<td><img name="F7" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
 </tr>
 `,
-paddywildetunedab:
+valvedpaddy123tunedab:
 `<tr>
+<td><img name="G3" src="blank.png" width="63" height="63"></td>"
 <td><img name="B3" src="blank.png" width="63" height="63"></td>"
 <td><img name="E4" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="G4" src="blank.png" width="63" height="63"></td>"
 <td><img name="B4" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5" src="blank.png" width="63" height="63"></td>"
 <td><img name="E5" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="G5" src="blank.png" width="63" height="63"></td>"
 <td><img name="B5" src="blank.png" width="63" height="63"></td>"
 <td><img name="E6" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="G6" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
 <td><img name="G3s" src="blank.png" width="63" height="63"></td>"
@@ -761,232 +761,232 @@ paddywildetunedab:
 <td><img name="F4" src="blank.png" width="63" height="63"></td>"
 <td><img name="G4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="C5" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5" src="blank.png" width="63" height="63"></td>"
 <td><img name="F5" src="blank.png" width="63" height="63"></td>"
 <td><img name="G5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="C6" src="blank.png" width="63" height="63"></td>"
 <td><img name="F6" src="blank.png" width="63" height="63"></td>"
+<td><img name="G6s" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
 <td><img name="A3s" src="blank.png" width="63" height="63"></td>"
 <td><img name="D4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="G4" src="blank.png" width="63" height="63"></td>"
 <td><img name="A4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="D5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="G5" src="blank.png" width="63" height="63"></td>"
 <td><img name="A5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="D6s" src="blank.png" width="63" height="63"></td>"
-<td><img name="G6s" src="blank.png" width="63" height="63"></td>"
-</tr>
-<tr>
-<td><img name="A3" src="blank.png" width="63" height="63"></td>"
-<td><img name="D4" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="D5" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5" src="blank.png" width="63" height="63"></td>"
-<td><img name="D6" src="blank.png" width="63" height="63"></td>"
 <td><img name="G6" src="blank.png" width="63" height="63"></td>"
-</tr>
-<tr>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F6s" src="blank.png" width="63" height="63"></td>"
-</tr>
-`,
-paddywildetuneda:
-`<tr>
-<td><img name="C4" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="C5" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="C6" src="blank.png" width="63" height="63"></td>"
-<td><img name="F6" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-</tr>
-<tr>
-<td><img name="A3" src="blank.png" width="63" height="63"></td>"
-<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5" src="blank.png" width="63" height="63"></td>"
-<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F6s" src="blank.png" width="63" height="63"></td>"
-</tr>
-<tr>
-<td><img name="B3" src="blank.png" width="63" height="63"></td>"
-<td><img name="E4" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B4" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5" src="blank.png" width="63" height="63"></td>"
-<td><img name="E5" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B5" src="blank.png" width="63" height="63"></td>"
-<td><img name="E6" src="blank.png" width="63" height="63"></td>"
-<td><img name="A6" src="blank.png" width="63" height="63"></td>"
-</tr>
-<tr>
-<td><img name="A3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="D4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="D6s" src="blank.png" width="63" height="63"></td>"
-<td><img name="G6s" src="blank.png" width="63" height="63"></td>"
-</tr>
-<tr>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="D4" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="D5" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="D6" src="blank.png" width="63" height="63"></td>"
-<td><img name="G6" src="blank.png" width="63" height="63"></td>"
-</tr>
-`,
-paddywildetunedbb:
-`<tr>
-<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="E5" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F6s" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-</tr>
-<tr>
-<td><img name="A3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="D4" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="D6" src="blank.png" width="63" height="63"></td>"
-<td><img name="G6" src="blank.png" width="63" height="63"></td>"
-</tr>
-<tr>
-<td><img name="C4" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5" src="blank.png" width="63" height="63"></td>"
-<td><img name="C6" src="blank.png" width="63" height="63"></td>"
-<td><img name="F6" src="blank.png" width="63" height="63"></td>"
 <td><img name="A6s" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
-<td><img name="B3" src="blank.png" width="63" height="63"></td>"
-<td><img name="E4" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B4" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="E5" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B5" src="blank.png" width="63" height="63"></td>"
-<td><img name="E6" src="blank.png" width="63" height="63"></td>"
+<td><img name="A3" src="blank.png" width="63" height="63"></td>"
+<td><img name="D4" src="blank.png" width="63" height="63"></td>"
+<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A4" src="blank.png" width="63" height="63"></td>"
+<td><img name="D5" src="blank.png" width="63" height="63"></td>"
+<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A5" src="blank.png" width="63" height="63"></td>"
+<td><img name="D6" src="blank.png" width="63" height="63"></td>"
+<td><img name="F6s" src="blank.png" width="63" height="63"></td>"
 <td><img name="A6" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
 <td><img src="blank.png" width="63" height="63"></td>
-<td><img name="D4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
+<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
-<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
-<td><img name="D6s" src="blank.png" width="63" height="63"></td>"
-<td><img name="G6s" src="blank.png" width="63" height="63"></td>"
 </tr>
 `,
-paddywildetunedb:
+valvedpaddy123tuneda:
 `<tr>
-<td><img name="D4" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="D5" src="blank.png" width="63" height="63"></td>"
+<td><img name="G3s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C4" src="blank.png" width="63" height="63"></td>"
+<td><img name="F4" src="blank.png" width="63" height="63"></td>"
+<td><img name="G4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C5" src="blank.png" width="63" height="63"></td>"
 <td><img name="F5" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
-<td><img name="D6" src="blank.png" width="63" height="63"></td>"
-<td><img name="G6" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="G5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C6" src="blank.png" width="63" height="63"></td>"
+<td><img name="F6" src="blank.png" width="63" height="63"></td>"
+<td><img name="G6s" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img name="A3" src="blank.png" width="63" height="63"></td>"
+<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A4" src="blank.png" width="63" height="63"></td>"
+<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A5" src="blank.png" width="63" height="63"></td>"
+<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A6" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
 <td><img name="B3" src="blank.png" width="63" height="63"></td>"
-<td><img name="D4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="E4" src="blank.png" width="63" height="63"></td>"
 <td><img name="G4s" src="blank.png" width="63" height="63"></td>"
 <td><img name="B4" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="E5" src="blank.png" width="63" height="63"></td>"
 <td><img name="G5s" src="blank.png" width="63" height="63"></td>"
 <td><img name="B5" src="blank.png" width="63" height="63"></td>"
-<td><img name="D6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="E6" src="blank.png" width="63" height="63"></td>"
 <td><img name="G6s" src="blank.png" width="63" height="63"></td>"
-</tr>
-<tr>
-<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="E5" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F6s" src="blank.png" width="63" height="63"></td>"
 <td><img name="B6" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
+<td><img name="A3s" src="blank.png" width="63" height="63"></td>"
+<td><img name="D4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="G4" src="blank.png" width="63" height="63"></td>"
+<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="G5" src="blank.png" width="63" height="63"></td>"
+<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="D6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="G6" src="blank.png" width="63" height="63"></td>"
+<td><img name="A6s" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="D4" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="D5" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="D6" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+</tr>
+`,
+valvedpaddy123tunedbb:
+`<tr>
+<td><img name="A3" src="blank.png" width="63" height="63"></td>"
+<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A4" src="blank.png" width="63" height="63"></td>"
+<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A5" src="blank.png" width="63" height="63"></td>"
+<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A6" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img name="A3s" src="blank.png" width="63" height="63"></td>"
+<td><img name="D4" src="blank.png" width="63" height="63"></td>"
+<td><img name="G4" src="blank.png" width="63" height="63"></td>"
+<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="D5" src="blank.png" width="63" height="63"></td>"
+<td><img name="G5" src="blank.png" width="63" height="63"></td>"
+<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="D6" src="blank.png" width="63" height="63"></td>"
+<td><img name="G6" src="blank.png" width="63" height="63"></td>"
+<td><img name="A6s" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
 <td><img name="C4" src="blank.png" width="63" height="63"></td>"
 <td><img name="F4" src="blank.png" width="63" height="63"></td>"
 <td><img name="A4" src="blank.png" width="63" height="63"></td>"
 <td><img name="C5" src="blank.png" width="63" height="63"></td>"
-<td><img src="blank.png" width="63" height="63"></td>
 <td><img name="F5" src="blank.png" width="63" height="63"></td>"
 <td><img name="A5" src="blank.png" width="63" height="63"></td>"
 <td><img name="C6" src="blank.png" width="63" height="63"></td>"
 <td><img name="F6" src="blank.png" width="63" height="63"></td>"
+<td><img name="A6" src="blank.png" width="63" height="63"></td>"
+<td><img name="C7" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img name="B3" src="blank.png" width="63" height="63"></td>"
+<td><img name="E4" src="blank.png" width="63" height="63"></td>"
+<td><img name="G4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="B4" src="blank.png" width="63" height="63"></td>"
+<td><img name="E5" src="blank.png" width="63" height="63"></td>"
+<td><img name="G5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="B5" src="blank.png" width="63" height="63"></td>"
+<td><img name="E6" src="blank.png" width="63" height="63"></td>"
+<td><img name="G6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="B6" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="D4s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img name="D6s" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
+</tr>
+`,
+valvedpaddy123tunedb:
+`<tr>
+<td><img name="A3s" src="blank.png" width="63" height="63"></td>"
+<td><img name="D4" src="blank.png" width="63" height="63"></td>"
+<td><img name="G4" src="blank.png" width="63" height="63"></td>"
+<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="D5" src="blank.png" width="63" height="63"></td>"
+<td><img name="G5" src="blank.png" width="63" height="63"></td>"
+<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="D6" src="blank.png" width="63" height="63"></td>"
+<td><img name="G6" src="blank.png" width="63" height="63"></td>"
 <td><img name="A6s" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img name="B3" src="blank.png" width="63" height="63"></td>"
+<td><img name="D4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="G4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="B4" src="blank.png" width="63" height="63"></td>"
+<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="G5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="B5" src="blank.png" width="63" height="63"></td>"
+<td><img name="D6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="G6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="B6" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="F6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C7s" src="blank.png" width="63" height="63"></td>"
+</tr>
+<tr>
+<td><img name="C4" src="blank.png" width="63" height="63"></td>"
+<td><img name="F4" src="blank.png" width="63" height="63"></td>"
+<td><img name="A4" src="blank.png" width="63" height="63"></td>"
+<td><img name="C5" src="blank.png" width="63" height="63"></td>"
+<td><img name="F5" src="blank.png" width="63" height="63"></td>"
+<td><img name="A5" src="blank.png" width="63" height="63"></td>"
+<td><img name="C6" src="blank.png" width="63" height="63"></td>"
+<td><img name="F6" src="blank.png" width="63" height="63"></td>"
+<td><img name="A6" src="blank.png" width="63" height="63"></td>"
+<td><img name="C7" src="blank.png" width="63" height="63"></td>"
 </tr>
 <tr>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="E4" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
-<td><img src="blank.png" width="63" height="63"></td>
 <td><img name="E5" src="blank.png" width="63" height="63"></td>"
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img src="blank.png" width="63" height="63"></td>
 <td><img name="E6" src="blank.png" width="63" height="63"></td>"
-<td><img name="A6" src="blank.png" width="63" height="63"></td>"
+<td><img src="blank.png" width="63" height="63"></td>
+<td><img src="blank.png" width="63" height="63"></td>
 </tr>
 `,
