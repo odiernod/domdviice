@@ -11,7 +11,7 @@ namespace harmonicatuninggenerator
     {
         public Diminished10Tuning()
         {
-            TuningName = "Diminished";
+            TuningName = "Diminished10";
 
             BlowReed = new List<string>
         {
