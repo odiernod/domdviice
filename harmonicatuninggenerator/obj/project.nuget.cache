@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "VItkrqDzYHQCBgNzMl+N5dh/etbc9rwSIvCwjTYD+OYb5qMofFJuhzKJhqK4imA3xrytH00EKk9HpVoT36p6qg==",
+  "dgSpecHash": "NiXQKt0BxgVh1Y0knoA7v9fbCNvPX8m1Pt5apCLxPOI7WRXsgQ68/0WW8qn7BsVnKifMAcvjE1FIjqQ8xo7DBg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\jodierd\\source\\DVIICE\\domdviice\\harmonicatuninggenerator\\harmonicatuninggenerator.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "c:\\Users\\odier\\Documents\\source\\repos\\domdviice\\harmonicatuninggenerator\\harmonicatuninggenerator.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\odier\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.15\\microsoft.netcore.app.ref.7.0.15.nupkg.sha512",
+    "C:\\Users\\odier\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.15\\microsoft.windowsdesktop.app.ref.7.0.15.nupkg.sha512",
+    "C:\\Users\\odier\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.15\\microsoft.aspnetcore.app.ref.7.0.15.nupkg.sha512",
+    "C:\\Users\\odier\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\7.0.15\\microsoft.netcore.app.host.win-x64.7.0.15.nupkg.sha512"
+  ],
   "logs": []
 }

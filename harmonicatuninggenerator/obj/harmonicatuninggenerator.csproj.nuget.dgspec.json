@@ -1,37 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jodierd\\source\\DVIICE\\domdviice\\harmonicatuninggenerator\\harmonicatuninggenerator.csproj": {}
+    "c:\\Users\\odier\\Documents\\source\\repos\\domdviice\\harmonicatuninggenerator\\harmonicatuninggenerator.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jodierd\\source\\DVIICE\\domdviice\\harmonicatuninggenerator\\harmonicatuninggenerator.csproj": {
+    "c:\\Users\\odier\\Documents\\source\\repos\\domdviice\\harmonicatuninggenerator\\harmonicatuninggenerator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jodierd\\source\\DVIICE\\domdviice\\harmonicatuninggenerator\\harmonicatuninggenerator.csproj",
+        "projectUniqueName": "c:\\Users\\odier\\Documents\\source\\repos\\domdviice\\harmonicatuninggenerator\\harmonicatuninggenerator.csproj",
         "projectName": "harmonicatuninggenerator",
-        "projectPath": "C:\\Users\\jodierd\\source\\DVIICE\\domdviice\\harmonicatuninggenerator\\harmonicatuninggenerator.csproj",
-        "packagesPath": "C:\\Users\\jodierd\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jodierd\\source\\DVIICE\\domdviice\\harmonicatuninggenerator\\obj\\",
+        "projectPath": "c:\\Users\\odier\\Documents\\source\\repos\\domdviice\\harmonicatuninggenerator\\harmonicatuninggenerator.csproj",
+        "packagesPath": "C:\\Users\\odier\\.nuget\\packages\\",
+        "outputPath": "c:\\Users\\odier\\Documents\\source\\repos\\domdviice\\harmonicatuninggenerator\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\jodierd\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\odier\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://jcidata.pkgs.visualstudio.com/_packaging/data-nuget/nuget/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
@@ -59,12 +53,30 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.15, 7.0.15]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[7.0.15, 7.0.15]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.15, 7.0.15]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[7.0.15, 7.0.15]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
