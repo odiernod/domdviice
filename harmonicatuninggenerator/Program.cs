@@ -6,5 +6,5 @@ using Namespace;
 var generator = new TuningGenerator();
 
 
-generator.Generate(new WholeTone10Tuning());
+generator.Generate(new ValvedEasyDiatonicHarmonicaTuning());
 
