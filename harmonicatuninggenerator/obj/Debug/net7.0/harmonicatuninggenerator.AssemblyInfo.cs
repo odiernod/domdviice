@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("harmonicatuninggenerator")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2851d91f362477cfb5f23364fda79f0b99dd94f3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9c007f6eb73140e9dd70919fe91ef13cafee0943")]
 [assembly: System.Reflection.AssemblyProductAttribute("harmonicatuninggenerator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("harmonicatuninggenerator")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
