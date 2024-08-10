@@ -1,8 +1,7 @@
 auto generate keys for harmonica tunings
-  wilde
-  paddy richter
-  easy diatonic
+  Easy Third
   valved versions
+  Altered Paddy Richter (5 blow drop)
 remove need for background images
 create "scale and key finder"
 provide an option to show the actual note on the harmonica and guitar

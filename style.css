@@ -180,6 +180,7 @@ table.chooser
 position:absolute;
 left:617px;
 top:473px;
+z-index: 100;
 }
 body
 {
