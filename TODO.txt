@@ -1,9 +1,13 @@
 auto generate keys for harmonica tunings
   Easy Third
-  valved versions
+  non valved sunny
+  DomTuned to be raised 5 powerdraw
+  country tuned
+  melody maker
   Altered Paddy Richter (5 blow drop)
+Separate menu for each instrument above its bank
 remove need for background images
 create "scale and key finder"
-provide an option to show the actual note on the harmonica and guitar
+provide an option to show the actual note instead of scale degrees on the harmonica and guitar
 provide better scaling layout for web browser or phone
 add the rest of the chords
