@@ -1,5 +1,6 @@
-update note names when instrument changes
 change Hide scale degrees to either show just note names for the scale
+allow url parameters to set instruments, tunings, and other settings
+
 Separate menu for each instrument above its bank
 highlight border hover
 auto generate keys for harmonica tunings

@@ -165,19 +165,31 @@ function clearNoteNames()
     }
 }
 
+function updateNoteNames()
+{
+    if (showNoteNames)
+    {
+        clearNoteNames();
+        for (let i = 0; i < keys.g.length; i++) 
+        {
+            var keyTones = tones[keys.g[i]];
+            for (let j = 0; j < keyTones.length; j++){
+                showNoteName(keyTones[j]);
+            }
+        }
+    }
+}
+
 function toggleNoteNames() {
     showNoteNames = !showNoteNames;
     $('#noteNames').html(showNoteNames?'Hide Note Names':
                               'Show Note Names')
-    clearNoteNames();
     if (showNoteNames)
     {
-        for (let i = 0; i < keys.g.length; i++) {
-        var keyTones = tones[keys.g[i]];
-        for (let j = 0; j < keyTones.length; j++){
-            showNoteName(keyTones[j]);
-        }
+        updateNoteNames();
     }
+    else {
+        clearNoteNames();
     }
 }
 
@@ -214,6 +226,7 @@ $(document).ready(function(){
             // Load the instrument.
             $("#instrument" + $("#zoneMenu").val()).html(instrument[$("#instrumentMenu").val() + $("#tuneMenu").val()]);
             attachAll("instrument" + $("#zoneMenu").val());
+            updateNoteNames();
             if (scaleMode) {
                 var scale = $("#scaleMenu").val()
                 var key = $("#keyMenu").val()
