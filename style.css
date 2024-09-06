@@ -21,8 +21,10 @@ time, mark, audio, video {
 	padding: 0;
 	border: 0;  /* border: 1px solid black; */
 	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+	text-align: right;
+    font-family: Arial;
+	z-index:10;
+	
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
@@ -178,9 +180,27 @@ z-index:1;
 table.chooser
 {
 position:absolute;
-left:617px;
+left:317px;
 top:473px;
 z-index: 100;
+}
+td
+{
+	position: relative;
+}
+td img
+{
+	position: relative;
+	top: 0;
+	left: 0;
+	z-index: 0;
+}
+td img.noteName
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
 }
 body
 {

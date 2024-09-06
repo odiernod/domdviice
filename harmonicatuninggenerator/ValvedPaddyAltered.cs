@@ -12,7 +12,7 @@ public class ValvedPaddyAltered : TenHoleHarmonica
             "D4s", //2
             "G4s", //3
             "B4", //4
-            "D5s", //5
+            "C5s", //5
             "D5s", //6
             "G5s", //7
             "B5", //8

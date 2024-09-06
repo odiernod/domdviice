@@ -155,6 +155,33 @@ function clearScale() {
     scaleMode = false;
 }
 
+function clearNoteNames()
+{
+    for (let i = 0; i < keys.g.length; i++) {
+        var keyTones = tones[keys.g[i]];
+        for (let j = 0; j < keyTones.length; j++){
+            clearNoteName(keyTones[j]);
+        }
+    }
+}
+
+function toggleNoteNames() {
+    showNoteNames = !showNoteNames;
+    $('#noteNames').html(showNoteNames?'Hide Note Names':
+                              'Show Note Names')
+    clearNoteNames();
+    if (showNoteNames)
+    {
+        for (let i = 0; i < keys.g.length; i++) {
+        var keyTones = tones[keys.g[i]];
+        for (let j = 0; j < keyTones.length; j++){
+            showNoteName(keyTones[j]);
+        }
+    }
+    }
+}
+
+
 // zoneMenu to change instrumentMenu and tuneMenu
 $(document).ready(function(){
     $('#zoneMenu').change(function(){
@@ -223,6 +250,14 @@ $(document).ready(function(){
         });
 });
 
+// when noteNames button is clicked toggle showing of note names
+$(document).ready(function(){
+    $('#noteNames').click(function (){
+        
+        toggleNoteNames();
+        });
+});
+
 // when displayScale button is clicked, display the selected scale
 $(document).ready(function(){
     $('#displayScale').click(function (){
@@ -239,22 +274,11 @@ $(document).ready(function(){
         });
 });
 
-// when version button is clicked, if it's in chrome mode, switches itself
-// to compatibility mode, and changes text. in compatibility, switches
-// itself to chrome, changes text.
-$(document).ready(function(){
-
-  $('#version').click(function(){
-    let desktop = $('#version').attr('desktop')
-    $('#version').html(desktop?'Switch to desktop version<br/>(Currently in compatibility version)':
-                              'Switch to compatibility version<br/>(Currently in desktop version)')
-    $('#version').attr('desktop', !desktop||null)
-  });
-});
 </script>
 
 <table class='chooser'>
 <tr>
+<td><button id='noteNames'>Show Note Names</button></td>
 <td>
 <select id='zoneMenu'>
 <option value='1'>Zone 1</option>
@@ -403,6 +427,7 @@ $(document).ready(function(){
 let sweep;
 let scaleMode = false;
 let showScaleDegrees = true;
+let showNoteNames = false;
 
 
 // IE and Edge can't iterate over iterator objects in a for-each loop like Chrome
@@ -416,19 +441,6 @@ function attachAll( inTable ) {
     }
 }
 
-var pitches = {"V":32.7, "G":34.65, "B":36.71, "H":38.89, "N":41.2,
-                 "M":43.65, "K":46.25, ",":49, "L":51.91, ".":55,
-                 ";":58.27, "/":61.74, "T":65.41, "6":69.3, "Y":73.42,
-                 "7":77.78, "U":82.41, "I":87.31, "9":92.5, "O":98,
-                 "0":103.83, "P":110, "-":116.54, "[":123.47}
-var note_names = {"V":"C", "G":"Cs", "B":"D", "H":"Ds", "N":"E",
-                  "M":"F", "K":"Fs", ",":"G", "L":"Gs", ".":"A",
-                  ";":"As", "/":"B", "T":"C", "6":"Cs", "Y":"D",
-                  "7":"Ds", "U":"E", "I":"F", "9":"Fs", "O":"G",
-                  "0":"Gs", "P":"A", "-":"As", "[":"B"}
-var multipliers = {"Z":0, "X":1, "C":2, "A":3, "S":4, "D":5}
-var multiplier = 3;
-let highlighting = {};
 let pluck = true;
 function sleep(ms) {
     // a sleep function. usage:
@@ -436,8 +448,35 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 function highlight(name) {
-    for (var p of Array.from(document.getElementsByName(name))) p.src = "blue.png";
+    for (var p of Array.from(document.getElementsByName(name))) 
+    {
+        p.src = "blue.png";
+        
+        //p.parentElement.style.borderColor = 'yellow';
+    }
 }
+function clearHighlight(name){
+    for (var p of Array.from(document.getElementsByName(name))) 
+    {
+        p.src = p.getAttribute("originalSrc");
+        
+        //p.parentElement.style.borderColor = '';
+    }
+}
+
+function highlightBorder(name) {
+    for (var p of Array.from(document.getElementsByName(name))) 
+    {
+        p.style.outline = '4px solid yellow';
+    }
+}
+function clearHighlightBorder(name){
+    for (var p of Array.from(document.getElementsByName(name))) 
+    {
+        p.style.outline = '';
+    }
+}
+
 function highlightDegree(name, degree) {
     for (var p of Array.from(document.getElementsByName(name))) p.src = "deg" + degree.toString() + "n.png";
 }
@@ -445,15 +484,55 @@ function highlightred(name) {
     for (var p of Array.from(document.getElementsByName(name))) p.src = "red.png";
 }
 function doMouseOver() {
-    if (!scaleMode) highlight(this.name);
+    if (!scaleMode) 
+    {
+        highlight(this.name); 
+    }
+    else 
+    {
+        highlightBorder(this.name);
+    }
     if (sweep) playElement(this);
 }
-function clearHighlight(name){
-    for (var p of Array.from(document.getElementsByName(name))) p.src = p.getAttribute("originalSrc");
-}
 function doMouseOut() {
-    if (!scaleMode) clearHighlight(this.name);
+    if (!scaleMode) 
+    {
+        clearHighlight(this.name);
+    }
+    else
+    {
+        clearHighlightBorder(this.name);
+    }
     clickVoice.stop();
+}
+
+function showNoteName(name){
+    for (var p of Array.from(document.getElementsByName(name))) 
+    {
+        if (!p.classList.contains('noNoteNames'))
+        {
+            var noteNameImg = document.createElement('img');
+            noteNameImg.src = noteNamesFlatPngs[name]; // Replace with the actual path to your first image
+            noteNameImg.alt = noteNamesFlats[name]; // Provide a descriptive alt text
+            noteNameImg.classList.add('noteName');
+
+            // Append the text node to the parent element 
+            p.parentElement.appendChild(noteNameImg); 
+        }
+    }
+}
+function clearNoteName(name){
+    for (var p of Array.from(document.getElementsByName(name))) 
+    {
+        const children = p.parentElement.getElementsByClassName('noteName');
+
+        // Convert the HTMLCollection to an array to avoid issues during removal
+        const childrenArray = Array.from(children);
+
+        childrenArray.forEach(child => {
+            p.parentElement.removeChild(child);
+        });
+    }
 }
 function doMouseDown() {
     if (!$(this).attr('name')) return;
@@ -472,41 +551,6 @@ function mouseUp() {
     sweep = false;
     clickVoice.stop();
 }
-// keyboard controls
-function press(event, size=1) {
-    var event = event.key.toUpperCase()
-    
-    if (!(event in note_names)) return;
-    for (let channel of channels) if (channel.note == event) return;
-    let chan;
-    let found = false;
-    for (let channel of channels)
-        if (!channel.note) {
-            chan = channel;
-            found = true;
-            break
-        }
-    if (!found) {
-        chan = channels.shift()
-        channels.push(chan)
-    }
-    
-    var note_name = note_names[event][0] + (multiplier+additional+1) + note_names[event].slice(1,2)
-    if ($('#version').attr('desktop')) {
-        chan.start(pitches[event] * (2**multiplier), size, pluck)
-    }
-    else document.getElementById(note_name).play()
-    chan.note = event
-    highlighting[event] = Array.from(document.getElementsByName(note_name))
-    for (var p of highlighting[event]) p.src = "blue.png"
-}
-function release(event) {
-    var event = event.key.toUpperCase()
-    }
-document.onkeydown = press;
-document.onkeyup = release;
-// end of keyboard controls
-
 
 document.body.style.zoom = "80%";
 window.scrollTo(0,0);
