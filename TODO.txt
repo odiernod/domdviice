@@ -1,8 +1,10 @@
 change Hide scale degrees to either show just note names for the scale
 allow url parameters to set instruments, tunings, and other settings
+update help page
 
 Separate menu for each instrument above its bank
-highlight border hover
+remove need for background images
+
 auto generate keys for harmonica tunings
   Easy Third
   non valved sunny
@@ -11,7 +13,7 @@ auto generate keys for harmonica tunings
   melody maker
   Altered Paddy Richter (5 blow drop)
 add fourth instrument bank
-remove need for background images
+
 create "scale and key finder"
 provide better scaling layout for web browser or phone
 add the rest of the chords

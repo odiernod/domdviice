@@ -5,7 +5,7 @@
 <meta name="google-site-verification" content="olHl8uiFXMySsnI5oNglFjNkfGOy0udu50WoaPlh3zg" />
 <meta name="description" content="Compare Instruments, Alternate Tunings, and Display Scales">
 <meta name="keywords" content="harmonica, guitar, piano, tunings, wilde tuned, powerbender, scales, rock, blues, jazz">
-<meta name="author" content="Dominick O'Dierno, originally TigerhawkT3">
+<meta name="author" content="Dominick O'Dierno">
 <link rel="stylesheet" type="text/css" href="style.css">
 <!--
     The note comparator format and instrument display was originally conceived, designed, and coded for
@@ -14,8 +14,8 @@
 
     meta tags and title had to be changed as Google kept incorrectly reporting page a phishing
 
-    Multiple different harmonica tunings, including the Wilde Tuned and Wilde Minor Tuned harmonicas as well as 
-    scale displayer added by Dominick O'Dierno, odiernod on github
+    Multiple different harmonica and guitar tunings, including the Wilde Tuned and Wilde Minor Tuned harmonicas as well as 
+    scale displayer, note and interval displayer, added by Dominick O'Dierno, odiernod on github
 -->
 </head>
 <body>
@@ -193,46 +193,78 @@ function toggleNoteNames() {
     }
 }
 
-
-// zoneMenu to change instrumentMenu and tuneMenu
+// instrument1Menu to update tuning1Menu
 $(document).ready(function(){
-    $('#zoneMenu').change(function(){
-        // The id indicated by the highlighted 'instrumentMenu' option
-        // has its content replaced by the string indicated
-        // by the value of the highlighted 'zoneMenu' option.
-	var temp = $("#zoneMenu").val()
-    $("#instrumentMenu").html(menu["instrument" + temp]);
-	if (temp == "1") $("#tuneMenu").html(menu.diatonicrichter);
-	else if (temp == "2") $("#tuneMenu").html(menu.piano);
-	else $("#tuneMenu").html(menu.guitar);
+    $('#instrument1Menu').change(function(){
+        // provide the tunings available for the selected instrument
+        $("#tuning1Menu").html(menu[$("#instrument1Menu").val()]);
   });
 });
 
-// instrumentMenu to change tuneMenu
+// instrument2Menu to update tuning2Menu
 $(document).ready(function(){
-    $('#instrumentMenu').change(function(){
-        // The id indicated by the highlighted 'tuneMenu' option
-        // has its content replaced by the string indicated
-        // by the value of the highlighted 'zoneMenu' option.
-        $("#tuneMenu").html(menu[$("#instrumentMenu").val()]);
+    $('#instrument2Menu').change(function(){
+        // provide the tunings available for the selected instrument
+        $("#tuning2Menu").html(menu[$("#instrument2Menu").val()]);
   });
 });
 
-// when go button is clicked, instrument and img are loaded
+// instrument3Menu to update tuning3Menu
 $(document).ready(function(){
-    $('#go').click(function (){
+    $('#instrument3Menu').change(function(){
+        // provide the tunings available for the selected instrument
+        $("#tuning3Menu").html(menu[$("#instrument3Menu").val()]);
+  });
+});
+
+// when a Go! button is clicked, instrument and img are loaded
+$(document).ready(function(){
+    $('#go1').click(function (){
             // Load the instrument image.
-            $("#instrumentimg" + $("#zoneMenu").val()).html(img[$("#instrumentMenu").val()]);
+            $("#instrumentimg1").html(img[$("#instrument1Menu").val()]);
             // Load the instrument.
-            $("#instrument" + $("#zoneMenu").val()).html(instrument[$("#instrumentMenu").val() + $("#tuneMenu").val()]);
-            attachAll("instrument" + $("#zoneMenu").val());
-            updateNoteNames();
-            if (scaleMode) {
-                var scale = $("#scaleMenu").val()
-                var key = $("#keyMenu").val()
-                showScale(scale, key);
-            }
+            $("#instrument1").html(instrument[$("#instrument1Menu").val() + $("#tuning1Menu").val()]);
+            attachAll("instrument1");
+            updateAfterInstrumentChange();
         });
+});
+
+// when a Go! button is clicked, instrument and img are loaded
+$(document).ready(function(){
+    $('#go2').click(function (){
+            // Load the instrument image.
+            $("#instrumentimg2").html(img[$("#instrument2Menu").val()]);
+            // Load the instrument.
+            $("#instrument2").html(instrument[$("#instrument2Menu").val() + $("#tuning2Menu").val()]);
+            attachAll("instrument2");
+            updateAfterInstrumentChange();
+        });
+});
+
+// when a Go! button is clicked, instrument and img are loaded
+$(document).ready(function(){
+    $('#go3').click(function (){
+            // Load the instrument image.
+            $("#instrumentimg3").html(img[$("#instrument3Menu").val()]);
+            // Load the instrument.
+            $("#instrument3").html(instrument[$("#instrument3Menu").val() + $("#tuning3Menu").val()]);
+            attachAll("instrument3");
+            updateAfterInstrumentChange();
+        });
+});
+
+function updateAfterInstrumentChange()
+{
+    updateNoteNames();
+    if (scaleMode) {
+        var scale = $("#scaleMenu").val()
+        var key = $("#keyMenu").val()
+        showScale(scale, key);
+    }
+}
+
+// when a Go! button is clicked, instrument and img are loaded
+$(document).ready(function(){
     $('#instrumentimg1').html(img.diatonicrichter)
     $('#instrument1').html(instrument.diatonicrichterc)
     $('#instrumentimg2').html(img.piano)
@@ -288,61 +320,59 @@ $(document).ready(function(){
 });
 
 </script>
-
-<table class='chooser'>
+<table class='instrument1Chooser'>
+    <tr><td style="text-align: center;">Choose an Instrument and Tuning</td></tr>
+    <tr>
+    <td>
+    <select id='instrument1Menu'>
+    </select>
+    </td>
+    <td>
+    <select id='tuning1Menu'>
+    </select>
+    </td>
+    <td>
+    <button id='go1'>Go!</button>
+    </td>
+    </tr>
+</table>
+<table class='instrument2Chooser'>
+    <tr><td style="text-align: center;">Choose an Instrument and Tuning</td></tr>
+    <tr>
+    <td>
+    <select id='instrument2Menu'>
+    </select>
+    </td>
+    <td>
+    <select id='tuning2Menu'>
+    </select>
+    </td>
+    <td>
+    <button id='go2'>Go!</button>
+    </td>
+    </tr>
+</table>
+<table class='instrument3Chooser'>
+    <tr><td style="text-align: center;">Choose an Instrument and Tuning</td></tr>
+    <tr>
+    <td>
+    <select id='instrument3Menu'>
+    </select>
+    </td>
+    <td>
+    <select id='tuning3Menu'>
+    </select>
+    </td>
+    <td>
+    <button id='go3'>Go!</button>
+    </td>
+    </tr>
+</table>
+<table class='scaleChooser'>
 <tr>
-<td><button id='noteNames'>Show Note Names</button></td>
-<td>
-<select id='zoneMenu'>
-<option value='1'>Zone 1</option>
-<option value='2'>Zone 2</option>
-<option value='3'>Zone 3</option>
-</select>
-</td>
-<td>
-<select id='instrumentMenu'>
-    <option value='diatonicrichter'>Richter</option>
-    <option value='paddyrichtertuned'>Paddy Richter</option>
-    <option value='diatonicminor'>Natural Minor</option>
-    <option value='diatonicpowerbender'>PowerBender</option>
-    <option value='powerdrawtuned'>PowerDraw</option>
-    <option value='diatonicwildetuned'>Wilde Tuned</option>
-    <option value='diatonicwildeminor'>Wilde Minor</option>
-    <option value='paddywildetuned'>Paddy Wilde</option>
-    <option value='valvedpaddywildetuned'>Paddy Wilde Half Valved</option>
-    <option value='valvedpaddy123tuned'>Paddy Richter Extended Half Valved</option>
-    <option value='valvedeasydiatonic'>Easy Diatonic Half Valved</option>
-    <option value='valvedsunnyrbtuned'>Sunny Regular Breath Half Valved</option>
-    <option value='valvedpaddywildealtered'>Paddy Wilde Altered 5 Half Valved</option>
-    <option value='diminished10'>Diminished 10 hole</option>
-    <option value='augmented10'>Augmented 10 hole</option>
-    <option value='valvedwholetone10'>Whole Tone 10 hole Half Valved</option>
-    <option value='testchromatic10tuning'>Chromatic Test Tuning</option>
-</select>
-</td>
-<td>
-<select id='tuneMenu'>
-<option value='c'>C</option>
-<option value='db'>Db</option>
-<option value='d'>D</option>
-<option value='eb'>Eb</option>
-<option value='e'>E</option>
-<option value='lowf'>Low F</option>
-<option value='lowd'>Low D</option>
-<option value='f'>F</option>
-<option value='fs'>F#</option>
-<option value='g'>G</option>
-<option value='highg'>High G</option>
-<option value='ab'>Ab</option>
-<option value='a'>A</option>
-<option value='bb'>Bb</option>
-<option value='b'>B</option>
-</select>
-</td>
-<td>
-<button id='go'>Go!</button>
-</td>
-<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td style="text-align: right;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Choose a Scale / Chord to Display</td>
+</tr>
+<tr>
     <td>
     <select id='scaleMenu'>
     <option value='blues'>Blues</option>
@@ -411,9 +441,11 @@ $(document).ready(function(){
     <td>
     <button id='scaleDegrees'>Hide Scale Degrees</button>
     </td>
+    <td><button id='noteNames'>Show Note Names</button></td>
+
     </tr>
     </table>
-<a href="help.html">Help</a></font>
+<a href="help.html">Help</a>
 
 <div class="instrumentimg1" id="instrumentimg1" ondragstart='return false;' ondrop='return false;'><img src="diatonic.png"></div>
 <table class="instrument1" id="instrument1" ondragstart='return false;' ondrop='return false;'></table>
@@ -464,7 +496,7 @@ function highlight(name) {
     for (var p of Array.from(document.getElementsByName(name))) 
     {
         p.src = "blue.png";
-        
+        p.style.outline = '4px solid yellow';
         //p.parentElement.style.borderColor = 'yellow';
     }
 }
@@ -472,7 +504,7 @@ function clearHighlight(name){
     for (var p of Array.from(document.getElementsByName(name))) 
     {
         p.src = p.getAttribute("originalSrc");
-        
+        p.style.outline = '';
         //p.parentElement.style.borderColor = '';
     }
 }
@@ -564,6 +596,20 @@ function mouseUp() {
     sweep = false;
     clickVoice.stop();
 }
+
+//to be deprecated
+$("#instrumentMenu").html(menu["instrument1"]);
+$("#tuneMenu").html(menu[$("#instrumentMenu").val()]);
+
+$("#instrument1Menu").html(menu["instrument1"]);
+$("#tuning1Menu").html(menu[$("#instrument1Menu").val()]);
+
+$("#instrument2Menu").html(menu["instrument2"]);
+$("#tuning2Menu").html(menu[$("#instrument2Menu").val()]);
+
+$("#instrument3Menu").html(menu["instrument3"]);
+$("#tuning3Menu").html(menu[$("#instrument3Menu").val()]);
+
 
 document.body.style.zoom = "80%";
 window.scrollTo(0,0);
