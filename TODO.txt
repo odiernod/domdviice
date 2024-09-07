@@ -1,8 +1,12 @@
-change Hide scale degrees to either show just note names for the scale
+change Hide scale degrees to either show just note names for the scale (radio button options)
 allow url parameters to set instruments, tunings, and other settings
 update help page
 
 Separate menu for each instrument above its bank
+  Bolder instruction text
+  borders around each instrument bank
+  border around scale chooser
+  
 remove need for background images
 
 auto generate keys for harmonica tunings
