@@ -492,14 +492,18 @@ function sleep(ms) {
     // async func() { await sleep(1000) }
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-function highlight(name) {
+function highlight(name, outline = true) {
     for (var p of Array.from(document.getElementsByName(name))) 
     {
         p.src = "blue.png";
+        if (outline)
         p.style.outline = '4px solid yellow';
         //p.parentElement.style.borderColor = 'yellow';
     }
 }
+
+
+
 function clearHighlight(name){
     for (var p of Array.from(document.getElementsByName(name))) 
     {
@@ -531,7 +535,7 @@ function highlightred(name) {
 function doMouseOver() {
     if (!scaleMode) 
     {
-        highlight(this.name); 
+        highlight(this.name, true); 
     }
     else 
     {

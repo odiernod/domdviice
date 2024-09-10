@@ -20,7 +20,7 @@ img = {diatonicrichter: '<img src="diatonic.png">',
        augmented10: '<img src="augmented10.png">',
        valvedwholetone10: '<img src="wholetone10.png">',
        ukulele: '<img src="ukulele.png">'}
-menu = {chromatic12: "<option value='c4'>Standard (C4)</option><option value='c3'>Tenor (C3)</option>",
+menu = {chromatic12: "<option value='c4'>Standard (C4) Solo Tuned</option><option value='c3'>Tenor (C3) Orchestra Tuned</option>",
    
 chromatic16: "<option value='c3'>Standard (C3)</option>",
         diatonicminor: `<option value='ab'>Abm</option>
@@ -317,8 +317,7 @@ testchromatic10tuning: `<option value='c'>C</option>
 <option value='diminished10'>Diminished 10 hole Harmonica</option>
 <option value='augmented10'>Augmented 10 hole Harmonica/option>
 <option value='valvedwholetone10'>Whole Tone 10 hole Half Valved Harmonica</option>
-<option value='testchromatic10tuning'>Chromatic Test Tuning Harmonica</option>
-<option value='chromatic12'>Chromatic 12 Harmonica</option>
+<option value='chromatic12'>Chromatic 12 Harmonica </option>
 <option value='ukulele'>Ukulele</option>
 `,
         instrument3: `<option value='guitar'>Guitar</option>

@@ -1,4 +1,5 @@
 change Hide scale degrees to either show just note names for the scale (radio button options)
+widen bank one to accept more instruments?
 allow url parameters to set instruments, tunings, and other settings
 update help page
 
@@ -15,6 +16,7 @@ auto generate keys for harmonica tunings
   DomTuned to be raised 5 powerdraw
   country tuned
   melody maker
+  trochilus tunings
   Altered Paddy Richter (5 blow drop)
 add fourth instrument bank
 
