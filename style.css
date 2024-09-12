@@ -67,93 +67,87 @@ table.instrument1
 {
 position:absolute;
 left:26px;
-top:50px;/* top:25px; */
+top:60px;/* top:25px; */
 }
 div.instrumentimg1
 {
 position:absolute;
 left:26px;
-top:50px;/* top:25px; */
+top:60px;/* top:25px; */
 z-index:-1;
 }
 table.instrument2
 {
 position:absolute;
-left:719px;
-top:50px;/* top:25px; */
+left:920px;
+top:60px;/* top:25px; */
 }
 div.instrumentimg2
 {
 position:absolute;
-left:719px;
-top:50px;/* top:25px; */
+left:920px;
+top:60px;/* top:25px; */
 z-index:-1;
 }
 table.instrument3
 {
 position:absolute;
 left:26px;
-top:600px; /*502*/
+top:650px; /*502*/
 }
 div.instrumentimg3
 {
 position:absolute;
 left:26px;
-top:600px; /*502*/
+top:650px; /*502*/
 z-index:-1;
-}
-textarea.textlog
-{
-position:absolute;
-left:26px;
-top:950px;
 }
 table.treble1
 {
 position:absolute;
-left:1616px;
+left:1800px;
 top:76px;
 }
 table.treble2
 {
 position:absolute;
-left:1644px;
+left:1828px;
 top:60px;
 }
 table.treble3
 {
 position:absolute;
-left:1672px;
+left:1856px;
 top:65px;
 }
 table.treble4
 {
 position:absolute;
-left:1701px;
+left:1886px;
 top:81px;
 }
 table.bass1
 {
 position:absolute;
-left:1616px;
+left:1800px;
 top:517px;
 }
 table.bass2
 {
 position:absolute;
-left:1644px;
+left:1828px;
 top:532px;
 }
 table.bass3
 {
 position:absolute;
-left:1672px;
+left:1856px;
 top:508px;
 }
 table.bass4
 {
 position:absolute;
-left:1701px;
+left:1886px;
 top:555px;
 }
 button.ver
@@ -182,14 +176,14 @@ table.instrument3Chooser
 {
 position:absolute;
 left:520px;
-top:560px; /* top:473px; */
+top:600px; /* top:473px; */
 z-index: 100;
 }
 table.scaleChooser
 {
 position:absolute;
 left:300px;
-top:498px; /* top:473px; */
+top:530px; /* top:473px; */
 z-index: 100;
 }
 td

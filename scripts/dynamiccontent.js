@@ -299,6 +299,9 @@ testchromatic10tuning: `<option value='c'>C</option>
 <option value='diminished10'>Diminished 10 hole Harmonica</option>
 <option value='augmented10'>Augmented 10 hole Harmonica</option>
 <option value='valvedwholetone10'>Whole Tone 10 hole Half Valved Harmonica</option>
+<option value='piano'>Piano</option>
+<option value='chromatic12'>Chromatic 12 Harmonica </option>
+<option value='ukulele'>Ukulele</option>
 `,
         instrument2: `<option value='piano'>Piano</option>
 <option value='diatonicrichter'>Richter Harmonica</option>
