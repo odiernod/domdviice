@@ -220,11 +220,7 @@ $(document).ready(function(){
 // when a Go! button is clicked, instrument and img are loaded
 $(document).ready(function(){
     $('#go1').click(function (){
-            // Load the instrument image.
-            $("#instrumentimg1").html(img[$("#instrument1Menu").val()]);
-            // Load the instrument.
-            $("#instrument1").html(instrument[$("#instrument1Menu").val() + $("#tuning1Menu").val()]);
-            attachAll("instrument1");
+            loadInstrument1();
             updateAfterInstrumentChange();
         });
 });
@@ -232,11 +228,7 @@ $(document).ready(function(){
 // when a Go! button is clicked, instrument and img are loaded
 $(document).ready(function(){
     $('#go2').click(function (){
-            // Load the instrument image.
-            $("#instrumentimg2").html(img[$("#instrument2Menu").val()]);
-            // Load the instrument.
-            $("#instrument2").html(instrument[$("#instrument2Menu").val() + $("#tuning2Menu").val()]);
-            attachAll("instrument2");
+            loadInstrument2();
             updateAfterInstrumentChange();
         });
 });
@@ -244,14 +236,39 @@ $(document).ready(function(){
 // when a Go! button is clicked, instrument and img are loaded
 $(document).ready(function(){
     $('#go3').click(function (){
-            // Load the instrument image.
-            $("#instrumentimg3").html(img[$("#instrument3Menu").val()]);
-            // Load the instrument.
-            $("#instrument3").html(instrument[$("#instrument3Menu").val() + $("#tuning3Menu").val()]);
-            attachAll("instrument3");
+            loadInstrument3();
             updateAfterInstrumentChange();
         });
 });
+
+function loadInstrument1()
+{
+    // Load the instrument image.
+    $("#instrumentimg1").html(img[$("#instrument1Menu").val()]);
+            // Load the instrument.
+            $("#instrument1").html(instrument[$("#instrument1Menu").val() + $("#tuning1Menu").val()]);
+            attachAll("instrument1");
+}
+
+function loadInstrument2()
+{
+    // Load the instrument image.
+    $("#instrumentimg2").html(img[$("#instrument2Menu").val()]);
+            // Load the instrument.
+            $("#instrument2").html(instrument[$("#instrument2Menu").val() + $("#tuning2Menu").val()]);
+            attachAll("instrument2");
+}
+
+function loadInstrument3()
+{
+    // Load the instrument image.
+    $("#instrumentimg3").html(img[$("#instrument3Menu").val()]);
+            // Load the instrument.
+            $("#instrument3").html(instrument[$("#instrument3Menu").val() + $("#tuning3Menu").val()]);
+            attachAll("instrument3");
+}
+
+
 
 function updateAfterInstrumentChange()
 {
@@ -261,6 +278,7 @@ function updateAfterInstrumentChange()
         var key = $("#keyMenu").val()
         showScale(scale, key);
     }
+    updateUrl();
 }
 
 // when a Go! button is clicked, instrument and img are loaded
@@ -309,6 +327,7 @@ $(document).ready(function(){
         var scale = $("#scaleMenu").val()
         var key = $("#keyMenu").val()
         showScale(scale, key);
+        updateUrl();
         });
 });
 
@@ -316,6 +335,7 @@ $(document).ready(function(){
 $(document).ready(function(){
     $('#clearScale').click(function (){
             clearScale();
+            updateUrl();
         });
 });
 
@@ -551,7 +571,6 @@ function doMouseOut() {
     {
         clearHighlightBorder(this.name);
     }
-    clickVoice.stop();
 }
 
 function showNoteName(name){
@@ -592,17 +611,10 @@ function playElement(element) {
 }
 
 function mouseUp() {
-    // stop bending
-    for (let voice of voices) voice.stopBend()
-    for (let channel of channels) channel.stopBend()
-
     sweep = false;
-    clickVoice.stop();
+    if (clickVoice)
+        clickVoice.stop();
 }
-
-//to be deprecated
-$("#instrumentMenu").html(menu["instrument1"]);
-$("#tuneMenu").html(menu[$("#instrumentMenu").val()]);
 
 $("#instrument1Menu").html(menu["instrument1"]);
 $("#tuning1Menu").html(menu[$("#instrument1Menu").val()]);
@@ -623,6 +635,71 @@ window.scrollTo(0,0);
 //$('body').css({ width: '100%' });
 
 while (top!=self) alert("For security reasons, framing is not allowed.");
+
+function setSelectValuesFromUrl() {
+  const urlParams = new URLSearchParams(window.location.search);
+
+  const selectElements = document.querySelectorAll('select');
+  
+  selectElements.forEach(select => {
+    const paramValue = urlParams.get(select.id);
+    if (paramValue) {
+      select.value = paramValue;
+    }
+  });
+
+  //need to render proper instruments
+  loadInstrument1();
+  loadInstrument2();
+  loadInstrument3();
+  updateAfterInstrumentChange();
+
+  const displayScaleParam = urlParams.get('displayScale');
+  if (displayScaleParam) 
+  {
+    var scale = $("#scaleMenu").val()
+    var key = $("#keyMenu").val()
+    showScale(scale, key);
+  }
+}
+
+function updateUrl() {
+  const instrument1MenuSelect = document.querySelector('select[id="instrument1Menu"]');
+  const instrument2MenuSelect = document.querySelector('select[id="instrument2Menu"]');
+  const instrument3MenuSelect = document.querySelector('select[id="instrument3Menu"]');
+  
+  const tuning1MenuSelect = document.querySelector('select[id="tuning1Menu"]');
+  const tuning2MenuSelect = document.querySelector('select[id="tuning2Menu"]');
+  const tuning3MenuSelect = document.querySelector('select[id="tuning3Menu"]');
+
+  const scaleMenuSelect = document.querySelector('select[id="scaleMenu"]');
+  const keyMenuSelect = document.querySelector('select[id="keyMenu"]');
+
+
+  const newUrl = new URL(window.location.href);
+  setUrlParams(instrument1MenuSelect, newUrl);
+  setUrlParams(instrument2MenuSelect, newUrl);
+  setUrlParams(instrument3MenuSelect, newUrl);
+
+  setUrlParams(tuning1MenuSelect, newUrl);
+  setUrlParams(tuning2MenuSelect, newUrl);
+  setUrlParams(tuning3MenuSelect, newUrl);
+
+  setUrlParams(scaleMenuSelect, newUrl);
+  setUrlParams(keyMenuSelect, newUrl);
+
+  newUrl.searchParams.set('displayScale', scaleMode);
+
+  history.pushState({}, '', newUrl);
+}
+
+function setUrlParams(ele, url)
+{
+    url.searchParams.set(ele.id, ele.value);
+}
+
+// Call the function when the page loads
+window.onload = setSelectValuesFromUrl;
 </script>
 </body>
 </html>

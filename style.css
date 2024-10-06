@@ -150,14 +150,6 @@ position:absolute;
 left:1886px;
 top:555px;
 }
-button.ver
-{
-position:absolute;
-left:235px;
-top:455px;
-width:220px;
-z-index:1;
-}
 table.instrument1Chooser
 {
 position:absolute;
@@ -190,6 +182,20 @@ td
 {
 	position: relative;
 }
+td.outline {
+	border: 3px solid black;
+	border-style: ridge;
+	
+}
+.cell-text {
+	position: absolute; /* Position text absolutely within the cell */
+	bottom: 50%; /* Position at middle */
+	left: 50%; /* Position horizontally at the center */
+	transform: translateX(-50%); /* Adjust for the text's own width */
+	text-align: center; /* Center the text horizontally */
+	width: 100%; /* Ensure the text spans the entire cell width */
+	z-index: -1;
+  }
 td img
 {
 	position: relative;

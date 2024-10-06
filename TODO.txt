@@ -1,7 +1,8 @@
 change Hide scale degrees to either show just note names for the scale (radio button options)
-widen bank one to accept more instruments?
+
 allow url parameters to set instruments, tunings, and other settings
-update help page
+  once scale degrees / note names updated, include those
+
 
 Separate menu for each instrument above its bank
   Bolder instruction text

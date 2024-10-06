@@ -19,6 +19,8 @@ public class TuningGenerator
 
         //Generate LowD -one octave lower
         var tLowD = transpose(tD, from:noteList.D5, to:noteList.D4);
+        //Generate LowC -one octave lower
+        var tLowC = transpose(templateInC, from:noteList.C5, to:noteList.C4);
         //Eb
         var tEb = transpose(templateInC, from:noteList.C5, to:noteList.E5b);
         //generate E
@@ -65,6 +67,8 @@ public class TuningGenerator
             tD.ToHtml(),
             tuningName + "lowd:",
             tLowD.ToHtml(),
+            tuningName + "lowc:",
+            tLowC.ToHtml(),
             tuningName + "eb:",
             tEb.ToHtml(),
             tuningName + "e:",
