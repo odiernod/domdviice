@@ -4,20 +4,20 @@ public class SunnyRBTuning : TenHoleHarmonica
 
     public SunnyRBTuning()
     {
-        TuningName = "valvedsunnyrbtuned";
+        TuningName = "sunnyrbtuned";
 
         HalfStepBlowBend = new List<string>
         {
-            "B3", //1
-            "D4s", //2
-            "F4s", //3
-            "B4", //4
-            "D5s", //5
-            "F5s", //6
-            "G5s", //7
-            "B5", //8
-            "D6s", //9
-            "F5s" //10
+            "D4s", //1
+            "G4s", //2
+            "", //3
+            "D5s", //4
+            "F5s", //5
+            "A5s", //6
+            "", //7
+            "D6s", //8
+            "F6s", //9
+            "A6s" //10
         };
 
         BlowReed = new List<string>

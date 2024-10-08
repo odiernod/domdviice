@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\odier\\Documents\\source\\repos\\domdviice\\harmonicatuninggenerator\\harmonicatuninggenerator.csproj": {}
+    "c:\\Users\\odier\\Documents\\source\\repos\\domdviice\\harmonicatuninggenerator\\harmonicatuninggenerator.csproj": {}
   },
   "projects": {
-    "C:\\Users\\odier\\Documents\\source\\repos\\domdviice\\harmonicatuninggenerator\\harmonicatuninggenerator.csproj": {
+    "c:\\Users\\odier\\Documents\\source\\repos\\domdviice\\harmonicatuninggenerator\\harmonicatuninggenerator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\odier\\Documents\\source\\repos\\domdviice\\harmonicatuninggenerator\\harmonicatuninggenerator.csproj",
+        "projectUniqueName": "c:\\Users\\odier\\Documents\\source\\repos\\domdviice\\harmonicatuninggenerator\\harmonicatuninggenerator.csproj",
         "projectName": "harmonicatuninggenerator",
-        "projectPath": "C:\\Users\\odier\\Documents\\source\\repos\\domdviice\\harmonicatuninggenerator\\harmonicatuninggenerator.csproj",
+        "projectPath": "c:\\Users\\odier\\Documents\\source\\repos\\domdviice\\harmonicatuninggenerator\\harmonicatuninggenerator.csproj",
         "packagesPath": "C:\\Users\\odier\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\odier\\Documents\\source\\repos\\domdviice\\harmonicatuninggenerator\\obj\\",
+        "outputPath": "c:\\Users\\odier\\Documents\\source\\repos\\domdviice\\harmonicatuninggenerator\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

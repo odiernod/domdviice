@@ -364,7 +364,7 @@ $(document).ready(function(){
     </select>
     </td>
     <td>
-    <select id='tuning2Menu'style="text-align: center; font-weight: bold; font-size: 15px;">
+    <select id='tuning2Menu' style="text-align: center; font-weight: bold; font-size: 15px;">
     </select>
     </td>
     <td>
@@ -380,7 +380,7 @@ $(document).ready(function(){
     </select>
     </td>
     <td>
-    <select id='tuning3Menu'style="text-align: center; font-weight: bold; font-size: 15px;">
+    <select id='tuning3Menu' style="text-align: center; font-weight: bold; font-size: 15px;">
     </select>
     </td>
     <td>
@@ -432,6 +432,7 @@ $(document).ready(function(){
     <option value='imaj7chord'>Imaj7 Chord</option>
     <option value='ivmaj7chord'>IVmaj7 Chord</option>
     <option value='vmaj7chord'>Vmaj7 Chord</option>
+    <option value='imchord'>i Chord</option>
     <option value='powerchord'>Power Chord</option>
     </select>
     </td>
@@ -645,6 +646,18 @@ function setSelectValuesFromUrl() {
     const paramValue = urlParams.get(select.id);
     if (paramValue) {
       select.value = paramValue;
+      if (select.id == "instrument1Menu")
+      {
+        $("#tuning1Menu").html(menu[$("#instrument1Menu").val()]);
+      }
+      else if (select.id == "instrument2Menu")
+      {
+        $("#tuning2Menu").html(menu[$("#instrument2Menu").val()]);
+      }
+      else if (select.id == "instrument3Menu")
+      {
+        $("#tuning3Menu").html(menu[$("#instrument3Menu").val()]);
+      }
     }
   });
 
@@ -678,11 +691,10 @@ function updateUrl() {
 
   const newUrl = new URL(window.location.href);
   setUrlParams(instrument1MenuSelect, newUrl);
-  setUrlParams(instrument2MenuSelect, newUrl);
-  setUrlParams(instrument3MenuSelect, newUrl);
-
   setUrlParams(tuning1MenuSelect, newUrl);
+  setUrlParams(instrument2MenuSelect, newUrl);
   setUrlParams(tuning2MenuSelect, newUrl);
+  setUrlParams(instrument3MenuSelect, newUrl);
   setUrlParams(tuning3MenuSelect, newUrl);
 
   setUrlParams(scaleMenuSelect, newUrl);

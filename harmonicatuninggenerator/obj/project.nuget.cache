@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Y+VsSyJraucCel4sw1uQQEp0h9RvrNeCmkjeVtHI1cc3DTmXuRnKB1oRC5z9ntL+ooU2LftOrV2bqIwmKErs4Q==",
+  "dgSpecHash": "NiXQKt0BxgVh1Y0knoA7v9fbCNvPX8m1Pt5apCLxPOI7WRXsgQ68/0WW8qn7BsVnKifMAcvjE1FIjqQ8xo7DBg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\odier\\Documents\\source\\repos\\domdviice\\harmonicatuninggenerator\\harmonicatuninggenerator.csproj",
+  "projectFilePath": "c:\\Users\\odier\\Documents\\source\\repos\\domdviice\\harmonicatuninggenerator\\harmonicatuninggenerator.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\odier\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.15\\microsoft.netcore.app.ref.7.0.15.nupkg.sha512",
     "C:\\Users\\odier\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.15\\microsoft.windowsdesktop.app.ref.7.0.15.nupkg.sha512",
