@@ -102,6 +102,19 @@ left:26px;
 top:650px; /*502*/
 z-index:-1;
 }
+table.instrument4
+{
+position:absolute;
+left:26px;
+top:1200px; /*502*/
+}
+div.instrumentimg4
+{
+position:absolute;
+left:26px;
+top:1200px; /*502*/
+z-index:-1;
+}
 table.treble1
 {
 position:absolute;
@@ -169,6 +182,13 @@ table.instrument3Chooser
 position:absolute;
 left:520px;
 top:600px; /* top:473px; */
+z-index: 100;
+}
+table.instrument4Chooser
+{
+position:absolute;
+left:520px;
+top:1150px; /* top:473px; */
 z-index: 100;
 }
 table.scaleChooser

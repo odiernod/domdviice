@@ -217,6 +217,14 @@ $(document).ready(function(){
   });
 });
 
+// instrument3Menu to update tuning3Menu
+$(document).ready(function(){
+    $('#instrument4Menu').change(function(){
+        // provide the tunings available for the selected instrument
+        $("#tuning4Menu").html(menu[$("#instrument4Menu").val()]);
+  });
+});
+
 // when a Go! button is clicked, instrument and img are loaded
 $(document).ready(function(){
     $('#go1').click(function (){
@@ -237,6 +245,14 @@ $(document).ready(function(){
 $(document).ready(function(){
     $('#go3').click(function (){
             loadInstrument3();
+            updateAfterInstrumentChange();
+        });
+});
+
+// when a Go! button is clicked, instrument and img are loaded
+$(document).ready(function(){
+    $('#go4').click(function (){
+            loadInstrument4();
             updateAfterInstrumentChange();
         });
 });
@@ -268,7 +284,14 @@ function loadInstrument3()
             attachAll("instrument3");
 }
 
-
+function loadInstrument4()
+{
+    // Load the instrument image.
+    $("#instrumentimg4").html(img[$("#instrument4Menu").val()]);
+            // Load the instrument.
+            $("#instrument4").html(instrument[$("#instrument4Menu").val() + $("#tuning4Menu").val()]);
+            attachAll("instrument4");
+}
 
 function updateAfterInstrumentChange()
 {
@@ -289,9 +312,12 @@ $(document).ready(function(){
     $('#instrument2').html(instrument.pianostandard)
     $('#instrumentimg3').html(img.guitar)
     $('#instrument3').html(instrument.guitarstandard)
+    $('#instrumentimg4').html(img.guitar)
+    $('#instrument4').html(instrument.guitarstandard)
     attachAll('instrument1');
     attachAll('instrument2');
     attachAll('instrument3');
+    attachAll('instrument4');
     $(this).on('mouseup', mouseUp)
     for (let clef of ['treble1', 'treble2', 'treble3', 'treble4', 'bass1', 'bass2', 'bass3', 'bass4']) {
         $("#" + clef).html(instrument[clef])
@@ -388,6 +414,22 @@ $(document).ready(function(){
     </td>
     </tr>
 </table>
+<table class='instrument4Chooser'>
+    <tr><td style="text-align: center; font-weight: bold; font-size: 20px;">Instrument Bank #4</td></tr>
+    <tr>
+    <td>
+    <select id='instrument4Menu' style="text-align: center; font-weight: bold; font-size: 15px;">
+    </select>
+    </td>
+    <td>
+    <select id='tuning4Menu' style="text-align: center; font-weight: bold; font-size: 15px;">
+    </select>
+    </td>
+    <td>
+    <button id='go4'style="text-align: center; font-weight: bold; font-size: 15px;">Load Instrument</button>
+    </td>
+    </tr>
+</table>
 <table class='scaleChooser'>
 <tr>
 <td style="text-align: right; font-weight: bold; font-size: 20px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Choose a Scale / Chord to Display</td>
@@ -475,6 +517,9 @@ $(document).ready(function(){
 
 <div class="instrumentimg3" id="instrumentimg3" ondragstart='return false;' ondrop='return false;'><img src="guitar.png"></div>
 <table class="instrument3" id="instrument3" ondragstart='return false;' ondrop='return false;'></table>
+
+<div class="instrumentimg4" id="instrumentimg4" ondragstart='return false;' ondrop='return false;'><img src="guitar.png"></div>
+<table class="instrument4" id="instrument4" ondragstart='return false;' ondrop='return false;'></table>
 
 <table class="treble1" id="treble1" ondragstart='return false;' ondrop='return false;'></table>
 <table class="treble2" id="treble2" ondragstart='return false;' ondrop='return false;'></table>
@@ -626,6 +671,9 @@ $("#tuning2Menu").html(menu[$("#instrument2Menu").val()]);
 $("#instrument3Menu").html(menu["instrument3"]);
 $("#tuning3Menu").html(menu[$("#instrument3Menu").val()]);
 
+$("#instrument4Menu").html(menu["instrument4"]);
+$("#tuning4Menu").html(menu[$("#instrument4Menu").val()]);
+
 
 document.body.style.zoom = "80%";
 window.scrollTo(0,0);
@@ -658,6 +706,10 @@ function setSelectValuesFromUrl() {
       {
         $("#tuning3Menu").html(menu[$("#instrument3Menu").val()]);
       }
+      else if (select.id == "instrument4Menu")
+      {
+        $("#tuning4Menu").html(menu[$("#instrument4Menu").val()]);
+      }
     }
   });
 
@@ -665,6 +717,7 @@ function setSelectValuesFromUrl() {
   loadInstrument1();
   loadInstrument2();
   loadInstrument3();
+  loadInstrument4();
   updateAfterInstrumentChange();
 
   const displayScaleParam = urlParams.get('displayScale');
@@ -680,10 +733,12 @@ function updateUrl() {
   const instrument1MenuSelect = document.querySelector('select[id="instrument1Menu"]');
   const instrument2MenuSelect = document.querySelector('select[id="instrument2Menu"]');
   const instrument3MenuSelect = document.querySelector('select[id="instrument3Menu"]');
+  const instrument4MenuSelect = document.querySelector('select[id="instrument4Menu"]');
   
   const tuning1MenuSelect = document.querySelector('select[id="tuning1Menu"]');
   const tuning2MenuSelect = document.querySelector('select[id="tuning2Menu"]');
   const tuning3MenuSelect = document.querySelector('select[id="tuning3Menu"]');
+  const tuning4MenuSelect = document.querySelector('select[id="tuning4Menu"]');
 
   const scaleMenuSelect = document.querySelector('select[id="scaleMenu"]');
   const keyMenuSelect = document.querySelector('select[id="keyMenu"]');
@@ -696,6 +751,8 @@ function updateUrl() {
   setUrlParams(tuning2MenuSelect, newUrl);
   setUrlParams(instrument3MenuSelect, newUrl);
   setUrlParams(tuning3MenuSelect, newUrl);
+  setUrlParams(instrument4MenuSelect, newUrl);
+  setUrlParams(tuning4MenuSelect, newUrl);
 
   setUrlParams(scaleMenuSelect, newUrl);
   setUrlParams(keyMenuSelect, newUrl);
