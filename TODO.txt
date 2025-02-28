@@ -1,14 +1,9 @@
 change Hide scale degrees to either show just note names for the scale (radio button options)
 
-allow url parameters to set instruments, tunings, and other settings
-  once scale degrees / note names updated, include those
+Fix refresh bug which shows scale even when none selected
 
-
-Separate menu for each instrument above its bank
-  Bolder instruction text
-  borders around each instrument bank
-  border around scale chooser
-  
+updae background images to be more informative/pleasing
+OR
 remove need for background images
 
 auto generate keys for harmonica tunings
@@ -23,4 +18,4 @@ add fourth instrument bank
 
 create "scale and key finder"
 provide better scaling layout for web browser or phone
-add the rest of the chords
+
