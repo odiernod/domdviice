@@ -1,14 +1,14 @@
 change Hide scale degrees to either show just note names for the scale (radio button options)
 
 Fix refresh bug which shows scale even when none selected
+<option value='threeflats'>New Standard CDGAEG</option>*
 
-updae background images to be more informative/pleasing
+update background images to be more informative/pleasing
 OR
 remove need for background images
 
 auto generate keys for harmonica tunings
   Easy Third
-  non valved sunny
   DomTuned to be raised 5 powerdraw
   country tuned
   melody maker
