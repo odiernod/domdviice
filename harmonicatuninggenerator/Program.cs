@@ -6,5 +6,5 @@ using Namespace;
 var generator = new TuningGenerator();
 
 
-generator.Generate(new SunnyRBTuning());
+generator.Generate(new ValvedDorianWildeAltered());
 
