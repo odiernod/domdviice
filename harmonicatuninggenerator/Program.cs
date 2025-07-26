@@ -6,5 +6,5 @@ using Namespace;
 var generator = new TuningGenerator();
 
 
-generator.Generate(new ValvedDorianWildeAltered());
+generator.Generate(new DrawDiminished10Tuning());
 

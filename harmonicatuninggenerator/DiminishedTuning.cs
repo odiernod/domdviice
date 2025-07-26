@@ -7,24 +7,24 @@ using System.Threading.Tasks;
 
 namespace harmonicatuninggenerator
 {
-    internal class Diminished10Tuning : TenHoleHarmonica
+    internal class DrawDiminished10Tuning : TenHoleHarmonica
     {
-        public Diminished10Tuning()
+        public DrawDiminished10Tuning()
         {
-            TuningName = "Diminished10";
+            TuningName = "DrawDiminished10";
 
             BlowReed = new List<string>
         {
-            "A3", //1
-            "C4", //2
-            "D4s", //3
-            "F4s", //4
-            "A4", //5
-            "C5", //6
-            "D5s", //7
-            "F5s", //8
-            "A5", //9
-            "C6" //10
+            "G3s", //4
+            "B3", //5
+            "D4", //6
+            "F4", //7
+            "G4s", //4
+            "B4", //5
+            "D5", //6
+            "F5", //7
+            "G5s", //4
+            "B5", //5
         };
 
             DrawReed = new List<string>
@@ -53,6 +53,19 @@ namespace harmonicatuninggenerator
             "G5", //8
             "A5s", //9
             "C6s" //10
+        };
+        WholeStepDrawBend = new List<string>
+        {
+            "A3", //1
+            "C4", //2
+            "D4s", //3
+            "F4s", //4
+            "A4", //5
+            "C5", //6
+            "D5s", //7
+            "F5s", //8
+            "A5", //9
+            "C6" //10
         };
         }
 
