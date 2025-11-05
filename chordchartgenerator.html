@@ -12,11 +12,16 @@
     .param-row { margin:6px 0; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
     .param-row label { font-size:13px; color:#222; }
     /* adjusted grid: String | Muted | Fret | Finger | Color */
-    .strings-grid { display:grid; grid-template-columns: 100px 60px 60px 60px 90px; gap:6px 12px; align-items:center; margin-top:8px; }
+    /* now includes Label column (between Finger and Color) */
+    .strings-grid { display:grid; grid-template-columns: 100px 60px 60px 60px 80px 90px; gap:6px 12px; align-items:center; margin-top:8px; }
     .strings-grid .hdr { font-weight:bold; font-size:13px; }
-    input[type="number"] { width:70px; padding:3px; }
-    input[type="text"] { width:180px; padding:4px; }
+    input[type="number"] { width:30px; padding:3px; }
+    input[type="text"] { width:50px; padding:4px; }
+    /* tuning input only — wider without affecting other text inputs */
+    #tuningInput { width:80px; padding:4px; box-sizing:border-box; }
     .small { width:48px; }
+    /* narrower label inputs inside per-string grid */
+    .label-input { width:90px; padding:4px; }
   </style>
 </head>
 <body>
@@ -75,6 +80,9 @@
           colorParam = (fret === 0) ? 'white' : 'black';
         }
         if (!allowed.includes(colorParam)) colorParam = (fret === 0 ? 'white' : 'black');
+       // label param (string label shown at bottom). empty => show default string number
+       const labelParam = getParam('s' + i + '_label', null);
+       const label = labelParam === null ? '' : String(labelParam);
         cfg.push({ muted, fret, finger, color: colorParam });
       }
       return cfg;
@@ -281,7 +289,9 @@
       ctx.font = "12px Arial";
       for (let s = 0; s < strings; s++) {
         const x = left + s * stringSpacing;
-        ctx.fillText((strings - s).toString(), x - 6, top + frets * fretSpacing + 20);
+        // if label provided use it; otherwise show default string number
+        const lbl = (cfg.stringsCfg && cfg.stringsCfg[s] && cfg.stringsCfg[s].label) ? cfg.stringsCfg[s].label : String(strings - s);
+        ctx.fillText(lbl, x - 6, top + frets * fretSpacing + 20);
       }
     }
 
@@ -291,7 +301,7 @@
       container.innerHTML = '';
       const header = document.createElement('div');
       header.className = 'strings-grid';
-      header.innerHTML = '<div class="hdr">String</div><div class="hdr">Muted</div><div class="hdr">Fret</div><div class="hdr">Finger</div><div class="hdr">Color</div>';
+      header.innerHTML = '<div class="hdr">String</div><div class="hdr">Muted</div><div class="hdr">Fret</div><div class="hdr">Finger</div><div class="hdr">Label</div><div class="hdr">Color</div>';
       container.appendChild(header);
 
       const grid = document.createElement('div');
@@ -332,6 +342,16 @@
         fingerInput.value = (cfg.stringsCfg[s] ? cfg.stringsCfg[s].finger : -1);
         fingerCell.appendChild(fingerInput);
 
+        // label cell (text)
+        const labelCell = document.createElement('div');
+        const labelInput = document.createElement('input');
+        labelInput.type = 'text';
+        labelInput.id = 's' + s + '_label_input';
+        labelInput.className = 'label-input';
+        // empty input = use default string number on chart
+        labelInput.value = (cfg.stringsCfg[s] && typeof cfg.stringsCfg[s].label === 'string') ? cfg.stringsCfg[s].label : '';
+        labelCell.appendChild(labelInput);
+
         // color cell (select)
         const colorCell = document.createElement('div');
         const colorSelect = document.createElement('select');
@@ -345,11 +365,12 @@
         colorSelect.value = (cfg.stringsCfg[s] ? cfg.stringsCfg[s].color : (fretInput.value == 0 ? 'white' : 'black'));
         colorCell.appendChild(colorSelect);
 
-        // append in the 5-column order
+        // append in the 6-column order
         grid.appendChild(idxLabel);
         grid.appendChild(onWrap);
         grid.appendChild(fretCell);
         grid.appendChild(fingerCell);
+        grid.appendChild(labelCell);
         grid.appendChild(colorCell);
 
         // attach change listeners
@@ -357,6 +378,7 @@
         onInput.addEventListener('change', onChange);
         fretInput.addEventListener('input', onChange);
         fingerInput.addEventListener('input', onChange);
+        labelInput.addEventListener('input', onChange);
         colorSelect.addEventListener('change', onChange);
       }
       container.appendChild(grid);
@@ -384,12 +406,14 @@
         const fretElem = document.getElementById('s' + s + '_fret_input');
         const fingerElem = document.getElementById('s' + s + '_finger_input');
         const colorElem = document.getElementById('s' + s + '_color_input');
+       const labelElem = document.getElementById('s' + s + '_label_input');
         // onElem now indicates muted (checked => muted true)
         const muted = !!(onElem && onElem.checked);
         const fret = fretElem ? parseInt(fretElem.value, 10) : 0;
         const finger = fingerElem ? parseInt(fingerElem.value, 10) : -1;
         const color = colorElem ? colorElem.value : (fret === 0 ? 'white' : 'black');
-        sc.push({ muted, fret: isNaN(fret) ? 0 : fret, finger: isNaN(finger) ? -1 : finger, color: color });
+       const label = labelElem ? String(labelElem.value || '') : '';
+        sc.push({ muted, fret: isNaN(fret) ? 0 : fret, finger: isNaN(finger) ? -1 : finger, color: color, label: label });
       }
       cfg.stringsCfg = sc;
 
@@ -415,6 +439,7 @@
         p.set('s' + i + '_fret', String(s.fret));
         p.set('s' + i + '_finger', String(s.finger));
         p.set('s' + i + '_color', String(s.color));
+       p.set('s' + i + '_label', String(s.label || ''));
       }
       // replace state without reloading
       const newUrl = u.pathname + '?' + p.toString();
@@ -457,7 +482,7 @@
     function initRender() {
       const cfg = readConfigFromUrl();
       // normalize stringsCfg length
-      while (cfg.stringsCfg.length < cfg.strings) cfg.stringsCfg.push({on:true,fret:0,finger:-1});
+      while (cfg.stringsCfg.length < cfg.strings) cfg.stringsCfg.push({muted:false,fret:0,finger:-1,color:'black',label:''});
       cfg.stringsCfg.length = cfg.strings; // trim if longer
       cfg.chordName = cfg.chordName || '';
       cfg.startFret = isNaN(cfg.startFret) ? 0 : cfg.startFret;
@@ -480,7 +505,7 @@
         document.getElementById('stringsInput').value = newCount;
         // ensure cfg updated and controls rebuilt with current cfg values
         cfg.strings = newCount;
-        while (cfg.stringsCfg.length < cfg.strings) cfg.stringsCfg.push({on:true,fret:0,finger:-1});
+        while (cfg.stringsCfg.length < cfg.strings) cfg.stringsCfg.push({muted:false,fret:0,finger:-1,color:'black',label:''});
         cfg.stringsCfg.length = cfg.strings;
         buildStringControls(cfg.strings, cfg);
         applyControlsToCfg();
