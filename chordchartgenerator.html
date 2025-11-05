@@ -103,17 +103,14 @@
     }
 
     function deviceScaleCanvas(canvas) {
-      // Read the CSS layout size and make it fixed (so changing the internal buffer won't change layout)
       const dpr = window.devicePixelRatio || 1;
       const rect = canvas.getBoundingClientRect();
-      // fallback if element not yet laid out
+      // prefer measured CSS size; fall back to clientWidth or current buffer/dpr
       const cssW = rect.width > 0 ? rect.width : (canvas.clientWidth || (canvas.width / dpr));
       const cssH = rect.height > 0 ? rect.height : (canvas.clientHeight || (canvas.height / dpr));
-      // enforce the CSS size explicitly so setting canvas.width doesn't affect layout
-      canvas.style.width = Math.round(cssW) + 'px';
-      canvas.style.height = Math.round(cssH) + 'px';
-      const targetW = Math.round(cssW * dpr);
-      const targetH = Math.round(cssH * dpr);
+      const targetW = Math.max(1, Math.round(cssW * dpr));
+      const targetH = Math.max(1, Math.round(cssH * dpr));
+      // only change the internal pixel buffer — do NOT change canvas.style.width/height
       if (canvas.width !== targetW || canvas.height !== targetH) {
         canvas.width = targetW;
         canvas.height = targetH;
@@ -517,7 +514,12 @@
 
     // initial render
     window.addEventListener('load', initRender);
-    window.addEventListener('resize', function(){ initRender(); });
+    // on resize just redraw using currentCfg to avoid rebuilding controls or nudging layout
+    window.addEventListener('resize', function(){
+      // redraw only; if no currentCfg available, read from URL
+      const cfg = window.currentCfg || readConfigFromUrl();
+      drawChord(cfg);
+    });
   </script>
 </body>
 </html>
