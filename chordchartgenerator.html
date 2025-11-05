@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Chord Chart Generator</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body { font-family: Arial, Helvetica, sans-serif; margin:20px; }
+    #controls { margin-bottom:10px; }
+    canvas { border:1px solid #888; background:#fff; display:block; }
+    .muted { font-weight:bold; color:#900; }
+    .param-row { margin:6px 0; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    .param-row label { font-size:13px; color:#222; }
+    /* adjusted grid: String | On | Fret | Finger */
+    .strings-grid { display:grid; grid-template-columns: 80px 60px 70px 60px; gap:6px 12px; align-items:center; margin-top:8px; }
+    .strings-grid .hdr { font-weight:bold; font-size:13px; }
+    input[type="number"] { width:70px; padding:3px; }
+    input[type="text"] { width:180px; padding:4px; }
+    .small { width:48px; }
+  </style>
+</head>
+<body>
+  <h2 id="title">Chord Chart</h2>
+  <div id="controls">
+    <div class="param-row">
+      <label>Chord name: <input id="chordInput" type="text" placeholder="G" /></label>
+      <label>Strings: <input id="stringsInput" type="number" min="1" max="12" step="1" class="small" /></label>
+      <label>Start fret: <input id="startInput" type="number" min="0" max="24" step="1" class="small" /></label>
+      <button id="saveBtn">Save as PNG</button>
+      <button id="refreshBtn">Refresh from URL</button>
+    </div>
+    <div id="params" style="margin-top:8px;color:#444;font-size:13px"></div>
+
+    <div id="stringsControls" style="margin-top:10px;">
+      <!-- populated dynamically: header + per-string rows -->
+    </div>
+  </div>
+
+  <!-- replace the canvas element to include explicit CSS size -->
+  <canvas id="chart" width="500" height="380" style="width:500px;height:380px;max-width:100%;display:block;" aria-label="Guitar chord chart"></canvas>
+
+  <script>
+    // parse parameters helper
+    function getParam(name, def) {
+      const u = new URL(window.location.href);
+      return u.searchParams.get(name) ?? def;
+    }
+
+    function parseIntParam(name, def) {
+      const v = getParam(name);
+      return v === null ? def : parseInt(v, 10);
+    }
+
+    function parseStringConfig(strings) {
+      const cfg = [];
+      for (let i = 0; i < strings; i++) {
+        // read muted flag (backwards-compatible: if s{i}_muted missing try s{i}_on)
+        const mutedParam = getParam('s' + i + '_muted', null);
+        let muted;
+        if (mutedParam !== null) {
+          muted = parseInt(mutedParam, 10) === 1;
+        } else {
+          // legacy support: s{i}_on existed (1 = on) -> muted = !on
+          const onParam = getParam('s' + i + '_on', null);
+          muted = onParam === null ? false : (parseInt(onParam, 10) !== 1);
+        }
+        const fret = parseIntParam('s' + i + '_fret', 0);
+        const finger = parseIntParam('s' + i + '_finger', -1);
+        cfg.push({ muted, fret, finger });
+      }
+      return cfg;
+    }
+
+    function deviceScaleCanvas(canvas) {
+      // Read the CSS layout size and make it fixed (so changing the internal buffer won't change layout)
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      // fallback if element not yet laid out
+      const cssW = rect.width > 0 ? rect.width : (canvas.clientWidth || (canvas.width / dpr));
+      const cssH = rect.height > 0 ? rect.height : (canvas.clientHeight || (canvas.height / dpr));
+      // enforce the CSS size explicitly so setting canvas.width doesn't affect layout
+      canvas.style.width = Math.round(cssW) + 'px';
+      canvas.style.height = Math.round(cssH) + 'px';
+      const targetW = Math.round(cssW * dpr);
+      const targetH = Math.round(cssH * dpr);
+      if (canvas.width !== targetW || canvas.height !== targetH) {
+        canvas.width = targetW;
+        canvas.height = targetH;
+      }
+      return dpr;
+    }
+
+    function drawChord(cfg) {
+      const canvas = document.getElementById('chart');
+      const ctx = canvas.getContext('2d');
+      const scale = deviceScaleCanvas(canvas);
+      ctx.setTransform(1,0,0,1,0,0);
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.scale(scale, scale);
+
+      const W = canvas.width / (window.devicePixelRatio || 1);
+      const H = canvas.height / (window.devicePixelRatio || 1);
+
+      const padding = 30;
+      const nutHeight = 12;
+      const availableW = W - padding*2;
+      const strings = cfg.strings;
+      const startFret = cfg.startFret;
+      const frets = 5; // number of frets to draw
+      const fretSpacing = (H - padding*2 - nutHeight - 20) / frets;
+      const stringSpacing = availableW / (strings - 1);
+
+      // Title
+      ctx.fillStyle = "#000";
+      ctx.font = "16px Arial";
+      ctx.fillText(cfg.chordName || "", padding, 18);
+
+      // Draw frets (horizontal) and strings (vertical)
+      const top = padding + 20;
+      const left = padding;
+
+      // nut or top fret line
+      if (startFret === 0) {
+        ctx.fillStyle = "#000";
+        ctx.fillRect(left - 3, top - nutHeight, availableW + 6, nutHeight - 2);
+      } else {
+        // draw a thin top line
+        ctx.strokeStyle = "#000";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(left, top);
+        ctx.lineTo(left + availableW, top);
+        ctx.stroke();
+      }
+
+      // draw start-fret marker to the left of the fretboard when startFret > 0
+      if (startFret > 0) {
+        const boxW = 30;
+        const boxH = 20;
+        const bx = left - boxW - 8;
+        // align vertically with the top fret line (top)
+        const by = top - boxH / 2;
+        ctx.fillStyle = "#fff";
+        ctx.strokeStyle = "#000";
+        ctx.lineWidth = 1;
+        ctx.fillRect(bx, by, boxW, boxH);
+        ctx.strokeRect(bx, by, boxW, boxH);
+        ctx.fillStyle = "#000";
+        ctx.font = "12px Arial";
+        // center text vertically on the top fret line
+        const txt = String(startFret);
+        const tw = ctx.measureText(txt).width;
+        ctx.fillText(txt, bx + (boxW - tw)/2, by + boxH/2 + 4);
+      }
+
+      // fret lines
+      ctx.strokeStyle = "#444";
+      ctx.lineWidth = 1;
+      for (let f = 0; f <= frets; f++) {
+        const y = top + f * fretSpacing;
+        ctx.beginPath();
+        ctx.moveTo(left, y);
+        ctx.lineTo(left + availableW, y);
+        ctx.stroke();
+      }
+
+      // string lines
+      ctx.strokeStyle = "#222";
+      ctx.lineWidth = 1;
+      for (let s = 0; s < strings; s++) {
+        const x = left + s * stringSpacing;
+        ctx.beginPath();
+        ctx.moveTo(x, top - (startFret === 0 ? nutHeight - 2 : 0));
+        ctx.lineTo(x, top + frets * fretSpacing);
+        ctx.stroke();
+      }
+
+      // fret numbers (right)
+      ctx.fillStyle = "#000";
+      ctx.font = "12px Arial";
+      if (startFret > 0) {
+        // moved start fret marker left; keep small right label too (optional)
+        ctx.fillText("+" , left + availableW + 8, top + fretSpacing/2);
+      }
+
+      // draw per-string markers
+      for (let s = 0; s < strings; s++) {
+        // default uses muted flag
+        const str = cfg.stringsCfg[s] || { muted:false, fret:0, finger:-1 };
+        const x = left + s * stringSpacing;
+        // muted or open marker above nut (moved higher)
+        const markerY = top - nutHeight - 14;
+        if (str.muted || str.fret === -1) {
+          ctx.fillStyle = "#900";
+          ctx.font = "16px Arial";
+          // draw X centered above string
+          const tx = x - 6;
+          ctx.fillText("X", tx, markerY + 6);
+        } else if (str.fret === 0) {
+          ctx.strokeStyle = "#000";
+          ctx.beginPath();
+          ctx.arc(x, markerY + 6, 8, 0, Math.PI*2);
+          ctx.stroke();
+        }
+
+        // if fretted, draw dot at appropriate fret
+        if (str.fret > 0) {
+          const fretIndex = str.fret - startFret; // position relative to startFret
+          const dotCenterY = top + (fretIndex + 0.5) * fretSpacing;
+          // if outside shown area skip
+          if (dotCenterY >= top && dotCenterY <= top + frets * fretSpacing) {
+            ctx.fillStyle = "#000";
+            ctx.beginPath();
+            ctx.arc(x, dotCenterY, 10, 0, Math.PI*2);
+            ctx.fill();
+
+            // finger number
+            if (typeof str.finger === 'number' && str.finger >= 0) {
+              ctx.fillStyle = "#fff";
+              ctx.font = "12px Arial";
+              const txt = String(str.finger);
+              const tw = ctx.measureText(txt).width;
+              ctx.fillText(txt, x - tw/2, dotCenterY + 4);
+            }
+          }
+        }
+      }
+
+      // bottom labels: string numbers (optional)
+      ctx.fillStyle = "#333";
+      ctx.font = "12px Arial";
+      for (let s = 0; s < strings; s++) {
+        const x = left + s * stringSpacing;
+        ctx.fillText((strings - s).toString(), x - 6, top + frets * fretSpacing + 20);
+      }
+    }
+
+    // new: build UI controls for per-string parameters (fret and finger in separate columns)
+    function buildStringControls(strings, cfg) {
+      const container = document.getElementById('stringsControls');
+      container.innerHTML = '';
+      const header = document.createElement('div');
+      header.className = 'strings-grid';
+      header.innerHTML = '<div class="hdr">String</div><div class="hdr">Muted</div><div class="hdr">Fret</div><div class="hdr">Finger</div>';
+      container.appendChild(header);
+
+      const grid = document.createElement('div');
+      grid.className = 'strings-grid';
+      for (let s = 0; s < strings; s++) {
+        const idxLabel = document.createElement('div');
+        idxLabel.textContent = 's' + s + ' (' + (strings - s) + ')'; // show index and visual string number
+
+        // On checkbox
+        const onWrap = document.createElement('div');
+        const onInput = document.createElement('input');
+        onInput.type = 'checkbox';
+        onInput.id = 's' + s + '_muted_input';
+        onInput.checked = !!(cfg.stringsCfg[s] ? cfg.stringsCfg[s].muted : false);
+        onWrap.appendChild(onInput);
+
+        // fret cell
+        const fretCell = document.createElement('div');
+        const fretInput = document.createElement('input');
+        fretInput.type = 'number';
+        fretInput.className = 'small';
+        fretInput.id = 's' + s + '_fret_input';
+        fretInput.min = -1;
+        fretInput.max = 24;
+        fretInput.value = (cfg.stringsCfg[s] ? cfg.stringsCfg[s].fret : 0);
+        fretCell.appendChild(fretInput);
+
+        // finger cell
+        const fingerCell = document.createElement('div');
+        const fingerInput = document.createElement('input');
+        fingerInput.type = 'number';
+        fingerInput.className = 'small';
+        fingerInput.id = 's' + s + '_finger_input';
+        fingerInput.min = -1;
+        fingerInput.max = 5;
+        fingerInput.value = (cfg.stringsCfg[s] ? cfg.stringsCfg[s].finger : -1);
+        fingerCell.appendChild(fingerInput);
+
+        // append in the 4-column order
+        grid.appendChild(idxLabel);
+        grid.appendChild(onWrap);
+        grid.appendChild(fretCell);
+        grid.appendChild(fingerCell);
+
+        // attach change listeners
+        const onChange = () => { applyControlsToCfg(); };
+        onInput.addEventListener('change', onChange);
+        fretInput.addEventListener('input', onChange);
+        fingerInput.addEventListener('input', onChange);
+      }
+      container.appendChild(grid);
+    }
+
+    // read UI controls and apply to cfg, redraw and update URL + params display
+    function applyControlsToCfg() {
+      const chordInput = document.getElementById('chordInput');
+      const stringsInput = document.getElementById('stringsInput');
+      const startInput = document.getElementById('startInput');
+
+      const cfg = window.currentCfg || {};
+      cfg.chordName = chordInput.value || '';
+      let strings = parseInt(stringsInput.value, 10) || 6;
+      strings = Math.max(1, Math.min(12, strings));
+      cfg.strings = strings;
+      cfg.startFret = isNaN(parseInt(startInput.value, 10)) ? 0 : parseInt(startInput.value, 10);
+
+      // rebuild stringsCfg from UI controls
+      const sc = [];
+      for (let s = 0; s < strings; s++) {
+        const onElem = document.getElementById('s' + s + '_muted_input');
+        const fretElem = document.getElementById('s' + s + '_fret_input');
+        const fingerElem = document.getElementById('s' + s + '_finger_input');
+        // onElem now indicates muted (checked => muted true)
+        const muted = !!(onElem && onElem.checked);
+        const fret = fretElem ? parseInt(fretElem.value, 10) : 0;
+        const finger = fingerElem ? parseInt(fingerElem.value, 10) : -1;
+        sc.push({ muted, fret: isNaN(fret) ? 0 : fret, finger: isNaN(finger) ? -1 : finger });
+      }
+      cfg.stringsCfg = sc;
+
+      window.currentCfg = cfg;
+      showParams(cfg);
+      drawChord(cfg);
+      updateUrlFromCfg(cfg);
+    }
+
+    function updateUrlFromCfg(cfg) {
+      const u = new URL(window.location.href);
+      const p = u.searchParams;
+      p.set('chord', cfg.chordName || '');
+      p.set('strings', String(cfg.strings));
+      p.set('start', String(cfg.startFret));
+      // remove existing s* params first
+      [...p.keys()].forEach(k => { if (/^s\d+_/.test(k)) p.delete(k); });
+      for (let i = 0; i < cfg.strings; i++) {
+        const s = cfg.stringsCfg[i] || { muted:false, fret:0, finger:-1 };
+        // store muted as 1/0
+        p.set('s' + i + '_muted', s.muted ? '1' : '0');
+        p.set('s' + i + '_fret', String(s.fret));
+        p.set('s' + i + '_finger', String(s.finger));
+      }
+      // replace state without reloading
+      const newUrl = u.pathname + '?' + p.toString();
+      window.history.replaceState({}, '', newUrl);
+    }
+
+    function readConfigFromUrl() {
+      const chordName = getParam('chord', '');
+      const strings = parseIntParam('strings', 6);
+      const startFret = parseIntParam('start', 0);
+      const stringsCfg = parseStringConfig(strings);
+      return { chordName, strings, startFret, stringsCfg };
+    }
+
+    function showParams(cfg) {
+      const p = document.getElementById('params');
+      let txt = 'chord=' + encodeURIComponent(cfg.chordName) + ' | strings=' + cfg.strings + ' | start=' + cfg.startFret + '<br>';
+      for (let i=0;i<cfg.strings;i++){
+        const s = cfg.stringsCfg[i];
+        txt += 's'+i+'=' + (s.muted ? 'muted' : 'on') + ',fret=' + s.fret + ',finger=' + s.finger + (i<cfg.strings-1? ' | ':'');
+      }
+      p.innerHTML = txt;
+      document.getElementById('title').textContent = cfg.chordName ? cfg.chordName + " — Chord" : "Chord Chart";
+    }
+
+    // wire buttons
+    document.getElementById('saveBtn').addEventListener('click', function(){
+      const canvas = document.getElementById('chart');
+      const a = document.createElement('a');
+      a.href = canvas.toDataURL('image/png');
+      a.download = (getParam('chord','chord') || 'chord') + '.png';
+      a.click();
+    });
+
+    document.getElementById('refreshBtn').addEventListener('click', function(){
+      initRender();
+    });
+
+    function initRender() {
+      const cfg = readConfigFromUrl();
+      // normalize stringsCfg length
+      while (cfg.stringsCfg.length < cfg.strings) cfg.stringsCfg.push({on:true,fret:0,finger:-1});
+      cfg.stringsCfg.length = cfg.strings; // trim if longer
+      cfg.chordName = cfg.chordName || '';
+      cfg.startFret = isNaN(cfg.startFret) ? 0 : cfg.startFret;
+      window.currentCfg = cfg;
+
+      // populate top-level controls
+      document.getElementById('chordInput').value = cfg.chordName;
+      document.getElementById('stringsInput').value = cfg.strings;
+      document.getElementById('startInput').value = cfg.startFret;
+
+      // build per-string controls
+      buildStringControls(cfg.strings, cfg);
+
+      showParams(cfg);
+      drawChord(cfg);
+
+      // make sure strings count change rebuilds controls
+      document.getElementById('stringsInput').onchange = function() {
+        const newCount = Math.max(1, Math.min(12, parseInt(this.value,10) || 6));
+        document.getElementById('stringsInput').value = newCount;
+        // ensure cfg updated and controls rebuilt with current cfg values
+        cfg.strings = newCount;
+        while (cfg.stringsCfg.length < cfg.strings) cfg.stringsCfg.push({on:true,fret:0,finger:-1});
+        cfg.stringsCfg.length = cfg.strings;
+        buildStringControls(cfg.strings, cfg);
+        applyControlsToCfg();
+      };
+
+      document.getElementById('chordInput').oninput = applyControlsToCfg;
+      document.getElementById('startInput').oninput = applyControlsToCfg;
+    }
+
+    // initial render
+    window.addEventListener('load', initRender);
+    window.addEventListener('resize', function(){ initRender(); });
+  </script>
+</body>
+</html>
