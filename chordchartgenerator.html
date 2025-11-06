@@ -30,6 +30,7 @@
     <div class="param-row">
       <label>Chord name: <input id="chordInput" type="text" placeholder="G" /></label>
       <label>Tuning: <input id="tuningInput" type="text" placeholder="EADGBE" /></label>
+      <label>Frets to display: <input id="fretsInput" type="number" min="1" max="24" step="1" class="small" /></label>
       <label>Strings: <input id="stringsInput" type="number" min="1" max="12" step="1" class="small" /></label>
       <label>Start fret: <input id="startInput" type="number" min="0" max="24" step="1" class="small" /></label>
       <button id="saveBtn">Save as PNG</button>
@@ -80,10 +81,10 @@
           colorParam = (fret === 0) ? 'white' : 'black';
         }
         if (!allowed.includes(colorParam)) colorParam = (fret === 0 ? 'white' : 'black');
-       // label param (string label shown at bottom). empty => show default string number
-       const labelParam = getParam('s' + i + '_label', null);
-       const label = labelParam === null ? '' : String(labelParam);
-        cfg.push({ muted, fret, finger, color: colorParam });
+        // label param (string label shown at bottom). empty => show default string number
+        const labelParam = getParam('s' + i + '_label', null);
+        const label = labelParam === null ? '' : String(labelParam);
+        cfg.push({ muted, fret, finger, color: colorParam, label: label });
       }
       return cfg;
     }
@@ -93,8 +94,9 @@
       if (!tuning) tuning = 'EADGBE';
       // split on commas or whitespace first
       let parts = tuning.split(/[,\s]+/).filter(Boolean);
-      if (parts.length === 1 && parts[0].length !== strings) {
-        // fallback: treat as contiguous characters, one char per string
+      // If user supplied a single compact token whose length equals the string count
+      // treat it as one char per string (e.g. "EADGBE" -> ["E","A","D","G","B","E"])
+      if (parts.length === 1 && parts[0].length === strings) {
         parts = parts[0].split('').slice(0, strings);
       }
       // if still not enough, pad from right with empty
@@ -134,7 +136,7 @@
       const availableW = W - padding*2;
       const strings = cfg.strings;
       const startFret = cfg.startFret;
-      const frets = 5; // number of frets to draw
+      const frets = (typeof cfg.frets === 'number' && !isNaN(cfg.frets)) ? Math.max(1, Math.min(24, cfg.frets)) : 5;
       const fretSpacing = (H - padding*2 - nutHeight - 20) / frets;
       const stringSpacing = availableW / (strings - 1);
 
@@ -207,9 +209,12 @@
       // fret numbers (right)
       ctx.fillStyle = "#000";
       ctx.font = "12px Arial";
+      // draw fret numbers on the right when startFret > 0
       if (startFret > 0) {
-        // moved start fret marker left; keep small right label too (optional)
-        ctx.fillText("+" , left + availableW + 8, top + fretSpacing/2);
+        for (let f = 0; f < frets; f++) {
+          const fretNum = startFret + f + 1;
+          ctx.fillText(String(fretNum), left + availableW + 8, top + (f + 0.5) * fretSpacing + 4);
+        }
       }
 
       // draw per-string markers
@@ -303,11 +308,10 @@
 
       const grid = document.createElement('div');
       grid.className = 'strings-grid';
-     const tuningNotes = parseTuningString(cfg.tuning || 'EADGBE', strings);
       for (let s = 0; s < strings; s++) {
         const idxLabel = document.createElement('div');
-        const note = tuningNotes[s] || '';
-        idxLabel.textContent = 's' + s + ' (' + (strings - s) + ')' + (note ? ' ' + note : ''); // show index, visual number, and tuning note
+        // simple row label: "String 6", "String 5", ...
+        idxLabel.textContent = 'String ' + (strings - s);
 
         // On checkbox
         const onWrap = document.createElement('div');
@@ -385,12 +389,14 @@
     function applyControlsToCfg() {
       const chordInput = document.getElementById('chordInput');
       const tuningInput = document.getElementById('tuningInput');
+      const fretsInput = document.getElementById('fretsInput');
       const stringsInput = document.getElementById('stringsInput');
       const startInput = document.getElementById('startInput');
 
       const cfg = window.currentCfg || {};
       cfg.chordName = chordInput.value || '';
       cfg.tuning = tuningInput ? (tuningInput.value || 'EADGBE') : (cfg.tuning || 'EADGBE');
+      cfg.frets = fretsInput ? (Math.max(1, Math.min(24, parseInt(fretsInput.value, 10) || 5))) : (cfg.frets || 5);
       let strings = parseInt(stringsInput.value, 10) || 6;
       strings = Math.max(1, Math.min(12, strings));
       cfg.strings = strings;
@@ -403,13 +409,13 @@
         const fretElem = document.getElementById('s' + s + '_fret_input');
         const fingerElem = document.getElementById('s' + s + '_finger_input');
         const colorElem = document.getElementById('s' + s + '_color_input');
-       const labelElem = document.getElementById('s' + s + '_label_input');
+        const labelElem = document.getElementById('s' + s + '_label_input');
         // onElem now indicates muted (checked => muted true)
         const muted = !!(onElem && onElem.checked);
         const fret = fretElem ? parseInt(fretElem.value, 10) : 0;
         const finger = fingerElem ? parseInt(fingerElem.value, 10) : -1;
         const color = colorElem ? colorElem.value : (fret === 0 ? 'white' : 'black');
-       const label = labelElem ? String(labelElem.value || '') : '';
+        const label = labelElem ? String(labelElem.value || '') : '';
         sc.push({ muted, fret: isNaN(fret) ? 0 : fret, finger: isNaN(finger) ? -1 : finger, color: color, label: label });
       }
       cfg.stringsCfg = sc;
@@ -425,18 +431,19 @@
       const p = u.searchParams;
       p.set('chord', cfg.chordName || '');
       p.set('tuning', cfg.tuning || 'EADGBE');
+      p.set('frets', String(cfg.frets || 5));
       p.set('strings', String(cfg.strings));
       p.set('start', String(cfg.startFret));
       // remove existing s* params first
       [...p.keys()].forEach(k => { if (/^s\d+_/.test(k)) p.delete(k); });
       for (let i = 0; i < cfg.strings; i++) {
-        const s = cfg.stringsCfg[i] || { muted:false, fret:0, finger:-1, color:'black' };
+        const s = cfg.stringsCfg[i] || { muted:false, fret:0, finger:-1, color:'black', label: '' };
         // store muted as 1/0
         p.set('s' + i + '_muted', s.muted ? '1' : '0');
         p.set('s' + i + '_fret', String(s.fret));
         p.set('s' + i + '_finger', String(s.finger));
         p.set('s' + i + '_color', String(s.color));
-       p.set('s' + i + '_label', String(s.label || ''));
+        p.set('s' + i + '_label', String(s.label || ''));
       }
       // replace state without reloading
       const newUrl = u.pathname + '?' + p.toString();
@@ -446,15 +453,16 @@
     function readConfigFromUrl() {
       const chordName = getParam('chord', '');
       const tuning = getParam('tuning', 'EADGBE');
+      const frets = parseIntParam('frets', 5);
       const strings = parseIntParam('strings', 6);
       const startFret = parseIntParam('start', 0);
       const stringsCfg = parseStringConfig(strings);
-      return { chordName, tuning, strings, startFret, stringsCfg };
+      return { chordName, tuning, frets, strings, startFret, stringsCfg };
     }
 
     function showParams(cfg) {
       const p = document.getElementById('params');
-      let txt = 'Chord: ' + (cfg.chordName || '') + ' &nbsp;&nbsp; Tuning: ' + (cfg.tuning || 'EADGBE') + ' | strings=' + cfg.strings + ' | start=' + cfg.startFret + '<br>';
+      let txt = 'Chord: ' + (cfg.chordName || '') + ' &nbsp;&nbsp; Tuning: ' + (cfg.tuning || 'EADGBE') + ' | frets=' + (cfg.frets || 5) + ' | strings=' + cfg.strings + ' | start=' + cfg.startFret + '<br>';
       for (let i=0;i<cfg.strings;i++){
         const s = cfg.stringsCfg[i];
         txt += 's'+i+'=' + (s.muted ? 'muted' : 'on') + ',fret=' + s.fret + ',finger=' + s.finger + ',color=' + (s.color || '') + (i<cfg.strings-1? ' | ':'');
@@ -465,12 +473,21 @@
 
     // wire buttons
     document.getElementById('saveBtn').addEventListener('click', function(){
-      const canvas = document.getElementById('chart');
-      const a = document.createElement('a');
-      a.href = canvas.toDataURL('image/png');
-      a.download = (getParam('chord','chord') || 'chord') + '.png';
-      a.click();
-    });
+  const canvas = document.getElementById('chart');
+  // create temp canvas at the same pixel buffer size and fill white
+  const tmp = document.createElement('canvas');
+  tmp.width = canvas.width;
+  tmp.height = canvas.height;
+  const tctx = tmp.getContext('2d');
+  tctx.fillStyle = '#fff';
+  tctx.fillRect(0, 0, tmp.width, tmp.height);
+  // draw the original canvas on top (preserves DPR pixel buffer)
+  tctx.drawImage(canvas, 0, 0);
+  const a = document.createElement('a');
+  a.href = tmp.toDataURL('image/png');
+  a.download = (getParam('chord','chord') || 'chord') + '.png';
+  a.click();
+});
 
     document.getElementById('refreshBtn').addEventListener('click', function(){
       initRender();
@@ -483,10 +500,12 @@
       cfg.stringsCfg.length = cfg.strings; // trim if longer
       cfg.chordName = cfg.chordName || '';
       cfg.startFret = isNaN(cfg.startFret) ? 0 : cfg.startFret;
+      cfg.frets = (typeof cfg.frets === 'number' && !isNaN(cfg.frets)) ? Math.max(1, Math.min(24, cfg.frets)) : 5;
       window.currentCfg = cfg;
 
       // populate top-level controls
       document.getElementById('chordInput').value = cfg.chordName;
+      document.getElementById('fretsInput').value = cfg.frets;
       document.getElementById('stringsInput').value = cfg.strings;
       document.getElementById('startInput').value = cfg.startFret;
 
@@ -510,6 +529,7 @@
 
       document.getElementById('chordInput').oninput = applyControlsToCfg;
       document.getElementById('startInput').oninput = applyControlsToCfg;
+      document.getElementById('fretsInput').oninput = applyControlsToCfg;
     }
 
     // initial render
