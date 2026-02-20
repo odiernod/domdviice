@@ -257,40 +257,174 @@ $(document).ready(function(){
         });
 });
 
+// helper that ensures a canvas exists in the instrument image container and returns it
+function ensureInstrumentCanvas(divId, width = 800, height = 200) {
+    var $div = $("#" + divId);
+    var canvas = $div.find('canvas')[0];
+    if (!canvas) {
+        canvas = document.createElement('canvas');
+        $div.empty().append(canvas);
+    }
+    // always adjust size to match requested dimensions
+    if (canvas.width !== width) canvas.width = width;
+    if (canvas.height !== height) canvas.height = height;
+    canvas.style.width  = width + 'px';
+    canvas.style.height = height + 'px';
+    return canvas;
+}
+
+// schedule drawing of guitar fretboard behind the given table
+function updateGuitarCanvas(divId, tableId) {
+    requestAnimationFrame(function() {
+        var $tbl = $("#" + tableId);
+        if (!$tbl.length) {
+            return;
+        }
+        var cols = $tbl.find('tr:first td').length;
+        var rows = $tbl.find('tr').length;
+        if (cols === 0 || rows === 0) {
+            return;
+        }
+        // use outer dimensions for reliable sizing
+        var tblW = $tbl.outerWidth();
+        var tblH = $tbl.outerHeight();
+        var cellW = tblW / cols;
+        var labelMargin = 20;  // extra space at bottom for fret numbers
+        var offsetX = cellW / 2; // shift right by half a cell
+        var w = tblW + offsetX;
+        var h = tblH + labelMargin;
+        var c = ensureInstrumentCanvas(divId, w, h);
+        // pass cellW only; draw function ignores cellH now
+        drawGuitarFretboard(c, cols, rows, cellW, null, offsetX, labelMargin);
+    });
+}
+
+// draw a simple guitar fretboard on the supplied canvas
+// cols = number of note columns (frets + 1), rows = number of strings
+// cellW/cellH = measured cell dimensions; offsetX shifts the drawing right
+// labelMargin reserves space at the bottom for the fret numbers
+function drawGuitarFretboard(canvas, cols = 24, rows = 6,
+                              cellW = null, cellH = null,
+                              offsetX = 0, labelMargin = 20) {
+    var ctx = canvas.getContext('2d');
+    var w = canvas.width, h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+    ctx.strokeStyle = '#000';
+    ctx.lineWidth = 1;
+
+    // compute spacing and base x position
+    var spacingX = cellW || ((w - offsetX) / cols);
+    var baseX = offsetX;
+
+    // strings: evenly spaced in the usable area (exclude label margin)
+    var usableH = h - labelMargin;
+    var spacingY = usableH / rows;
+    var stringYs = [];
+    for (var s = 0; s < rows; s++) {
+        var y = spacingY * s + spacingY / 2;
+        stringYs.push(y);
+    }
+    var topY = stringYs[0];
+    var bottomY = stringYs[stringYs.length - 1];
+
+    // draw vertical nut/fret lines only between high/low strings
+    for (var f = 0; f <= cols; f++) {
+        var x = baseX + spacingX * f;
+        ctx.beginPath();
+        ctx.moveTo(x, topY);
+        ctx.lineTo(x, bottomY);
+        ctx.lineWidth = (f === 0 ? 3 : 1);
+        ctx.stroke();
+    }
+
+    // draw strings
+    ctx.lineWidth = 1;
+    stringYs.forEach(function(y) {
+        ctx.beginPath();
+        ctx.moveTo(baseX, y);
+        ctx.lineTo(w, y);
+        ctx.stroke();
+    });
+
+    // fret markers (inlay dots)
+    var markers = [3,5,7,9,12,15,17,19,21];
+    ctx.fillStyle = '#444';
+    markers.forEach(function(f) {
+        if (f > cols) return;
+        var mx = baseX + spacingX * (f - 0.5);
+        var ry = usableH / 2;
+        if (f === 12) {
+            // draw two vertical dots for 12th fret
+            var dy = 8;
+            ctx.beginPath(); ctx.arc(mx, ry - dy, 4, 0, Math.PI*2); ctx.fill();
+            ctx.beginPath(); ctx.arc(mx, ry + dy, 4, 0, Math.PI*2); ctx.fill();
+        } else {
+            var radius = 5;
+            ctx.beginPath();
+            ctx.arc(mx, ry, radius, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    });
+
+    // fret numbers at actual fret lines
+    ctx.fillStyle = '#000';
+    ctx.font = '12px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'bottom';
+    for (var f = 0; f <= cols; f++) {
+        var x = baseX + spacingX * f;
+        ctx.fillText(f, x, h - 2);
+    }
+}
+
 function loadInstrument1()
 {
-    // Load the instrument image.
-    $("#instrumentimg1").html(img[$("#instrument1Menu").val()]);
-            // Load the instrument.
-            $("#instrument1").html(instrument[$("#instrument1Menu").val() + $("#tuning1Menu").val()]);
-            attachAll("instrument1");
+    var type = $("#instrument1Menu").val();
+    $("#instrument1").html(instrument[type + $("#tuning1Menu").val()]);
+    attachAll("instrument1");
+    if (type === 'guitar') {
+        // pass measured cell dimensions via updateGuitarCanvas; helper
+        // already calculates them, so nothing changes here
+        updateGuitarCanvas('instrumentimg1', 'instrument1');
+    } else {
+        $("#instrumentimg1").html(img[type]);
+    }
 }
 
 function loadInstrument2()
 {
-    // Load the instrument image.
-    $("#instrumentimg2").html(img[$("#instrument2Menu").val()]);
-            // Load the instrument.
-            $("#instrument2").html(instrument[$("#instrument2Menu").val() + $("#tuning2Menu").val()]);
-            attachAll("instrument2");
+    var type = $("#instrument2Menu").val();
+    $("#instrument2").html(instrument[type + $("#tuning2Menu").val()]);
+    attachAll("instrument2");
+    if (type === 'guitar') {
+        updateGuitarCanvas('instrumentimg2', 'instrument2');
+    } else {
+        $("#instrumentimg2").html(img[type]);
+    }
 }
 
 function loadInstrument3()
 {
-    // Load the instrument image.
-    $("#instrumentimg3").html(img[$("#instrument3Menu").val()]);
-            // Load the instrument.
-            $("#instrument3").html(instrument[$("#instrument3Menu").val() + $("#tuning3Menu").val()]);
-            attachAll("instrument3");
+    var type = $("#instrument3Menu").val();
+    $("#instrument3").html(instrument[type + $("#tuning3Menu").val()]);
+    attachAll("instrument3");
+    if (type === 'guitar') {
+        updateGuitarCanvas('instrumentimg3', 'instrument3');
+    } else {
+        $("#instrumentimg3").html(img[type]);
+    }
 }
 
 function loadInstrument4()
 {
-    // Load the instrument image.
-    $("#instrumentimg4").html(img[$("#instrument4Menu").val()]);
-            // Load the instrument.
-            $("#instrument4").html(instrument[$("#instrument4Menu").val() + $("#tuning4Menu").val()]);
-            attachAll("instrument4");
+    var type = $("#instrument4Menu").val();
+    $("#instrument4").html(instrument[type + $("#tuning4Menu").val()]);
+    attachAll("instrument4");
+    if (type === 'guitar') {
+        updateGuitarCanvas('instrumentimg4', 'instrument4');
+    } else {
+        $("#instrumentimg4").html(img[type]);
+    }
 }
 
 function updateAfterInstrumentChange()
@@ -310,10 +444,14 @@ $(document).ready(function(){
     $('#instrument1').html(instrument.diatonicrichterc)
     $('#instrumentimg2').html(img.piano)
     $('#instrument2').html(instrument.pianostandard)
-    $('#instrumentimg3').html(img.guitar)
-    $('#instrument3').html(instrument.guitarstandard)
-    $('#instrumentimg4').html(img.guitar)
-    $('#instrument4').html(instrument.guitarstandard)
+    // draw default guitar in banks 3 and 4 (size after html inserted)
+    $('#instrument3').html(instrument.guitarstandard);
+    attachAll('instrument3');
+    updateGuitarCanvas('instrumentimg3', 'instrument3');
+
+    $('#instrument4').html(instrument.guitarstandard);
+    attachAll('instrument4');
+    updateGuitarCanvas('instrumentimg4', 'instrument4');
     attachAll('instrument1');
     attachAll('instrument2');
     attachAll('instrument3');
