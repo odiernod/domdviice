@@ -377,15 +377,110 @@ function drawGuitarFretboard(canvas, cols = 24, rows = 6,
     }
 }
 
+// draw a simple ukulele fretboard (4 strings, typical ukulele inlay markers)
+function drawUkuleleFretboard(canvas, cols = 12, rows = 4,
+                              cellW = null, cellH = null,
+                              offsetX = 0, labelMargin = 20) {
+    var ctx = canvas.getContext('2d');
+    var w = canvas.width, h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+    ctx.strokeStyle = '#000';
+    ctx.lineWidth = 1;
+
+    var spacingX = cellW || ((w - offsetX) / cols);
+    var baseX = offsetX;
+
+    var usableH = h - labelMargin;
+    var spacingY = usableH / rows;
+    var stringYs = [];
+    for (var s = 0; s < rows; s++) {
+        var y = spacingY * s + spacingY / 2;
+        stringYs.push(y);
+    }
+    var topY = stringYs[0];
+    var bottomY = stringYs[stringYs.length - 1];
+
+    for (var f = 0; f <= cols; f++) {
+        var x = baseX + spacingX * f;
+        ctx.beginPath();
+        ctx.moveTo(x, topY);
+        ctx.lineTo(x, bottomY);
+        ctx.lineWidth = (f === 0 ? 3 : 1);
+        ctx.stroke();
+    }
+
+    ctx.lineWidth = 1;
+    stringYs.forEach(function(y) {
+        ctx.beginPath();
+        ctx.moveTo(baseX, y);
+        ctx.lineTo(w, y);
+        ctx.stroke();
+    });
+
+    // ukulele marker frets: usually 5,7,10,12 (double), 15, etc.
+    var markers = [5,7,10,12,15,17,19];
+    ctx.fillStyle = '#444';
+    markers.forEach(function(f) {
+        if (f > cols) return;
+        var mx = baseX + spacingX * (f - 0.5);
+        var ry = usableH / 2;
+        if (f === 12) {
+            var dy = 8;
+            ctx.beginPath(); ctx.arc(mx, ry - dy, 4, 0, Math.PI*2); ctx.fill();
+            ctx.beginPath(); ctx.arc(mx, ry + dy, 4, 0, Math.PI*2); ctx.fill();
+        } else {
+            var radius = 5;
+            ctx.beginPath();
+            ctx.arc(mx, ry, radius, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    });
+
+    ctx.fillStyle = '#000';
+    ctx.font = '12px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'bottom';
+    for (var f = 0; f <= cols; f++) {
+        var x = baseX + spacingX * f;
+        ctx.fillText(f, x, h - 2);
+    }
+}
+
+// helper analogous to updateGuitarCanvas but for ukulele
+function updateUkuleleCanvas(divId, tableId) {
+    requestAnimationFrame(function() {
+        var $tbl = $("#" + tableId);
+        if (!$tbl.length) {
+            return;
+        }
+        var cols = $tbl.find('tr:first td').length;
+        var rows = $tbl.find('tr').length;
+        if (cols === 0 || rows === 0) {
+            return;
+        }
+        var tblW = $tbl.outerWidth();
+        var tblH = $tbl.outerHeight();
+        var cellW = tblW / cols;
+        var labelMargin = 20;
+        var offsetX = cellW / 2;
+        var w = tblW + offsetX;
+        var h = tblH + labelMargin;
+        var c = ensureInstrumentCanvas(divId, w, h);
+        drawUkuleleFretboard(c, cols, rows, cellW, null, offsetX, labelMargin);
+    });
+}
+
 function loadInstrument1()
 {
     var type = $("#instrument1Menu").val();
     $("#instrument1").html(instrument[type + $("#tuning1Menu").val()]);
     attachAll("instrument1");
-    if (type === 'guitar') {
-        // pass measured cell dimensions via updateGuitarCanvas; helper
-        // already calculates them, so nothing changes here
-        updateGuitarCanvas('instrumentimg1', 'instrument1');
+    if (type === 'guitar' || type === 'ukulele') {
+        // canvas-based drawing for stringed instruments
+        if (type === 'guitar')
+            updateGuitarCanvas('instrumentimg1', 'instrument1');
+        else
+            updateUkuleleCanvas('instrumentimg1', 'instrument1');
     } else {
         $("#instrumentimg1").html(img[type]);
     }
@@ -396,8 +491,11 @@ function loadInstrument2()
     var type = $("#instrument2Menu").val();
     $("#instrument2").html(instrument[type + $("#tuning2Menu").val()]);
     attachAll("instrument2");
-    if (type === 'guitar') {
-        updateGuitarCanvas('instrumentimg2', 'instrument2');
+    if (type === 'guitar' || type === 'ukulele') {
+        if (type === 'guitar')
+            updateGuitarCanvas('instrumentimg2', 'instrument2');
+        else
+            updateUkuleleCanvas('instrumentimg2', 'instrument2');
     } else {
         $("#instrumentimg2").html(img[type]);
     }
@@ -408,8 +506,11 @@ function loadInstrument3()
     var type = $("#instrument3Menu").val();
     $("#instrument3").html(instrument[type + $("#tuning3Menu").val()]);
     attachAll("instrument3");
-    if (type === 'guitar') {
-        updateGuitarCanvas('instrumentimg3', 'instrument3');
+    if (type === 'guitar' || type === 'ukulele') {
+        if (type === 'guitar')
+            updateGuitarCanvas('instrumentimg3', 'instrument3');
+        else
+            updateUkuleleCanvas('instrumentimg3', 'instrument3');
     } else {
         $("#instrumentimg3").html(img[type]);
     }
@@ -420,8 +521,11 @@ function loadInstrument4()
     var type = $("#instrument4Menu").val();
     $("#instrument4").html(instrument[type + $("#tuning4Menu").val()]);
     attachAll("instrument4");
-    if (type === 'guitar') {
-        updateGuitarCanvas('instrumentimg4', 'instrument4');
+    if (type === 'guitar' || type === 'ukulele') {
+        if (type === 'guitar')
+            updateGuitarCanvas('instrumentimg4', 'instrument4');
+        else
+            updateUkuleleCanvas('instrumentimg4', 'instrument4');
     } else {
         $("#instrumentimg4").html(img[type]);
     }

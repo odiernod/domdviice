@@ -23,7 +23,7 @@ img = {diatonicrichter: '<img src="diatonic.png">',
         augmented10: '<img src="augmented10.png">',
         drawdiminished10: '<img src="augmented10.png">',
         valvedwholetone10: '<img src="wholetone10.png">',
-        ukulele: '<img src="ukulele.png">'}
+        ukulele: ''}
 menu = {chromatic12: "<option value='c4'>Standard (C4) Solo Tuned</option><option value='c3'>Tenor (C3) Orchestra Tuned</option>",
    
 chromatic16: "<option value='c3'>Standard (C3)</option>",
