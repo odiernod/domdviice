@@ -1,29 +1,29 @@
 img = {diatonicrichter: '<img src="diatonic.png">',
-       paddyrichtertuned: '<img src="paddyrichter.png">',
-       piano: '<img src="piano.png">',
-       guitar: '<img src="guitar.png">',
-       chromatic12: '<img src="chromatic12.png">',
-       chromatic16: '<img src="chromatic16.png">',
-       diatonicminor: '<img src="diatonicminor.png">',
-       diatonicwildetuned: '<img src="wildetuned.png">',
-       paddywildetuned: '<img src="paddywilde.png">',
-       valvedpaddywildetuned: '<img src="valvedpaddywilde.png">',
-       valveddorianwildealtered: '<img src="domtuned.png">',
-       domtuned: '<img src="domtuned.png">',
-       valvedpaddy123tuned: '<img src="valvedpaddy123.png">',
-       valvedeasydiatonic: '<img src="easydiatonic.png">',
-       testchromatic10tuning: '<img src="testchromatic10.png">',
-       powerchromatic10tuning: '<img src="wholetone10.png">',
-       diatonicwildeminor: '<img src="wildeminor.png">',
-       diatonicpowerbender: '<img src="powerbender.png">',
-       powerdrawtuned: '<img src="powerdraw.png">',
-       valvedpaddywildealtered: '<img src="valvedpaddywildealtered.png">',
-       sunnyrbtuned: '<img src="valvedrbtuned.png">',
-       diminished10: '<img src="diminished10.png">',
-       augmented10: '<img src="augmented10.png">',
-       drawdiminished10: '<img src="augmented10.png">',
-       valvedwholetone10: '<img src="wholetone10.png">',
-       ukulele: '<img src="ukulele.png">'}
+        paddyrichtertuned: '<img src="paddyrichter.png">',
+        piano: '<img src="piano.png">',
+        guitar: '',
+        chromatic12: '<img src="chromatic12.png">',
+        chromatic16: '<img src="chromatic16.png">',
+        diatonicminor: '<img src="diatonicminor.png">',
+        diatonicwildetuned: '<img src="wildetuned.png">',
+        paddywildetuned: '<img src="paddywilde.png">',
+        valvedpaddywildetuned: '<img src="valvedpaddywilde.png">',
+        valveddorianwildealtered: '<img src="domtuned.png">',
+        domtuned: '<img src="domtuned.png">',
+        valvedpaddy123tuned: '<img src="valvedpaddy123.png">',
+        valvedeasydiatonic: '<img src="easydiatonic.png">',
+        testchromatic10tuning: '<img src="testchromatic10.png">',
+        powerchromatic10tuning: '<img src="wholetone10.png">',
+        diatonicwildeminor: '<img src="wildeminor.png">',
+        diatonicpowerbender: '<img src="powerbender.png">',
+        powerdrawtuned: '<img src="powerdraw.png">',
+        valvedpaddywildealtered: '<img src="valvedpaddywildealtered.png">',
+        sunnyrbtuned: '<img src="valvedrbtuned.png">',
+        diminished10: '<img src="diminished10.png">',
+        augmented10: '<img src="augmented10.png">',
+        drawdiminished10: '<img src="augmented10.png">',
+        valvedwholetone10: '<img src="wholetone10.png">',
+        ukulele: '<img src="ukulele.png">'}
 menu = {chromatic12: "<option value='c4'>Standard (C4) Solo Tuned</option><option value='c3'>Tenor (C3) Orchestra Tuned</option>",
    
 chromatic16: "<option value='c3'>Standard (C3)</option>",
@@ -497,398 +497,399 @@ instrument4: `<option value='guitar'>Guitar</option>
 instrument = {bass1:
         `
         <tr>
-        <td><img class="noNoteNames" name="C4" tone="261.63" src="blank.png" width="27" height="30"></td>
+        <td><img class="noNoteNames" name="C4" tone="261.63" width="27" height="30"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="A3" tone="220" src="blank.png" width="27" height="30"></td>
+        <td><img class="noNoteNames" name="A3" tone="220" width="27" height="30"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="F3" tone="174.61" src="blank.png" width="27" height="30"></td>
+        <td><img class="noNoteNames" name="F3" tone="174.61" width="27" height="30"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="D3" tone="146.83" src="blank.png" width="27" height="30"></td>
+        <td><img class="noNoteNames" name="D3" tone="146.83" width="27" height="30"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="B2" tone="123.47" src="blank.png" width="27" height="33"></td>
+        <td><img class="noNoteNames" name="B2" tone="123.47" width="27" height="33"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="G2" tone="98" src="blank.png" width="27" height="29"></td>
+        <td><img class="noNoteNames" name="G2" tone="98" width="27" height="29"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="E2" tone="82.41" src="blank.png" width="27" height="31"></td>
+        <td><img class="noNoteNames" name="E2" tone="82.41" width="27" height="31"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="C2" tone="65.41" src="blank.png" width="27" height="30"></td>
+        <td><img class="noNoteNames" name="C2" tone="65.41" width="27" height="30"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="A1" tone="55" src="blank.png" width="27" height="31"></td>
+        <td><img class="noNoteNames" name="A1" tone="55" width="27" height="31"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="F1" tone="43.65" src="blank.png" width="27" height="30"></td>
+        <td><img class="noNoteNames" name="F1" tone="43.65" width="27" height="30"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="D1" tone="36.71" src="blank.png" width="27" height="29"></td>
+        <td><img class="noNoteNames" name="D1" tone="36.71" width="27" height="29"></td>
         </tr>`,
         bass2:
         `
         <tr>
-        <td><img class="noNoteNames" name="B3" tone="246.94" src="blank.png" width="27" height="29"></td>
+        <td><img class="noNoteNames" name="B3" tone="246.94" width="27" height="29"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="G3" tone="196" src="blank.png" width="27" height="29"></td>
+        <td><img class="noNoteNames" name="G3" tone="196" width="27" height="29"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="E3" tone="164.81" src="blank.png" width="27" height="31"></td>
+        <td><img class="noNoteNames" name="E3" tone="164.81" width="27" height="31"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="C3" tone="130.81" src="blank.png" width="27" height="31"></td>
+        <td><img class="noNoteNames" name="C3" tone="130.81" width="27" height="31"></td>
         </tr>
         <tr>
         <td><img class="noNoteNames" name="A2" onmouseover="A2on()"
-        onmouseout="A2off()" tone="110" src="blank.png" width="27" height="30"></td>
+        onmouseout="A2off()" tone="110" width="27" height="30"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="F2" tone="87.31" src="blank.png" width="27" height="31"></td>
+        <td><img class="noNoteNames" name="F2" tone="87.31" width="27" height="31"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="D2" tone="73.42" src="blank.png" width="27" height="31"></td>
+        <td><img class="noNoteNames" name="D2" tone="73.42" width="27" height="31"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="B1" tone="61.74" src="blank.png" width="27" height="30"></td>
+        <td><img class="noNoteNames" name="B1" tone="61.74" width="27" height="30"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="G1" tone="49" src="blank.png" width="27" height="30"></td>
+        <td><img class="noNoteNames" name="G1" tone="49" width="27" height="30"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="E1" tone="41.2" src="blank.png" width="27" height="31"></td>
+        <td><img class="noNoteNames" name="E1" tone="41.2" width="27" height="31"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="C1" tone="32.7" src="blank.png" width="27" height="29"></td>
+        <td><img class="noNoteNames" name="C1" tone="32.7" width="27" height="29"></td>
         </tr>`,
         bass3:
         `
         <tr>
-        <td><img class="noNoteNames" name="C4s" tone="277.18" src="blank.png" width="27" height="30"></td>
+        <td><img class="noNoteNames" name="C4s" tone="277.18" width="27" height="30"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="A3s" tone="233.08" src="blank.png" width="27" height="30"></td>
+        <td><img class="noNoteNames" name="A3s" tone="233.08" width="27" height="30"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="F3s" tone="185" src="blank.png" width="27" height="29"></td>
+        <td><img class="noNoteNames" name="F3s" tone="185" width="27" height="29"></td>
         </tr>
         <tr>
-        <td><img src="blank.png" width="27" height="20"></td>
+        <td><img width="27" height="20"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="C3s" tone="138.59" src="blank.png" width="27" height="29"></td>
+        <td><img class="noNoteNames" name="C3s" tone="138.59" width="27" height="29"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="A2s" tone="116.54" src="blank.png" width="27" height="29"></td>
+        <td><img class="noNoteNames" name="A2s" tone="116.54" width="27" height="29"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="F2s" tone="92.5" src="blank.png" width="27" height="29"></td>
+        <td><img class="noNoteNames" name="F2s" tone="92.5" width="27" height="29"></td>
         </tr>
         <tr>
-        <td><img src="blank.png" width="27" height="20"></td>
+        <td><img width="27" height="20"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="C2s" tone="69.3" src="blank.png" width="27" height="29"></td>
+        <td><img class="noNoteNames" name="C2s" tone="69.3" width="27" height="29"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="A1s" tone="58.27" src="blank.png" width="27" height="29"></td>
+        <td><img class="noNoteNames" name="A1s" tone="58.27" width="27" height="29"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="F1s" tone="46.25" src="blank.png" width="27" height="29"></td>
+        <td><img class="noNoteNames" name="F1s" tone="46.25" width="27" height="29"></td>
         </tr>
         <tr>
-        <td><img src="blank.png" width="27" height="20"></td>
+        <td><img width="27" height="20"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="C1s" tone="34.65" src="blank.png" width="27" height="29"></td>
+        <td><img class="noNoteNames" name="C1s" tone="34.65" width="27" height="29"></td>
         </tr>`,
         bass4:
         `
         <tr>
-        <td><img class="noNoteNames" name="G3s" tone="207.65" src="blank.png" width="27" height="26"></td>
+        <td><img class="noNoteNames" name="G3s" tone="207.65" width="27" height="26"></td>
         </tr>
         <tr>
-        <td><img src="blank.png" width="27" height="21"></td>
+        <td><img width="27" height="21"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="D3s" tone="155.56" src="blank.png" width="27" height="26"></td>
+        <td><img class="noNoteNames" name="D3s" tone="155.56" width="27" height="26"></td>
         </tr>
         <tr>
-        <td><img src="blank.png" width="27" height="35"></td>
+        <td><img width="27" height="35"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="G2s" tone="103.83" src="blank.png" width="27" height="26"></td>
+        <td><img class="noNoteNames" name="G2s" tone="103.83" width="27" height="26"></td>
         </tr>
         <tr>
-        <td><img src="blank.png" width="27" height="23"></td>
+        <td><img width="27" height="23"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="D2s" tone="77.78" src="blank.png" width="27" height="26"></td>
+        <td><img class="noNoteNames" name="D2s" tone="77.78" width="27" height="26"></td>
         </tr>
         <tr>
-        <td><img src="blank.png" width="27" height="33"></td>
+        <td><img width="27" height="33"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="G1s" tone="51.91" src="blank.png" width="27" height="26"></td>
+        <td><img class="noNoteNames" name="G1s" tone="51.91" width="27" height="26"></td>
         </tr>
         <tr>
-        <td><img src="blank.png" width="27" height="21"></td>
+        <td><img width="27" height="21"></td>
         </tr>
         <tr>
-        <td><img class="noNoteNames" name="D1s" tone="38.89" src="blank.png" width="27" height="26"></td>
+        <td><img class="noNoteNames" name="D1s" tone="38.89" width="27" height="26"></td>
         </tr>`,
         drawdiminished10c:
 `<tr>
-<td><img name="G3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B3" src="blank.png" width="63" height="63"></td>"
-<td><img name="D4" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B4" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B5" src="blank.png" width="63" height="63"></td>"
+<td><img name="G3s" width="63" height="63"></td>"
+<td><img name="B3" width="63" height="63"></td>"
+<td><img name="D4" width="63" height="63"></td>"
+<td><img name="F4" width="63" height="63"></td>"
+<td><img name="G4s" width="63" height="63"></td>"
+<td><img name="B4" width="63" height="63"></td>"
+<td><img name="D5" width="63" height="63"></td>"
+<td><img name="F5" width="63" height="63"></td>"
+<td><img name="G5s" width="63" height="63"></td>"
+<td><img name="B5" width="63" height="63"></td>"
 </tr>
 <tr>
-<td><img name="B3" src="blank.png" width="63" height="63"></td>"
-<td><img name="D4" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B4" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B5" src="blank.png" width="63" height="63"></td>"
-<td><img name="D6" src="blank.png" width="63" height="63"></td>"
+<td><img name="B3" width="63" height="63"></td>"
+<td><img name="D4" width="63" height="63"></td>"
+<td><img name="F4" width="63" height="63"></td>"
+<td><img name="G4s" width="63" height="63"></td>"
+<td><img name="B4" width="63" height="63"></td>"
+<td><img name="D5" width="63" height="63"></td>"
+<td><img name="F5" width="63" height="63"></td>"
+<td><img name="G5s" width="63" height="63"></td>"
+<td><img name="B5" width="63" height="63"></td>"
+<td><img name="D6" width="63" height="63"></td>"
 </tr>
 <tr>
-<td><img name="A3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="E4" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="E5" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A3s" width="63" height="63"></td>"
+<td><img name="C4s" width="63" height="63"></td>"
+<td><img name="E4" width="63" height="63"></td>"
+<td><img name="G4" width="63" height="63"></td>"
+<td><img name="A4s" width="63" height="63"></td>"
+<td><img name="C5s" width="63" height="63"></td>"
+<td><img name="E5" width="63" height="63"></td>"
+<td><img name="G5" width="63" height="63"></td>"
+<td><img name="A5s" width="63" height="63"></td>"
+<td><img name="C6s" width="63" height="63"></td>"
 </tr>
 <tr>
-<td><img name="A3" src="blank.png" width="63" height="63"></td>"
-<td><img name="C4" src="blank.png" width="63" height="63"></td>"
-<td><img name="D4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5" src="blank.png" width="63" height="63"></td>"
-<td><img name="C6" src="blank.png" width="63" height="63"></td>"
+<td><img name="A3" width="63" height="63"></td>"
+<td><img name="C4" width="63" height="63"></td>"
+<td><img name="D4s" width="63" height="63"></td>"
+<td><img name="F4s" width="63" height="63"></td>"
+<td><img name="A4" width="63" height="63"></td>"
+<td><img name="C5" width="63" height="63"></td>"
+<td><img name="D5s" width="63" height="63"></td>"
+<td><img name="F5s" width="63" height="63"></td>"
+<td><img name="A5" width="63" height="63"></td>"
+<td><img name="C6" width="63" height="63"></td>"
 </tr>
 `,
 drawdiminished10db:
 `<tr>
-<td><img name="A3" src="blank.png" width="63" height="63"></td>"
-<td><img name="C4" src="blank.png" width="63" height="63"></td>"
-<td><img name="D4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5" src="blank.png" width="63" height="63"></td>"
-<td><img name="C6" src="blank.png" width="63" height="63"></td>"
+<td><img name="A3" width="63" height="63"></td>"
+<td><img name="C4" width="63" height="63"></td>"
+<td><img name="D4s" width="63" height="63"></td>"
+<td><img name="F4s" width="63" height="63"></td>"
+<td><img name="A4" width="63" height="63"></td>"
+<td><img name="C5" width="63" height="63"></td>"
+<td><img name="D5s" width="63" height="63"></td>"
+<td><img name="F5s" width="63" height="63"></td>"
+<td><img name="A5" width="63" height="63"></td>"
+<td><img name="C6" width="63" height="63"></td>"
 </tr>
 <tr>
-<td><img name="C4" src="blank.png" width="63" height="63"></td>"
-<td><img name="D4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5" src="blank.png" width="63" height="63"></td>"
-<td><img name="C6" src="blank.png" width="63" height="63"></td>"
-<td><img name="D6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C4" width="63" height="63"></td>"
+<td><img name="D4s" width="63" height="63"></td>"
+<td><img name="F4s" width="63" height="63"></td>"
+<td><img name="A4" width="63" height="63"></td>"
+<td><img name="C5" width="63" height="63"></td>"
+<td><img name="D5s" width="63" height="63"></td>"
+<td><img name="F5s" width="63" height="63"></td>"
+<td><img name="A5" width="63" height="63"></td>"
+<td><img name="C6" width="63" height="63"></td>"
+<td><img name="D6s" width="63" height="63"></td>"
 </tr>
 <tr>
-<td><img name="B3" src="blank.png" width="63" height="63"></td>"
-<td><img name="D4" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B4" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B5" src="blank.png" width="63" height="63"></td>"
-<td><img name="D6" src="blank.png" width="63" height="63"></td>"
+<td><img name="B3" width="63" height="63"></td>"
+<td><img name="D4" width="63" height="63"></td>"
+<td><img name="F4" width="63" height="63"></td>"
+<td><img name="G4s" width="63" height="63"></td>"
+<td><img name="B4" width="63" height="63"></td>"
+<td><img name="D5" width="63" height="63"></td>"
+<td><img name="F5" width="63" height="63"></td>"
+<td><img name="G5s" width="63" height="63"></td>"
+<td><img name="B5" width="63" height="63"></td>"
+<td><img name="D6" width="63" height="63"></td>"
 </tr>
 <tr>
-<td><img name="A3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="E4" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="E5" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A3s" width="63" height="63"></td>"
+<td><img name="C4s" width="63" height="63"></td>"
+<td><img name="E4" width="63" height="63"></td>"
+<td><img name="G4" width="63" height="63"></td>"
+<td><img name="A4s" width="63" height="63"></td>"
+<td><img name="C5s" width="63" height="63"></td>"
+<td><img name="E5" width="63" height="63"></td>"
+<td><img name="G5" width="63" height="63"></td>"
+<td><img name="A5s" width="63" height="63"></td>"
+<td><img name="C6s" width="63" height="63"></td>"
 </tr>
 `,
 drawdiminished10d:
 `<tr>
-<td><img name="A3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="E4" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="E5" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A3s" width="63" height="63"></td>"
+<td><img name="C4s" width="63" height="63"></td>"
+<td><img name="E4" width="63" height="63"></td>"
+<td><img name="G4" width="63" height="63"></td>"
+<td><img name="A4s" width="63" height="63"></td>"
+<td><img name="C5s" width="63" height="63"></td>"
+<td><img name="E5" width="63" height="63"></td>"
+<td><img name="G5" width="63" height="63"></td>"
+<td><img name="A5s" width="63" height="63"></td>"
+<td><img name="C6s" width="63" height="63"></td>"
 </tr>
 <tr>
-<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="E4" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="E5" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C6s" src="blank.png" width="63" height="63"></td>"
-<td><img name="E6" src="blank.png" width="63" height="63"></td>"
+<td><img name="C4s" width="63" height="63"></td>"
+<td><img name="E4" width="63" height="63"></td>"
+<td><img name="G4" width="63" height="63"></td>"
+<td><img name="A4s" width="63" height="63"></td>"
+<td><img name="C5s" width="63" height="63"></td>"
+<td><img name="E5" width="63" height="63"></td>"
+<td><img name="G5" width="63" height="63"></td>"
+<td><img name="A5s" width="63" height="63"></td>"
+<td><img name="C6s" width="63" height="63"></td>"
+<td><img name="E6" width="63" height="63"></td>"
 </tr>
 <tr>
-<td><img name="C4" src="blank.png" width="63" height="63"></td>"
-<td><img name="D4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A5" src="blank.png" width="63" height="63"></td>"
-<td><img name="C6" src="blank.png" width="63" height="63"></td>"
-<td><img name="D6s" src="blank.png" width="63" height="63"></td>"
+<td><img name="C4" width="63" height="63"></td>"
+<td><img name="D4s" width="63" height="63"></td>"
+<td><img name="F4s" width="63" height="63"></td>"
+<td><img name="A4" width="63" height="63"></td>"
+<td><img name="C5" width="63" height="63"></td>"
+<td><img name="D5s" width="63" height="63"></td>"
+<td><img name="F5s" width="63" height="63"></td>"
+<td><img name="A5" width="63" height="63"></td>"
+<td><img name="C6" width="63" height="63"></td>"
+<td><img name="D6s" width="63" height="63"></td>"
 </tr>
 <tr>
-<td><img name="B3" src="blank.png" width="63" height="63"></td>"
-<td><img name="D4" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B4" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5" src="blank.png" width="63" height="63"></td>"
-<td><img name="F5" src="blank.png" width="63" height="63"></td>"
-<td><img name="G5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B5" src="blank.png" width="63" height="63"></td>"
-<td><img name="D6" src="blank.png" width="63" height="63"></td>"
+<td><img name="B3" width="63" height="63"></td>"
+<td><img name="D4" width="63" height="63"></td>"
+<td><img name="F4" width="63" height="63"></td>"
+<td><img name="G4s" width="63" height="63"></td>"
+<td><img name="B4" width="63" height="63"></td>"
+<td><img name="D5" width="63" height="63"></td>"
+<td><img name="F5" width="63" height="63"></td>"
+<td><img name="G5s" width="63" height="63"></td>"
+<td><img name="B5" width="63" height="63"></td>"
+<td><img name="D6" width="63" height="63"></td>"
 </tr>
 `,
 drawdiminished10lowd:
 `<tr>
-<td><img name="A2s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="E3" src="blank.png" width="63" height="63"></td>"
-<td><img name="G3" src="blank.png" width="63" height="63"></td>"
-<td><img name="A3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="E4" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A2s" width="63" height="63"></td>"
+<td><img name="C3s" width="63" height="63"></td>"
+<td><img name="E3" width="63" height="63"></td>"
+<td><img name="G3" width="63" height="63"></td>"
+<td><img name="A3s" width="63" height="63"></td>"
+<td><img name="C4s" width="63" height="63"></td>"
+<td><img name="E4" width="63" height="63"></td>"
+<td><img name="G4" width="63" height="63"></td>"
+<td><img name="A4s" width="63" height="63"></td>"
+<td><img name="C5s" width="63" height="63"></td>"
 </tr>
 <tr>
-<td><img name="C3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="E3" src="blank.png" width="63" height="63"></td>"
-<td><img name="G3" src="blank.png" width="63" height="63"></td>"
-<td><img name="A3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="E4" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
-<td><img name="E5" src="blank.png" width="63" height="63"></td>"
+<td><img name="C3s" width="63" height="63"></td>"
+<td><img name="E3" width="63" height="63"></td>"
+<td><img name="G3" width="63" height="63"></td>"
+<td><img name="A3s" width="63" height="63"></td>"
+<td><img name="C4s" width="63" height="63"></td>"
+<td><img name="E4" width="63" height="63"></td>"
+<td><img name="G4" width="63" height="63"></td>"
+<td><img name="A4s" width="63" height="63"></td>"
+<td><img name="C5s" width="63" height="63"></td>"
+<td><img name="E5" width="63" height="63"></td>"
 </tr>
 <tr>
-<td><img name="C3" src="blank.png" width="63" height="63"></td>"
-<td><img name="D3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A3" src="blank.png" width="63" height="63"></td>"
-<td><img name="C4" src="blank.png" width="63" height="63"></td>"
-<td><img name="D4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5s" src="blank.png" width="63" height="63"></td>"
+</td>
+<td><img name="C3" width="63" height="63"></td>"
+<td><img name="D3s" width="63" height="63"></td>"
+<td><img name="F3s" width="63" height="63"></td>"
+<td><img name="A3" width="63" height="63"></td>"
+<td><img name="C4" width="63" height="63"></td>"
+<td><img name="D4s" width="63" height="63"></td>"
+<td><img name="F4s" width="63" height="63"></td>"
+<td><img name="A4" width="63" height="63"></td>"
+<td><img name="C5" width="63" height="63"></td>"
+<td><img name="D5s" width="63" height="63"></td>"
 </tr>
 <tr>
-<td><img name="B2" src="blank.png" width="63" height="63"></td>"
-<td><img name="D3" src="blank.png" width="63" height="63"></td>"
-<td><img name="F3" src="blank.png" width="63" height="63"></td>"
-<td><img name="G3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B3" src="blank.png" width="63" height="63"></td>"
-<td><img name="D4" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B4" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5" src="blank.png" width="63" height="63"></td>"
+<td><img name="B2" width="63" height="63"></td>"
+<td><img name="D3" width="63" height="63"></td>"
+<td><img name="F3" width="63" height="63"></td>"
+<td><img name="G3s" width="63" height="63"></td>"
+<td><img name="B3" width="63" height="63"></td>"
+<td><img name="D4" width="63" height="63"></td>"
+<td><img name="F4" width="63" height="63"></td>"
+<td><img name="G4s" width="63" height="63"></td>"
+<td><img name="B4" width="63" height="63"></td>"
+<td><img name="D5" width="63" height="63"></td>"
 </tr>
 `,
 drawdiminished10lowc:
 `<tr>
-<td><img name="G2s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B2" src="blank.png" width="63" height="63"></td>"
-<td><img name="D3" src="blank.png" width="63" height="63"></td>"
-<td><img name="F3" src="blank.png" width="63" height="63"></td>"
-<td><img name="G3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B3" src="blank.png" width="63" height="63"></td>"
-<td><img name="D4" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B4" src="blank.png" width="63" height="63"></td>"
+<td><img name="G2s" width="63" height="63"></td>"
+<td><img name="B2" width="63" height="63"></td>"
+<td><img name="D3" width="63" height="63"></td>"
+<td><img name="F3" width="63" height="63"></td>"
+<td><img name="G3s" width="63" height="63"></td>"
+<td><img name="B3" width="63" height="63"></td>"
+<td><img name="D4" width="63" height="63"></td>"
+<td><img name="F4" width="63" height="63"></td>"
+<td><img name="G4s" width="63" height="63"></td>"
+<td><img name="B4" width="63" height="63"></td>"
 </tr>
 <tr>
-<td><img name="B2" src="blank.png" width="63" height="63"></td>"
-<td><img name="D3" src="blank.png" width="63" height="63"></td>"
-<td><img name="F3" src="blank.png" width="63" height="63"></td>"
-<td><img name="G3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B3" src="blank.png" width="63" height="63"></td>"
-<td><img name="D4" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="B4" src="blank.png" width="63" height="63"></td>"
-<td><img name="D5" src="blank.png" width="63" height="63"></td>"
+<td><img name="B2" width="63" height="63"></td>"
+<td><img name="D3" width="63" height="63"></td>"
+<td><img name="F3" width="63" height="63"></td>"
+<td><img name="G3s" width="63" height="63"></td>"
+<td><img name="B3" width="63" height="63"></td>"
+<td><img name="D4" width="63" height="63"></td>"
+<td><img name="F4" width="63" height="63"></td>"
+<td><img name="G4s" width="63" height="63"></td>"
+<td><img name="B4" width="63" height="63"></td>"
+<td><img name="D5" width="63" height="63"></td>"
 </tr>
 <tr>
-<td><img name="A2s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="E3" src="blank.png" width="63" height="63"></td>"
-<td><img name="G3" src="blank.png" width="63" height="63"></td>"
-<td><img name="A3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="E4" src="blank.png" width="63" height="63"></td>"
-<td><img name="G4" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5s" src="blank.png" width="63" height="63"></td>"
+<td><img name="A2s" width="63" height="63"></td>"
+<td><img name="C3s" width="63" height="63"></td>"
+<td><img name="E3" width="63" height="63"></td>"
+<td><img name="G3" width="63" height="63"></td>"
+<td><img name="A3s" width="63" height="63"></td>"
+<td><img name="C4s" width="63" height="63"></td>"
+<td><img name="E4" width="63" height="63"></td>"
+<td><img name="G4" width="63" height="63"></td>"
+<td><img name="A4s" width="63" height="63"></td>"
+<td><img name="C5s" width="63" height="63"></td>"
 </tr>
 <tr>
-<td><img name="A2" src="blank.png" width="63" height="63"></td>"
-<td><img name="C3" src="blank.png" width="63" height="63"></td>"
-<td><img name="D3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F3s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A3" src="blank.png" width="63" height="63"></td>"
-<td><img name="C4" src="blank.png" width="63" height="63"></td>"
-<td><img name="D4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="F4s" src="blank.png" width="63" height="63"></td>"
-<td><img name="A4" src="blank.png" width="63" height="63"></td>"
-<td><img name="C5" src="blank.png" width="63" height="63"></td>"
+<td><img name="A2" width="63" height="63"></td>"
+<td><img name="C3" width="63" height="63"></td>"
+<td><img name="D3s" width="63" height="63"></td>"
+<td><img name="F3s" width="63" height="63"></td>"
+<td><img name="A3" width="63" height="63"></td>"
+<td><img name="C4" width="63" height="63"></td>"
+<td><img name="D4s" width="63" height="63"></td>"
+<td><img name="F4s" width="63" height="63"></td>"
+<td><img name="A4" width="63" height="63"></td>"
+<td><img name="C5" width="63" height="63"></td>"
 </tr>
 `,
 drawdiminished10eb:
@@ -25803,92 +25804,7 @@ scales = {blues: [1,0,0,1,0,1,1,1,0,0,1,0],
                 F7s: 'Gb'
                 }
 
-                noteNamesFlatPngs = {
-                        G1: 'G.png', 
-                        G2: 'G.png', 
-                        G3: 'G.png', 
-                        G4: 'G.png', 
-                        G5: 'G.png', 
-                        G6: 'G.png', 
-                        G7: 'G.png',
-                        G1s: 'Ab.png', 
-                        G2s: 'Ab.png', 
-                        G3s: 'Ab.png', 
-                        G4s: 'Ab.png', 
-                        G5s: 'Ab.png', 
-                        G6s: 'Ab.png', 
-                        G7s: 'Ab.png',
-                        A1: 'A.png', 
-                        A2: 'A.png', 
-                        A3: 'A.png', 
-                        A4: 'A.png', 
-                        A5: 'A.png', 
-                        A6: 'A.png', 
-                        A7: 'A.png',
-                        A1s: 'Bb.png',
-                        A2s: 'Bb.png',
-                        A3s: 'Bb.png',
-                        A4s: 'Bb.png',
-                        A5s: 'Bb.png',
-                        A6s: 'Bb.png',
-                        A7s: 'Bb.png',
-                        B1: 'B.png',
-                        B2: 'B.png',
-                        B3: 'B.png',
-                        B4: 'B.png',
-                        B5: 'B.png',
-                        B6: 'B.png',
-                        B7: 'B.png', 
-                        C1: 'C.png',
-                        C2: 'C.png',
-                        C3: 'C.png',
-                        C4: 'C.png',
-                        C5: 'C.png',
-                        C6: 'C.png',
-                        C7: 'C.png',
-                        C1s: 'Db.png',
-                        C2s: 'Db.png',
-                        C3s: 'Db.png',
-                        C4s: 'Db.png',
-                        C5s: 'Db.png',
-                        C6s: 'Db.png',
-                        C7s: 'Db.png',
-                        D1: 'D.png',
-                        D2: 'D.png',
-                        D3: 'D.png',
-                        D4: 'D.png',
-                        D5: 'D.png',
-                        D6: 'D.png',
-                        D7: 'D.png',
-                        D1s: 'Eb.png',
-                        D2s: 'Eb.png',
-                        D3s: 'Eb.png',
-                        D4s: 'Eb.png',
-                        D5s: 'Eb.png',
-                        D6s: 'Eb.png',
-                        D7s: 'Eb.png',
-                        E1: 'E.png',
-                        E2: 'E.png',
-                        E3: 'E.png',
-                        E4: 'E.png',
-                        E5: 'E.png',
-                        E6: 'E.png',
-                        E7: 'E.png',
-                        F1: 'F.png',
-                        F2: 'F.png',
-                        F3: 'F.png',
-                        F4: 'F.png',
-                        F5: 'F.png',
-                        F6: 'F.png',
-                        F7: 'F.png',
-                        F1s: 'Gb.png',
-                        F2s: 'Gb.png',
-                        F3s: 'Gb.png',
-                        F4s: 'Gb.png',
-                        F5s: 'Gb.png',
-                        F6s: 'Gb.png',
-                        F7s: 'Gb.png'
-                        }
+                // noteNamesFlatPngs mapping removed — text overlays are used instead
 
        noteNamesAbs = {
         G1: 'G1', 

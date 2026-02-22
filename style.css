@@ -249,6 +249,54 @@ td img
 	left: 0;
 	z-index: 0;
 }
+/* Text overlays for note names and scale degrees */
+.noteNameText {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	font-size: 14px;
+	font-weight: 700;
+	color: #000;
+	z-index: 10;
+	pointer-events: none;
+}
+.scale-degree-label {
+	position: absolute;
+	top: 42%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	font-size: 16px;
+	font-weight: 800;
+	color: #000;
+	z-index: 10;
+	pointer-events: none;
+}
+.highlight { background-color: rgba(0,120,215,0.06); }
+.highlight-outline { outline: 4px solid yellow; }
+
+/* Circular shading for degree cells: diameter equals cell width */
+.scale-degree-label { }
+td.scale-degree::before {
+	content: '';
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: calc(100% - 8px);
+	height: 0;
+	padding-top: calc(100% - 8px);
+	border-radius: 50%;
+	background: rgba(0,120,215,0.28);
+	z-index: 1;
+	pointer-events: none;
+}
+td.root::before {
+	background: rgba(179,0,0,0.36);
+}
+/* keep labels and note text above the circle */
+.scale-degree-label, .noteNameText { z-index: 10; color: #000; }
+.noteNameText { top: calc(62% + 4px); font-size: 16px; font-weight: 800; }
 td img.noteName
 {
 	position: absolute;

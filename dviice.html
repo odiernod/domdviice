@@ -657,10 +657,10 @@ $(document).ready(function(){
 <div class="instrumentimg2" id="instrumentimg2" ondragstart='return false;' ondrop='return false;'><img src="piano.png"></div>
 <table class="instrument2" id="instrument2" ondragstart='return false;' ondrop='return false;'></table>
 
-<div class="instrumentimg3" id="instrumentimg3" ondragstart='return false;' ondrop='return false;'><img src="guitar.png"></div>
+<div class="instrumentimg3" id="instrumentimg3" ondragstart='return false;' ondrop='return false;'></div>
 <table class="instrument3" id="instrument3" ondragstart='return false;' ondrop='return false;'></table>
 
-<div class="instrumentimg4" id="instrumentimg4" ondragstart='return false;' ondrop='return false;'><img src="guitar.png"></div>
+<div class="instrumentimg4" id="instrumentimg4" ondragstart='return false;' ondrop='return false;'></div>
 <table class="instrument4" id="instrument4" ondragstart='return false;' ondrop='return false;'></table>
 
 <table class="treble1" id="treble1" ondragstart='return false;' ondrop='return false;'></table>
@@ -702,10 +702,9 @@ function sleep(ms) {
 function highlight(name, outline = true) {
     for (var p of Array.from(document.getElementsByName(name))) 
     {
-        p.src = "blue.png";
-        if (outline)
-        p.style.outline = '4px solid yellow';
-        //p.parentElement.style.borderColor = 'yellow';
+        var td = p.parentElement;
+        if (outline) td.classList.add('highlight-outline');
+        td.classList.add('highlight');
     }
 }
 
@@ -714,30 +713,47 @@ function highlight(name, outline = true) {
 function clearHighlight(name){
     for (var p of Array.from(document.getElementsByName(name))) 
     {
-        p.src = p.getAttribute("originalSrc");
-        p.style.outline = '';
-        //p.parentElement.style.borderColor = '';
+        var td = p.parentElement;
+        td.classList.remove('highlight','highlight-outline','scale-degree','root');
+        const deg = td.querySelector('.scale-degree-label');
+        if (deg) deg.remove();
+        const nn = td.querySelector('.noteNameText');
+        if (nn) nn.remove();
     }
 }
 
 function highlightBorder(name) {
     for (var p of Array.from(document.getElementsByName(name))) 
     {
-        p.style.outline = '4px solid yellow';
+        p.parentElement.classList.add('highlight-outline');
     }
 }
 function clearHighlightBorder(name){
     for (var p of Array.from(document.getElementsByName(name))) 
     {
-        p.style.outline = '';
+        p.parentElement.classList.remove('highlight-outline');
     }
 }
 
 function highlightDegree(name, degree) {
-    for (var p of Array.from(document.getElementsByName(name))) p.src = "deg" + degree.toString() + "n.png";
+    const degreeMap = {1:'R',2:'b2',3:'2',4:'b3',5:'3',6:'4',7:'b5',8:'5',9:'b6',10:'6',11:'b7',12:'7'};
+    for (var p of Array.from(document.getElementsByName(name))) {
+        var td = p.parentElement;
+        let span = td.querySelector('.scale-degree-label');
+        if (!span) { span = document.createElement('span'); span.className = 'scale-degree-label'; td.appendChild(span); }
+        span.textContent = degreeMap[degree] || degree.toString();
+        td.classList.add('scale-degree');
+        if (degree == 1) td.classList.add('root');
+    }
 }
 function highlightred(name) {
-    for (var p of Array.from(document.getElementsByName(name))) p.src = "red.png";
+    for (var p of Array.from(document.getElementsByName(name))) {
+        var td = p.parentElement;
+        td.classList.add('scale-degree','root');
+        let span = td.querySelector('.scale-degree-label');
+        if (!span) { span = document.createElement('span'); span.className = 'scale-degree-label'; td.appendChild(span); }
+        span.textContent = 'R';
+    }
 }
 function doMouseOver() {
     if (!scaleMode) 
@@ -764,29 +780,23 @@ function doMouseOut() {
 function showNoteName(name){
     for (var p of Array.from(document.getElementsByName(name))) 
     {
-        if (!p.classList.contains('noNoteNames'))
-        {
-            var noteNameImg = document.createElement('img');
-            noteNameImg.src = noteNamesFlatPngs[name]; // Replace with the actual path to your first image
-            noteNameImg.alt = noteNamesFlats[name]; // Provide a descriptive alt text
-            noteNameImg.classList.add('noteName');
-
-            // Append the text node to the parent element 
-            p.parentElement.appendChild(noteNameImg); 
+        if (!p.classList.contains('noNoteNames')) {
+            var td = p.parentElement;
+            if (!td.querySelector('.noteNameText')) {
+                var span = document.createElement('span');
+                span.className = 'noteNameText';
+                span.textContent = noteNamesFlats[name] || name;
+                td.appendChild(span);
+            }
         }
     }
 }
 function clearNoteName(name){
     for (var p of Array.from(document.getElementsByName(name))) 
     {
-        const children = p.parentElement.getElementsByClassName('noteName');
-
-        // Convert the HTMLCollection to an array to avoid issues during removal
-        const childrenArray = Array.from(children);
-
-        childrenArray.forEach(child => {
-            p.parentElement.removeChild(child);
-        });
+        var td = p.parentElement;
+        const node = td.querySelector('.noteNameText');
+        if (node) node.remove();
     }
 }
 function doMouseDown() {
