@@ -470,17 +470,125 @@ function updateUkuleleCanvas(divId, tableId) {
     });
 }
 
+// draw a simple Richter diatonic harmonica body and holes
+// this version also creates a light grid that matches the table rows
+function drawRichter(canvas, cols = 10, rows = 1,
+                      cellW = null, cellH = null,
+                      offsetX = 0, labelMargin = 0) {
+    var ctx = canvas.getContext('2d');
+    var w = canvas.width, h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+    ctx.strokeStyle = '#000';
+    ctx.lineWidth = 1;
+    // body rectangle with rounded corners
+    var margin = 4;
+    var radius = 8;
+    ctx.beginPath();
+    ctx.moveTo(margin + radius, margin);
+    ctx.lineTo(w - margin - radius, margin);
+    ctx.quadraticCurveTo(w - margin, margin, w - margin, margin + radius);
+    ctx.lineTo(w - margin, h - margin - radius);
+    ctx.quadraticCurveTo(w - margin, h - margin, w - margin - radius, h - margin);
+    ctx.lineTo(margin + radius, h - margin);
+    ctx.quadraticCurveTo(margin, h - margin, margin, h - margin - radius);
+    ctx.lineTo(margin, margin + radius);
+    ctx.quadraticCurveTo(margin, margin, margin + radius, margin);
+    ctx.closePath();
+    ctx.stroke();
+
+    // draw grid lines corresponding to rows/columns
+    if (cols > 0 && rows > 0) {
+        ctx.strokeStyle = '#ccc';
+        for (var i = 1; i < cols; i++) {
+            var x = (w * i) / cols;
+            ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+        }
+        for (var j = 1; j < rows; j++) {
+            var y = (h * j) / rows;
+            ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+        }
+    }
+
+    // draw holes outlines for reference (optional)
+    var usableW = w - 2 * margin;
+    var holeSpacing = usableW / cols;
+    var holeY = h / 2;
+    var holeR = Math.min(holeSpacing, h - 2 * margin) * 0.4;
+    ctx.strokeStyle = '#000';
+    for (var i = 0; i < cols; i++) {
+        var x = margin + holeSpacing * i + holeSpacing / 2;
+        ctx.beginPath();
+        ctx.arc(x, holeY, holeR, 0, Math.PI * 2);
+        ctx.stroke();
+    }
+}
+
+// update the canvas behind a Richter harmonica table
+function updateRichterCanvas(divId, tableId) {
+    requestAnimationFrame(function() {
+        var $tbl = $("#" + tableId);
+        if (!$tbl.length) {
+            return;
+        }
+        var cols = $tbl.find('tr:first td').length;
+        var rows = $tbl.find('tr').length;
+        if (cols === 0 || rows === 0) {
+            return;
+        }
+        var tblW = $tbl.outerWidth();
+        var tblH = $tbl.outerHeight();
+        var cellW = tblW / cols;
+        var w = tblW;
+        var h = tblH;
+        var c = ensureInstrumentCanvas(divId, w, h);
+        // draw body and grid
+        drawRichter(c, cols, rows, cellW, null, 0, 0);
+        // overlay colored boxes for each available pitch, using row categories
+        var ctx = c.getContext('2d');
+        var categoryColor = function(r) {
+            // approximate categories by row index
+            switch(r) {
+                case 0: return 'rgba(255,0,0,0.3)'; // extreme overblow
+                case 1: return 'rgba(255,0,0,0.2)'; // overblow
+                case 2: return 'rgba(0,0,255,0.2)'; // blow
+                case 3: return 'rgba(0,150,0,0.2)'; // draw
+                case 4: return 'rgba(255,165,0,0.2)'; // half-step bend
+                case 5: return 'rgba(128,0,128,0.2)'; // whole-step bend
+                case 6: return 'rgba(255,0,0,0.2)'; // overdraw
+                default: return 'rgba(0,0,0,0.1)';
+            }
+        };
+        // iterate table cells
+        $tbl.find('tr').each(function(r, tr) {
+            $(tr).find('td').each(function(cidx, td) {
+                var name = $(td).find('img').attr('name');
+                if (name) {
+                    ctx.fillStyle = categoryColor(r);
+                    ctx.fillRect(cidx * (w/cols), r * (h/rows), w/cols, h/rows);
+                }
+            });
+        });
+    });
+}
+
+// Staff drawing removed — using table-only layout.
+
 function loadInstrument1()
 {
     var type = $("#instrument1Menu").val();
     $("#instrument1").html(instrument[type + $("#tuning1Menu").val()]);
     attachAll("instrument1");
-    if (type === 'guitar' || type === 'ukulele') {
-        // canvas-based drawing for stringed instruments
+    if (type === 'guitar' || type === 'ukulele' || type === 'diatonicrichter' || type === 'paddyrichtertuned') {
         if (type === 'guitar')
             updateGuitarCanvas('instrumentimg1', 'instrument1');
-        else
+        else if (type === 'ukulele')
             updateUkuleleCanvas('instrumentimg1', 'instrument1');
+        else {
+            if (useHarmonicaCanvas)
+                updateRichterCanvas('instrumentimg1', 'instrument1');
+            else
+                $("#instrumentimg1").html(img[type]);
+        }
     } else {
         $("#instrumentimg1").html(img[type]);
     }
@@ -491,11 +599,17 @@ function loadInstrument2()
     var type = $("#instrument2Menu").val();
     $("#instrument2").html(instrument[type + $("#tuning2Menu").val()]);
     attachAll("instrument2");
-    if (type === 'guitar' || type === 'ukulele') {
+    if (type === 'guitar' || type === 'ukulele' || type === 'diatonicrichter' || type === 'paddyrichtertuned') {
         if (type === 'guitar')
             updateGuitarCanvas('instrumentimg2', 'instrument2');
-        else
+        else if (type === 'ukulele')
             updateUkuleleCanvas('instrumentimg2', 'instrument2');
+        else {
+            if (useHarmonicaCanvas)
+                updateRichterCanvas('instrumentimg2', 'instrument2');
+            else
+                $("#instrumentimg2").html(img[type]);
+        }
     } else {
         $("#instrumentimg2").html(img[type]);
     }
@@ -506,11 +620,17 @@ function loadInstrument3()
     var type = $("#instrument3Menu").val();
     $("#instrument3").html(instrument[type + $("#tuning3Menu").val()]);
     attachAll("instrument3");
-    if (type === 'guitar' || type === 'ukulele') {
+    if (type === 'guitar' || type === 'ukulele' || type === 'diatonicrichter' || type === 'paddyrichtertuned') {
         if (type === 'guitar')
             updateGuitarCanvas('instrumentimg3', 'instrument3');
-        else
+        else if (type === 'ukulele')
             updateUkuleleCanvas('instrumentimg3', 'instrument3');
+        else {
+            if (useHarmonicaCanvas)
+                updateRichterCanvas('instrumentimg3', 'instrument3');
+            else
+                $("#instrumentimg3").html(img[type]);
+        }
     } else {
         $("#instrumentimg3").html(img[type]);
     }
@@ -521,11 +641,17 @@ function loadInstrument4()
     var type = $("#instrument4Menu").val();
     $("#instrument4").html(instrument[type + $("#tuning4Menu").val()]);
     attachAll("instrument4");
-    if (type === 'guitar' || type === 'ukulele') {
+    if (type === 'guitar' || type === 'ukulele' || type === 'diatonicrichter' || type === 'paddyrichtertuned') {
         if (type === 'guitar')
             updateGuitarCanvas('instrumentimg4', 'instrument4');
-        else
+        else if (type === 'ukulele')
             updateUkuleleCanvas('instrumentimg4', 'instrument4');
+        else {
+            if (useHarmonicaCanvas)
+                updateRichterCanvas('instrumentimg4', 'instrument4');
+            else
+                $("#instrumentimg4").html(img[type]);
+        }
     } else {
         $("#instrumentimg4").html(img[type]);
     }
@@ -544,8 +670,10 @@ function updateAfterInstrumentChange()
 
 // when a Go! button is clicked, instrument and img are loaded
 $(document).ready(function(){
-    $('#instrumentimg1').html(img.diatonicrichter)
-    $('#instrument1').html(instrument.diatonicrichterc)
+    // set up default instruments; bank1 is Richter harmonica with canvas
+    $('#instrument1').html(instrument.diatonicrichterc);
+    attachAll('instrument1');
+    updateRichterCanvas('instrumentimg1', 'instrument1');
     $('#instrumentimg2').html(img.piano)
     $('#instrument2').html(instrument.pianostandard)
     // draw default guitar in banks 3 and 4 (size after html inserted)
@@ -561,11 +689,11 @@ $(document).ready(function(){
     attachAll('instrument3');
     attachAll('instrument4');
     $(this).on('mouseup', mouseUp)
-    for (let clef of ['treble1', 'treble2', 'treble3', 'treble4', 'bass1', 'bass2', 'bass3', 'bass4']) {
-        $("#" + clef).html(instrument[clef])
-        attachAll(clef); 
-    }
-});
+        for (let clef of ['treble1', 'treble2', 'treble3', 'treble4', 'bass1', 'bass2', 'bass3', 'bass4']) {
+            $("#" + clef).html(instrument[clef])
+            attachAll(clef);
+        }
+    });
 
 // when scaleDegrees button is clicked toggle individual scale degrees
 $(document).ready(function(){
@@ -784,6 +912,8 @@ let sweep;
 let scaleMode = false;
 let showScaleDegrees = true;
 let showNoteNames = false;
+// internal toggle: whether to draw harmonica using canvas instead of image
+let useHarmonicaCanvas = false;
 
 
 // IE and Edge can't iterate over iterator objects in a for-each loop like Chrome
