@@ -951,8 +951,13 @@ function clearHighlight(name){
         td.classList.remove('highlight','highlight-outline','scale-degree','root');
         const deg = td.querySelector('.scale-degree-label');
         if (deg) deg.remove();
-        const nn = td.querySelector('.noteNameText');
-        if (nn) nn.remove();
+        // only remove note name text when the global note-name overlay
+        // is not enabled. When `showNoteNames` is true the names should
+        // persist across hover events.
+        if (!showNoteNames) {
+            const nn = td.querySelector('.noteNameText');
+            if (nn) nn.remove();
+        }
     }
 }
 
