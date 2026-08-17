@@ -24,7 +24,7 @@ img = {diatonicrichter: '<img src="diatonic.png">',
         drawdiminished10: '<img src="augmented10.png">',
         valvedwholetone10: '<img src="wholetone10.png">',
         ukulele: ''}
-menu = {chromatic12: "<option value='c4'>Standard (C4) Solo Tuned</option><option value='c3'>Tenor (C3) Orchestra Tuned</option>",
+menu = {chromatic12: "<option value='c4'>Standard Solo Tuned</option><option value='c3'>Tenor Orchestra Tuned</option><option value='c6'>C6 Tuned</option>",
    
 chromatic16: "<option value='c3'>Standard (C3)</option>",
         diatonicminor: `<option value='ab'>Abm</option>
@@ -6505,6 +6505,64 @@ chromatic12c4:
 <td><img name="E6" tone="1318.51" src="blank.png" width="63" height="63"></td>
 <td><img name="G6" tone="1567.98" src="blank.png" width="63" height="63"></td>
 <td><img name="C7" tone="2093" src="blank.png" width="63" height="63"></td>
+</tr>
+<tr>
+<td><img name="D4" tone="293.66" src="blank.png" width="63" height="63"></td>
+<td><img name="F4" tone="349.23" src="blank.png" width="63" height="63"></td>
+<td><img name="A4" tone="440" src="blank.png" width="63" height="63"></td>
+<td><img name="B4" tone="493.88" src="blank.png" width="63" height="63"></td>
+<td><img name="D5" tone="587.33" src="blank.png" width="63" height="63"></td>
+<td><img name="F5" tone="698.46" src="blank.png" width="63" height="63"></td>
+<td><img name="A5" tone="880" src="blank.png" width="63" height="63"></td>
+<td><img name="B5" tone="987.77" src="blank.png" width="63" height="63"></td>
+<td><img name="D6" tone="1174.66" src="blank.png" width="63" height="63"></td>
+<td><img name="F6" tone="1396.91" src="blank.png" width="63" height="63"></td>
+<td><img name="A6" tone="1760" src="blank.png" width="63" height="63"></td>
+<td><img name="B6" tone="1975.53" src="blank.png" width="63" height="63"></td>
+</tr>
+<tr>
+<td><img name="D4s" tone="311.13" src="blank.png" width="63" height="63"></td>
+<td><img name="F4s" tone="369.99" src="blank.png" width="63" height="63"></td>
+<td><img name="A4s" tone="466.16" src="blank.png" width="63" height="63"></td>
+<td><img name="C5" tone="523.25" src="blank.png" width="63" height="63"></td>
+<td><img name="D5s" tone="622.25" src="blank.png" width="63" height="63"></td>
+<td><img name="F5s" tone="739.99" src="blank.png" width="63" height="63"></td>
+<td><img name="A5s" tone="932.33" src="blank.png" width="63" height="63"></td>
+<td><img name="C6" tone="1046.5" src="blank.png" width="63" height="63"></td>
+<td><img name="D6s" tone="1244.51" src="blank.png" width="63" height="63"></td>
+<td><img name="F6s" tone="1479.98" src="blank.png" width="63" height="63"></td>
+<td><img name="A6s" tone="1864.66" src="blank.png" width="63" height="63"></td>
+<td><img name="D7" tone="2349.32" src="blank.png" width="63" height="63"></td>
+</tr>`,
+chromatic12c6:
+`
+<tr>
+<td><img name="C4s" tone="277.18" src="blank.png" width="63" height="63"></td>
+<td><img name="F4" tone="349.23" src="blank.png" width="63" height="63"></td>
+<td><img name="G4s" tone="415.3" src="blank.png" width="63" height="63"></td>
+<td><img name="A4s" tone="466.16" src="blank.png" width="63" height="63"></td>
+<td><img name="C5s" tone="554.37" src="blank.png" width="63" height="63"></td>
+<td><img name="F5" tone="698.46" src="blank.png" width="63" height="63"></td>
+<td><img name="G5s" tone="830.61" src="blank.png" width="63" height="63"></td>
+<td><img name="A5s" tone="932.33" src="blank.png" width="63" height="63"></td>
+<td><img name="C6s" tone="1108.73" src="blank.png" width="63" height="63"></td>
+<td><img name="F6" tone="1396.91" src="blank.png" width="63" height="63"></td>
+<td><img name="G6s" tone="1661.22" src="blank.png" width="63" height="63"></td>
+<td><img name="A6s" tone="1864.66" src="blank.png" width="63" height="63"></td>
+</tr>
+<tr>
+<td><img name="C4" tone="261.63" src="blank.png" width="63" height="63"></td>
+<td><img name="E4" tone="329.63" src="blank.png" width="63" height="63"></td>
+<td><img name="G4" tone="392" src="blank.png" width="63" height="63"></td>
+<td><img name="A4" tone="440" src="blank.png" width="63" height="63"></td>
+<td><img name="C5" tone="523.25" src="blank.png" width="63" height="63"></td>
+<td><img name="E5" tone="659.26" src="blank.png" width="63" height="63"></td>
+<td><img name="G5" tone="783.99" src="blank.png" width="63" height="63"></td>
+<td><img name="A5" tone="880" src="blank.png" width="63" height="63"></td>
+<td><img name="C6" tone="1046.5" src="blank.png" width="63" height="63"></td>
+<td><img name="E6" tone="1318.51" src="blank.png" width="63" height="63"></td>
+<td><img name="G6" tone="1567.98" src="blank.png" width="63" height="63"></td>
+<td><img name="A6" tone="1760" src="blank.png" width="63" height="63"></td>
 </tr>
 <tr>
 <td><img name="D4" tone="293.66" src="blank.png" width="63" height="63"></td>
