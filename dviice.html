@@ -981,6 +981,9 @@ function highlightDegree(name, degree) {
         let span = td.querySelector('.scale-degree-label');
         if (!span) { span = document.createElement('span'); span.className = 'scale-degree-label'; td.appendChild(span); }
         span.textContent = degreeMap[degree] || degree.toString();
+        // ensure persistent scale shading is used and any hover outline/highlight
+        // is removed so degrees show the blue background circle only
+        td.classList.remove('highlight-outline','highlight');
         td.classList.add('scale-degree');
         if (degree == 1) td.classList.add('root');
     }
@@ -988,6 +991,8 @@ function highlightDegree(name, degree) {
 function highlightred(name) {
     for (var p of Array.from(document.getElementsByName(name))) {
         var td = p.parentElement;
+        // same as highlightDegree but force root styling and remove any outline
+        td.classList.remove('highlight-outline','highlight');
         td.classList.add('scale-degree','root');
         let span = td.querySelector('.scale-degree-label');
         if (!span) { span = document.createElement('span'); span.className = 'scale-degree-label'; td.appendChild(span); }
