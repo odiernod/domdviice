@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guitar Chord Finder</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 18px;
+      font-family: Arial, sans-serif;
+      background: #edf2f7;
+      color: #1f2937;
+    }
+    .page {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .toolbar {
+      background: #fff;
+      border: 1px solid #d6dde8;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      padding: 18px;
+    }
+    .control-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: flex-end;
+    }
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 13px;
+      color: #475569;
+      font-weight: 700;
+      flex: 1 1 180px;
+    }
+    select, button {
+      font-size: 14px;
+      border-radius: 8px;
+      border: 1px solid #ccd5e0;
+      padding: 9px 10px;
+      background: #fff;
+      color: #111827;
+      min-height: 40px;
+    }
+    button {
+      cursor: pointer;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid #e5e7eb;
+      flex-wrap: wrap;
+    }
+    .progression-area {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      min-height: 42px;
+    }
+    .prog-label {
+      font-weight: 700;
+      color: #475569;
+    }
+    .chord-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #f8fafc;
+      border: 1px solid #dfe6ee;
+      border-radius: 999px;
+      padding: 7px 12px;
+      min-height: 36px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+    }
+    .chord-pill:hover {
+      transform: translateY(-1px);
+      background: #eef6ff;
+    }
+    .swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid rgba(0,0,0,0.15);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .board-panel {
+      margin-top: 18px;
+      background: #fff;
+      border: 1px solid #d6dde8;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      padding: 12px;
+      overflow: hidden;
+    }
+    canvas {
+      display: block;
+      width: 100%;
+      height: 440px;
+      background: linear-gradient(#fff, #f4f7fb);
+      border: 1px solid #d6dde8;
+      border-radius: 10px;
+    }
+    .status {
+      min-height: 22px;
+      color: #475569;
+      font-size: 13px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="toolbar">
+      <div class="control-row">
+        <label>
+          Tuning
+          <select id="tuningSelect">
+            <option value="standard">Standard EADGBE</option>
+            <option value="ebstandard">Eb Standard</option>
+            <option value="dropd">Drop D</option>
+            <option value="dadgad">DADGAD</option>
+            <option value="openc">Open C</option>
+            <option value="opene">Open E</option>
+            <option value="bebebe">B E B E B E</option>
+            <option value="openg">Open G</option>
+            <option value="opend">Open D</option>
+          </select>
+        </label>
+
+        <label>
+          Root
+          <select id="chordRootSelect"></select>
+        </label>
+
+        <label>
+          Quality
+          <select id="chordQualitySelect"></select>
+        </label>
+
+        <button id="addChordBtn" type="button">Add chord</button>
+        <button id="clearBtn" type="button">Clear progression</button>
+        <button id="toggleNoteNamesBtn" type="button">Hide note names</button>
+      </div>
+
+      <div class="status-bar">
+        <div class="progression-area" id="progressionList"></div>
+        <div class="status" id="statusText">Choose a chord and build a progression.</div>
+      </div>
+    </div>
+
+    <div class="board-panel">
+      <canvas id="guitarCanvas" width="1200" height="440"></canvas>
+    </div>
+  </div>
+
+  <script src="scripts/guitarprogression.js"></script>
+  <script>
+    const COLOR_ORDER = ['#ff3b30', '#2ecc71', '#1e90ff', '#f4c430', '#9b59b6', '#ff8c00'];
+    const progressionList = document.getElementById('progressionList');
+    const statusText = document.getElementById('statusText');
+    const tuningSelect = document.getElementById('tuningSelect');
+    const chordRootSelect = document.getElementById('chordRootSelect');
+    const chordQualitySelect = document.getElementById('chordQualitySelect');
+    const noteToggleBtn = document.getElementById('toggleNoteNamesBtn');
+
+    const ROOT_OPTIONS = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+    const QUALITY_OPTIONS = [
+      { label: 'Major', value: '' },
+      { label: 'Minor', value: 'm' },
+      { label: 'Minor 7', value: 'm7' },
+      { label: 'Major 7', value: 'maj7' },
+      { label: 'Dominant 7', value: '7' },
+      { label: 'Diminished', value: 'dim' },
+      { label: 'Augmented', value: 'aug' },
+      { label: 'Sus2', value: 'sus2' },
+      { label: 'Sus4', value: 'sus4' },
+      { label: 'Power 5', value: '5' }
+    ];
+
+    let progression = [];
+    let hoverIndex = null;
+    let showNoteNames = true;
+
+    function populateChordSelectors() {
+      chordRootSelect.innerHTML = ROOT_OPTIONS.map((root) => `<option value="${root}">${root}</option>`).join('');
+      chordQualitySelect.innerHTML = QUALITY_OPTIONS.map((quality) => `<option value="${quality.value}">${quality.label}</option>`).join('');
+      chordRootSelect.value = 'C';
+      chordQualitySelect.value = '';
+    }
+
+    function resolveSelectedChordName() {
+      const root = chordRootSelect.value || 'C';
+      const quality = chordQualitySelect.value || '';
+      return `${root}${quality}`;
+    }
+
+    function renderProgression() {
+      progressionList.innerHTML = '';
+
+      if (!progression.length) {
+        const empty = document.createElement('div');
+        empty.className = 'chord-pill';
+        empty.style.opacity = '0.7';
+        empty.textContent = 'No chords yet';
+        progressionList.appendChild(empty);
+        return;
+      }
+
+      progression.forEach((entry, index) => {
+        const item = document.createElement('div');
+        item.className = 'chord-pill';
+        item.style.borderColor = entry.color;
+        item.style.background = hoverIndex === index ? '#fffaf0' : '#f8fafc';
+
+        const swatch = document.createElement('span');
+        swatch.className = 'swatch';
+        swatch.style.background = entry.color;
+
+        const label = document.createElement('span');
+        label.textContent = `${index + 1}. ${entry.chord}`;
+        label.style.fontWeight = '700';
+
+        item.appendChild(swatch);
+        item.appendChild(label);
+
+        item.addEventListener('mouseenter', () => {
+          hoverIndex = index;
+          renderProgression();
+          renderFretboard();
+        });
+
+        item.addEventListener('mouseleave', () => {
+          hoverIndex = null;
+          renderProgression();
+          renderFretboard();
+        });
+
+        progressionList.appendChild(item);
+      });
+    }
+
+    function addChord(chordName) {
+      if (progression.length >= 6) {
+        statusText.textContent = 'Progression limit reached: maximum 6 chords.';
+        return;
+      }
+
+      progression.push({
+        chord: chordName,
+        color: COLOR_ORDER[progression.length] || COLOR_ORDER[0]
+      });
+
+      renderProgression();
+      renderFretboard();
+      statusText.textContent = `${chordName} added to the progression.`;
+    }
+
+    function clearProgression() {
+      progression = [];
+      hoverIndex = null;
+      renderProgression();
+      renderFretboard();
+      statusText.textContent = 'Progression cleared.';
+    }
+
+    function getVisibleToneData() {
+      const tuningName = tuningSelect.value;
+      return progression.map((entry, index) => ({
+        index,
+        color: entry.color,
+        positions: GuitarProgression.getChordPositions(entry.chord, tuningName, 24)
+      }));
+    }
+
+    function renderFretboard() {
+      const canvas = document.getElementById('guitarCanvas');
+      const ctx = canvas.getContext('2d');
+      const dpr = window.devicePixelRatio || 1;
+      const cssWidth = canvas.clientWidth || 1200;
+      const cssHeight = canvas.clientHeight || 440;
+
+      canvas.width = Math.round(cssWidth * dpr);
+      canvas.height = Math.round(cssHeight * dpr);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+
+      const boardWidth = cssWidth;
+      const boardHeight = cssHeight;
+      const leftPad = 36;
+      const rightPad = 28;
+      const topPad = 36;
+      const bottomPad = 28;
+      const maxFret = 24;
+      const strings = GuitarProgression.getDisplayTuningNotes(tuningSelect.value);
+      const stringCount = strings.length;
+      const usableWidth = boardWidth - leftPad - rightPad;
+      const usableHeight = boardHeight - topPad - bottomPad;
+      const fretSpacing = usableWidth / maxFret;
+      const stringSpacing = usableHeight / Math.max(stringCount - 1, 1);
+
+      ctx.clearRect(0, 0, boardWidth, boardHeight);
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(0, 0, boardWidth, boardHeight);
+
+      // draw fret lines: fret 0 sits exactly on the nut line at the left edge.
+      for (let fret = 0; fret <= maxFret; fret += 1) {
+        const x = leftPad + (fret * fretSpacing);
+        ctx.beginPath();
+        ctx.moveTo(x, topPad);
+        ctx.lineTo(x, topPad + usableHeight);
+        ctx.strokeStyle = fret === 0 ? '#20242c' : '#a7b1bd';
+        ctx.lineWidth = fret === 0 ? 3 : 1;
+        ctx.stroke();
+      }
+
+      // draw strings
+      const stringYs = [];
+      for (let i = 0; i < stringCount; i += 1) {
+        const y = topPad + (i * stringSpacing);
+        stringYs.push(y);
+      }
+      stringYs.forEach((y) => {
+        ctx.beginPath();
+        ctx.moveTo(leftPad, y);
+        ctx.lineTo(leftPad + usableWidth, y);
+        ctx.strokeStyle = '#1f2937';
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+      });
+
+      // draw fret markers to match the DVIICE fretboard: single dots between frets,
+      // with a double dot at the 12th fret.
+      [3, 5, 7, 9, 12, 15, 17, 19, 21].forEach((markerFret) => {
+        if (markerFret > maxFret) return;
+        const x = leftPad + (markerFret - 0.5) * fretSpacing;
+        const y = topPad + usableHeight / 2;
+        ctx.fillStyle = 'rgba(70,70,70,0.8)';
+
+        if (markerFret === 12) {
+          const dy = 8;
+          ctx.beginPath();
+          ctx.arc(x, y - dy, 4, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.beginPath();
+          ctx.arc(x, y + dy, 4, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          ctx.beginPath();
+          ctx.arc(x, y, 5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      });
+
+      const toneData = getVisibleToneData();
+
+      const nonHovered = toneData.filter((entry) => hoverIndex !== entry.index);
+      const hovered = toneData.filter((entry) => hoverIndex === entry.index);
+
+      nonHovered.forEach((entry) => {
+        entry.positions.forEach((pos) => {
+          const x = leftPad + (pos.fret * fretSpacing);
+          const y = topPad + ((stringCount - 1 - pos.stringIndex) * stringSpacing);
+
+          ctx.beginPath();
+          ctx.fillStyle = entry.color;
+          ctx.globalAlpha = 0.35;
+          ctx.arc(x, y, 12, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.globalAlpha = 1;
+
+          if (showNoteNames) {
+            ctx.fillStyle = '#111827';
+            ctx.font = '11px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(GuitarProgression.noteToDviiceName(pos.note), x, y - 16);
+          }
+        });
+      });
+
+      hovered.forEach((entry) => {
+        entry.positions.forEach((pos) => {
+          const x = leftPad + (pos.fret * fretSpacing);
+          const y = topPad + ((stringCount - 1 - pos.stringIndex) * stringSpacing);
+
+          ctx.beginPath();
+          ctx.fillStyle = entry.color;
+          ctx.globalAlpha = 1;
+          ctx.arc(x, y, 12, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.globalAlpha = 1;
+
+          if (showNoteNames) {
+            ctx.fillStyle = '#111827';
+            ctx.font = '11px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(GuitarProgression.noteToDviiceName(pos.note), x, y - 16);
+          }
+        });
+      });
+
+      if (showNoteNames) {
+        strings.forEach((stringNote, index) => {
+          const y = topPad + (index * stringSpacing);
+          ctx.fillStyle = '#1f2937';
+          ctx.font = '11px Arial';
+          ctx.textAlign = 'left';
+          ctx.fillText(GuitarProgression.noteToDviiceName(stringNote), 6, y + 4);
+        });
+      }
+
+      // fret numbers align with the fret lines instead of floating midway between them.
+      ctx.fillStyle = '#1f2937';
+      ctx.font = '12px Arial';
+      ctx.textAlign = 'center';
+      for (let fret = 0; fret <= maxFret; fret += 1) {
+        const textX = leftPad + (fret * fretSpacing);
+        ctx.fillText(String(fret), textX, boardHeight - 8);
+      }
+    }
+
+    document.getElementById('addChordBtn').addEventListener('click', () => {
+      addChord(resolveSelectedChordName());
+    });
+
+    document.getElementById('clearBtn').addEventListener('click', clearProgression);
+
+    noteToggleBtn.addEventListener('click', () => {
+      showNoteNames = !showNoteNames;
+      noteToggleBtn.textContent = showNoteNames ? 'Hide note names' : 'Show note names';
+      renderFretboard();
+    });
+
+    tuningSelect.addEventListener('change', renderFretboard);
+    chordRootSelect.addEventListener('change', () => {
+      renderFretboard();
+    });
+    chordQualitySelect.addEventListener('change', () => {
+      renderFretboard();
+    });
+    window.addEventListener('resize', renderFretboard);
+
+    populateChordSelectors();
+    renderProgression();
+    renderFretboard();
+  </script>
+</body>
+</html>
