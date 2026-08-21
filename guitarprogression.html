@@ -153,6 +153,11 @@
           <select id="chordQualitySelect"></select>
         </label>
 
+        <label>
+          Voicing
+          <select id="voicingSelect"></select>
+        </label>
+
         <button id="addChordBtn" type="button">Add chord</button>
         <button id="clearBtn" type="button">Clear progression</button>
         <button id="toggleNoteNamesBtn" type="button">Hide note names</button>
@@ -177,6 +182,7 @@
     const tuningSelect = document.getElementById('tuningSelect');
     const chordRootSelect = document.getElementById('chordRootSelect');
     const chordQualitySelect = document.getElementById('chordQualitySelect');
+    const voicingSelect = document.getElementById('voicingSelect');
     const noteToggleBtn = document.getElementById('toggleNoteNamesBtn');
 
     const ROOT_OPTIONS = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
@@ -192,6 +198,10 @@
       { label: 'Sus4', value: 'sus4' },
       { label: 'Power 5', value: '5' }
     ];
+    const VOICING_OPTIONS = [
+      { label: 'Standard', value: 'standard' },
+      { label: 'Shell', value: 'shell' }
+    ];
 
     let progression = [];
     let hoverIndex = null;
@@ -200,8 +210,10 @@
     function populateChordSelectors() {
       chordRootSelect.innerHTML = ROOT_OPTIONS.map((root) => `<option value="${root}">${root}</option>`).join('');
       chordQualitySelect.innerHTML = QUALITY_OPTIONS.map((quality) => `<option value="${quality.value}">${quality.label}</option>`).join('');
+      voicingSelect.innerHTML = VOICING_OPTIONS.map((voicing) => `<option value="${voicing.value}">${voicing.label}</option>`).join('');
       chordRootSelect.value = 'C';
       chordQualitySelect.value = '';
+      voicingSelect.value = 'standard';
     }
 
     function resolveSelectedChordName() {
@@ -263,7 +275,8 @@
 
       progression.push({
         chord: chordName,
-        color: COLOR_ORDER[progression.length] || COLOR_ORDER[0]
+        color: COLOR_ORDER[progression.length] || COLOR_ORDER[0],
+        voicing: voicingSelect.value || 'standard'
       });
 
       renderProgression();
@@ -284,7 +297,7 @@
       return progression.map((entry, index) => ({
         index,
         color: entry.color,
-        positions: GuitarProgression.getChordPositions(entry.chord, tuningName, 24)
+        positions: GuitarProgression.getChordPositions(entry.chord, tuningName, 24, entry.voicing || 'standard')
       }));
     }
 
@@ -451,6 +464,9 @@
       renderFretboard();
     });
     chordQualitySelect.addEventListener('change', () => {
+      renderFretboard();
+    });
+    voicingSelect.addEventListener('change', () => {
       renderFretboard();
     });
     window.addEventListener('resize', renderFretboard);

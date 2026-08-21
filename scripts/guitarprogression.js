@@ -134,6 +134,36 @@
     return [...new Set(offsets.map((offset) => (basePitchClass + offset) % 12))].sort((a, b) => a - b);
   }
 
+  function getShellVoicingPitchClasses(chordName) {
+    const raw = String(chordName || '').trim();
+    if (!raw) return [];
+
+    const match = /^([A-G](?:#|b)?)(.*)$/.exec(raw);
+    if (!match) return [];
+
+    const root = normalizeRoot(match[1]);
+    const suffix = (match[2] || '').toLowerCase();
+    const full = getChordPitchClasses(raw);
+    const rootMidi = noteToMidi(`${root}4`);
+    if (rootMidi === null) return full;
+
+    const base = rootMidi % 12;
+
+    let preferred = [0, 7];
+    if (suffix === 'm' || suffix === 'min' || suffix === 'minor') preferred = [0, 3, 7];
+    else if (suffix === 'maj7' || suffix === 'major7') preferred = [0, 4, 11];
+    else if (suffix === '7') preferred = [0, 4, 10];
+    else if (suffix === 'm7' || suffix === 'min7' || suffix === 'minor7') preferred = [0, 3, 10];
+    else if (suffix === 'dim' || suffix === 'diminished') preferred = [0, 3, 6];
+    else if (suffix === 'aug' || suffix === 'augmented') preferred = [0, 4, 8];
+    else if (suffix === 'sus2') preferred = [0, 2, 7];
+    else if (suffix === 'sus4') preferred = [0, 5, 7];
+    else if (suffix === '5') preferred = [0, 7];
+    else preferred = [0, 4, 7];
+
+    return [...new Set(preferred.map((offset) => (base + offset) % 12))].sort((a, b) => a - b);
+  }
+
   function fretNoteForString(openNote, fret) {
     const baseMidi = noteToMidi(openNote);
     if (baseMidi === null) return null;
@@ -144,9 +174,11 @@
     return `${NOTE_NAMES[noteNumber]}${octave}`;
   }
 
-  function getChordPositions(chordName, tuningKey, maxFret = 24) {
+  function getChordPositions(chordName, tuningKey, maxFret = 24, voicing = 'standard') {
     const tuning = getTuningNotes(tuningKey);
-    const pitchClasses = new Set(getChordPitchClasses(chordName));
+    const pitchClasses = new Set(
+      voicing === 'shell' ? getShellVoicingPitchClasses(chordName) : getChordPitchClasses(chordName)
+    );
     const results = [];
 
     tuning.forEach((openNote, stringIndex) => {
@@ -174,6 +206,7 @@
     getTuningNotes,
     getDisplayTuningNotes,
     getChordPitchClasses,
+    getShellVoicingPitchClasses,
     fretNoteForString,
     getChordPositions
   };
