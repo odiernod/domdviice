@@ -161,6 +161,7 @@
         <button id="addChordBtn" type="button">Add chord</button>
         <button id="clearBtn" type="button">Clear progression</button>
         <button id="toggleNoteNamesBtn" type="button">Hide note names</button>
+        <button id="toggleScaleDegreesBtn" type="button">Hide scale degrees</button>
       </div>
 
       <div class="status-bar">
@@ -184,6 +185,7 @@
     const chordQualitySelect = document.getElementById('chordQualitySelect');
     const voicingSelect = document.getElementById('voicingSelect');
     const noteToggleBtn = document.getElementById('toggleNoteNamesBtn');
+    const scaleDegreeToggleBtn = document.getElementById('toggleScaleDegreesBtn');
 
     const ROOT_OPTIONS = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
     const QUALITY_OPTIONS = [
@@ -206,6 +208,7 @@
     let progression = [];
     let hoverIndex = null;
     let showNoteNames = true;
+    let showScaleDegrees = true;
 
     function populateChordSelectors() {
       chordRootSelect.innerHTML = ROOT_OPTIONS.map((root) => `<option value="${root}">${root}</option>`).join('');
@@ -296,6 +299,7 @@
       const tuningName = tuningSelect.value;
       return progression.map((entry, index) => ({
         index,
+        chord: entry.chord,
         color: entry.color,
         positions: GuitarProgression.getChordPositions(entry.chord, tuningName, 24, entry.voicing || 'standard')
       }));
@@ -417,15 +421,38 @@
           ctx.arc(x, y, 12, 0, Math.PI * 2);
           ctx.fill();
           ctx.globalAlpha = 1;
+        });
+      });
+
+      hovered.forEach((entry) => {
+        entry.positions.forEach((pos) => {
+          const x = leftPad + (pos.fret * fretSpacing);
+          const y = topPad + ((stringCount - 1 - pos.stringIndex) * stringSpacing);
 
           if (showNoteNames) {
             ctx.fillStyle = '#111827';
             ctx.font = '11px Arial';
             ctx.textAlign = 'center';
+            ctx.textBaseline = 'alphabetic';
             ctx.fillText(GuitarProgression.noteToDviiceName(pos.note), x, y - 16);
+          }
+
+          if (showScaleDegrees) {
+            const scaleDegree = GuitarProgression.getScaleDegree(entry.chord, pos.pitchClass);
+            if (!scaleDegree) return;
+
+            ctx.fillStyle = '#000000';
+            ctx.font = 'bold 10px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.globalAlpha = 1;
+            ctx.fillText(scaleDegree, x, y);
           }
         });
       });
+
+      ctx.globalAlpha = 1;
+      ctx.textBaseline = 'alphabetic';
 
       if (showNoteNames) {
         strings.forEach((stringNote, index) => {
@@ -456,6 +483,12 @@
     noteToggleBtn.addEventListener('click', () => {
       showNoteNames = !showNoteNames;
       noteToggleBtn.textContent = showNoteNames ? 'Hide note names' : 'Show note names';
+      renderFretboard();
+    });
+
+    scaleDegreeToggleBtn.addEventListener('click', () => {
+      showScaleDegrees = !showScaleDegrees;
+      scaleDegreeToggleBtn.textContent = showScaleDegrees ? 'Hide scale degrees' : 'Show scale degrees';
       renderFretboard();
     });
 

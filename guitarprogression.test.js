@@ -5,6 +5,7 @@ const {
   getTuningNotes,
   getDisplayTuningNotes,
   getChordPitchClasses,
+  getScaleDegree,
   noteToDviiceName
 } = require('./scripts/guitarprogression.js');
 
@@ -26,6 +27,13 @@ test('display order shows the high E string at the top and the low E string at t
 
 test('power chords use a root and fifth only', () => {
   assert.deepEqual(getChordPitchClasses('C5'), [0, 7]);
+});
+
+test('scale degrees use compact chord-tone notation', () => {
+  assert.equal(getScaleDegree('C', 0), 'R');
+  assert.equal(getScaleDegree('Cm', 3), 'b3');
+  assert.equal(getScaleDegree('Cmaj7', 11), '7');
+  assert.equal(getScaleDegree('C7', 10), 'b7');
 });
 
 test('Cmaj7 resolves to the major seventh chord formula', () => {

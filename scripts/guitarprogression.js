@@ -134,6 +134,20 @@
     return [...new Set(offsets.map((offset) => (basePitchClass + offset) % 12))].sort((a, b) => a - b);
   }
 
+  function getScaleDegree(chordName, pitchClass) {
+    const raw = String(chordName || '').trim();
+    const match = /^([A-G](?:#|b)?)/.exec(raw);
+    if (!match) return '';
+
+    const root = normalizeRoot(match[1]);
+    const rootMidi = noteToMidi(`${root}4`);
+    if (rootMidi === null || !Number.isInteger(pitchClass)) return '';
+
+    const interval = (pitchClass - (rootMidi % 12) + 12) % 12;
+    const degrees = ['R', 'b2', '2', 'b3', '3', '4', 'b5', '5', 'b6', '6', 'b7', '7'];
+    return degrees[interval];
+  }
+
   function getShellVoicingPitchClasses(chordName) {
     const raw = String(chordName || '').trim();
     if (!raw) return [];
@@ -206,6 +220,7 @@
     getTuningNotes,
     getDisplayTuningNotes,
     getChordPitchClasses,
+    getScaleDegree,
     getShellVoicingPitchClasses,
     fretNoteForString,
     getChordPositions
