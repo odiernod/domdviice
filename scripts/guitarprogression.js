@@ -134,6 +134,25 @@
     return [...new Set(offsets.map((offset) => (basePitchClass + offset) % 12))].sort((a, b) => a - b);
   }
 
+  const SCALE_INTERVALS = {
+    major: [0, 2, 4, 5, 7, 9, 11],
+    minor: [0, 2, 3, 5, 7, 8, 10],
+    majorPentatonic: [0, 2, 4, 7, 9],
+    minorPentatonic: [0, 3, 5, 7, 10],
+    dorian: [0, 2, 3, 5, 7, 9, 10],
+    phrygian: [0, 1, 3, 5, 7, 8, 10],
+    lydian: [0, 2, 4, 6, 7, 9, 11],
+    mixolydian: [0, 2, 4, 5, 7, 9, 10]
+  };
+
+  function getScalePitchClasses(rootName, scaleName) {
+    const root = normalizeRoot(rootName);
+    const rootMidi = noteToMidi(`${root}4`);
+    const intervals = SCALE_INTERVALS[scaleName];
+    if (rootMidi === null || !intervals) return [];
+    return intervals.map((interval) => (rootMidi % 12 + interval) % 12);
+  }
+
   function getScaleDegree(chordName, pitchClass) {
     const raw = String(chordName || '').trim();
     const match = /^([A-G](?:#|b)?)/.exec(raw);
@@ -211,6 +230,25 @@
     return results;
   }
 
+  function getScalePositions(rootName, scaleName, tuningKey, maxFret = 24) {
+    const tuning = getTuningNotes(tuningKey);
+    const pitchClasses = new Set(getScalePitchClasses(rootName, scaleName));
+    const results = [];
+
+    tuning.forEach((openNote, stringIndex) => {
+      for (let fret = 0; fret <= maxFret; fret += 1) {
+        const note = fretNoteForString(openNote, fret);
+        if (!note) continue;
+        const noteMidi = noteToMidi(note);
+        if (noteMidi !== null && pitchClasses.has(noteMidi % 12)) {
+          results.push({ stringIndex, fret, note, pitchClass: noteMidi % 12 });
+        }
+      }
+    });
+
+    return results;
+  }
+
   return {
     NOTE_NAMES,
     TUNINGS,
@@ -220,9 +258,11 @@
     getTuningNotes,
     getDisplayTuningNotes,
     getChordPitchClasses,
+    getScalePitchClasses,
     getScaleDegree,
     getShellVoicingPitchClasses,
     fretNoteForString,
-    getChordPositions
+    getChordPositions,
+    getScalePositions
   };
 }));

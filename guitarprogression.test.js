@@ -5,6 +5,7 @@ const {
   getTuningNotes,
   getDisplayTuningNotes,
   getChordPitchClasses,
+  getScalePitchClasses,
   getScaleDegree,
   noteToDviiceName
 } = require('./scripts/guitarprogression.js');
@@ -34,6 +35,11 @@ test('scale degrees use compact chord-tone notation', () => {
   assert.equal(getScaleDegree('Cm', 3), 'b3');
   assert.equal(getScaleDegree('Cmaj7', 11), '7');
   assert.equal(getScaleDegree('C7', 10), 'b7');
+});
+
+test('scale pitch collections resolve major and minor pentatonic intervals', () => {
+  assert.deepEqual(getScalePitchClasses('C', 'majorPentatonic'), [0, 2, 4, 7, 9]);
+  assert.deepEqual(getScalePitchClasses('A', 'minorPentatonic'), [9, 0, 2, 4, 7]);
 });
 
 test('Cmaj7 resolves to the major seventh chord formula', () => {
