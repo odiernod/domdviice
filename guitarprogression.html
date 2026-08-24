@@ -92,6 +92,10 @@
       transform: translateY(-1px);
       background: #eef6ff;
     }
+    .chord-pill.emphasized {
+      box-shadow: 0 0 0 2px currentColor;
+      background: #fffaf0;
+    }
     .swatch {
       width: 12px;
       height: 12px;
@@ -244,6 +248,7 @@
 
     let progression = [];
     let hoverIndex = null;
+    let emphasizedIndex = null;
     let showNoteNames = true;
     let showScaleDegrees = true;
 
@@ -295,7 +300,11 @@
         const item = document.createElement('div');
         item.className = 'chord-pill';
         item.style.borderColor = entry.color;
-        item.style.background = hoverIndex === index ? '#fffaf0' : '#f8fafc';
+        item.style.color = entry.color;
+        if (emphasizedIndex === index) item.classList.add('emphasized');
+        item.setAttribute('role', 'button');
+        item.tabIndex = 0;
+        item.title = 'Click to emphasize; click again to clear emphasis.';
 
         const swatch = document.createElement('span');
         swatch.className = 'swatch';
@@ -310,12 +319,24 @@
 
         item.addEventListener('mouseenter', () => {
           hoverIndex = index;
-          renderProgression();
           renderFretboard();
         });
 
         item.addEventListener('mouseleave', () => {
           hoverIndex = null;
+          renderFretboard();
+        });
+
+        item.addEventListener('click', () => {
+          emphasizedIndex = emphasizedIndex === index ? null : index;
+          renderProgression();
+          renderFretboard();
+        });
+
+        item.addEventListener('keydown', (event) => {
+          if (event.key !== 'Enter' && event.key !== ' ') return;
+          event.preventDefault();
+          emphasizedIndex = emphasizedIndex === index ? null : index;
           renderProgression();
           renderFretboard();
         });
@@ -365,6 +386,7 @@
     function clearProgression() {
       progression = [];
       hoverIndex = null;
+      emphasizedIndex = null;
       renderProgression();
       renderFretboard();
       statusText.textContent = 'Progression cleared.';
@@ -463,8 +485,9 @@
 
       const toneData = getVisibleToneData();
 
-      const nonHovered = toneData.filter((entry) => hoverIndex !== entry.index);
-      const hovered = toneData.filter((entry) => hoverIndex === entry.index);
+      const topIndex = hoverIndex !== null ? hoverIndex : emphasizedIndex;
+      const nonHovered = toneData.filter((entry) => entry.index !== topIndex);
+      const hovered = toneData.filter((entry) => entry.index === topIndex);
 
       nonHovered.forEach((entry) => {
         entry.positions.forEach((pos) => {
