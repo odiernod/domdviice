@@ -953,6 +953,7 @@ function drawPianoDiagram(canvas, cols = 12, rows = 7, cellW = null, cellH = nul
         var oct = r + 1;
         var y = r * actualCellH;
         var whiteTailH = Math.max(7, Math.round(actualCellH * 0.13));
+        var tailY = y + actualCellH - whiteTailH - 2;
 
         // Top Red Felt Rail (Cushion damper strip along top of keys)
         ctx.fillStyle = '#881337';
@@ -960,7 +961,7 @@ function drawPianoDiagram(canvas, cols = 12, rows = 7, cellW = null, cellH = nul
         ctx.fillStyle = '#4c0519';
         ctx.fillRect(0, y + 3, w, 1);
 
-        // --- PASS 1: Draw All White Keys in this Octave ---
+        // --- PASS 1: Draw All White Key Bodies (Seamless Ivory Base) ---
         for (var c = 0; c < cols; c++) {
             if (blackKeyCols.indexOf(c) !== -1) continue;
             var x = c * actualCellW;
@@ -975,20 +976,7 @@ function drawPianoDiagram(canvas, cols = 12, rows = 7, cellW = null, cellH = nul
             whiteGrad.addColorStop(1, '#e2e8f0');
 
             ctx.fillStyle = whiteGrad;
-            ctx.fillRect(x + 1, y + 4, actualCellW - 2, actualCellH - 6);
-
-            // Key outline
-            ctx.strokeStyle = '#cbd5e1';
-            ctx.lineWidth = 1;
-            ctx.strokeRect(x + 1, y + 4, actualCellW - 2, actualCellH - 6);
-
-            // Realistic 3D Bottom Lip / Key Bevel
-            ctx.fillStyle = '#94a3b8';
-            ctx.fillRect(x + 2, y + actualCellH - 5, actualCellW - 4, 2);
-
-            // White edge highlight
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
-            ctx.fillRect(x + 2, y + actualCellH - 6, actualCellW - 4, 1);
+            ctx.fillRect(x, y + 4, actualCellW, actualCellH - 6);
 
             // Note Name Typography (Positioned slightly below center)
             ctx.textAlign = 'center';
@@ -1015,38 +1003,25 @@ function drawPianoDiagram(canvas, cols = 12, rows = 7, cellW = null, cellH = nul
             }
         }
 
-        // --- PASS 2: Draw All Black Keys in this Octave (Raised 3D Overlays with White Front Lip) ---
+        // --- PASS 2: Draw Black Keys & Seamless White Front Extension ---
         for (var c = 0; c < cols; c++) {
             if (blackKeyCols.indexOf(c) === -1) continue;
             var x = c * actualCellW;
             var noteName = noteNames[c] + oct;
 
-            // 1. Recessed keybed background
+            // 1. Recessed dark keybed slot behind black key cap
             ctx.fillStyle = '#020617';
-            ctx.fillRect(x + 1, y + 4, actualCellW - 2, actualCellH - 4);
+            ctx.fillRect(x, y + 4, actualCellW, actualCellH - 4 - whiteTailH);
 
-            // 2. White Key Extension at bottom (White front where black key stops short)
-            var tailY = y + actualCellH - whiteTailH - 2;
+            // 2. White Key Extension at bottom (Seamlessly joins adjacent white keys with NO side borders)
             var whiteTailGrad = ctx.createLinearGradient(x, tailY, x, y + actualCellH);
             whiteTailGrad.addColorStop(0, '#f1f5f9');
             whiteTailGrad.addColorStop(1, '#e2e8f0');
 
             ctx.fillStyle = whiteTailGrad;
-            ctx.fillRect(x + 1, tailY, actualCellW - 2, whiteTailH);
+            ctx.fillRect(x - 0.5, tailY, actualCellW + 1, whiteTailH);
 
-            ctx.strokeStyle = '#cbd5e1';
-            ctx.lineWidth = 1;
-            ctx.strokeRect(x + 1, tailY, actualCellW - 2, whiteTailH);
-
-            // Bottom bevel on white tail
-            ctx.fillStyle = '#94a3b8';
-            ctx.fillRect(x + 2, y + actualCellH - 5, actualCellW - 4, 2);
-
-            // Bottom edge highlight
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
-            ctx.fillRect(x + 2, y + actualCellH - 6, actualCellW - 4, 1);
-
-            // Vertical black line dividing the adjacent white keys at the front
+            // Vertical line dividing the adjacent white keys at the front
             ctx.strokeStyle = '#0f172a';
             ctx.lineWidth = 1.5;
             ctx.beginPath();
@@ -1102,6 +1077,22 @@ function drawPianoDiagram(canvas, cols = 12, rows = 7, cellW = null, cellH = nul
             ctx.fillText(noteName, keyX + keyW / 2, keyY + keyH * 0.56);
             ctx.shadowBlur = 0;
         }
+
+        // Top divider between E (col 4) and F (col 5) where there is no black key
+        var efDividerX = Math.round(5 * actualCellW);
+        ctx.strokeStyle = '#cbd5e1';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(efDividerX, y + 4);
+        ctx.lineTo(efDividerX, y + actualCellH - 3);
+        ctx.stroke();
+
+        // 3D Bottom Lip & Highlight across all white keys in the octave
+        ctx.fillStyle = '#94a3b8';
+        ctx.fillRect(2, y + actualCellH - 5, w - 4, 2);
+
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+        ctx.fillRect(2, y + actualCellH - 6, w - 4, 1);
 
         // Octave Separator Rail
         if (r < rows - 1) {
