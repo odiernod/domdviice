@@ -215,22 +215,71 @@ const TuningEngine = (function() {
     }
 
     /**
-     * Generates HTML table for Chromatic Harmonicas (12 or 16 hole).
+     * Generates HTML table for Chromatic Harmonicas (12 or 16 hole: Solo, Bebop, C6, PowerChromatic).
      */
-    function generateChromaticHtml(type = 'chromatic12', tuningKey = 'c4') {
-        const chromDef = CHROMATIC_TUNINGS[type] || CHROMATIC_TUNINGS.chromatic12;
-        const tuning = chromDef[tuningKey] || chromDef[Object.keys(chromDef)[0]];
-        const cols = tuning.blow.length;
+    function generateChromaticHtml(type = 'chromatic12solo', tuningKey = 'c') {
+        const typeStr = (type || 'chromatic12solo').toLowerCase();
+        const is16 = typeStr.includes('16');
+        let family = 'solo';
+        if (typeStr.includes('bebop')) family = 'bebop';
+        else if (typeStr.includes('c6')) family = 'c6';
+        else if (typeStr.includes('power')) family = 'power';
+
+        const def = (typeof CHROMATIC_TUNINGS !== 'undefined' && CHROMATIC_TUNINGS[family])
+            ? CHROMATIC_TUNINGS[family]
+            : (typeof CHROMATIC_TUNINGS !== 'undefined' ? CHROMATIC_TUNINGS.solo : null);
+
+        let blowBase, drawBase;
+        if (def) {
+            blowBase = is16 ? def.blow16 : def.blow12;
+            drawBase = is16 ? def.draw16 : def.draw12;
+        } else {
+            // Fallback
+            blowBase = is16
+                ? ["C3","E3","G3","C4", "C4","E4","G4","C5", "C5","E5","G5","C6", "C6","E6","G6","C7"]
+                : ["C4","E4","G4","C5", "C5","E5","G5","C6", "C6","E6","G6","C7"];
+            drawBase = is16
+                ? ["D3","F3","A3","B3", "D4","F4","A4","B4", "D5","F5","A5","B5", "D6","F6","A6","B6"]
+                : ["D4","F4","A4","B4", "D5","F5","A5","B5", "D6","F6","A6","B6"];
+        }
+
+        const normKey = (tuningKey || 'c').toLowerCase();
+        let offset = 0;
+        if (is16) {
+            if (normKey === 'c4') {
+                offset = 12;
+            } else if (normKey === 'c3' || normKey === 'c') {
+                offset = 0;
+            } else {
+                offset = (typeof HARMONICA_KEY_OFFSETS !== 'undefined' && HARMONICA_KEY_OFFSETS[normKey] !== undefined)
+                    ? HARMONICA_KEY_OFFSETS[normKey]
+                    : 0;
+            }
+        } else {
+            // Chromatic 12
+            if (normKey === 'c3' || normKey === 'lowc') {
+                offset = -12;
+            } else if (normKey === 'c4' || normKey === 'c') {
+                offset = 0;
+            } else {
+                offset = (typeof HARMONICA_KEY_OFFSETS !== 'undefined' && HARMONICA_KEY_OFFSETS[normKey] !== undefined)
+                    ? HARMONICA_KEY_OFFSETS[normKey]
+                    : 0;
+            }
+        }
+
+        const blowMidi = blowBase.map(n => noteToMidi(n) + offset);
+        const drawMidi = drawBase.map(n => noteToMidi(n) + offset);
 
         // Row 0: Blow Slide In (+1 semitone)
         // Row 1: Blow Slide Out
         // Row 2: Draw Slide Out
         // Row 3: Draw Slide In (+1 semitone)
         const rows = [
-            tuning.blow.map(n => noteToMidi(n) + 1),
-            tuning.blow.map(n => noteToMidi(n)),
-            tuning.draw.map(n => noteToMidi(n)),
-            tuning.draw.map(n => noteToMidi(n) + 1)
+            blowMidi.map(m => m + 1),
+            blowMidi,
+            drawMidi,
+            drawMidi.map(m => m + 1)
         ];
 
         return rows.map(r => {
@@ -409,7 +458,7 @@ const TuningEngine = (function() {
         if (type === 'piano') {
             return generatePianoHtml();
         }
-        if (type === 'chromatic12' || type === 'chromatic16') {
+        if (type && (type.startsWith('chromatic12') || type.startsWith('chromatic16'))) {
             return generateChromaticHtml(type, tuning);
         }
         if (staffNoteConfigs.hasOwnProperty(type)) {
@@ -457,12 +506,46 @@ const instrument = new Proxy({}, {
             return TuningEngine.generateUkuleleHtml(tuningKey);
         }
         if (prop.startsWith('chromatic12')) {
-            const tuningKey = prop.substring('chromatic12'.length) || 'c4';
-            return TuningEngine.generateChromaticHtml('chromatic12', tuningKey);
+            const remainder = prop.substring('chromatic12'.length);
+            let chromType = 'chromatic12solo';
+            let key = 'c';
+            if (remainder.startsWith('bebop')) {
+                chromType = 'chromatic12bebop';
+                key = remainder.substring('bebop'.length) || 'c';
+            } else if (remainder.startsWith('c6')) {
+                chromType = 'chromatic12c6';
+                key = remainder.substring('c6'.length) || 'c';
+            } else if (remainder.startsWith('power')) {
+                chromType = 'chromatic12power';
+                key = remainder.substring('power'.length) || 'c';
+            } else if (remainder.startsWith('solo')) {
+                chromType = 'chromatic12solo';
+                key = remainder.substring('solo'.length) || 'c';
+            } else {
+                key = remainder || 'c';
+            }
+            return TuningEngine.generateChromaticHtml(chromType, key);
         }
         if (prop.startsWith('chromatic16')) {
-            const tuningKey = prop.substring('chromatic16'.length) || 'c3';
-            return TuningEngine.generateChromaticHtml('chromatic16', tuningKey);
+            const remainder = prop.substring('chromatic16'.length);
+            let chromType = 'chromatic16solo';
+            let key = 'c';
+            if (remainder.startsWith('bebop')) {
+                chromType = 'chromatic16bebop';
+                key = remainder.substring('bebop'.length) || 'c';
+            } else if (remainder.startsWith('c6')) {
+                chromType = 'chromatic16c6';
+                key = remainder.substring('c6'.length) || 'c';
+            } else if (remainder.startsWith('power')) {
+                chromType = 'chromatic16power';
+                key = remainder.substring('power'.length) || 'c';
+            } else if (remainder.startsWith('solo')) {
+                chromType = 'chromatic16solo';
+                key = remainder.substring('solo'.length) || 'c';
+            } else {
+                key = remainder || 'c';
+            }
+            return TuningEngine.generateChromaticHtml(chromType, key);
         }
 
         // Try to match 10-hole harmonica types

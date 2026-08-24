@@ -230,29 +230,33 @@ const UKULELE_TUNINGS = {
 };
 
 const CHROMATIC_TUNINGS = {
-    chromatic12: {
-        c4: {
-            name: "Standard Solo Tuned (C4)",
-            blow: ["C4","E4","G4","C5","C5","E5","G5","C6","C6","E6","G6","C7"],
-            draw: ["D4","F4","A4","B4","D5","F5","A5","B5","D6","F6","A6","B6"]
-        },
-        c3: {
-            name: "Tenor Orchestra Tuned (C3)",
-            blow: ["C3","E3","G3","C4","C4","E4","G4","C5","C5","E5","G5","C6"],
-            draw: ["D3","F3","A3","B3","D4","F4","A4","B4","D5","F5","A5","B5"]
-        },
-        c6: {
-            name: "C6 Tuned",
-            blow: ["C4","E4","G4","A4","C5","E5","G5","A5","C6","E6","G6","A6"],
-            draw: ["D4","F4","G#4","B4","D5","F5","G#5","B5","D6","F6","G#6","B6"]
-        }
+    solo: {
+        name: "Solo Tuned",
+        blow12: ["C4","E4","G4","C5", "C5","E5","G5","C6", "C6","E6","G6","C7"],
+        draw12: ["D4","F4","A4","B4", "D5","F5","A5","B5", "D6","F6","A6","B6"],
+        blow16: ["C3","E3","G3","C4", "C4","E4","G4","C5", "C5","E5","G5","C6", "C6","E6","G6","C7"],
+        draw16: ["D3","F3","A3","B3", "D4","F4","A4","B4", "D5","F5","A5","B5", "D6","F6","A6","B6"]
     },
-    chromatic16: {
-        c3: {
-            name: "Standard (C3)",
-            blow: ["C3","E3","G3","C4","C4","E4","G4","C5","C5","E5","G5","C6","C6","E6","G6","C7"],
-            draw: ["D3","F3","A3","B3","D4","F4","A4","B4","D5","F5","A5","B5","D6","F6","A6","B6"]
-        }
+    bebop: {
+        name: "Bebop Tuned",
+        blow12: ["C4","E4","G4","C5", "C5","E5","G5","C6", "C6","E6","G6","C7"],
+        draw12: ["D4","F4","A4","Bb4", "D5","F5","A5","Bb5", "D6","F6","A6","Bb6"],
+        blow16: ["C3","E3","G3","C4", "C4","E4","G4","C5", "C5","E5","G5","C6", "C6","E6","G6","C7"],
+        draw16: ["D3","F3","A3","Bb3", "D4","F4","A4","Bb4", "D5","F5","A5","Bb5", "D6","F6","A6","Bb6"]
+    },
+    c6: {
+        name: "C6 / Minor 7th Tuned",
+        blow12: ["C4","E4","G4","A4", "C5","E5","G5","A5", "C6","E6","G6","A6"],
+        draw12: ["D4","F4","G#4","B4", "D5","F5","G#5","B5", "D6","F6","G#6","B6"],
+        blow16: ["C3","E3","G3","A3", "C4","E4","G4","A4", "C5","E5","G5","A5", "C6","E6","G6","A6"],
+        draw16: ["D3","F3","G#3","B3", "D4","F4","G#4","B4", "D5","F5","G#5","B5", "D6","F6","G#6","B6"]
+    },
+    power: {
+        name: "PowerChromatic Tuned",
+        blow12: ["C4","D4","F4","A4", "C5","D5","F5","A5", "C6","D6","F6","A6"],
+        draw12: ["D4","E4","G4","B4", "D5","E5","G5","B5", "D6","E6","G6","B6"],
+        blow16: ["C3","D3","F3","A3", "C4","D4","F4","A4", "C5","D5","F5","A5", "C6","D6","F6","A6"],
+        draw16: ["D3","E3","G3","B3", "D4","E4","G4","B4", "D5","E5","G5","B5", "D6","E6","G6","B6"]
     }
 };
 
@@ -447,26 +451,67 @@ const menu = {};
         `<option value='${k}'>${UKULELE_TUNINGS[k].name}</option>`
     ).join('\n');
 
-    // Chromatics
-    menu.chromatic12 = "<option value='c4'>Standard Solo Tuned</option><option value='c3'>Tenor Orchestra Tuned</option><option value='c6'>C6 Tuned</option>";
-    menu.chromatic16 = "<option value='c3'>Standard (C3)</option>";
+    // Chromatics (All 12 keys + octave variants available for all chromatic tunings)
+    const chromaticKeys = `
+<option value='c'>C</option>
+<option value='lowc'>Low C (Tenor C)</option>
+<option value='db'>Db</option>
+<option value='d'>D</option>
+<option value='lowd'>Low D</option>
+<option value='eb'>Eb</option>
+<option value='e'>E</option>
+<option value='lowe'>Low E</option>
+<option value='lowf'>Low F</option>
+<option value='f'>F</option>
+<option value='fs'>Gb / F#</option>
+<option value='g'>G</option>
+<option value='highg'>High G</option>
+<option value='ab'>Ab</option>
+<option value='a'>A</option>
+<option value='bb'>Bb</option>
+<option value='b'>B</option>
+`;
+
+    menu.chromatic12solo = chromaticKeys;
+    menu.chromatic12bebop = chromaticKeys;
+    menu.chromatic12c6 = chromaticKeys;
+    menu.chromatic12power = chromaticKeys;
+    menu.chromatic12 = chromaticKeys;
+
+    menu.chromatic16solo = chromaticKeys;
+    menu.chromatic16bebop = chromaticKeys;
+    menu.chromatic16c6 = chromaticKeys;
+    menu.chromatic16power = chromaticKeys;
+    menu.chromatic16 = chromaticKeys;
+
     menu.piano = "<option value='standard'>Standard</option>";
 
     const harmonicaInstrumentOptions = Object.keys(HARMONICA_TUNINGS).map(k =>
         `<option value='${k}'>${HARMONICA_TUNINGS[k].name}</option>`
     ).join('\n');
 
+    const chromaticInstrumentOptions = `
+<option value='chromatic12solo'>Chromatic 12 (Solo)</option>
+<option value='chromatic12bebop'>Chromatic 12 (Bebop)</option>
+<option value='chromatic12c6'>Chromatic 12 (C6)</option>
+<option value='chromatic12power'>Chromatic 12 (PowerChromatic)</option>
+<option value='chromatic16solo'>Chromatic 16 (Solo)</option>
+<option value='chromatic16bebop'>Chromatic 16 (Bebop)</option>
+<option value='chromatic16c6'>Chromatic 16 (C6)</option>
+<option value='chromatic16power'>Chromatic 16 (PowerChromatic)</option>
+`;
+
     menu.instrument1 = `
 ${harmonicaInstrumentOptions}
 <option value='piano'>Piano</option>
-<option value='chromatic12'>Chromatic 12 Harmonica</option>
+${chromaticInstrumentOptions}
 <option value='ukulele'>Ukulele</option>
 `;
 
     menu.instrument2 = `
 <option value='piano'>Piano</option>
 ${harmonicaInstrumentOptions}
-<option value='chromatic12'>Chromatic 12 Harmonica</option>
+${chromaticInstrumentOptions}
 <option value='ukulele'>Ukulele</option>
 `;
 
@@ -474,8 +519,7 @@ ${harmonicaInstrumentOptions}
 <option value='guitar'>Guitar</option>
 <option value='piano'>Piano</option>
 ${harmonicaInstrumentOptions}
-<option value='chromatic12'>Chromatic 12 Harmonica</option>
-<option value='chromatic16'>Chromatic 16 Harmonica</option>
+${chromaticInstrumentOptions}
 <option value='ukulele'>Ukulele</option>
 `;
 
@@ -483,8 +527,7 @@ ${harmonicaInstrumentOptions}
 <option value='guitar'>Guitar</option>
 <option value='piano'>Piano</option>
 ${harmonicaInstrumentOptions}
-<option value='chromatic12'>Chromatic 12 Harmonica</option>
-<option value='chromatic16'>Chromatic 16 Harmonica</option>
+${chromaticInstrumentOptions}
 <option value='ukulele'>Ukulele</option>
 `;
 })();

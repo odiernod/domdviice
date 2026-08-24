@@ -478,11 +478,11 @@ function updateUkuleleCanvas(divId, tableId) {
 }
 
 function isTenHoleHarmonica(type) {
-    return type !== 'guitar' && type !== 'ukulele' && type !== 'piano' && type !== 'chromatic12' && type !== 'chromatic16';
+    return type !== 'guitar' && type !== 'ukulele' && type !== 'piano' && !isChromaticHarmonica(type);
 }
 
 function isChromaticHarmonica(type) {
-    return type === 'chromatic12' || type === 'chromatic16';
+    return type && (type.startsWith('chromatic12') || type.startsWith('chromatic16'));
 }
 
 // draw a complete 10-hole harmonica body with Blow and Draw reed plates,

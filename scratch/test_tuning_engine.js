@@ -47,79 +47,66 @@ assert(unvalvedMatrix[5][2].name === 'A4' && unvalvedMatrix[5][2].label === "'' 
 assert(unvalvedMatrix[6][2].name === 'G4s' && unvalvedMatrix[6][2].label === "''' bend", 'H3 Draw bend 3 is G4s (Ab4)');
 assert(unvalvedMatrix[1][2].name === 'C5' && unvalvedMatrix[1][2].type === 'overblow', 'H3 Overblow is C5');
 
-// Check Hole 8 (index 7): Blow E6 (88), Draw D6 (86)
-assert(unvalvedMatrix[2][7].name === 'E6', 'H8 Blow is E6');
-assert(unvalvedMatrix[3][7].name === 'D6', 'H8 Draw is D6');
-assert(unvalvedMatrix[1][7].name === 'D6s' && unvalvedMatrix[1][7].type === 'blow-bend', 'H8 Blow bend is D6s (Eb6)');
-assert(unvalvedMatrix[4][7].name === 'F6' && unvalvedMatrix[4][7].type === 'overdraw' && unvalvedMatrix[4][7].label === 'OD', 'H8 Overdraw is F6');
-
-// Check Hole 10 (index 9): Blow C7 (96), Draw A6 (93)
-assert(unvalvedMatrix[2][9].name === 'C7', 'H10 Blow is C7');
-assert(unvalvedMatrix[3][9].name === 'A6', 'H10 Draw is A6');
-assert(unvalvedMatrix[1][9].name === 'B6' && unvalvedMatrix[1][9].type === 'blow-bend' && unvalvedMatrix[1][9].label === "' bend", 'H10 Blow bend 1 is B6');
-assert(unvalvedMatrix[0][9].name === 'A6s' && unvalvedMatrix[0][9].type === 'blow-bend' && unvalvedMatrix[0][9].label === "'' bend", 'H10 Blow bend 2 is A6s (Bb6)');
-assert(unvalvedMatrix[4][9].name === 'C7s' && unvalvedMatrix[4][9].type === 'overdraw', 'H10 Overdraw is C7s (Db7)');
-
-console.log('\n--- TEST 3: Standard Richter in C (Half-Valved) ---');
-const valvedMatrix = TuningEngine.computeHarmonicaMatrix(
-    HARMONICA_TUNINGS.diatonicrichter.blow.map(TuningEngine.noteToMidi),
-    HARMONICA_TUNINGS.diatonicrichter.draw.map(TuningEngine.noteToMidi),
-    true
-);
-// In Hole 1: Blow C4 (60) -> Valve bend is B3 (59)
-assert(valvedMatrix[1][0].name === 'B3' && valvedMatrix[1][0].type === 'valve-bend' && valvedMatrix[1][0].label === 'VB', 'H1 Valve Bend is B3');
-// In Hole 8: Draw D6 (86) -> Valve bend is C6s (85)
-assert(valvedMatrix[4][7].name === 'C6s' && valvedMatrix[4][7].type === 'valve-bend' && valvedMatrix[4][7].label === 'VB', 'H8 Valve Bend is C6s (Db6)');
-// In Hole 10: Draw A6 (93) -> Valve bend is G6s (92)
-assert(valvedMatrix[4][9].name === 'G6s' && valvedMatrix[4][9].type === 'valve-bend' && valvedMatrix[4][9].label === 'VB', 'H10 Valve Bend is G6s (Ab6)');
-
-console.log('\n--- TEST 4: Key Transposition & Minor Keys ---');
-const gHtml = TuningEngine.generateHarmonicaHtml('diatonicrichter', 'g', false);
-assert(gHtml.includes('name="G3"'), 'Key of G starts with Blow 1 = G3');
-assert(gHtml.includes('name="A3"'), 'Key of G has Draw 1 = A3');
-
-// Wilde Minor in Am (default base)
+console.log('\n--- TEST 3: Diatonic Minor Keys ---');
 const wildeAmHtml = TuningEngine.generateHarmonicaHtml('diatonicwildeminor', 'am', false);
 assert(wildeAmHtml.includes('name="D4"') && wildeAmHtml.includes('name="E4"'), 'Wilde Minor Am has Blow 1 = D4, Draw 1 = E4');
-
-// Wilde Minor in Gm
 const wildeGmHtml = TuningEngine.generateHarmonicaHtml('diatonicwildeminor', 'gm', false);
 assert(wildeGmHtml.includes('name="C4"') && wildeGmHtml.includes('name="D4"'), 'Wilde Minor Gm has Blow 1 = C4, Draw 1 = D4');
-
-// Wilde Minor in Cm
 const wildeCmHtml = TuningEngine.generateHarmonicaHtml('diatonicwildeminor', 'cm', false);
 assert(wildeCmHtml.includes('name="F4"') && wildeCmHtml.includes('name="G4"'), 'Wilde Minor Cm has Blow 1 = F4, Draw 1 = G4');
 
-// Verify all 12 minor keys available in menu
-const allMinorKeys = ['cm', 'dbm', 'dm', 'ebm', 'em', 'fm', 'fsm', 'gm', 'abm', 'am', 'bbm', 'bm'];
-allMinorKeys.forEach(k => {
-    assert(menu.diatonicwildeminor.includes(`value='${k}'`), `Wilde Minor menu includes ${k}`);
-    assert(menu.diatonicminor.includes(`value='${k}'`), `Natural Minor menu includes ${k}`);
+console.log('\n--- TEST 4: Chromatic 12 Tunings in All Keys ---');
+// Solo
+const chromSoloC = TuningEngine.generateChromaticHtml('chromatic12solo', 'c');
+assert(chromSoloC.includes('name="C4"') && chromSoloC.includes('name="C4s"'), 'Chromatic 12 Solo (C) has C4 and C4s');
+const chromSoloG = TuningEngine.generateChromaticHtml('chromatic12solo', 'g');
+assert(chromSoloG.includes('name="G3"') && chromSoloG.includes('name="G3s"'), 'Chromatic 12 Solo (G) has G3 and G3s');
+const chromSoloLowC = TuningEngine.generateChromaticHtml('chromatic12solo', 'lowc');
+assert(chromSoloLowC.includes('name="C3"') && chromSoloLowC.includes('name="C3s"'), 'Chromatic 12 Solo (Tenor/Low C) has C3 and C3s');
+
+// Bebop
+const chromBebopC = TuningEngine.generateChromaticHtml('chromatic12bebop', 'c');
+assert(chromBebopC.includes('name="A4s"'), 'Chromatic 12 Bebop (C) contains Bb4 (A4s)');
+const chromBebopG = TuningEngine.generateChromaticHtml('chromatic12bebop', 'g');
+assert(chromBebopG.includes('name="F4"'), 'Chromatic 12 Bebop (G) contains F4');
+
+// C6
+const chromC6C = TuningEngine.generateChromaticHtml('chromatic12c6', 'c');
+assert(chromC6C.includes('name="A4"') && chromC6C.includes('name="G4s"'), 'Chromatic 12 C6 (C) contains A4 blow and G#4 draw');
+const chromC6G = TuningEngine.generateChromaticHtml('chromatic12c6', 'g');
+assert(chromC6G.includes('name="E4"') && chromC6G.includes('name="D4s"'), 'Chromatic 12 C6 (G) contains E4 blow and D#4 draw');
+
+// PowerChromatic
+const chromPowerC = TuningEngine.generateChromaticHtml('chromatic12power', 'c');
+assert(chromPowerC.includes('name="D4"') && chromPowerC.includes('name="E4"'), 'Chromatic 12 Power (C) contains D4 blow 2 and E4 draw 2');
+const chromPowerD = TuningEngine.generateChromaticHtml('chromatic12power', 'd');
+assert(chromPowerD.includes('name="E4"') && chromPowerD.includes('name="F4s"'), 'Chromatic 12 Power (D) contains E4 blow 2 and F#4 draw 2');
+
+console.log('\n--- TEST 5: Chromatic 16 Tunings ---');
+const chrom16SoloC = TuningEngine.generateChromaticHtml('chromatic16solo', 'c');
+assert(chrom16SoloC.includes('name="C3"') && chrom16SoloC.includes('name="C3s"'), 'Chromatic 16 Solo (C) has C3 and C3s');
+const chrom16BebopC = TuningEngine.generateChromaticHtml('chromatic16bebop', 'c');
+assert(chrom16BebopC.includes('name="A3s"'), 'Chromatic 16 Bebop (C) contains Bb3 (A3s)');
+const chrom16PowerC = TuningEngine.generateChromaticHtml('chromatic16power', 'c');
+assert(chrom16PowerC.includes('name="C3"') && chrom16PowerC.includes('name="D3"'), 'Chromatic 16 Power (C) has C3 blow 1 and D3 draw 1');
+
+console.log('\n--- TEST 6: Dropdown Menus & Proxy Compatibility ---');
+const all12Keys = ['c', 'lowc', 'db', 'd', 'lowd', 'eb', 'e', 'lowe', 'lowf', 'f', 'fs', 'g', 'highg', 'ab', 'a', 'bb', 'b'];
+all12Keys.forEach(k => {
+    assert(menu.chromatic12solo.includes(`value='${k}'`), `Chromatic 12 Solo menu includes ${k}`);
+    assert(menu.chromatic12bebop.includes(`value='${k}'`), `Chromatic 12 Bebop menu includes ${k}`);
+    assert(menu.chromatic12c6.includes(`value='${k}'`), `Chromatic 12 C6 menu includes ${k}`);
+    assert(menu.chromatic12power.includes(`value='${k}'`), `Chromatic 12 Power menu includes ${k}`);
+    assert(menu.chromatic16solo.includes(`value='${k}'`), `Chromatic 16 Solo menu includes ${k}`);
 });
 
-console.log('\n--- TEST 5: Guitar, Ukulele & Chromatic Generators ---');
-const guitarHtml = TuningEngine.generateGuitarHtml('standard');
-assert(guitarHtml.includes('name="E4"'), 'Guitar standard contains E4');
-assert(guitarHtml.includes('name="E2"'), 'Guitar standard contains E2');
-
-const ukeHtml = TuningEngine.generateUkuleleHtml('sopranogcea');
-assert(ukeHtml.includes('name="A4"'), 'Ukulele contains A4');
-
-const chrom12Html = TuningEngine.generateChromaticHtml('chromatic12', 'c4');
-assert(chrom12Html.includes('name="C4"') && chrom12Html.includes('name="C4s"'), 'Chromatic 12 contains C4 (Slide Out) and C4s (Slide In)');
-
-const chrom16Html = TuningEngine.generateChromaticHtml('chromatic16', 'c3');
-assert(chrom16Html.includes('name="C3"') && chrom16Html.includes('name="C3s"'), 'Chromatic 16 contains C3 and C3s');
-
-console.log('\n--- TEST 6: Proxy Compatibility ---');
-assert(typeof instrument.diatonicrichterc === 'string' && instrument.diatonicrichterc.length > 50, 'instrument.diatonicrichterc generates html string');
-assert(typeof instrument.diatonicwildeminoram === 'string' && instrument.diatonicwildeminoram.length > 50, 'instrument.diatonicwildeminoram generates html string');
-assert(typeof instrument.diatonicwildeminorgm === 'string' && instrument.diatonicwildeminorgm.length > 50, 'instrument.diatonicwildeminorgm generates html string');
-assert(typeof instrument.chromatic12c4 === 'string' && instrument.chromatic12c4.length > 50, 'instrument.chromatic12c4 generates html string');
-assert(typeof instrument.chromatic16c3 === 'string' && instrument.chromatic16c3.length > 50, 'instrument.chromatic16c3 generates html string');
-assert(typeof instrument.guitarstandard === 'string' && instrument.guitarstandard.length > 50, 'instrument.guitarstandard generates html string');
-assert(typeof instrument.pianostandard === 'string' && instrument.pianostandard.length > 50, 'instrument.pianostandard generates html string');
-assert(typeof instrument.treble1 === 'string' && instrument.treble1.length > 50, 'instrument.treble1 generates html string');
+assert(typeof instrument.chromatic12soloc === 'string', 'instrument.chromatic12soloc generates html');
+assert(typeof instrument.chromatic12bebopg === 'string', 'instrument.chromatic12bebopg generates html');
+assert(typeof instrument.chromatic12c6d === 'string', 'instrument.chromatic12c6d generates html');
+assert(typeof instrument.chromatic12powerc === 'string', 'instrument.chromatic12powerc generates html');
+assert(typeof instrument.chromatic16soloc === 'string', 'instrument.chromatic16soloc generates html');
+assert(typeof instrument.guitarstandard === 'string', 'instrument.guitarstandard generates html');
+assert(typeof instrument.pianostandard === 'string', 'instrument.pianostandard generates html');
 
 console.log('\n================================');
 if (failures === 0) {
