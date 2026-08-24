@@ -928,6 +928,214 @@ function updateChromaticCanvas(divId, tableId) {
     });
 }
 
+// Draw a complete 7-octave Piano Keyboard on HTML5 Canvas with realistic keys
+function drawPianoDiagram(canvas, cols = 12, rows = 7, cellW = null, cellH = null) {
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    var w = canvas.width || 800;
+    var h = canvas.height || 400;
+    ctx.clearRect(0, 0, w, h);
+
+    var actualCellW = cellW || (w / cols);
+    var actualCellH = cellH || (h / rows);
+
+    var blackKeyCols = [1, 3, 6, 8, 10]; // C#, D#, F#, G#, A#
+    var noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+
+    // 1. Piano Outer Casing
+    ctx.fillStyle = '#0f172a';
+    ctx.fillRect(0, 0, w, h);
+
+    // 2. Draw Keys row by row (Octaves 1 to 7)
+    for (var r = 0; r < rows; r++) {
+        var oct = r + 1;
+        var y = r * actualCellH;
+        var whiteTailH = Math.max(7, Math.round(actualCellH * 0.13));
+
+        // Top Red Felt Rail (Cushion damper strip along top of keys)
+        ctx.fillStyle = '#881337';
+        ctx.fillRect(0, y, w, 4);
+        ctx.fillStyle = '#4c0519';
+        ctx.fillRect(0, y + 3, w, 1);
+
+        // --- PASS 1: Draw All White Keys in this Octave ---
+        for (var c = 0; c < cols; c++) {
+            if (blackKeyCols.indexOf(c) !== -1) continue;
+            var x = c * actualCellW;
+            var noteName = noteNames[c] + oct;
+            var isMiddleC = (r === 3 && c === 0);
+
+            // Ivory Key Body Gradient
+            var whiteGrad = ctx.createLinearGradient(x, y + 4, x, y + actualCellH);
+            whiteGrad.addColorStop(0, '#ffffff');
+            whiteGrad.addColorStop(0.15, '#f8fafc');
+            whiteGrad.addColorStop(0.85, '#f1f5f9');
+            whiteGrad.addColorStop(1, '#e2e8f0');
+
+            ctx.fillStyle = whiteGrad;
+            ctx.fillRect(x + 1, y + 4, actualCellW - 2, actualCellH - 6);
+
+            // Key outline
+            ctx.strokeStyle = '#cbd5e1';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(x + 1, y + 4, actualCellW - 2, actualCellH - 6);
+
+            // Realistic 3D Bottom Lip / Key Bevel
+            ctx.fillStyle = '#94a3b8';
+            ctx.fillRect(x + 2, y + actualCellH - 5, actualCellW - 4, 2);
+
+            // White edge highlight
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+            ctx.fillRect(x + 2, y + actualCellH - 6, actualCellW - 4, 1);
+
+            // Note Name Typography (Positioned slightly below center)
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            var labelY = y + actualCellH * 0.56;
+
+            if (isMiddleC) {
+                // Middle C Accent
+                ctx.fillStyle = '#b45309';
+                ctx.font = 'bold 15px "Segoe UI", Arial, sans-serif';
+                ctx.fillText('C4', x + actualCellW / 2, labelY - 4);
+
+                ctx.font = 'bold 9px "Segoe UI", Arial, sans-serif';
+                ctx.fillText('(Mid)', x + actualCellW / 2, labelY + 9);
+
+                // Small reference pip
+                ctx.beginPath();
+                ctx.arc(x + actualCellW / 2, labelY - 14, 2.5, 0, Math.PI * 2);
+                ctx.fill();
+            } else {
+                ctx.fillStyle = '#1e293b';
+                ctx.font = 'bold 15px "Segoe UI", Arial, sans-serif';
+                ctx.fillText(noteName, x + actualCellW / 2, labelY);
+            }
+        }
+
+        // --- PASS 2: Draw All Black Keys in this Octave (Raised 3D Overlays with White Front Lip) ---
+        for (var c = 0; c < cols; c++) {
+            if (blackKeyCols.indexOf(c) === -1) continue;
+            var x = c * actualCellW;
+            var noteName = noteNames[c] + oct;
+
+            // 1. Recessed keybed background
+            ctx.fillStyle = '#020617';
+            ctx.fillRect(x + 1, y + 4, actualCellW - 2, actualCellH - 4);
+
+            // 2. White Key Extension at bottom (White front where black key stops short)
+            var tailY = y + actualCellH - whiteTailH - 2;
+            var whiteTailGrad = ctx.createLinearGradient(x, tailY, x, y + actualCellH);
+            whiteTailGrad.addColorStop(0, '#f1f5f9');
+            whiteTailGrad.addColorStop(1, '#e2e8f0');
+
+            ctx.fillStyle = whiteTailGrad;
+            ctx.fillRect(x + 1, tailY, actualCellW - 2, whiteTailH);
+
+            ctx.strokeStyle = '#cbd5e1';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(x + 1, tailY, actualCellW - 2, whiteTailH);
+
+            // Bottom bevel on white tail
+            ctx.fillStyle = '#94a3b8';
+            ctx.fillRect(x + 2, y + actualCellH - 5, actualCellW - 4, 2);
+
+            // Bottom edge highlight
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+            ctx.fillRect(x + 2, y + actualCellH - 6, actualCellW - 4, 1);
+
+            // Vertical black line dividing the adjacent white keys at the front
+            ctx.strokeStyle = '#0f172a';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(Math.round(x + actualCellW / 2), tailY);
+            ctx.lineTo(Math.round(x + actualCellW / 2), y + actualCellH - 3);
+            ctx.stroke();
+
+            // 3. Raised 3D Ebony Key Cap (stops short above the white extension)
+            var keyInsetX = 4;
+            var keyW = actualCellW - (keyInsetX * 2);
+            var keyH = actualCellH - 4 - whiteTailH - 3;
+            var keyX = x + keyInsetX;
+            var keyY = y + 4;
+
+            // Tight drop shadow below black key nose (reduced to ~2px)
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+            ctx.fillRect(keyX + 1, keyY + keyH, keyW - 2, 2);
+
+            // 3D Ebony Key Cap Gradient
+            var blackGrad = ctx.createLinearGradient(keyX, keyY, keyX, keyY + keyH);
+            blackGrad.addColorStop(0, '#475569');
+            blackGrad.addColorStop(0.12, '#334155');
+            blackGrad.addColorStop(0.4, '#1e293b');
+            blackGrad.addColorStop(0.85, '#0f172a');
+            blackGrad.addColorStop(1, '#020617');
+
+            ctx.fillStyle = blackGrad;
+            ctx.fillRect(keyX, keyY, keyW, keyH);
+
+            ctx.strokeStyle = '#1e293b';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(keyX, keyY, keyW, keyH);
+
+            // Front edge shadow on black key nose
+            ctx.fillStyle = '#020617';
+            ctx.fillRect(keyX + 1, keyY + keyH - 3, keyW - 2, 3);
+
+            // Gloss sheen along top edge
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.28)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(keyX + 2, keyY + 1);
+            ctx.lineTo(keyX + keyW - 2, keyY + 1);
+            ctx.stroke();
+
+            // Note Name Typography (Positioned slightly below center of black key)
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 13px "Segoe UI", Arial, sans-serif';
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
+            ctx.shadowBlur = 3;
+            ctx.fillText(noteName, keyX + keyW / 2, keyY + keyH * 0.56);
+            ctx.shadowBlur = 0;
+        }
+
+        // Octave Separator Rail
+        if (r < rows - 1) {
+            ctx.fillStyle = '#020617';
+            ctx.fillRect(0, y + actualCellH - 2, w, 2);
+            ctx.fillStyle = '#18181b';
+            ctx.fillRect(0, y + actualCellH - 1, w, 1);
+        }
+    }
+
+    // 3. Solid Black Outer Piano Casing Border
+    ctx.strokeStyle = '#000000';
+    ctx.lineWidth = 4;
+    ctx.strokeRect(2, 2, w - 4, h - 4);
+}
+
+function updatePianoCanvas(divId, tableId) {
+    requestAnimationFrame(function() {
+        var $tbl = $('#' + tableId);
+        if (!$tbl.length) return;
+
+        var cols = 12;
+        var rows = 7;
+
+        var tblW = $tbl.outerWidth();
+        var tblH = $tbl.outerHeight();
+        var cellW = tblW / cols;
+        var cellH = tblH / rows;
+        var c = ensureInstrumentCanvas(divId, tblW, tblH);
+
+        drawPianoDiagram(c, cols, rows, cellW, cellH);
+    });
+}
+
 function loadInstrument1()
 {
     var type = $("#instrument1Menu").val();
@@ -939,12 +1147,14 @@ function loadInstrument1()
         updateGuitarCanvas('instrumentimg1', 'instrument1');
     } else if (type === 'ukulele') {
         updateUkuleleCanvas('instrumentimg1', 'instrument1');
+    } else if (type === 'piano') {
+        updatePianoCanvas('instrumentimg1', 'instrument1');
     } else if (isTenHoleHarmonica(type)) {
         updateHarmonicaCanvas('instrumentimg1', 'instrument1');
     } else if (isChromaticHarmonica(type)) {
         updateChromaticCanvas('instrumentimg1', 'instrument1');
     } else {
-        $("#instrumentimg1").html(img[type]);
+        $("#instrumentimg1").html(img[type] || '');
     }
 }
 
@@ -959,12 +1169,14 @@ function loadInstrument2()
         updateGuitarCanvas('instrumentimg2', 'instrument2');
     } else if (type === 'ukulele') {
         updateUkuleleCanvas('instrumentimg2', 'instrument2');
+    } else if (type === 'piano') {
+        updatePianoCanvas('instrumentimg2', 'instrument2');
     } else if (isTenHoleHarmonica(type)) {
         updateHarmonicaCanvas('instrumentimg2', 'instrument2');
     } else if (isChromaticHarmonica(type)) {
         updateChromaticCanvas('instrumentimg2', 'instrument2');
     } else {
-        $("#instrumentimg2").html(img[type]);
+        $("#instrumentimg2").html(img[type] || '');
     }
 }
 
@@ -979,12 +1191,14 @@ function loadInstrument3()
         updateGuitarCanvas('instrumentimg3', 'instrument3');
     } else if (type === 'ukulele') {
         updateUkuleleCanvas('instrumentimg3', 'instrument3');
+    } else if (type === 'piano') {
+        updatePianoCanvas('instrumentimg3', 'instrument3');
     } else if (isTenHoleHarmonica(type)) {
         updateHarmonicaCanvas('instrumentimg3', 'instrument3');
     } else if (isChromaticHarmonica(type)) {
         updateChromaticCanvas('instrumentimg3', 'instrument3');
     } else {
-        $("#instrumentimg3").html(img[type]);
+        $("#instrumentimg3").html(img[type] || '');
     }
 }
 
@@ -999,12 +1213,14 @@ function loadInstrument4()
         updateGuitarCanvas('instrumentimg4', 'instrument4');
     } else if (type === 'ukulele') {
         updateUkuleleCanvas('instrumentimg4', 'instrument4');
+    } else if (type === 'piano') {
+        updatePianoCanvas('instrumentimg4', 'instrument4');
     } else if (isTenHoleHarmonica(type)) {
         updateHarmonicaCanvas('instrumentimg4', 'instrument4');
     } else if (isChromaticHarmonica(type)) {
         updateChromaticCanvas('instrumentimg4', 'instrument4');
     } else {
-        $("#instrumentimg4").html(img[type]);
+        $("#instrumentimg4").html(img[type] || '');
     }
 }
 
@@ -1025,8 +1241,11 @@ $(document).ready(function(){
     $('#instrument1').html(instrument.diatonicrichterc);
     attachAll('instrument1');
     updateHarmonicaCanvas('instrumentimg1', 'instrument1');
-    $('#instrumentimg2').html(img.piano);
+    
     $('#instrument2').html(instrument.pianostandard);
+    attachAll('instrument2');
+    updatePianoCanvas('instrumentimg2', 'instrument2');
+
     // draw default guitar in banks 3 and 4 (size after html inserted)
     $('#instrument3').html(instrument.guitarstandard);
     attachAll('instrument3');
@@ -1244,10 +1463,10 @@ $(document).ready(function(){
     </tr>
     </table>
 
-<div class="instrumentimg1" id="instrumentimg1" ondragstart='return false;' ondrop='return false;'><img src="diatonic.png"></div>
+<div class="instrumentimg1" id="instrumentimg1" ondragstart='return false;' ondrop='return false;'></div>
 <table class="instrument1" id="instrument1" ondragstart='return false;' ondrop='return false;'></table>
 
-<div class="instrumentimg2" id="instrumentimg2" ondragstart='return false;' ondrop='return false;'><img src="piano.png"></div>
+<div class="instrumentimg2" id="instrumentimg2" ondragstart='return false;' ondrop='return false;'></div>
 <table class="instrument2" id="instrument2" ondragstart='return false;' ondrop='return false;'></table>
 
 <div class="instrumentimg3" id="instrumentimg3" ondragstart='return false;' ondrop='return false;'></div>
