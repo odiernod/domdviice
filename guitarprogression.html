@@ -485,11 +485,11 @@
 
       const toneData = getVisibleToneData();
 
-      const topIndex = hoverIndex !== null ? hoverIndex : emphasizedIndex;
-      const nonHovered = toneData.filter((entry) => entry.index !== topIndex);
-      const hovered = toneData.filter((entry) => entry.index === topIndex);
+      const nonHighlighted = toneData.filter((entry) => entry.index !== emphasizedIndex && entry.index !== hoverIndex);
+      const emphasized = toneData.filter((entry) => entry.index === emphasizedIndex && entry.index !== hoverIndex);
+      const hovered = toneData.filter((entry) => entry.index === hoverIndex);
 
-      nonHovered.forEach((entry) => {
+      nonHighlighted.forEach((entry) => {
         entry.positions.forEach((pos) => {
           const x = leftPad + (pos.fret * fretSpacing);
           const y = topPad + ((stringCount - 1 - pos.stringIndex) * stringSpacing);
@@ -510,7 +510,7 @@
         });
       });
 
-      hovered.forEach((entry) => {
+      emphasized.forEach((entry) => {
         entry.positions.forEach((pos) => {
           const x = leftPad + (pos.fret * fretSpacing);
           const y = topPad + ((stringCount - 1 - pos.stringIndex) * stringSpacing);
@@ -525,6 +525,20 @@
       });
 
       hovered.forEach((entry) => {
+        entry.positions.forEach((pos) => {
+          const x = leftPad + (pos.fret * fretSpacing);
+          const y = topPad + ((stringCount - 1 - pos.stringIndex) * stringSpacing);
+
+          ctx.beginPath();
+          ctx.fillStyle = entry.color;
+          ctx.globalAlpha = 1;
+          ctx.arc(x, y, 12, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.globalAlpha = 1;
+        });
+      });
+
+      [...emphasized, ...hovered].forEach((entry) => {
         entry.positions.forEach((pos) => {
           const x = leftPad + (pos.fret * fretSpacing);
           const y = topPad + ((stringCount - 1 - pos.stringIndex) * stringSpacing);
