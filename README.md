@@ -1,5 +1,7 @@
-# domdviice
-An iteration of DVIICE originally by tigerhawkt3 which includes more harmonica tunings as well as a scale displayer
+# OmniTune
+**OmniTune: Compare Instruments, Tunings and Scales**
+
+An instrument comparator, scale displayer, and tuning visualizer supporting piano, guitar, ukulele, and diverse harmonica tunings (Wilde, PowerBender, Paddy Richter, Chromatic, etc.), as well as a guitar chord progression visualizer and chord chart generator.
 
 ## Chord Chart Generator — LLM parameter reference
 

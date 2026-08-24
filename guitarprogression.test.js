@@ -7,10 +7,10 @@ const {
   getChordPitchClasses,
   getScalePitchClasses,
   getScaleDegree,
-  noteToDviiceName
+  formatNoteName
 } = require('./scripts/guitarprogression.js');
 
-test('standard tuning matches the guitar order used in DVIICE', () => {
+test('standard tuning matches the guitar order used in OmniTune', () => {
   assert.deepEqual(getTuningNotes('standard'), ['E2', 'A2', 'D3', 'G3', 'B3', 'E4']);
 });
 
@@ -50,8 +50,8 @@ test('C7 resolves to the dominant seventh chord formula', () => {
   assert.deepEqual(getChordPitchClasses('C7'), [0, 4, 7, 10]);
 });
 
-test('DVIICE-style note names remain sharp-based and consistent', () => {
-  assert.equal(noteToDviiceName('C#4'), 'C#4');
-  assert.equal(noteToDviiceName('A#3'), 'A#3');
-  assert.equal(noteToDviiceName('Bb3'), 'A#3');
+test('OmniTune-style note names remain sharp-based and consistent', () => {
+  assert.equal(formatNoteName('C#4'), 'C#4');
+  assert.equal(formatNoteName('A#3'), 'A#3');
+  assert.equal(formatNoteName('Bb3'), 'A#3');
 });

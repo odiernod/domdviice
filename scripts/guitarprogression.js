@@ -76,7 +76,7 @@
     return ((octave + 1) * 12) + semitone;
   }
 
-  function noteToDviiceName(noteName) {
+  function formatNoteName(noteName) {
     const match = /^([A-G])([#b]?)(\d)$/.exec(String(noteName || '').trim());
     if (!match) return String(noteName || '');
 
@@ -254,7 +254,7 @@
     TUNINGS,
     CHORD_LIBRARY,
     noteToMidi,
-    noteToDviiceName,
+    formatNoteName,
     getTuningNotes,
     getDisplayTuningNotes,
     getChordPitchClasses,
