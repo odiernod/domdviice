@@ -542,6 +542,8 @@
         entry.positions.forEach((pos) => {
           const x = leftPad + (pos.fret * fretSpacing);
           const y = topPad + ((stringCount - 1 - pos.stringIndex) * stringSpacing);
+          const showEntryScaleDegrees = showScaleDegrees
+            && (hoverIndex === null || entry.index === hoverIndex);
 
           if (showNoteNames) {
             ctx.fillStyle = '#111827';
@@ -551,7 +553,7 @@
             ctx.fillText(GuitarProgression.noteToDviiceName(pos.note), x, y - 16);
           }
 
-          if (showScaleDegrees) {
+          if (showEntryScaleDegrees) {
             const scaleDegree = GuitarProgression.getScaleDegree(entry.chord, pos.pitchClass);
             if (!scaleDegree) return;
 
