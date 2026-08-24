@@ -112,7 +112,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="scripts/webaudio_tools.js"> </script>
 <script type="text/javascript" src="scripts/tone.js"></script>
-<script type="text/javascript" src="scripts/dynamiccontent.js"></script>
+<script type="text/javascript" src="scripts/tuning_definitions.js"></script>
+<script type="text/javascript" src="scripts/tuning_engine.js"></script>
 <script>
 // speed bump for iframe content thieves
 // https://stackoverflow.com/a/2896882
@@ -198,36 +199,37 @@ function toggleNoteNames() {
     }
 }
 
-// instrument1Menu to update tuning1Menu
-$(document).ready(function(){
-    $('#instrument1Menu').change(function(){
-        // provide the tunings available for the selected instrument
-        $("#tuning1Menu").html(menu[$("#instrument1Menu").val()]);
-  });
-});
+function updateValvedVisibility(bankNum) {
+    var type = $("#instrument" + bankNum + "Menu").val();
+    if (isTenHoleHarmonica(type)) {
+        $("#valved" + bankNum + "Container").show();
+        var def = (typeof HARMONICA_TUNINGS !== 'undefined') ? HARMONICA_TUNINGS[type] : null;
+        if (def && def.isHalfValvedDefault) {
+            $("#valved" + bankNum).prop('checked', true);
+        }
+    } else {
+        $("#valved" + bankNum + "Container").hide();
+        $("#valved" + bankNum).prop('checked', false);
+    }
+}
 
-// instrument2Menu to update tuning2Menu
+// instrument menus to update tuning menus and half-valved toggle visibility
 $(document).ready(function(){
-    $('#instrument2Menu').change(function(){
-        // provide the tunings available for the selected instrument
-        $("#tuning2Menu").html(menu[$("#instrument2Menu").val()]);
-  });
-});
-
-// instrument3Menu to update tuning3Menu
-$(document).ready(function(){
-    $('#instrument3Menu').change(function(){
-        // provide the tunings available for the selected instrument
-        $("#tuning3Menu").html(menu[$("#instrument3Menu").val()]);
-  });
-});
-
-// instrument3Menu to update tuning3Menu
-$(document).ready(function(){
-    $('#instrument4Menu').change(function(){
-        // provide the tunings available for the selected instrument
-        $("#tuning4Menu").html(menu[$("#instrument4Menu").val()]);
-  });
+    for (let b = 1; b <= 4; b++) {
+        (function(bankNum) {
+            $('#instrument' + bankNum + 'Menu').change(function(){
+                $("#tuning" + bankNum + "Menu").html(menu[$("#instrument" + bankNum + "Menu").val()]);
+                updateValvedVisibility(bankNum);
+            });
+            $('#valved' + bankNum).change(function(){
+                if (bankNum === 1) loadInstrument1();
+                else if (bankNum === 2) loadInstrument2();
+                else if (bankNum === 3) loadInstrument3();
+                else if (bankNum === 4) loadInstrument4();
+                updateAfterInstrumentChange();
+            });
+        })(b);
+    }
 });
 
 // when a Go! button is clicked, instrument and img are loaded
@@ -485,7 +487,7 @@ function isTenHoleHarmonica(type) {
 function drawHarmonicaDiagram(canvas, cols = 10, rows = 7,
                               cellW = null, cellH = null,
                               blowRow = 2, drawRow = 3,
-                              activeCells = null) {
+                              activeCells = null, cellMeta = null) {
     var ctx = canvas.getContext('2d');
     var w = canvas.width, h = canvas.height;
     ctx.clearRect(0, 0, w, h);
@@ -542,7 +544,7 @@ function drawHarmonicaDiagram(canvas, cols = 10, rows = 7,
     ctx.lineWidth = 4;
     ctx.strokeRect(2, coreY, w - 4, coreH);
 
-    // 6. Grid for Overblow & Bend Zones (Outside Core Body)
+    // 6. Grid for Overblow, Overdraw, Valve Bends & Dual-reed Bend Zones (Outside Core Body)
     // ONLY draw background and border for cells that actually have notes!
     for (var r = 0; r < rows; r++) {
         if (r === blowRow || r === drawRow) continue;
@@ -555,17 +557,65 @@ function drawHarmonicaDiagram(canvas, cols = 10, rows = 7,
             if (!hasNote) continue; // No note -> leave transparent, no border
 
             var x = c * actualCellW;
-            ctx.fillStyle = isUpper ? 'rgba(240, 249, 255, 0.85)' : (depthFromCore === 1 ? 'rgba(255, 251, 235, 0.85)' : (depthFromCore === 2 ? 'rgba(254, 243, 199, 0.9)' : 'rgba(253, 230, 138, 0.9)'));
+            var meta = (cellMeta && cellMeta[r] && cellMeta[r][c]) ? cellMeta[r][c] : null;
+
+            var fillColor = 'rgba(255, 251, 235, 0.85)';
+            var borderColor = '#1e293b';
+            var innerStroke = 'rgba(100, 116, 139, 0.35)';
+            var badgeText = '';
+            var badgeBg = '#475569';
+            var badgeColor = '#ffffff';
+
+            if (meta) {
+                if (meta.type === 'overblow' || meta.type === 'overdraw') {
+                    fillColor = 'rgba(243, 232, 255, 0.88)';
+                    borderColor = '#7c3aed';
+                    innerStroke = 'rgba(147, 51, 234, 0.35)';
+                    badgeText = meta.type === 'overblow' ? 'OB' : 'OD';
+                    badgeBg = '#7c3aed';
+                } else if (meta.type === 'valve-bend') {
+                    fillColor = 'rgba(209, 250, 229, 0.88)';
+                    borderColor = '#059669';
+                    innerStroke = 'rgba(16, 185, 129, 0.35)';
+                    badgeText = 'VB';
+                    badgeBg = '#059669';
+                } else if (meta.type === 'blow-bend') {
+                    fillColor = 'rgba(239, 246, 255, 0.88)';
+                    borderColor = '#2563eb';
+                    innerStroke = 'rgba(59, 130, 246, 0.35)';
+                } else if (meta.type === 'draw-bend') {
+                    fillColor = (depthFromCore === 1) ? 'rgba(255, 251, 235, 0.88)' : ((depthFromCore === 2) ? 'rgba(254, 243, 199, 0.92)' : 'rgba(253, 230, 138, 0.92)');
+                    borderColor = (depthFromCore === 1) ? '#b45309' : ((depthFromCore === 2) ? '#d97706' : '#b91c1c');
+                    innerStroke = 'rgba(217, 119, 6, 0.35)';
+                }
+            } else {
+                fillColor = isUpper ? 'rgba(240, 249, 255, 0.85)' : (depthFromCore === 1 ? 'rgba(255, 251, 235, 0.85)' : (depthFromCore === 2 ? 'rgba(254, 243, 199, 0.9)' : 'rgba(253, 230, 138, 0.9)'));
+                borderColor = '#1e293b';
+            }
+
+            ctx.fillStyle = fillColor;
             ctx.fillRect(x + 1, y + 1, actualCellW - 2, actualCellH - 2);
 
-            ctx.strokeStyle = '#1e293b';
+            ctx.strokeStyle = borderColor;
             ctx.lineWidth = 1.5;
             ctx.strokeRect(x + 1, y + 1, actualCellW - 2, actualCellH - 2);
 
             // Subtle inner frame
-            ctx.strokeStyle = 'rgba(100, 116, 139, 0.35)';
+            ctx.strokeStyle = innerStroke;
             ctx.lineWidth = 1;
             ctx.strokeRect(x + 7, y + 7, actualCellW - 14, actualCellH - 14);
+
+            // Small badge in corner of the cell for OB, OD, VB
+            if (badgeText && (badgeText === 'OB' || badgeText === 'OD' || badgeText === 'VB')) {
+                ctx.fillStyle = badgeBg;
+                var bw = 18, bh = 12;
+                ctx.fillRect(x + actualCellW - bw - 4, y + 4, bw, bh);
+                ctx.fillStyle = badgeColor;
+                ctx.font = 'bold 8px Arial, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(badgeText, x + actualCellW - bw / 2 - 4, y + 4 + bh / 2);
+            }
         }
     }
 
@@ -608,7 +658,7 @@ function drawHarmonicaDiagram(canvas, cols = 10, rows = 7,
         var labelY = r * actualCellH + 4;
         if (r < blowRow) {
             var diff = blowRow - r;
-            var bendLabel = (diff === 2) ? "'' bend" : "' bend";
+            var bendLabel = (diff === 2) ? "'' bend" : "' bend / OB / VB";
             ctx.fillStyle = '#475569';
             ctx.fillText(bendLabel, 5, labelY);
         } else if (r === blowRow) {
@@ -619,7 +669,7 @@ function drawHarmonicaDiagram(canvas, cols = 10, rows = 7,
             ctx.fillText('DRAW', 5, labelY);
         } else if (r > drawRow) {
             var diff = r - drawRow;
-            var bendLabel = (diff === 1) ? "' bend" : ((diff === 2) ? "'' bend" : "''' bend");
+            var bendLabel = (diff === 1) ? "' bend / OD / VB" : ((diff === 2) ? "'' bend" : "''' bend");
             var bendColor = (diff === 1) ? '#b45309' : ((diff === 2) ? '#d97706' : '#b91c1c');
             ctx.fillStyle = bendColor;
             ctx.fillText(bendLabel, 5, labelY);
@@ -696,14 +746,17 @@ function updateHarmonicaCanvas(divId, tableId) {
             }
         }
 
-        drawHarmonicaDiagram(c, cols, rows, cellW, cellH, blowRow, drawRow, activeCells);
+        var cellMeta = (typeof TuningEngine !== 'undefined' && TuningEngine.harmonicaMatrices) ? TuningEngine.harmonicaMatrices[tableId] : null;
+        drawHarmonicaDiagram(c, cols, rows, cellW, cellH, blowRow, drawRow, activeCells, cellMeta);
     });
 }
 
 function loadInstrument1()
 {
     var type = $("#instrument1Menu").val();
-    $("#instrument1").html(instrument[type + $("#tuning1Menu").val()]);
+    var tuning = $("#tuning1Menu").val();
+    var isValved = $("#valved1").is(":checked");
+    $("#instrument1").html(TuningEngine.generateInstrumentHtml(type, tuning, isValved, 'instrument1'));
     attachAll("instrument1");
     if (type === 'guitar') {
         updateGuitarCanvas('instrumentimg1', 'instrument1');
@@ -719,7 +772,9 @@ function loadInstrument1()
 function loadInstrument2()
 {
     var type = $("#instrument2Menu").val();
-    $("#instrument2").html(instrument[type + $("#tuning2Menu").val()]);
+    var tuning = $("#tuning2Menu").val();
+    var isValved = $("#valved2").is(":checked");
+    $("#instrument2").html(TuningEngine.generateInstrumentHtml(type, tuning, isValved, 'instrument2'));
     attachAll("instrument2");
     if (type === 'guitar') {
         updateGuitarCanvas('instrumentimg2', 'instrument2');
@@ -735,7 +790,9 @@ function loadInstrument2()
 function loadInstrument3()
 {
     var type = $("#instrument3Menu").val();
-    $("#instrument3").html(instrument[type + $("#tuning3Menu").val()]);
+    var tuning = $("#tuning3Menu").val();
+    var isValved = $("#valved3").is(":checked");
+    $("#instrument3").html(TuningEngine.generateInstrumentHtml(type, tuning, isValved, 'instrument3'));
     attachAll("instrument3");
     if (type === 'guitar') {
         updateGuitarCanvas('instrumentimg3', 'instrument3');
@@ -751,7 +808,9 @@ function loadInstrument3()
 function loadInstrument4()
 {
     var type = $("#instrument4Menu").val();
-    $("#instrument4").html(instrument[type + $("#tuning4Menu").val()]);
+    var tuning = $("#tuning4Menu").val();
+    var isValved = $("#valved4").is(":checked");
+    $("#instrument4").html(TuningEngine.generateInstrumentHtml(type, tuning, isValved, 'instrument4'));
     attachAll("instrument4");
     if (type === 'guitar') {
         updateGuitarCanvas('instrumentimg4', 'instrument4');
@@ -800,6 +859,7 @@ $(document).ready(function(){
         $("#" + clef).html(instrument[clef]);
         attachAll(clef);
     }
+    updateNoteNames();
 });
 
 // when scaleDegrees button is clicked toggle individual scale degrees
@@ -853,6 +913,9 @@ $(document).ready(function(){
     <select id='tuning1Menu' style="text-align: center; font-weight: bold; font-size: 15px;">
     </select>
     </td>
+    <td id='valved1Container' style="vertical-align: middle; padding-left: 6px;">
+    <label style="font-size: 13px; font-weight: bold; cursor: pointer; white-space: nowrap;"><input type="checkbox" id="valved1"> Half-Valved</label>
+    </td>
     <td>
     <button id='go1' style="text-align: center; font-weight: bold; font-size: 15px;">Load Instrument</button>
     </td>
@@ -868,6 +931,9 @@ $(document).ready(function(){
     <td>
     <select id='tuning2Menu' style="text-align: center; font-weight: bold; font-size: 15px;">
     </select>
+    </td>
+    <td id='valved2Container' style="display:none; vertical-align: middle; padding-left: 6px;">
+    <label style="font-size: 13px; font-weight: bold; cursor: pointer; white-space: nowrap;"><input type="checkbox" id="valved2"> Half-Valved</label>
     </td>
     <td>
     <button id='go2' style="text-align: center; font-weight: bold; font-size: 15px;">Load Instrument</button>
@@ -885,6 +951,9 @@ $(document).ready(function(){
     <select id='tuning3Menu' style="text-align: center; font-weight: bold; font-size: 15px;">
     </select>
     </td>
+    <td id='valved3Container' style="display:none; vertical-align: middle; padding-left: 6px;">
+    <label style="font-size: 13px; font-weight: bold; cursor: pointer; white-space: nowrap;"><input type="checkbox" id="valved3"> Half-Valved</label>
+    </td>
     <td>
     <button id='go3' style="text-align: center; font-weight: bold; font-size: 15px;">Load Instrument</button>
     </td>
@@ -900,6 +969,9 @@ $(document).ready(function(){
     <td>
     <select id='tuning4Menu' style="text-align: center; font-weight: bold; font-size: 15px;">
     </select>
+    </td>
+    <td id='valved4Container' style="display:none; vertical-align: middle; padding-left: 6px;">
+    <label style="font-size: 13px; font-weight: bold; cursor: pointer; white-space: nowrap;"><input type="checkbox" id="valved4"> Half-Valved</label>
     </td>
     <td>
     <button id='go4' style="text-align: center; font-weight: bold; font-size: 15px;">Load Instrument</button>
@@ -982,7 +1054,7 @@ $(document).ready(function(){
     <td>
     <button id='scaleDegrees' style="text-align: center; font-weight: bold; font-size: 15px;">Hide Scale Degrees</button>
     </td>
-    <td><button id='noteNames' style="text-align: center; font-weight: bold; font-size: 15px;">Show Note Names</button></td>
+    <td><button id='noteNames' style="text-align: center; font-weight: bold; font-size: 15px;">Hide Note Names</button></td>
 
     </tr>
     </table>
@@ -1015,7 +1087,7 @@ $(document).ready(function(){
 let sweep;
 let scaleMode = false;
 let showScaleDegrees = true;
-let showNoteNames = false;
+let showNoteNames = true;
 // internal toggle: whether to draw harmonica using canvas instead of image
 let useHarmonicaCanvas = false;
 
@@ -1164,15 +1236,19 @@ function mouseUp() {
 
 $("#instrument1Menu").html(menu["instrument1"]);
 $("#tuning1Menu").html(menu[$("#instrument1Menu").val()]);
+updateValvedVisibility(1);
 
 $("#instrument2Menu").html(menu["instrument2"]);
 $("#tuning2Menu").html(menu[$("#instrument2Menu").val()]);
+updateValvedVisibility(2);
 
 $("#instrument3Menu").html(menu["instrument3"]);
 $("#tuning3Menu").html(menu[$("#instrument3Menu").val()]);
+updateValvedVisibility(3);
 
 $("#instrument4Menu").html(menu["instrument4"]);
 $("#tuning4Menu").html(menu[$("#instrument4Menu").val()]);
+updateValvedVisibility(4);
 
 
 document.body.style.zoom = "80%";
@@ -1218,6 +1294,14 @@ function setSelectValuesFromUrl() {
       }
     });
 
+    for (let b = 1; b <= 4; b++) {
+      updateValvedVisibility(b);
+      const valvedParam = urlParams.get('valved' + b);
+      if (valvedParam !== null) {
+        $('#valved' + b).prop('checked', valvedParam === 'true' || valvedParam === '1');
+      }
+    }
+
     //need to render proper instruments
     loadInstrument1();
     loadInstrument2();
@@ -1261,6 +1345,15 @@ function updateUrl() {
     setUrlParams(tuning3MenuSelect, newUrl);
     setUrlParams(instrument4MenuSelect, newUrl);
     setUrlParams(tuning4MenuSelect, newUrl);
+
+    for (let b = 1; b <= 4; b++) {
+      var type = $('#instrument' + b + 'Menu').val();
+      if (isTenHoleHarmonica(type)) {
+        newUrl.searchParams.set('valved' + b, $('#valved' + b).is(':checked'));
+      } else {
+        newUrl.searchParams.delete('valved' + b);
+      }
+    }
 
     setUrlParams(scaleMenuSelect, newUrl);
     setUrlParams(keyMenuSelect, newUrl);
