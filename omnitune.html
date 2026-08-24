@@ -1078,10 +1078,10 @@ function drawPianoDiagram(canvas, cols = 12, rows = 7, cellW = null, cellH = nul
             ctx.shadowBlur = 0;
         }
 
-        // Top divider between E (col 4) and F (col 5) where there is no black key
+        // Divider between E (col 4) and F (col 5) where there is no black key (darkened for clear separation)
         var efDividerX = Math.round(5 * actualCellW);
-        ctx.strokeStyle = '#cbd5e1';
-        ctx.lineWidth = 1;
+        ctx.strokeStyle = '#0f172a';
+        ctx.lineWidth = 1.5;
         ctx.beginPath();
         ctx.moveTo(efDividerX, y + 4);
         ctx.lineTo(efDividerX, y + actualCellH - 3);
