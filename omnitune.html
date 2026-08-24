@@ -480,6 +480,17 @@ function isTenHoleHarmonica(type) {
 }
 
 // draw a complete 10-hole harmonica body with Blow and Draw reed plates,
+// thick outer border, central comb with hole numbers 1-10, and bend/overblow grid zones
+// Only cells that contain actual bend notes have borders and backgrounds drawn!
+function drawHarmonicaDiagram(canvas, cols = 10, rows = 7,
+                              cellW = null, cellH = null,
+                              blowRow = 2, drawRow = 3,
+                              activeCells = null) {
+    var ctx = canvas.getContext('2d');
+    var w = canvas.width, h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+
+    var actualCellW = cellW || (w / cols);
     var actualCellH = cellH || (h / rows);
 
     // 1. Harmonica Core Body (Cover plates over Blow and Draw rows)
@@ -488,25 +499,103 @@ function isTenHoleHarmonica(type) {
 
     // Metallic coverplate gradient casing
     var metalGrad = ctx.createLinearGradient(0, coreY, 0, coreY + coreH);
+    metalGrad.addColorStop(0, '#cbd5e1');
+    metalGrad.addColorStop(0.3, '#f1f5f9');
+    metalGrad.addColorStop(0.7, '#e2e8f0');
+    metalGrad.addColorStop(1, '#94a3b8');
+
     ctx.fillStyle = metalGrad;
+    ctx.fillRect(2, coreY, w - 4, coreH);
+
+    // 2. Blow Reed Plate (Row index blowRow)
     var blowGrad = ctx.createLinearGradient(0, coreY, 0, coreY + actualCellH);
     blowGrad.addColorStop(0, '#e0f2fe');
     blowGrad.addColorStop(1, '#bae6fd');
     ctx.fillStyle = blowGrad;
     ctx.fillRect(3, coreY, w - 6, actualCellH);
 
+    // 3. Draw Reed Plate (Row index drawRow)
     var drawGrad = ctx.createLinearGradient(0, drawRow * actualCellH, 0, drawRow * actualCellH + actualCellH);
     drawGrad.addColorStop(0, '#fef3c7');
     drawGrad.addColorStop(1, '#fde68a');
     ctx.fillStyle = drawGrad;
+    ctx.fillRect(3, drawRow * actualCellH, w - 6, actualCellH);
+
+    // 4. Central Comb Mouthpiece Rail & Vertical Comb Dividers
     var combY = drawRow * actualCellH;
+    ctx.fillStyle = '#1e293b';
+    ctx.fillRect(2, combY - 4, w - 4, 8);
+
+    // Vertical comb partitions
+    ctx.strokeStyle = '#334155';
     ctx.lineWidth = 1.5;
     for (var c = 0; c <= cols; c++) {
         var x = (c === cols) ? (w - 3) : (c === 0 ? 2 : Math.round(c * actualCellW));
         ctx.beginPath();
         ctx.moveTo(x, coreY);
+        ctx.lineTo(x, coreY + coreH);
         ctx.stroke();
     }
+
+    // 5. Thick Outer Border around Blow & Draw Reed Rows (Harmonica Body)
+    ctx.strokeStyle = '#0f172a';
+    ctx.lineWidth = 4;
+    ctx.strokeRect(2, coreY, w - 4, coreH);
+
+    // 6. Grid for Overblow & Bend Zones (Outside Core Body)
+    // ONLY draw background and border for cells that actually have notes!
+    for (var r = 0; r < rows; r++) {
+        if (r === blowRow || r === drawRow) continue;
+        var y = r * actualCellH;
+        var isUpper = r < blowRow;
+        var depthFromCore = isUpper ? (blowRow - r) : (r - drawRow);
+
+        for (var c = 0; c < cols; c++) {
+            var hasNote = activeCells && activeCells[r] && activeCells[r][c];
+            if (!hasNote) continue; // No note -> leave transparent, no border
+
+            var x = c * actualCellW;
+            ctx.fillStyle = isUpper ? 'rgba(240, 249, 255, 0.85)' : (depthFromCore === 1 ? 'rgba(255, 251, 235, 0.85)' : (depthFromCore === 2 ? 'rgba(254, 243, 199, 0.9)' : 'rgba(253, 230, 138, 0.9)'));
+            ctx.fillRect(x + 1, y + 1, actualCellW - 2, actualCellH - 2);
+
+            ctx.strokeStyle = '#1e293b';
+            ctx.lineWidth = 1.5;
+            ctx.strokeRect(x + 1, y + 1, actualCellW - 2, actualCellH - 2);
+
+            // Subtle inner frame
+            ctx.strokeStyle = 'rgba(100, 116, 139, 0.35)';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(x + 7, y + 7, actualCellW - 14, actualCellH - 14);
+        }
+    }
+
+    // Inner bevels on blow and draw cells
+    for (var c = 0; c < cols; c++) {
+        var x = c * actualCellW;
+        ctx.strokeStyle = 'rgba(100, 116, 139, 0.35)';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(x + 7, coreY + 7, actualCellW - 14, actualCellH - 14);
+        ctx.strokeRect(x + 7, drawRow * actualCellH + 7, actualCellW - 14, actualCellH - 14);
+    }
+
+    // 7. Hole Number Badges on Comb Rail (1 to 10)
+    for (var c = 0; c < cols; c++) {
+        var cx = c * actualCellW + actualCellW / 2;
+        var cy = combY;
+        var badgeW = 22;
+        var badgeH = 18;
+
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(cx - badgeW / 2, cy - badgeH / 2, badgeW, badgeH);
+
+        ctx.strokeStyle = '#94a3b8';
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(cx - badgeW / 2, cy - badgeH / 2, badgeW, badgeH);
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 11px Arial, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
         ctx.fillText(c + 1, cx, cy);
     }
 
@@ -515,6 +604,7 @@ function isTenHoleHarmonica(type) {
     ctx.textAlign = 'left';
     ctx.textBaseline = 'top';
 
+    for (var r = 0; r < rows; r++) {
         var labelY = r * actualCellH + 4;
         if (r < blowRow) {
             var diff = blowRow - r;
@@ -524,12 +614,101 @@ function isTenHoleHarmonica(type) {
         } else if (r === blowRow) {
             ctx.fillStyle = '#1e40af';
             ctx.fillText('BLOW', 5, labelY);
+        } else if (r === drawRow) {
+            ctx.fillStyle = '#92400e';
+            ctx.fillText('DRAW', 5, labelY);
+        } else if (r > drawRow) {
+            var diff = r - drawRow;
+            var bendLabel = (diff === 1) ? "' bend" : ((diff === 2) ? "'' bend" : "''' bend");
+            var bendColor = (diff === 1) ? '#b45309' : ((diff === 2) ? '#d97706' : '#b91c1c');
+            ctx.fillStyle = bendColor;
+            ctx.fillText(bendLabel, 5, labelY);
+        }
+    }
 
+    // 9. Casing Accents / Corner Screws
     var drawScrew = function(sx, sy) {
+        ctx.beginPath();
+        ctx.arc(sx, sy, 3, 0, Math.PI * 2);
+        ctx.fillStyle = '#64748b';
+        ctx.fill();
+        ctx.strokeStyle = '#0f172a';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+    };
+    drawScrew(6, coreY + 6);
+    drawScrew(w - 6, coreY + 6);
+    drawScrew(6, coreY + coreH - 6);
+    drawScrew(w - 6, coreY + coreH - 6);
+}
+
+// update the canvas behind any 10-hole harmonica table
+function updateHarmonicaCanvas(divId, tableId) {
+    requestAnimationFrame(function() {
+        var $tbl = $("#" + tableId);
+        if (!$tbl.length) {
+            return;
+        }
+        var cols = $tbl.find('tr:first td').length;
+        var rows = $tbl.find('tr').length;
+        if (cols === 0 || rows === 0) {
+            return;
+        }
+        var tblW = $tbl.outerWidth();
+        var tblH = $tbl.outerHeight();
+        var cellW = tblW / cols;
+        var cellH = tblH / rows;
+        var w = tblW;
+        var h = tblH;
+        var c = ensureInstrumentCanvas(divId, w, h);
+
+        // Build activeCells matrix
+        var activeCells = [];
+        $tbl.find('tr').each(function(rIdx, tr) {
+            activeCells[rIdx] = [];
+            $(tr).find('td').each(function(cIdx, td) {
+                var hasNote = !!$(td).find('img').attr('name') || !!$(td).find('img').attr('tone');
+                activeCells[rIdx][cIdx] = hasNote;
+            });
+        });
+
+        // Determine blowRow and drawRow based on tuning rows
+        var blowRow = 2, drawRow = 3;
+        if (rows === 6) {
+            blowRow = 1; drawRow = 2;
+        } else if (rows === 4) {
+            blowRow = 1; drawRow = 2;
+        } else if (rows === 3) {
+            blowRow = 0; drawRow = 1;
+        } else if (rows === 7) {
+            blowRow = 2; drawRow = 3;
+        } else {
+            for (var r = 0; r < rows; r++) {
+                var notesInRow = 0;
+                for (var col = 0; col < cols; col++) {
+                    if (activeCells[r] && activeCells[r][col]) notesInRow++;
+                }
+                if (notesInRow === cols) {
+                    blowRow = r;
+                    drawRow = r + 1;
+                    break;
+                }
+            }
+        }
+
+        drawHarmonicaDiagram(c, cols, rows, cellW, cellH, blowRow, drawRow, activeCells);
+    });
+}
+
+function loadInstrument1()
+{
+    var type = $("#instrument1Menu").val();
     $("#instrument1").html(instrument[type + $("#tuning1Menu").val()]);
     attachAll("instrument1");
     if (type === 'guitar') {
         updateGuitarCanvas('instrumentimg1', 'instrument1');
+    } else if (type === 'ukulele') {
+        updateUkuleleCanvas('instrumentimg1', 'instrument1');
     } else if (isTenHoleHarmonica(type)) {
         updateHarmonicaCanvas('instrumentimg1', 'instrument1');
     } else {
@@ -543,6 +722,7 @@ function loadInstrument2()
     $("#instrument2").html(instrument[type + $("#tuning2Menu").val()]);
     attachAll("instrument2");
     if (type === 'guitar') {
+        updateGuitarCanvas('instrumentimg2', 'instrument2');
     } else if (type === 'ukulele') {
         updateUkuleleCanvas('instrumentimg2', 'instrument2');
     } else if (isTenHoleHarmonica(type)) {
@@ -570,9 +750,31 @@ function loadInstrument3()
 
 function loadInstrument4()
 {
+    var type = $("#instrument4Menu").val();
+    $("#instrument4").html(instrument[type + $("#tuning4Menu").val()]);
+    attachAll("instrument4");
+    if (type === 'guitar') {
+        updateGuitarCanvas('instrumentimg4', 'instrument4');
+    } else if (type === 'ukulele') {
+        updateUkuleleCanvas('instrumentimg4', 'instrument4');
+    } else if (isTenHoleHarmonica(type)) {
+        updateHarmonicaCanvas('instrumentimg4', 'instrument4');
+    } else {
+        $("#instrumentimg4").html(img[type]);
+    }
+}
+
+function updateAfterInstrumentChange()
+{
+    updateNoteNames();
+    if (scaleMode) {
         var scale = $("#scaleMenu").val();
         var key = $("#keyMenu").val();
         showScale(scale, key);
+    }
+    updateUrl();
+}
+
 // when a Go! button is clicked, instrument and img are loaded
 $(document).ready(function(){
     // set up default instruments; bank1 is Richter harmonica with canvas
@@ -584,6 +786,8 @@ $(document).ready(function(){
     // draw default guitar in banks 3 and 4 (size after html inserted)
     $('#instrument3').html(instrument.guitarstandard);
     attachAll('instrument3');
+    updateGuitarCanvas('instrumentimg3', 'instrument3');
+
     $('#instrument4').html(instrument.guitarstandard);
     attachAll('instrument4');
     updateGuitarCanvas('instrumentimg4', 'instrument4');
@@ -596,6 +800,14 @@ $(document).ready(function(){
         $("#" + clef).html(instrument[clef]);
         attachAll(clef);
     }
+});
+
+// when scaleDegrees button is clicked toggle individual scale degrees
+$(document).ready(function(){
+    $('#scaleDegrees').click(function (){
+        showScaleDegrees = !showScaleDegrees;
+        $('#scaleDegrees').html(showScaleDegrees?'Hide Scale Degrees':
+                              'Show Scale Degrees');
         if (scaleMode) {
             var scale = $("#scaleMenu").val();
             var key = $("#keyMenu").val();
@@ -611,14 +823,25 @@ $(document).ready(function(){
     });
 });
 
+// when displayScale button is clicked, display the selected scale
 $(document).ready(function(){
     $('#displayScale').click(function (){
         var scale = $("#scaleMenu").val();
         var key = $("#keyMenu").val();
+        showScale(scale, key);
         updateUrl();
     });
 });
 
+// when clearScale button is clicked, clear all highlights
+$(document).ready(function(){
+    $('#clearScale').click(function (){
+        clearScale();
+        updateUrl();
+    });
+});
+
+</script>
 <table class='instrument1Chooser'>
     <tr><td style="text-align: center; font-weight: bold; font-size: 20px;">Instrument Bank #1</td></tr>
     <tr>
@@ -626,15 +849,26 @@ $(document).ready(function(){
     <select id='instrument1Menu' style="text-align: center; font-weight: bold; font-size: 15px;">
     </select>
     </td>
+    <td>
+    <select id='tuning1Menu' style="text-align: center; font-weight: bold; font-size: 15px;">
     </select>
     </td>
     <td>
+    <button id='go1' style="text-align: center; font-weight: bold; font-size: 15px;">Load Instrument</button>
     </td>
     </tr>
 </table>
 <table class='instrument2Chooser'>
     <tr><td style="text-align: center; font-weight: bold; font-size: 20px;">Instrument Bank #2</td></tr>
     <tr>
+    <td>
+    <select id='instrument2Menu' style="text-align: center; font-weight: bold; font-size: 15px;">
+    </select>
+    </td>
+    <td>
+    <select id='tuning2Menu' style="text-align: center; font-weight: bold; font-size: 15px;">
+    </select>
+    </td>
     <td>
     <button id='go2' style="text-align: center; font-weight: bold; font-size: 15px;">Load Instrument</button>
     </td>
@@ -658,6 +892,12 @@ $(document).ready(function(){
 </table>
 <table class='instrument4Chooser'>
     <tr><td style="text-align: center; font-weight: bold; font-size: 20px;">Instrument Bank #4</td></tr>
+    <tr>
+    <td>
+    <select id='instrument4Menu' style="text-align: center; font-weight: bold; font-size: 15px;">
+    </select>
+    </td>
+    <td>
     <select id='tuning4Menu' style="text-align: center; font-weight: bold; font-size: 15px;">
     </select>
     </td>
@@ -670,6 +910,7 @@ $(document).ready(function(){
 <tr>
 <td style="text-align: right; font-weight: bold; font-size: 20px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Choose a Scale / Chord to Display</td>
 </tr>
+<tr>
     <td>
     <select id='scaleMenu' style="text-align: center; font-weight: bold; font-size: 15px;">
     <option value='blues'>Blues</option>
@@ -942,88 +1183,101 @@ window.scrollTo(0,0);
 //            });
 //$('body').css({ width: '100%' });
 
-while (top!=self) alert("For security reasons, framing is not allowed.");
+if (top !== self) {
+    try {
+        top.location.replace(document.location);
+    } catch(e) {}
+}
 
 function setSelectValuesFromUrl() {
-  const urlParams = new URLSearchParams(window.location.search);
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
 
-  const selectElements = document.querySelectorAll('select');
-  
-  selectElements.forEach(select => {
-    const paramValue = urlParams.get(select.id);
-    if (paramValue) {
-      select.value = paramValue;
-      if (select.id == "instrument1Menu")
-      {
-        $("#tuning1Menu").html(menu[$("#instrument1Menu").val()]);
+    const selectElements = document.querySelectorAll('select');
+    
+    selectElements.forEach(select => {
+      const paramValue = urlParams.get(select.id);
+      if (paramValue) {
+        select.value = paramValue;
+        if (select.id == "instrument1Menu")
+        {
+          $("#tuning1Menu").html(menu[$("#instrument1Menu").val()]);
+        }
+        else if (select.id == "instrument2Menu")
+        {
+          $("#tuning2Menu").html(menu[$("#instrument2Menu").val()]);
+        }
+        else if (select.id == "instrument3Menu")
+        {
+          $("#tuning3Menu").html(menu[$("#instrument3Menu").val()]);
+        }
+        else if (select.id == "instrument4Menu")
+        {
+          $("#tuning4Menu").html(menu[$("#instrument4Menu").val()]);
+        }
       }
-      else if (select.id == "instrument2Menu")
-      {
-        $("#tuning2Menu").html(menu[$("#instrument2Menu").val()]);
-      }
-      else if (select.id == "instrument3Menu")
-      {
-        $("#tuning3Menu").html(menu[$("#instrument3Menu").val()]);
-      }
-      else if (select.id == "instrument4Menu")
-      {
-        $("#tuning4Menu").html(menu[$("#instrument4Menu").val()]);
-      }
+    });
+
+    //need to render proper instruments
+    loadInstrument1();
+    loadInstrument2();
+    loadInstrument3();
+    loadInstrument4();
+    updateAfterInstrumentChange();
+
+    const displayScaleParam = urlParams.get('displayScale');
+    if (displayScaleParam === 'true') 
+    {
+      var scale = $("#scaleMenu").val();
+      var key = $("#keyMenu").val();
+      showScale(scale, key);
     }
-  });
-
-  //need to render proper instruments
-  loadInstrument1();
-  loadInstrument2();
-  loadInstrument3();
-  loadInstrument4();
-  updateAfterInstrumentChange();
-
-  const displayScaleParam = urlParams.get('displayScale');
-  if (displayScaleParam) 
-  {
-    var scale = $("#scaleMenu").val()
-    var key = $("#keyMenu").val()
-    showScale(scale, key);
+  } catch(e) {
+    console.error("Initialization error:", e);
   }
 }
 
 function updateUrl() {
-  const instrument1MenuSelect = document.querySelector('select[id="instrument1Menu"]');
-  const instrument2MenuSelect = document.querySelector('select[id="instrument2Menu"]');
-  const instrument3MenuSelect = document.querySelector('select[id="instrument3Menu"]');
-  const instrument4MenuSelect = document.querySelector('select[id="instrument4Menu"]');
-  
-  const tuning1MenuSelect = document.querySelector('select[id="tuning1Menu"]');
-  const tuning2MenuSelect = document.querySelector('select[id="tuning2Menu"]');
-  const tuning3MenuSelect = document.querySelector('select[id="tuning3Menu"]');
-  const tuning4MenuSelect = document.querySelector('select[id="tuning4Menu"]');
+  try {
+    const instrument1MenuSelect = document.querySelector('select[id="instrument1Menu"]');
+    const instrument2MenuSelect = document.querySelector('select[id="instrument2Menu"]');
+    const instrument3MenuSelect = document.querySelector('select[id="instrument3Menu"]');
+    const instrument4MenuSelect = document.querySelector('select[id="instrument4Menu"]');
+    
+    const tuning1MenuSelect = document.querySelector('select[id="tuning1Menu"]');
+    const tuning2MenuSelect = document.querySelector('select[id="tuning2Menu"]');
+    const tuning3MenuSelect = document.querySelector('select[id="tuning3Menu"]');
+    const tuning4MenuSelect = document.querySelector('select[id="tuning4Menu"]');
 
-  const scaleMenuSelect = document.querySelector('select[id="scaleMenu"]');
-  const keyMenuSelect = document.querySelector('select[id="keyMenu"]');
+    const scaleMenuSelect = document.querySelector('select[id="scaleMenu"]');
+    const keyMenuSelect = document.querySelector('select[id="keyMenu"]');
 
+    const newUrl = new URL(window.location.href);
+    setUrlParams(instrument1MenuSelect, newUrl);
+    setUrlParams(tuning1MenuSelect, newUrl);
+    setUrlParams(instrument2MenuSelect, newUrl);
+    setUrlParams(tuning2MenuSelect, newUrl);
+    setUrlParams(instrument3MenuSelect, newUrl);
+    setUrlParams(tuning3MenuSelect, newUrl);
+    setUrlParams(instrument4MenuSelect, newUrl);
+    setUrlParams(tuning4MenuSelect, newUrl);
 
-  const newUrl = new URL(window.location.href);
-  setUrlParams(instrument1MenuSelect, newUrl);
-  setUrlParams(tuning1MenuSelect, newUrl);
-  setUrlParams(instrument2MenuSelect, newUrl);
-  setUrlParams(tuning2MenuSelect, newUrl);
-  setUrlParams(instrument3MenuSelect, newUrl);
-  setUrlParams(tuning3MenuSelect, newUrl);
-  setUrlParams(instrument4MenuSelect, newUrl);
-  setUrlParams(tuning4MenuSelect, newUrl);
+    setUrlParams(scaleMenuSelect, newUrl);
+    setUrlParams(keyMenuSelect, newUrl);
 
-  setUrlParams(scaleMenuSelect, newUrl);
-  setUrlParams(keyMenuSelect, newUrl);
+    newUrl.searchParams.set('displayScale', scaleMode);
 
-  newUrl.searchParams.set('displayScale', scaleMode);
-
-  history.pushState({}, '', newUrl);
+    history.pushState({}, '', newUrl);
+  } catch(e) {
+    // pushState is restricted on local file:// URLs in some browsers
+  }
 }
 
 function setUrlParams(ele, url)
 {
-    url.searchParams.set(ele.id, ele.value);
+    if (ele && ele.id && ele.value !== undefined) {
+        url.searchParams.set(ele.id, ele.value);
+    }
 }
 
 // Call the function when the page loads
