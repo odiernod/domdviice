@@ -22,33 +22,32 @@ const HARMONICA_KEY_OFFSETS = {
     highg: 7
 };
 
-// Minor keys map to semitone shifts relative to C (0)
+// Minor keys map to semitone shifts relative to C
 const HARMONICA_MINOR_KEY_OFFSETS = {
-    lowcm: -12,
-    lowdbm: -11,
-    lowdm: -10,
-    lowebm: -9,
-    lowem: -8,
-    lowfm: -7,
-    lowfsm: -6,
     gm: -5,
+    ab: -4,
     abm: -4,
+    a: -3,
     am: -3,
+    bb: -2,
     bbm: -2,
+    b: -1,
     bm: -1,
+    c: 0,
     cm: 0,
+    db: 1,
     dbm: 1,
+    d: 2,
     dm: 2,
+    eb: 3,
     ebm: 3,
+    e: 4,
     em: 4,
+    f: 5,
     fm: 5,
+    fs: 6,
     fsm: 6,
-    highgm: 7,
-    // Aliases without 'm' suffix
-    lowc: -12, lowdb: -11, lowd: -10, loweb: -9, lowe: -8, lowf: -7, lowfs: -6,
-    g: -5, ab: -4, a: -3, bb: -2, b: -1,
-    c: 0, db: 1, d: 2, eb: 3, e: 4, f: 5, fs: 6,
-    highg: 7
+    g: 7
 };
 
 const HARMONICA_TUNINGS = {
@@ -93,11 +92,17 @@ const HARMONICA_TUNINGS = {
         draw: ["D4", "G4", "B4", "D5", "F5", "G5", "B5", "D6", "G6", "C7"],
         isHalfValvedDefault: false
     },
-    dorianwildealtered: {
-        name: "Dorian Wilde Altered 5 Harmonica",
+    valvedpaddywildetuned: {
+        name: "Paddy Wilde Half Valved Harmonica",
+        blow: ["C4", "E4", "A4", "C5", "E5", "E5", "A5", "C6", "E6", "A6"],
+        draw: ["D4", "G4", "B4", "D5", "F5", "G5", "B5", "D6", "G6", "C7"],
+        isHalfValvedDefault: true
+    },
+    valveddorianwildealtered: {
+        name: "Dorian Wilde Altered 5 Half Valved Harmonica",
         blow: ["C4", "E4", "G4", "C5", "D5", "E5", "G5", "C6", "E6", "A6"],
         draw: ["D4", "G4", "Bb4", "D5", "F5", "G5", "Bb5", "D6", "G6", "C7"],
-        isHalfValvedDefault: false
+        isHalfValvedDefault: true
     },
     domtuned: {
         name: "Dom G6Gm7 Tuning",
@@ -105,17 +110,17 @@ const HARMONICA_TUNINGS = {
         draw: ["D4", "G4", "Bb4", "D5", "F5", "G5", "Bb5", "D6", "G6", "C7"],
         isHalfValvedDefault: true
     },
-    paddy123tuned: {
-        name: "Paddy Richter Extended Harmonica",
+    valvedpaddy123tuned: {
+        name: "Paddy Richter Extended Half Valved Harmonica",
         blow: ["C4", "E4", "A4", "C5", "E5", "A5", "C6", "E6", "A6", "C7"],
         draw: ["D4", "G4", "B4", "D5", "G5", "B5", "D6", "G6", "B6", "D7"],
-        isHalfValvedDefault: false
+        isHalfValvedDefault: true
     },
-    easydiatonic: {
-        name: "Easy Diatonic Half Harmonica",
+    valvedeasydiatonic: {
+        name: "Easy Diatonic Half Valved Harmonica",
         blow: ["A3", "C4", "E4", "A4", "C5", "E5", "A5", "C6", "E6", "A6"],
         draw: ["B3", "D4", "G4", "B4", "D5", "G5", "B5", "D6", "G6", "B6"],
-        isHalfValvedDefault: false
+        isHalfValvedDefault: true
     },
     sunnyrbtuned: {
         name: "Sunny Regular Breath Harmonica",
@@ -147,11 +152,11 @@ const HARMONICA_TUNINGS = {
         draw: ["Eb4", "G4", "B4", "Eb5", "G5", "B5", "Eb6", "G6", "B6", "Eb7"],
         isHalfValvedDefault: false
     },
-    wholetone10: {
-        name: "Whole Tone 10 hole Harmonica",
+    valvedwholetone10: {
+        name: "Whole Tone 10 hole Half Valved Harmonica",
         blow: ["C4", "E4", "Ab4", "C5", "E5", "Ab5", "C6", "E6", "Ab6", "C7"],
         draw: ["D4", "Gb4", "Bb4", "D5", "Gb5", "Bb5", "D6", "Gb6", "Bb6", "D7"],
-        isHalfValvedDefault: false
+        isHalfValvedDefault: true
     },
     diatonicpowerbender: {
         name: "PowerBender Harmonica",
@@ -169,13 +174,13 @@ const HARMONICA_TUNINGS = {
         name: "Power Chromatic 10 Harmonica",
         blow: ["C5", "D5", "F5", "A5", "C6", "D6", "F6", "A6", "C7", "D7"],
         draw: ["D5", "E5", "G5", "B5", "D6", "E6", "G6", "B6", "D7", "E7"],
-        isHalfValvedDefault: false
+        isHalfValvedDefault: true
     },
     testchromatic10tuning: {
         name: "Chromatic Test Tuning Harmonica",
         blow: ["C5", "D5", "E5", "A5", "C6", "D6", "E6", "A6", "C7", "D7"],
         draw: ["D5", "F5", "G5", "B5", "D6", "F6", "G6", "B6", "D7", "F7"],
-        isHalfValvedDefault: false
+        isHalfValvedDefault: true
     }
 };
 
@@ -261,22 +266,22 @@ const img = {
     diatonicminor: '<img src="diatonicminor.png">',
     diatonicwildetuned: '<img src="wildetuned.png">',
     paddywildetuned: '<img src="paddywilde.png">',
-    paddywildetuned: '<img src="valvedpaddywilde.png">',
-    dorianwildealtered: '<img src="domtuned.png">',
+    valvedpaddywildetuned: '<img src="valvedpaddywilde.png">',
+    valveddorianwildealtered: '<img src="domtuned.png">',
     domtuned: '<img src="domtuned.png">',
-    paddy123tuned: '<img src="valvedpaddy123.png">',
-    easydiatonic: '<img src="easydiatonic.png">',
+    valvedpaddy123tuned: '<img src="valvedpaddy123.png">',
+    valvedeasydiatonic: '<img src="easydiatonic.png">',
     testchromatic10tuning: '<img src="testchromatic10.png">',
     powerchromatic10tuning: '<img src="wholetone10.png">',
     diatonicwildeminor: '<img src="wildeminor.png">',
     diatonicpowerbender: '<img src="powerbender.png">',
     powerdrawtuned: '<img src="powerdraw.png">',
-    paddywildealtered: '<img src="valvedpaddywildealtered.png">',
+    valvedpaddywildealtered: '<img src="valvedpaddywildealtered.png">',
     sunnyrbtuned: '<img src="valvedrbtuned.png">',
     diminished10: '<img src="diminished10.png">',
     augmented10: '<img src="augmented10.png">',
     drawdiminished10: '<img src="augmented10.png">',
-    wholetone10: '<img src="wholetone10.png">',
+    valvedwholetone10: '<img src="wholetone10.png">',
     ukulele: ''
 };
 

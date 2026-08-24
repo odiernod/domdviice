@@ -481,9 +481,12 @@ function isTenHoleHarmonica(type) {
     return type !== 'guitar' && type !== 'ukulele' && type !== 'piano' && type !== 'chromatic12' && type !== 'chromatic16';
 }
 
+function isChromaticHarmonica(type) {
+    return type === 'chromatic12' || type === 'chromatic16';
+}
+
 // draw a complete 10-hole harmonica body with Blow and Draw reed plates,
-// thick outer border, central comb with hole numbers 1-10, and bend/overblow grid zones
-// Only cells that contain actual bend notes have borders and backgrounds drawn!
+// solid black outer border, central comb with hole numbers 1-10, and bend/overblow grid zones
 function drawHarmonicaDiagram(canvas, cols = 10, rows = 7,
                               cellW = null, cellH = null,
                               blowRow = 2, drawRow = 3,
@@ -525,11 +528,11 @@ function drawHarmonicaDiagram(canvas, cols = 10, rows = 7,
 
     // 4. Central Comb Mouthpiece Rail & Vertical Comb Dividers
     var combY = drawRow * actualCellH;
-    ctx.fillStyle = '#1e293b';
+    ctx.fillStyle = '#000000';
     ctx.fillRect(2, combY - 4, w - 4, 8);
 
     // Vertical comb partitions
-    ctx.strokeStyle = '#334155';
+    ctx.strokeStyle = '#000000';
     ctx.lineWidth = 1.5;
     for (var c = 0; c <= cols; c++) {
         var x = (c === cols) ? (w - 3) : (c === 0 ? 2 : Math.round(c * actualCellW));
@@ -539,13 +542,14 @@ function drawHarmonicaDiagram(canvas, cols = 10, rows = 7,
         ctx.stroke();
     }
 
-    // 5. Thick Outer Border around Blow & Draw Reed Rows (Harmonica Body)
-    ctx.strokeStyle = '#0f172a';
-    ctx.lineWidth = 4;
+    // 5. Solid Black Outer Border around Blow & Draw Reed Rows (Harmonica Body)
+    ctx.strokeStyle = '#000000';
+    ctx.lineWidth = 4.5;
     ctx.strokeRect(2, coreY, w - 4, coreH);
 
     // 6. Grid for Overblow, Overdraw, Valve Bends & Dual-reed Bend Zones (Outside Core Body)
     // ONLY draw background and border for cells that actually have notes!
+    // Shaded lighter so the core blow and draw reed rows remain the prominent focal point.
     for (var r = 0; r < rows; r++) {
         if (r === blowRow || r === drawRow) continue;
         var y = r * actualCellH;
@@ -559,38 +563,38 @@ function drawHarmonicaDiagram(canvas, cols = 10, rows = 7,
             var x = c * actualCellW;
             var meta = (cellMeta && cellMeta[r] && cellMeta[r][c]) ? cellMeta[r][c] : null;
 
-            var fillColor = 'rgba(255, 251, 235, 0.85)';
-            var borderColor = '#1e293b';
-            var innerStroke = 'rgba(100, 116, 139, 0.35)';
+            var fillColor = 'rgba(255, 251, 235, 0.45)';
+            var borderColor = 'rgba(100, 116, 139, 0.4)';
+            var innerStroke = 'rgba(100, 116, 139, 0.2)';
             var badgeText = '';
             var badgeBg = '#475569';
             var badgeColor = '#ffffff';
 
             if (meta) {
                 if (meta.type === 'overblow' || meta.type === 'overdraw') {
-                    fillColor = 'rgba(243, 232, 255, 0.88)';
-                    borderColor = '#7c3aed';
-                    innerStroke = 'rgba(147, 51, 234, 0.35)';
+                    fillColor = 'rgba(245, 238, 255, 0.45)';
+                    borderColor = 'rgba(124, 58, 237, 0.5)';
+                    innerStroke = 'rgba(147, 51, 234, 0.2)';
                     badgeText = meta.type === 'overblow' ? 'OB' : 'OD';
-                    badgeBg = '#7c3aed';
+                    badgeBg = 'rgba(124, 58, 237, 0.85)';
                 } else if (meta.type === 'valve-bend') {
-                    fillColor = 'rgba(209, 250, 229, 0.88)';
-                    borderColor = '#059669';
-                    innerStroke = 'rgba(16, 185, 129, 0.35)';
+                    fillColor = 'rgba(236, 253, 245, 0.45)';
+                    borderColor = 'rgba(5, 150, 105, 0.5)';
+                    innerStroke = 'rgba(16, 185, 129, 0.2)';
                     badgeText = 'VB';
-                    badgeBg = '#059669';
+                    badgeBg = 'rgba(5, 150, 105, 0.85)';
                 } else if (meta.type === 'blow-bend') {
-                    fillColor = 'rgba(239, 246, 255, 0.88)';
-                    borderColor = '#2563eb';
-                    innerStroke = 'rgba(59, 130, 246, 0.35)';
+                    fillColor = 'rgba(240, 249, 255, 0.45)';
+                    borderColor = 'rgba(59, 130, 246, 0.5)';
+                    innerStroke = 'rgba(59, 130, 246, 0.2)';
                 } else if (meta.type === 'draw-bend') {
-                    fillColor = (depthFromCore === 1) ? 'rgba(255, 251, 235, 0.88)' : ((depthFromCore === 2) ? 'rgba(254, 243, 199, 0.92)' : 'rgba(253, 230, 138, 0.92)');
-                    borderColor = (depthFromCore === 1) ? '#b45309' : ((depthFromCore === 2) ? '#d97706' : '#b91c1c');
-                    innerStroke = 'rgba(217, 119, 6, 0.35)';
+                    fillColor = (depthFromCore === 1) ? 'rgba(255, 251, 235, 0.45)' : ((depthFromCore === 2) ? 'rgba(254, 243, 199, 0.55)' : 'rgba(253, 230, 138, 0.65)');
+                    borderColor = (depthFromCore === 1) ? 'rgba(180, 83, 9, 0.5)' : ((depthFromCore === 2) ? 'rgba(217, 119, 6, 0.6)' : 'rgba(185, 28, 28, 0.6)');
+                    innerStroke = 'rgba(217, 119, 6, 0.2)';
                 }
             } else {
-                fillColor = isUpper ? 'rgba(240, 249, 255, 0.85)' : (depthFromCore === 1 ? 'rgba(255, 251, 235, 0.85)' : (depthFromCore === 2 ? 'rgba(254, 243, 199, 0.9)' : 'rgba(253, 230, 138, 0.9)'));
-                borderColor = '#1e293b';
+                fillColor = isUpper ? 'rgba(240, 249, 255, 0.45)' : (depthFromCore === 1 ? 'rgba(255, 251, 235, 0.45)' : (depthFromCore === 2 ? 'rgba(254, 243, 199, 0.55)' : 'rgba(253, 230, 138, 0.65)'));
+                borderColor = 'rgba(100, 116, 139, 0.4)';
             }
 
             ctx.fillStyle = fillColor;
@@ -635,7 +639,7 @@ function drawHarmonicaDiagram(canvas, cols = 10, rows = 7,
         var badgeW = 22;
         var badgeH = 18;
 
-        ctx.fillStyle = '#0f172a';
+        ctx.fillStyle = '#000000';
         ctx.fillRect(cx - badgeW / 2, cy - badgeH / 2, badgeW, badgeH);
 
         ctx.strokeStyle = '#94a3b8';
@@ -682,7 +686,7 @@ function drawHarmonicaDiagram(canvas, cols = 10, rows = 7,
         ctx.arc(sx, sy, 3, 0, Math.PI * 2);
         ctx.fillStyle = '#64748b';
         ctx.fill();
-        ctx.strokeStyle = '#0f172a';
+        ctx.strokeStyle = '#000000';
         ctx.lineWidth = 1;
         ctx.stroke();
     };
@@ -751,6 +755,179 @@ function updateHarmonicaCanvas(divId, tableId) {
     });
 }
 
+// Draw a complete 12- or 16-hole Chromatic Harmonica body with Slide-In / Slide-Out rows
+function drawChromaticDiagram(canvas, cols = 12, rows = 4, cellW = null, cellH = null) {
+    var ctx = canvas.getContext('2d');
+    var w = canvas.width, h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+
+    var actualCellW = cellW || (w / cols);
+    var actualCellH = cellH || (h / rows);
+
+    var blowRow = 1;
+    var drawRow = 2;
+
+    // 1. Core Body (Cover plates over Blow Row 1 and Draw Row 2)
+    var coreY = blowRow * actualCellH;
+    var coreH = (drawRow - blowRow + 1) * actualCellH;
+
+    // Metallic coverplate gradient casing
+    var metalGrad = ctx.createLinearGradient(0, coreY, 0, coreY + coreH);
+    metalGrad.addColorStop(0, '#cbd5e1');
+    metalGrad.addColorStop(0.3, '#f1f5f9');
+    metalGrad.addColorStop(0.7, '#e2e8f0');
+    metalGrad.addColorStop(1, '#94a3b8');
+
+    ctx.fillStyle = metalGrad;
+    ctx.fillRect(2, coreY, w - 4, coreH);
+
+    // 2. Blow Reed Plate (Slide Out, Row 1)
+    var blowGrad = ctx.createLinearGradient(0, coreY, 0, coreY + actualCellH);
+    blowGrad.addColorStop(0, '#e0f2fe');
+    blowGrad.addColorStop(1, '#bae6fd');
+    ctx.fillStyle = blowGrad;
+    ctx.fillRect(3, coreY, w - 6, actualCellH);
+
+    // 3. Draw Reed Plate (Slide Out, Row 2)
+    var drawGrad = ctx.createLinearGradient(0, drawRow * actualCellH, 0, drawRow * actualCellH + actualCellH);
+    drawGrad.addColorStop(0, '#fef3c7');
+    drawGrad.addColorStop(1, '#fde68a');
+    ctx.fillStyle = drawGrad;
+    ctx.fillRect(3, drawRow * actualCellH, w - 6, actualCellH);
+
+    // 4. Central Comb Mouthpiece Rail & Vertical Comb Dividers
+    var combY = drawRow * actualCellH;
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(2, combY - 4, w - 4, 8);
+
+    // Vertical comb partitions
+    ctx.strokeStyle = '#000000';
+    ctx.lineWidth = 1.5;
+    for (var c = 0; c <= cols; c++) {
+        var x = (c === cols) ? (w - 3) : (c === 0 ? 2 : Math.round(c * actualCellW));
+        ctx.beginPath();
+        ctx.moveTo(x, coreY);
+        ctx.lineTo(x, coreY + coreH);
+        ctx.stroke();
+    }
+
+    // 5. Solid Black Outer Border around Blow & Draw Reed Rows (Harmonica Body)
+    ctx.strokeStyle = '#000000';
+    ctx.lineWidth = 4.5;
+    ctx.strokeRect(2, coreY, w - 4, coreH);
+
+    // 6. Slide-In Rows: Row 0 (Top Slide-In Blow) and Row 3 (Bottom Slide-In Draw)
+    for (var r of [0, 3]) {
+        var y = r * actualCellH;
+        for (var c = 0; c < cols; c++) {
+            var x = c * actualCellW;
+
+            ctx.fillStyle = 'rgba(245, 243, 255, 0.55)';
+            ctx.fillRect(x + 1, y + 1, actualCellW - 2, actualCellH - 2);
+
+            ctx.strokeStyle = 'rgba(124, 58, 237, 0.5)';
+            ctx.lineWidth = 1.5;
+            ctx.strokeRect(x + 1, y + 1, actualCellW - 2, actualCellH - 2);
+
+            // Subtle inner frame
+            ctx.strokeStyle = 'rgba(147, 51, 234, 0.2)';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(x + 7, y + 7, actualCellW - 14, actualCellH - 14);
+
+            // Small badge in corner: IN
+            ctx.fillStyle = 'rgba(124, 58, 237, 0.85)';
+            var bw = 18, bh = 12;
+            ctx.fillRect(x + actualCellW - bw - 4, y + 4, bw, bh);
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 8px Arial, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('IN', x + actualCellW - bw / 2 - 4, y + 4 + bh / 2);
+        }
+    }
+
+    // Inner bevels on core blow and draw cells
+    for (var c = 0; c < cols; c++) {
+        var x = c * actualCellW;
+        ctx.strokeStyle = 'rgba(100, 116, 139, 0.35)';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(x + 7, coreY + 7, actualCellW - 14, actualCellH - 14);
+        ctx.strokeRect(x + 7, drawRow * actualCellH + 7, actualCellW - 14, actualCellH - 14);
+    }
+
+    // 7. Hole Number Badges on Comb Rail (1 to cols)
+    for (var c = 0; c < cols; c++) {
+        var cx = c * actualCellW + actualCellW / 2;
+        var cy = combY;
+        var badgeW = 20;
+        var badgeH = 16;
+
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(cx - badgeW / 2, cy - badgeH / 2, badgeW, badgeH);
+
+        ctx.strokeStyle = '#94a3b8';
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(cx - badgeW / 2, cy - badgeH / 2, badgeW, badgeH);
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 10px Arial, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(c + 1, cx, cy);
+    }
+
+    // 8. Row Labels (Left Column)
+    ctx.font = 'bold 9px Arial, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
+
+    ctx.fillStyle = '#6b21a8';
+    ctx.fillText('BLOW (SLIDE-IN)', 5, 0 * actualCellH + 4);
+
+    ctx.fillStyle = '#1e40af';
+    ctx.fillText('BLOW (SLIDE-OUT)', 5, 1 * actualCellH + 4);
+
+    ctx.fillStyle = '#92400e';
+    ctx.fillText('DRAW (SLIDE-OUT)', 5, 2 * actualCellH + 4);
+
+    ctx.fillStyle = '#6b21a8';
+    ctx.fillText('DRAW (SLIDE-IN)', 5, 3 * actualCellH + 4);
+
+    // 9. Casing Corner Screws
+    var drawScrew = function(sx, sy) {
+        ctx.beginPath();
+        ctx.arc(sx, sy, 3, 0, Math.PI * 2);
+        ctx.fillStyle = '#64748b';
+        ctx.fill();
+        ctx.strokeStyle = '#000000';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+    };
+    drawScrew(6, coreY + 6);
+    drawScrew(w - 6, coreY + 6);
+    drawScrew(6, coreY + coreH - 6);
+    drawScrew(w - 6, coreY + coreH - 6);
+}
+
+// update the canvas behind any 12- or 16-hole chromatic harmonica table
+function updateChromaticCanvas(divId, tableId) {
+    requestAnimationFrame(function() {
+        var $tbl = $("#" + tableId);
+        if (!$tbl.length) return;
+        var cols = $tbl.find('tr:first td').length;
+        var rows = $tbl.find('tr').length;
+        if (cols === 0 || rows === 0) return;
+
+        var tblW = $tbl.outerWidth();
+        var tblH = $tbl.outerHeight();
+        var cellW = tblW / cols;
+        var cellH = tblH / rows;
+        var c = ensureInstrumentCanvas(divId, tblW, tblH);
+
+        drawChromaticDiagram(c, cols, rows, cellW, cellH);
+    });
+}
+
 function loadInstrument1()
 {
     var type = $("#instrument1Menu").val();
@@ -764,6 +941,8 @@ function loadInstrument1()
         updateUkuleleCanvas('instrumentimg1', 'instrument1');
     } else if (isTenHoleHarmonica(type)) {
         updateHarmonicaCanvas('instrumentimg1', 'instrument1');
+    } else if (isChromaticHarmonica(type)) {
+        updateChromaticCanvas('instrumentimg1', 'instrument1');
     } else {
         $("#instrumentimg1").html(img[type]);
     }
@@ -782,6 +961,8 @@ function loadInstrument2()
         updateUkuleleCanvas('instrumentimg2', 'instrument2');
     } else if (isTenHoleHarmonica(type)) {
         updateHarmonicaCanvas('instrumentimg2', 'instrument2');
+    } else if (isChromaticHarmonica(type)) {
+        updateChromaticCanvas('instrumentimg2', 'instrument2');
     } else {
         $("#instrumentimg2").html(img[type]);
     }
@@ -800,6 +981,8 @@ function loadInstrument3()
         updateUkuleleCanvas('instrumentimg3', 'instrument3');
     } else if (isTenHoleHarmonica(type)) {
         updateHarmonicaCanvas('instrumentimg3', 'instrument3');
+    } else if (isChromaticHarmonica(type)) {
+        updateChromaticCanvas('instrumentimg3', 'instrument3');
     } else {
         $("#instrumentimg3").html(img[type]);
     }
@@ -818,6 +1001,8 @@ function loadInstrument4()
         updateUkuleleCanvas('instrumentimg4', 'instrument4');
     } else if (isTenHoleHarmonica(type)) {
         updateHarmonicaCanvas('instrumentimg4', 'instrument4');
+    } else if (isChromaticHarmonica(type)) {
+        updateChromaticCanvas('instrumentimg4', 'instrument4');
     } else {
         $("#instrumentimg4").html(img[type]);
     }

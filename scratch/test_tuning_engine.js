@@ -4,7 +4,7 @@ const defs = require('../scripts/tuning_definitions.js');
 Object.assign(global, defs);
 
 const { TuningEngine, instrument } = require('../scripts/tuning_engine.js');
-const { HARMONICA_TUNINGS, GUITAR_TUNINGS, UKULELE_TUNINGS } = defs;
+const { HARMONICA_TUNINGS, GUITAR_TUNINGS, UKULELE_TUNINGS, menu } = defs;
 
 let failures = 0;
 function assert(cond, msg) {
@@ -73,12 +73,31 @@ assert(valvedMatrix[4][7].name === 'C6s' && valvedMatrix[4][7].type === 'valve-b
 // In Hole 10: Draw A6 (93) -> Valve bend is G6s (92)
 assert(valvedMatrix[4][9].name === 'G6s' && valvedMatrix[4][9].type === 'valve-bend' && valvedMatrix[4][9].label === 'VB', 'H10 Valve Bend is G6s (Ab6)');
 
-console.log('\n--- TEST 4: Key Transposition ---');
+console.log('\n--- TEST 4: Key Transposition & Minor Keys ---');
 const gHtml = TuningEngine.generateHarmonicaHtml('diatonicrichter', 'g', false);
 assert(gHtml.includes('name="G3"'), 'Key of G starts with Blow 1 = G3');
 assert(gHtml.includes('name="A3"'), 'Key of G has Draw 1 = A3');
 
-console.log('\n--- TEST 5: Guitar & Ukulele Generators ---');
+// Wilde Minor in Am (default base)
+const wildeAmHtml = TuningEngine.generateHarmonicaHtml('diatonicwildeminor', 'am', false);
+assert(wildeAmHtml.includes('name="D4"') && wildeAmHtml.includes('name="E4"'), 'Wilde Minor Am has Blow 1 = D4, Draw 1 = E4');
+
+// Wilde Minor in Gm
+const wildeGmHtml = TuningEngine.generateHarmonicaHtml('diatonicwildeminor', 'gm', false);
+assert(wildeGmHtml.includes('name="C4"') && wildeGmHtml.includes('name="D4"'), 'Wilde Minor Gm has Blow 1 = C4, Draw 1 = D4');
+
+// Wilde Minor in Cm
+const wildeCmHtml = TuningEngine.generateHarmonicaHtml('diatonicwildeminor', 'cm', false);
+assert(wildeCmHtml.includes('name="F4"') && wildeCmHtml.includes('name="G4"'), 'Wilde Minor Cm has Blow 1 = F4, Draw 1 = G4');
+
+// Verify all 12 minor keys available in menu
+const allMinorKeys = ['cm', 'dbm', 'dm', 'ebm', 'em', 'fm', 'fsm', 'gm', 'abm', 'am', 'bbm', 'bm'];
+allMinorKeys.forEach(k => {
+    assert(menu.diatonicwildeminor.includes(`value='${k}'`), `Wilde Minor menu includes ${k}`);
+    assert(menu.diatonicminor.includes(`value='${k}'`), `Natural Minor menu includes ${k}`);
+});
+
+console.log('\n--- TEST 5: Guitar, Ukulele & Chromatic Generators ---');
 const guitarHtml = TuningEngine.generateGuitarHtml('standard');
 assert(guitarHtml.includes('name="E4"'), 'Guitar standard contains E4');
 assert(guitarHtml.includes('name="E2"'), 'Guitar standard contains E2');
@@ -86,8 +105,18 @@ assert(guitarHtml.includes('name="E2"'), 'Guitar standard contains E2');
 const ukeHtml = TuningEngine.generateUkuleleHtml('sopranogcea');
 assert(ukeHtml.includes('name="A4"'), 'Ukulele contains A4');
 
+const chrom12Html = TuningEngine.generateChromaticHtml('chromatic12', 'c4');
+assert(chrom12Html.includes('name="C4"') && chrom12Html.includes('name="C4s"'), 'Chromatic 12 contains C4 (Slide Out) and C4s (Slide In)');
+
+const chrom16Html = TuningEngine.generateChromaticHtml('chromatic16', 'c3');
+assert(chrom16Html.includes('name="C3"') && chrom16Html.includes('name="C3s"'), 'Chromatic 16 contains C3 and C3s');
+
 console.log('\n--- TEST 6: Proxy Compatibility ---');
 assert(typeof instrument.diatonicrichterc === 'string' && instrument.diatonicrichterc.length > 50, 'instrument.diatonicrichterc generates html string');
+assert(typeof instrument.diatonicwildeminoram === 'string' && instrument.diatonicwildeminoram.length > 50, 'instrument.diatonicwildeminoram generates html string');
+assert(typeof instrument.diatonicwildeminorgm === 'string' && instrument.diatonicwildeminorgm.length > 50, 'instrument.diatonicwildeminorgm generates html string');
+assert(typeof instrument.chromatic12c4 === 'string' && instrument.chromatic12c4.length > 50, 'instrument.chromatic12c4 generates html string');
+assert(typeof instrument.chromatic16c3 === 'string' && instrument.chromatic16c3.length > 50, 'instrument.chromatic16c3 generates html string');
 assert(typeof instrument.guitarstandard === 'string' && instrument.guitarstandard.length > 50, 'instrument.guitarstandard generates html string');
 assert(typeof instrument.pianostandard === 'string' && instrument.pianostandard.length > 50, 'instrument.pianostandard generates html string');
 assert(typeof instrument.treble1 === 'string' && instrument.treble1.length > 50, 'instrument.treble1 generates html string');

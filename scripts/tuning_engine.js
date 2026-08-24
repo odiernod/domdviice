@@ -139,16 +139,20 @@ const TuningEngine = (function() {
         const effectiveValved = (isHalfValved !== null) ? isHalfValved : !!tuningDef.isHalfValvedDefault;
 
         let offset = 0;
-        const normalizedKey = (key || 'c').toLowerCase();
+        const normalizedKey = (key || (tuningDef.isMinor ? (tuningDef.baseKey || 'cm') : 'c')).toLowerCase();
         if (tuningDef.isMinor) {
-            offset = HARMONICA_MINOR_KEY_OFFSETS[normalizedKey] ?? 0;
-            if (tuningDef.baseKey === 'am' && normalizedKey !== 'am') {
-                // Base is Am (offset 0 for Am, Gm is -2, Cm is +3, Dm is +5, Em is +7)
-                const amOffsets = { am: 0, gm: -2, cm: 3, dm: 5, em: 7 };
-                offset = amOffsets[normalizedKey] ?? 0;
-            }
+            const baseKey = (tuningDef.baseKey || 'cm').toLowerCase();
+            const baseOffset = (HARMONICA_MINOR_KEY_OFFSETS[baseKey] !== undefined)
+                ? HARMONICA_MINOR_KEY_OFFSETS[baseKey]
+                : (HARMONICA_KEY_OFFSETS[baseKey] ?? 0);
+            const targetOffset = (HARMONICA_MINOR_KEY_OFFSETS[normalizedKey] !== undefined)
+                ? HARMONICA_MINOR_KEY_OFFSETS[normalizedKey]
+                : (HARMONICA_KEY_OFFSETS[normalizedKey] ?? 0);
+            offset = targetOffset - baseOffset;
         } else {
-            offset = HARMONICA_KEY_OFFSETS[normalizedKey] ?? 0;
+            offset = (HARMONICA_KEY_OFFSETS[normalizedKey] !== undefined)
+                ? HARMONICA_KEY_OFFSETS[normalizedKey]
+                : (HARMONICA_MINOR_KEY_OFFSETS[normalizedKey] ?? 0);
         }
 
         const blowMidi = tuningDef.blow.map(n => noteToMidi(n) + offset);
