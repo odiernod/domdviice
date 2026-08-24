@@ -475,125 +475,63 @@ function updateUkuleleCanvas(divId, tableId) {
     });
 }
 
-// draw a simple Richter diatonic harmonica body and holes
-// this version also creates a light grid that matches the table rows
-function drawRichter(canvas, cols = 10, rows = 1,
-                      cellW = null, cellH = null,
-                      offsetX = 0, labelMargin = 0) {
-    var ctx = canvas.getContext('2d');
-    var w = canvas.width, h = canvas.height;
-    ctx.clearRect(0, 0, w, h);
-    ctx.strokeStyle = '#000';
-    ctx.lineWidth = 1;
-    // body rectangle with rounded corners
-    var margin = 4;
-    var radius = 8;
-    ctx.beginPath();
-    ctx.moveTo(margin + radius, margin);
-    ctx.lineTo(w - margin - radius, margin);
-    ctx.quadraticCurveTo(w - margin, margin, w - margin, margin + radius);
-    ctx.lineTo(w - margin, h - margin - radius);
-    ctx.quadraticCurveTo(w - margin, h - margin, w - margin - radius, h - margin);
-    ctx.lineTo(margin + radius, h - margin);
-    ctx.quadraticCurveTo(margin, h - margin, margin, h - margin - radius);
-    ctx.lineTo(margin, margin + radius);
-    ctx.quadraticCurveTo(margin, margin, margin + radius, margin);
-    ctx.closePath();
-    ctx.stroke();
+function isTenHoleHarmonica(type) {
+    return type !== 'guitar' && type !== 'ukulele' && type !== 'piano' && type !== 'chromatic12' && type !== 'chromatic16';
+}
 
-    // draw grid lines corresponding to rows/columns
-    if (cols > 0 && rows > 0) {
-        ctx.strokeStyle = '#ccc';
-        for (var i = 1; i < cols; i++) {
-            var x = (w * i) / cols;
-            ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
-        }
-        for (var j = 1; j < rows; j++) {
-            var y = (h * j) / rows;
-            ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
-        }
-    }
+// draw a complete 10-hole harmonica body with Blow and Draw reed plates,
+    var actualCellH = cellH || (h / rows);
 
-    // draw holes outlines for reference (optional)
-    var usableW = w - 2 * margin;
-    var holeSpacing = usableW / cols;
-    var holeY = h / 2;
-    var holeR = Math.min(holeSpacing, h - 2 * margin) * 0.4;
-    ctx.strokeStyle = '#000';
-    for (var i = 0; i < cols; i++) {
-        var x = margin + holeSpacing * i + holeSpacing / 2;
+    // 1. Harmonica Core Body (Cover plates over Blow and Draw rows)
+    var coreY = blowRow * actualCellH;
+    var coreH = (drawRow - blowRow + 1) * actualCellH;
+
+    // Metallic coverplate gradient casing
+    var metalGrad = ctx.createLinearGradient(0, coreY, 0, coreY + coreH);
+    ctx.fillStyle = metalGrad;
+    var blowGrad = ctx.createLinearGradient(0, coreY, 0, coreY + actualCellH);
+    blowGrad.addColorStop(0, '#e0f2fe');
+    blowGrad.addColorStop(1, '#bae6fd');
+    ctx.fillStyle = blowGrad;
+    ctx.fillRect(3, coreY, w - 6, actualCellH);
+
+    var drawGrad = ctx.createLinearGradient(0, drawRow * actualCellH, 0, drawRow * actualCellH + actualCellH);
+    drawGrad.addColorStop(0, '#fef3c7');
+    drawGrad.addColorStop(1, '#fde68a');
+    ctx.fillStyle = drawGrad;
+    var combY = drawRow * actualCellH;
+    ctx.lineWidth = 1.5;
+    for (var c = 0; c <= cols; c++) {
+        var x = (c === cols) ? (w - 3) : (c === 0 ? 2 : Math.round(c * actualCellW));
         ctx.beginPath();
-        ctx.arc(x, holeY, holeR, 0, Math.PI * 2);
+        ctx.moveTo(x, coreY);
         ctx.stroke();
     }
-}
+        ctx.fillText(c + 1, cx, cy);
+    }
 
-// update the canvas behind a Richter harmonica table
-function updateRichterCanvas(divId, tableId) {
-    requestAnimationFrame(function() {
-        var $tbl = $("#" + tableId);
-        if (!$tbl.length) {
-            return;
-        }
-        var cols = $tbl.find('tr:first td').length;
-        var rows = $tbl.find('tr').length;
-        if (cols === 0 || rows === 0) {
-            return;
-        }
-        var tblW = $tbl.outerWidth();
-        var tblH = $tbl.outerHeight();
-        var cellW = tblW / cols;
-        var w = tblW;
-        var h = tblH;
-        var c = ensureInstrumentCanvas(divId, w, h);
-        // draw body and grid
-        drawRichter(c, cols, rows, cellW, null, 0, 0);
-        // overlay colored boxes for each available pitch, using row categories
-        var ctx = c.getContext('2d');
-        var categoryColor = function(r) {
-            // approximate categories by row index
-            switch(r) {
-                case 0: return 'rgba(255,0,0,0.3)'; // extreme overblow
-                case 1: return 'rgba(255,0,0,0.2)'; // overblow
-                case 2: return 'rgba(0,0,255,0.2)'; // blow
-                case 3: return 'rgba(0,150,0,0.2)'; // draw
-                case 4: return 'rgba(255,165,0,0.2)'; // half-step bend
-                case 5: return 'rgba(128,0,128,0.2)'; // whole-step bend
-                case 6: return 'rgba(255,0,0,0.2)'; // overdraw
-                default: return 'rgba(0,0,0,0.1)';
-            }
-        };
-        // iterate table cells
-        $tbl.find('tr').each(function(r, tr) {
-            $(tr).find('td').each(function(cidx, td) {
-                var name = $(td).find('img').attr('name');
-                if (name) {
-                    ctx.fillStyle = categoryColor(r);
-                    ctx.fillRect(cidx * (w/cols), r * (h/rows), w/cols, h/rows);
-                }
-            });
-        });
-    });
-}
+    // 8. Row Labels (Blow, Draw, ' bend, '' bend, ''' bend in column 0)
+    ctx.font = 'bold 9px Arial, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
 
-// Staff drawing removed — using table-only layout.
+        var labelY = r * actualCellH + 4;
+        if (r < blowRow) {
+            var diff = blowRow - r;
+            var bendLabel = (diff === 2) ? "'' bend" : "' bend";
+            ctx.fillStyle = '#475569';
+            ctx.fillText(bendLabel, 5, labelY);
+        } else if (r === blowRow) {
+            ctx.fillStyle = '#1e40af';
+            ctx.fillText('BLOW', 5, labelY);
 
-function loadInstrument1()
-{
-    var type = $("#instrument1Menu").val();
+    var drawScrew = function(sx, sy) {
     $("#instrument1").html(instrument[type + $("#tuning1Menu").val()]);
     attachAll("instrument1");
-    if (type === 'guitar' || type === 'ukulele' || type === 'diatonicrichter' || type === 'paddyrichtertuned') {
-        if (type === 'guitar')
-            updateGuitarCanvas('instrumentimg1', 'instrument1');
-        else if (type === 'ukulele')
-            updateUkuleleCanvas('instrumentimg1', 'instrument1');
-        else {
-            if (useHarmonicaCanvas)
-                updateRichterCanvas('instrumentimg1', 'instrument1');
-            else
-                $("#instrumentimg1").html(img[type]);
-        }
+    if (type === 'guitar') {
+        updateGuitarCanvas('instrumentimg1', 'instrument1');
+    } else if (isTenHoleHarmonica(type)) {
+        updateHarmonicaCanvas('instrumentimg1', 'instrument1');
     } else {
         $("#instrumentimg1").html(img[type]);
     }
@@ -604,17 +542,11 @@ function loadInstrument2()
     var type = $("#instrument2Menu").val();
     $("#instrument2").html(instrument[type + $("#tuning2Menu").val()]);
     attachAll("instrument2");
-    if (type === 'guitar' || type === 'ukulele' || type === 'diatonicrichter' || type === 'paddyrichtertuned') {
-        if (type === 'guitar')
-            updateGuitarCanvas('instrumentimg2', 'instrument2');
-        else if (type === 'ukulele')
-            updateUkuleleCanvas('instrumentimg2', 'instrument2');
-        else {
-            if (useHarmonicaCanvas)
-                updateRichterCanvas('instrumentimg2', 'instrument2');
-            else
-                $("#instrumentimg2").html(img[type]);
-        }
+    if (type === 'guitar') {
+    } else if (type === 'ukulele') {
+        updateUkuleleCanvas('instrumentimg2', 'instrument2');
+    } else if (isTenHoleHarmonica(type)) {
+        updateHarmonicaCanvas('instrumentimg2', 'instrument2');
     } else {
         $("#instrumentimg2").html(img[type]);
     }
@@ -625,17 +557,12 @@ function loadInstrument3()
     var type = $("#instrument3Menu").val();
     $("#instrument3").html(instrument[type + $("#tuning3Menu").val()]);
     attachAll("instrument3");
-    if (type === 'guitar' || type === 'ukulele' || type === 'diatonicrichter' || type === 'paddyrichtertuned') {
-        if (type === 'guitar')
-            updateGuitarCanvas('instrumentimg3', 'instrument3');
-        else if (type === 'ukulele')
-            updateUkuleleCanvas('instrumentimg3', 'instrument3');
-        else {
-            if (useHarmonicaCanvas)
-                updateRichterCanvas('instrumentimg3', 'instrument3');
-            else
-                $("#instrumentimg3").html(img[type]);
-        }
+    if (type === 'guitar') {
+        updateGuitarCanvas('instrumentimg3', 'instrument3');
+    } else if (type === 'ukulele') {
+        updateUkuleleCanvas('instrumentimg3', 'instrument3');
+    } else if (isTenHoleHarmonica(type)) {
+        updateHarmonicaCanvas('instrumentimg3', 'instrument3');
     } else {
         $("#instrumentimg3").html(img[type]);
     }
@@ -643,49 +570,20 @@ function loadInstrument3()
 
 function loadInstrument4()
 {
-    var type = $("#instrument4Menu").val();
-    $("#instrument4").html(instrument[type + $("#tuning4Menu").val()]);
-    attachAll("instrument4");
-    if (type === 'guitar' || type === 'ukulele' || type === 'diatonicrichter' || type === 'paddyrichtertuned') {
-        if (type === 'guitar')
-            updateGuitarCanvas('instrumentimg4', 'instrument4');
-        else if (type === 'ukulele')
-            updateUkuleleCanvas('instrumentimg4', 'instrument4');
-        else {
-            if (useHarmonicaCanvas)
-                updateRichterCanvas('instrumentimg4', 'instrument4');
-            else
-                $("#instrumentimg4").html(img[type]);
-        }
-    } else {
-        $("#instrumentimg4").html(img[type]);
-    }
-}
-
-function updateAfterInstrumentChange()
-{
-    updateNoteNames();
-    if (scaleMode) {
-        var scale = $("#scaleMenu").val()
-        var key = $("#keyMenu").val()
+        var scale = $("#scaleMenu").val();
+        var key = $("#keyMenu").val();
         showScale(scale, key);
-    }
-    updateUrl();
-}
-
 // when a Go! button is clicked, instrument and img are loaded
 $(document).ready(function(){
     // set up default instruments; bank1 is Richter harmonica with canvas
     $('#instrument1').html(instrument.diatonicrichterc);
     attachAll('instrument1');
-    updateRichterCanvas('instrumentimg1', 'instrument1');
-    $('#instrumentimg2').html(img.piano)
-    $('#instrument2').html(instrument.pianostandard)
+    updateHarmonicaCanvas('instrumentimg1', 'instrument1');
+    $('#instrumentimg2').html(img.piano);
+    $('#instrument2').html(instrument.pianostandard);
     // draw default guitar in banks 3 and 4 (size after html inserted)
     $('#instrument3').html(instrument.guitarstandard);
     attachAll('instrument3');
-    updateGuitarCanvas('instrumentimg3', 'instrument3');
-
     $('#instrument4').html(instrument.guitarstandard);
     attachAll('instrument4');
     updateGuitarCanvas('instrumentimg4', 'instrument4');
@@ -693,54 +591,34 @@ $(document).ready(function(){
     attachAll('instrument2');
     attachAll('instrument3');
     attachAll('instrument4');
-    $(this).on('mouseup', mouseUp)
-        for (let clef of ['treble1', 'treble2', 'treble3', 'treble4', 'bass1', 'bass2', 'bass3', 'bass4']) {
-            $("#" + clef).html(instrument[clef])
-            attachAll(clef);
+    $(this).on('mouseup', mouseUp);
+    for (let clef of ['treble1', 'treble2', 'treble3', 'treble4', 'bass1', 'bass2', 'bass3', 'bass4']) {
+        $("#" + clef).html(instrument[clef]);
+        attachAll(clef);
+    }
+        if (scaleMode) {
+            var scale = $("#scaleMenu").val();
+            var key = $("#keyMenu").val();
+            showScale(scale, key);
         }
     });
-
-// when scaleDegrees button is clicked toggle individual scale degrees
-$(document).ready(function(){
-    $('#scaleDegrees').click(function (){
-        showScaleDegrees = !showScaleDegrees;
-        $('#scaleDegrees').html(showScaleDegrees?'Hide Scale Degrees':
-                              'Show Scale Degrees')
-        if (scaleMode) {
-                var scale = $("#scaleMenu").val()
-                var key = $("#keyMenu").val()
-                showScale(scale, key);
-            }
-        });
 });
 
 // when noteNames button is clicked toggle showing of note names
 $(document).ready(function(){
     $('#noteNames').click(function (){
-        
         toggleNoteNames();
-        });
+    });
 });
 
-// when displayScale button is clicked, display the selected scale
 $(document).ready(function(){
     $('#displayScale').click(function (){
-        var scale = $("#scaleMenu").val()
-        var key = $("#keyMenu").val()
-        showScale(scale, key);
+        var scale = $("#scaleMenu").val();
+        var key = $("#keyMenu").val();
         updateUrl();
-        });
+    });
 });
 
-// when clearScale button is clicked, clear all highlights
-$(document).ready(function(){
-    $('#clearScale').click(function (){
-            clearScale();
-            updateUrl();
-        });
-});
-
-</script>
 <table class='instrument1Chooser'>
     <tr><td style="text-align: center; font-weight: bold; font-size: 20px;">Instrument Bank #1</td></tr>
     <tr>
@@ -748,12 +626,9 @@ $(document).ready(function(){
     <select id='instrument1Menu' style="text-align: center; font-weight: bold; font-size: 15px;">
     </select>
     </td>
-    <td>
-    <select id='tuning1Menu' style="text-align: center; font-weight: bold; font-size: 15px;">
     </select>
     </td>
     <td>
-    <button id='go1' style="text-align: center; font-weight: bold; font-size: 15px;">Load Instrument</button>
     </td>
     </tr>
 </table>
@@ -761,15 +636,7 @@ $(document).ready(function(){
     <tr><td style="text-align: center; font-weight: bold; font-size: 20px;">Instrument Bank #2</td></tr>
     <tr>
     <td>
-    <select id='instrument2Menu'style="text-align: center; font-weight: bold; font-size: 15px;">
-    </select>
-    </td>
-    <td>
-    <select id='tuning2Menu' style="text-align: center; font-weight: bold; font-size: 15px;">
-    </select>
-    </td>
-    <td>
-    <button id='go2'style="text-align: center; font-weight: bold; font-size: 15px;">Load Instrument</button>
+    <button id='go2' style="text-align: center; font-weight: bold; font-size: 15px;">Load Instrument</button>
     </td>
     </tr>
 </table>
@@ -785,23 +652,17 @@ $(document).ready(function(){
     </select>
     </td>
     <td>
-    <button id='go3'style="text-align: center; font-weight: bold; font-size: 15px;">Load Instrument</button>
+    <button id='go3' style="text-align: center; font-weight: bold; font-size: 15px;">Load Instrument</button>
     </td>
     </tr>
 </table>
 <table class='instrument4Chooser'>
     <tr><td style="text-align: center; font-weight: bold; font-size: 20px;">Instrument Bank #4</td></tr>
-    <tr>
-    <td>
-    <select id='instrument4Menu' style="text-align: center; font-weight: bold; font-size: 15px;">
-    </select>
-    </td>
-    <td>
     <select id='tuning4Menu' style="text-align: center; font-weight: bold; font-size: 15px;">
     </select>
     </td>
     <td>
-    <button id='go4'style="text-align: center; font-weight: bold; font-size: 15px;">Load Instrument</button>
+    <button id='go4' style="text-align: center; font-weight: bold; font-size: 15px;">Load Instrument</button>
     </td>
     </tr>
 </table>
@@ -809,7 +670,6 @@ $(document).ready(function(){
 <tr>
 <td style="text-align: right; font-weight: bold; font-size: 20px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Choose a Scale / Chord to Display</td>
 </tr>
-<tr>
     <td>
     <select id='scaleMenu' style="text-align: center; font-weight: bold; font-size: 15px;">
     <option value='blues'>Blues</option>
@@ -819,7 +679,6 @@ $(document).ready(function(){
     <option value='naturalminor'>Natural Minor</option>
     <option value='harmonicminor'>Harmonic Minor</option>
     <option value='melodicminor'>Melodic Minor Ascending</option>
-    <option value='lydian'>Lydian</option>
     <option value='mixolydian'>Mixolydian</option>
     <option value='mixeduplydian'>'Mixed Up' Lydian-Super Blues</option>
     <option value='dorian'>Dorian</option>
