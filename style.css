@@ -340,6 +340,16 @@ table[class^="instrument"] img {
     font-size: 13px;
     font-weight: 800;
     color: #000000;
+    text-shadow: 
+        -1px -1px 0 #ffffff,
+         1px -1px 0 #ffffff,
+        -1px  1px 0 #ffffff,
+         1px  1px 0 #ffffff,
+         0 -1px 0 #ffffff,
+         0  1px 0 #ffffff,
+        -1px  0 0 #ffffff,
+         1px  0 0 #ffffff;
+    -webkit-text-stroke: 0.4px #ffffff;
     z-index: 15;
     pointer-events: none;
     line-height: 1;

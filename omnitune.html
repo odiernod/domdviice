@@ -438,35 +438,11 @@ function drawHarmonicaDiagram(canvas, cols = 10, rows = 7,
     var actualCellW = cellW || (w / cols);
     var actualCellH = cellH || (h / rows);
 
-    // 1. Harmonica Core Body (Cover plates over Blow and Draw rows)
+    // 1. Harmonica Core Body (Blow and Draw rows)
     var coreY = blowRow * actualCellH;
     var coreH = (drawRow - blowRow + 1) * actualCellH;
 
-    // Metallic coverplate gradient casing
-    var metalGrad = ctx.createLinearGradient(0, coreY, 0, coreY + coreH);
-    metalGrad.addColorStop(0, '#cbd5e1');
-    metalGrad.addColorStop(0.3, '#f1f5f9');
-    metalGrad.addColorStop(0.7, '#e2e8f0');
-    metalGrad.addColorStop(1, '#94a3b8');
-
-    ctx.fillStyle = metalGrad;
-    ctx.fillRect(2, coreY, w - 4, coreH);
-
-    // 2. Blow Reed Plate (Row index blowRow)
-    var blowGrad = ctx.createLinearGradient(0, coreY, 0, coreY + actualCellH);
-    blowGrad.addColorStop(0, '#e0f2fe');
-    blowGrad.addColorStop(1, '#bae6fd');
-    ctx.fillStyle = blowGrad;
-    ctx.fillRect(3, coreY, w - 6, actualCellH);
-
-    // 3. Draw Reed Plate (Row index drawRow)
-    var drawGrad = ctx.createLinearGradient(0, drawRow * actualCellH, 0, drawRow * actualCellH + actualCellH);
-    drawGrad.addColorStop(0, '#fef3c7');
-    drawGrad.addColorStop(1, '#fde68a');
-    ctx.fillStyle = drawGrad;
-    ctx.fillRect(3, drawRow * actualCellH, w - 6, actualCellH);
-
-    // 4. Central Comb Mouthpiece Rail & Vertical Comb Dividers
+    // 2. Central Comb Mouthpiece Rail & Vertical Comb Dividers
     var combY = drawRow * actualCellH;
     ctx.fillStyle = '#000000';
     ctx.fillRect(2, combY - 4, w - 4, 8);
@@ -482,7 +458,7 @@ function drawHarmonicaDiagram(canvas, cols = 10, rows = 7,
         ctx.stroke();
     }
 
-    // 5. Solid Black Outer Border around Blow & Draw Reed Rows (Harmonica Body)
+    // 3. Solid Black Outer Border around Blow & Draw Reed Rows (Harmonica Body)
     ctx.strokeStyle = '#000000';
     ctx.lineWidth = 4.5;
     ctx.strokeRect(2, coreY, w - 4, coreH);
@@ -543,17 +519,10 @@ function drawHarmonicaDiagram(canvas, cols = 10, rows = 7,
                 badgeBg = isUpper ? 'rgba(37, 99, 235, 0.85)' : 'rgba(217, 119, 6, 0.85)';
             }
 
-            ctx.fillStyle = fillColor;
-            ctx.fillRect(x + 1, y + 1, actualCellW - 2, actualCellH - 2);
-
+            // Only draw colored border and corner badge (no fill color, no inner nested squares)
             ctx.strokeStyle = borderColor;
             ctx.lineWidth = 1.5;
             ctx.strokeRect(x + 1, y + 1, actualCellW - 2, actualCellH - 2);
-
-            // Subtle inner frame
-            ctx.strokeStyle = innerStroke;
-            ctx.lineWidth = 1;
-            ctx.strokeRect(x + 7, y + 7, actualCellW - 14, actualCellH - 14);
 
             // Small badge in corner of the cell for OB, OD, VB, BB, DB
             if (badgeText) {
@@ -567,15 +536,6 @@ function drawHarmonicaDiagram(canvas, cols = 10, rows = 7,
                 ctx.fillText(badgeText, x + actualCellW - bw / 2 - 4, y + 4 + bh / 2);
             }
         }
-    }
-
-    // Inner bevels on blow and draw cells
-    for (var c = 0; c < cols; c++) {
-        var x = c * actualCellW;
-        ctx.strokeStyle = 'rgba(100, 116, 139, 0.35)';
-        ctx.lineWidth = 1;
-        ctx.strokeRect(x + 7, coreY + 7, actualCellW - 14, actualCellH - 14);
-        ctx.strokeRect(x + 7, drawRow * actualCellH + 7, actualCellW - 14, actualCellH - 14);
     }
 
     // 7. Hole Number Badges on Comb Rail (1 to 10)
@@ -713,35 +673,11 @@ function drawChromaticDiagram(canvas, cols = 12, rows = 4, cellW = null, cellH =
     var blowRow = 1;
     var drawRow = 2;
 
-    // 1. Core Body (Cover plates over Blow Row 1 and Draw Row 2)
+    // 1. Core Body (Blow Row 1 and Draw Row 2)
     var coreY = blowRow * actualCellH;
     var coreH = (drawRow - blowRow + 1) * actualCellH;
 
-    // Metallic coverplate gradient casing
-    var metalGrad = ctx.createLinearGradient(0, coreY, 0, coreY + coreH);
-    metalGrad.addColorStop(0, '#cbd5e1');
-    metalGrad.addColorStop(0.3, '#f1f5f9');
-    metalGrad.addColorStop(0.7, '#e2e8f0');
-    metalGrad.addColorStop(1, '#94a3b8');
-
-    ctx.fillStyle = metalGrad;
-    ctx.fillRect(2, coreY, w - 4, coreH);
-
-    // 2. Blow Reed Plate (Slide Out, Row 1)
-    var blowGrad = ctx.createLinearGradient(0, coreY, 0, coreY + actualCellH);
-    blowGrad.addColorStop(0, '#e0f2fe');
-    blowGrad.addColorStop(1, '#bae6fd');
-    ctx.fillStyle = blowGrad;
-    ctx.fillRect(3, coreY, w - 6, actualCellH);
-
-    // 3. Draw Reed Plate (Slide Out, Row 2)
-    var drawGrad = ctx.createLinearGradient(0, drawRow * actualCellH, 0, drawRow * actualCellH + actualCellH);
-    drawGrad.addColorStop(0, '#fef3c7');
-    drawGrad.addColorStop(1, '#fde68a');
-    ctx.fillStyle = drawGrad;
-    ctx.fillRect(3, drawRow * actualCellH, w - 6, actualCellH);
-
-    // 4. Central Comb Mouthpiece Rail & Vertical Comb Dividers
+    // 2. Central Comb Mouthpiece Rail & Vertical Comb Dividers
     var combY = drawRow * actualCellH;
     ctx.fillStyle = '#000000';
     ctx.fillRect(2, combY - 4, w - 4, 8);
@@ -757,7 +693,7 @@ function drawChromaticDiagram(canvas, cols = 12, rows = 4, cellW = null, cellH =
         ctx.stroke();
     }
 
-    // 5. Solid Black Outer Border around Blow & Draw Reed Rows (Harmonica Body)
+    // 3. Solid Black Outer Border around Blow & Draw Reed Rows (Harmonica Body)
     ctx.strokeStyle = '#000000';
     ctx.lineWidth = 4.5;
     ctx.strokeRect(2, coreY, w - 4, coreH);
@@ -768,17 +704,10 @@ function drawChromaticDiagram(canvas, cols = 12, rows = 4, cellW = null, cellH =
         for (var c = 0; c < cols; c++) {
             var x = c * actualCellW;
 
-            ctx.fillStyle = 'rgba(245, 243, 255, 0.55)';
-            ctx.fillRect(x + 1, y + 1, actualCellW - 2, actualCellH - 2);
-
+            // Only draw clean colored border and corner badge (no cell fill, no inner nested squares)
             ctx.strokeStyle = 'rgba(124, 58, 237, 0.5)';
             ctx.lineWidth = 1.5;
             ctx.strokeRect(x + 1, y + 1, actualCellW - 2, actualCellH - 2);
-
-            // Subtle inner frame
-            ctx.strokeStyle = 'rgba(147, 51, 234, 0.2)';
-            ctx.lineWidth = 1;
-            ctx.strokeRect(x + 7, y + 7, actualCellW - 14, actualCellH - 14);
 
             // Small badge in corner: IN
             ctx.fillStyle = 'rgba(124, 58, 237, 0.85)';
@@ -790,15 +719,6 @@ function drawChromaticDiagram(canvas, cols = 12, rows = 4, cellW = null, cellH =
             ctx.textBaseline = 'middle';
             ctx.fillText('IN', x + actualCellW - bw / 2 - 4, y + 4 + bh / 2);
         }
-    }
-
-    // Inner bevels on core blow and draw cells
-    for (var c = 0; c < cols; c++) {
-        var x = c * actualCellW;
-        ctx.strokeStyle = 'rgba(100, 116, 139, 0.35)';
-        ctx.lineWidth = 1;
-        ctx.strokeRect(x + 7, coreY + 7, actualCellW - 14, actualCellH - 14);
-        ctx.strokeRect(x + 7, drawRow * actualCellH + 7, actualCellW - 14, actualCellH - 14);
     }
 
     // 7. Hole Number Badges on Comb Rail (1 to cols)
