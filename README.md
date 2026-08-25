@@ -3,6 +3,39 @@
 
 An instrument comparator, scale displayer, and tuning visualizer supporting piano, guitar, ukulele, and diverse harmonica tunings (Wilde, PowerBender, Paddy Richter, Chromatic, etc.), as well as a guitar chord progression visualizer and chord chart generator.
 
+## Architecture
+- **Pure JavaScript & Web Audio**: 100% client-side, zero build tools or backend dependencies required. Runs locally by opening `omnitune.html` in any browser.
+- **Dynamic Tuning Engine**: Computes harmonica blow/draw/bend matrices, half-valved bends, chromatic slide registers, fretted fretboards, and piano octaves on the fly in `scripts/tuning_engine.js`.
+- **HTML5 Canvas Visualizations**: Responsive, pixel-perfect diagrams rendered dynamically for guitars, ukuleles, harmonicas, and pianos.
+- **Unit Testing**: Automated Node.js test runners:
+  - `node tuning_engine.test.js` — validates all harmonica tunings, chromatic models, key offsets, scale and chord formulas.
+  - `node guitarprogression.test.js` — validates guitar progressions, scale intervals, and chord formulas.
+
+## Pages & Tools
+
+### 1. OmniTune (`omnitune.html`)
+The main instrument comparison and scale visualizer:
+- **4 Universal Instrument Banks**: Compare any combination of 10-hole Diatonic Harmonicas (21 tunings with half-valving support), Chromatic Harmonicas (12- and 16-hole models across all keys), 6-String Guitars, 4-String Ukuleles, and Pianos.
+- **Dynamic HTML5 Canvas Diagrams**: Clean, responsive, unshaded fretboards and harmonica reed plates with sharp note outlines and position markers.
+- **Scales & Chord Highlights**: Global Key and Scale selector highlighting notes across all banks simultaneously, with root emphasis and scale degree labels (Nashville Number System).
+- **Web Audio Sound**: Interactive note click/sweep with Pluck and Synth playback modes.
+- **Sticky Control Bar & Responsive Layout**: Sticky top header and dynamic side-by-side card arrangement for compact instruments.
+
+### 2. Guitar Chord Finder & Progression Visualizer (`guitarprogression.html`)
+An interactive fretboard and harmonic progression explorer for guitarists:
+- **Tuning Catalog**: Standard (EADGBE), Eb Standard, Drop D, DADGAD, Open C, Open E, BEBEBE, Open G, Open D.
+- **Chord & Scale Modes**: Switch between Chord mode (Roots, Qualities, and Standard/Shell Voicings) and Scale mode (Major, Minor, Pentatonic, Blues, Dorian, Phrygian, Lydian, Mixolydian).
+- **Chord Progression Builder**: Construct multi-chord progressions with color-coded badges, and hover/click chord badges to highlight their chord tones on the fretboard.
+- **Fretboard Customization**: Toggle scale degrees, note names, and position markers on an interactive 24-fret diagram.
+
+### 3. Chord Chart Generator (`chordchartgenerator.html`)
+A standalone generator for chord fingering box diagrams:
+- Configurable frets, strings, starting fret, mute markers (`X`), open circles (`O`), finger numbers, dot colors, and custom bottom labels.
+- Export directly to high-resolution PNG with white background.
+- URL-driven configuration ideal for programmatic generation and LLM integrations.
+
+---
+
 ## Chord Chart Generator — LLM parameter reference
 
 This project contains a chord-chart generator page that accepts configuration via UI controls or URL query parameters and can export the diagram as a PNG with a white background. Provide the parameters listed below to generate diagrams programmatically (for example, from an LLM).

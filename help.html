@@ -1,57 +1,370 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Help page</title>
-<style>
-code {
-    font-family: Consolas, Lucida Console, Courier;
-    font-size: 9;
-    background-color: #EEEEEE;
-}
-</style>
-</head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OmniTune User Guide & Help</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --badge-bg: #eff6ff;
+      --badge-border: #bfdbfe;
+      --badge-text: #1e40af;
+    }
 
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 0 16px 40px;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* Top Navigation */
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .brand-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-main);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 16px;
+      font-size: 14px;
+      font-weight: 600;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-hover);
+      text-decoration: underline;
+    }
+
+    /* Hero / Header */
+    .hero {
+      text-align: center;
+      padding: 24px 0 32px;
+    }
+
+    .hero h1 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+      color: #0f172a;
+    }
+
+    .hero p {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    /* Content Cards */
+    .section-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .section-card h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 8px;
+    }
+
+    .section-card h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #334155;
+      margin: 20px 0 8px;
+    }
+
+    p {
+      margin-bottom: 12px;
+      color: #334155;
+      font-size: 15px;
+    }
+
+    ul, ol {
+      margin-left: 24px;
+      margin-bottom: 16px;
+      color: #334155;
+    }
+
+    li {
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+
+    /* Badges & Tables */
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      background: var(--badge-bg);
+      border: 1px solid var(--badge-border);
+      color: var(--badge-text);
+      font-family: Consolas, monospace;
+    }
+
+    table.info-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+
+    table.info-table th, table.info-table td {
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      text-align: left;
+    }
+
+    table.info-table th {
+      background: #f8fafc;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    table.info-table tr:nth-child(even) {
+      background: #fcfcfd;
+    }
+
+    code {
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: Consolas, "Courier New", Courier, monospace;
+      font-size: 13px;
+      color: #0f172a;
+    }
+
+    .callout {
+      background: #f0fdf4;
+      border-left: 4px solid #16a34a;
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+      font-size: 14px;
+      color: #166534;
+    }
+
+    .callout-info {
+      background: #eff6ff;
+      border-left: 4px solid #3b82f6;
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+      font-size: 14px;
+      color: #1e40af;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px 0 12px;
+      font-size: 13px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
 <body>
-<nav aria-label="Primary navigation" style="text-align:right; margin:12px 0 20px; font-size:12px;">
-  <a href="omnitune.html">Compare Instruments</a> |
-  <a href="guitarprogression.html">Guitar Progression</a> |
-  <a href="chordchartgenerator.html">Chord Chart Generator</a>
-</nav>
-<div align="center">
-  <table width="700" border="0">
-    <tr>
-      <td><div align="center">
-        <p align="justify">Welcome to the OmniTune help and instructions. Here, you'll learn the features of <a href="omnitune.html">OmniTune</a>, along with some tips.</p>
-        <p align="justify"><strong>Mouse over</strong> a note to see all enharmonic (equivalent) notes. Mousing over middle C on the piano, for example, will highlight every middle C in all displayed instruments. It will not, however, highlight all C notes on every octave. Click a note to play it.</p>
-        <p align="justify">You can also <strong>display Scales and chord arpeggios</strong> in any key by choosing a scale or chord and a key and clicking <strong>Display Scale</strong>.  All notes in the scale will be highlighted in every octave available on each instrument, with the root notes highlighted in red.<br/>On instruments such as the guitar and diatonic harmonicas where the same note appears in multiple places, the note will be highlighted in every place where it exists (for example -2 and 3 on the diatonic harmonicas), it is up to the player to decide which note position makes the most sense in the scale flow more fluidly.  If you need help distinguishing the individual scale degree notes, you can click <strong>Show Scale Degrees</strong> to display the scale degree over each note (in the Nashville Number System).  In either scale display mode, the root note is always colored in red. To clear the scale click <strong>Clear Scale</strong> and the scale will clear.</p>
-        <p align="justify">Clicking <strong>Show Note Names</strong> will show the note names for the currently selected tuning of the instruments that support more than one tuning.</p>
-      </div>
-        <div align="center">
-          <p align="justify">To <strong>select a new instrument</strong>, select the desired instrument and its tuning from the menus above that instrument bank. Click the "Go!" button. Instruments 1 and 2 are limited to the piano, diatonic 10-hole harmonicas, 12-hole chromatic harmonicas, and the ukulele. Instrument 3 can handle any instrument (guitar, piano, ukulele, and harmonicas with 10, 12, or 16 holes).</p>
-      </div></td>
-    </tr>
-  </table>
-  <table width="700" border="0">
-    <tr>
-      <td colspan="3"><p align="center">&nbsp;</p>
-        <p align="justify">The <strong>diatonic harmonicas</strong> use a plain number for a blow, a "-" for a draw, "'" for each half-step of a bend, "ob" for overblows and "od" for overdraws. For example, the standard C diatonic produces a middle C on the button labeled "1": on an actual harmonica, this would simply mean blowing into hole 1. "6+" would be an overblow on hole 6, "-7od" would be an overdraw on hole 7, "-3''" would be a draw bend (one whole step) on hole 3, and so on.</p>        
-        <p align="justify">The <strong>chromatic harmonica</strong> is labeled similarly to the diatonic, with the omission of bends, overblows, and overdraws, and the addition of the slide, denoted by a "&lt;". "1" is a simple blow on hole 1, "-5" is a draw on hole 5, "&lt;3" is a blow on hole 3 with the slide pushed in, and "&lt;-9" is a draw on hole 9 with the slide pushed in.</p>
-        <p align="justify"><strong>Piano notes</strong> are laid out with an octave per row. Buttons with a black background correspond to a piano's black keys (sharps/flats), and buttons with a white background correspond to a piano's white keys (whole notes). The labels (C3, F5, and so on) correspond to the actual names of each note: the button labeled "C4 (Mid)" is C4, the middle C.</p>
-      <p align="justify">The <strong>guitar buttons</strong> with a silver foreground and white background correspond to guitar frets labeled with a dot. The buttons with a silver foreground and silver background correspond to the frets located one octave above the open string note). Each button is labeled with the name of the string (row) and the fret number, with "0" meaning an open string. Thus, a guitar tab with a "5" on a row labeled "B" means the fifth fret of the B string, or "B5" on the guitar.</p>
-      <p align="justify">The <strong>ukulele buttons</strong> with a silver foreground and white background correspond to guitar frets labeled with a dot. Each button is labeled with the name of the string (row) and the fret number, with "0" meaning an open string. Thus, a ukulele tab with a "5" on a row labeled "B" means the fifth fret of the B string, or "B5" on the ukulele.</p></td>
-    </tr>
-    <tr>
-      <td width="45%" style="vertical-align:top">
-        <p align="justify">You can click on a note and hold down the mouse button to play its pitch.</p>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="3">
-        <p align="justify">This instrument comparison tool is laid out and organized with CSS styles and tables. Notes are highlighted with Javascript, supplemented by jQuery. It is a completely client-side tool which means you can download it from the source and run it offline on your local machine. <br/>OmniTune can be downloaded and run locally from <a href="https://github.com/odiernod/domdviice">its GitHub location</a>.</p>
-      </td>
-    </tr>
-  </table>
+
+<div class="container">
+  <!-- Top Navigation -->
+  <nav class="top-nav" aria-label="Primary navigation">
+    <a href="omnitune.html" class="brand-title">🎵 OmniTune</a>
+    <div class="nav-links">
+      <a href="omnitune.html">Instrument Comparator</a>
+      <a href="guitarprogression.html">Guitar Chord Progression</a>
+      <a href="chordchartgenerator.html">Chord Chart Generator</a>
+      <a href="https://github.com/odiernod/domdviice" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <h1>OmniTune User Guide & Instructions</h1>
+    <p>Everything you need to master multi-instrument comparison, alternate tunings, scale degrees, harmonica bending, and guitar chords.</p>
+  </header>
+
+  <!-- Section 1: OmniTune Comparator -->
+  <section class="section-card">
+    <h2>1. OmniTune: Instrument Comparison & Scales</h2>
+    <p>OmniTune allows you to visualize and cross-compare pitches, scale patterns, and arpeggios simultaneously across multiple instruments.</p>
+
+    <h3>4 Universal Instrument Banks</h3>
+    <p>Every instrument bank (Banks 1 through 4) can load any instrument in the catalog:</p>
+    <ul>
+      <li><strong>10-Hole Diatonic Harmonicas</strong>: Multiple specialized tunings (Standard Richter, Wilde Tuning, Paddy Richter, Dorian, PowerBender, Diminished, Augmented, Whole Tone, etc.) in major and minor keys, with optional <strong>Half-Valving</strong>.</li>
+      <li><strong>Chromatic Harmonicas</strong>: 12-hole and 16-hole models across all 12 keys with Solo, Bebop, C6, and PowerChromatic configurations.</li>
+      <li><strong>6-String Guitar</strong>: Standard, Drop D, DADGAD, Open C, Open E, Open G, Open D, etc. spanning 24 frets.</li>
+      <li><strong>4-String Ukulele</strong>: Standard Soprano C (GCEA), Baritone, Low G, and D-Tuning spanning 15 frets.</li>
+      <li><strong>Piano Keyboard</strong>: Multi-octave chromatic keyboard laid out with white and black key rows.</li>
+    </ul>
+
+    <h3>Interactive Note Highlighting & Sound</h3>
+    <ul>
+      <li><strong>Mouse Hover / Sweep:</strong> Hover over any note to automatically highlight all enharmonically equivalent notes across all active instrument banks.</li>
+      <li><strong>Audio Playback:</strong> Click or click-and-drag across notes to synthesize pitches in real-time. Use the <strong>Pluck</strong> (decaying pluck) and <strong>Synth</strong> (sustained tone) buttons in the persistent top bar to toggle tone styles.</li>
+    </ul>
+
+    <h3>Scales, Chords & Scale Degree Display</h3>
+    <ul>
+      <li><strong>Display Scale:</strong> Choose any Key (C, D, E, F#, etc.) and Scale/Chord (Major, Minor, Blues, Pentatonic, Dorian, Dominant 7th, Major 9th, etc.) and click <strong>Display Scale</strong>. All notes in the scale light up across all instruments, with the Root notes highlighted in bold red.</li>
+      <li><strong>Show Scale Degrees:</strong> Toggles the display of Nashville Number System scale degrees (<code>1</code>, <code>b3</code>, <code>3</code>, <code>4</code>, <code>b5</code>, <code>5</code>, <code>b7</code>, <code>7</code>, etc.) positioned above each note in high-contrast white text with black borders.</li>
+      <li><strong>Show Note Names:</strong> Displays letter names (C, D, E, F#, etc.) with a crisp white text outline for readability over black piano keys and dark frets.</li>
+    </ul>
+  </section>
+
+  <!-- Section 2: Harmonica Notation Guide -->
+  <section class="section-card">
+    <h2>2. Harmonica Notation & Bending Guide</h2>
+    <p>OmniTune dynamically calculates blow, draw, bend, overblow, overdraw, and valve-bend possibilities for any harmonica key and tuning.</p>
+
+    <table class="info-table">
+      <thead>
+        <tr>
+          <th>Badge / Notation</th>
+          <th>Technique</th>
+          <th>Description & Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge">1</span> to <span class="badge">10</span></td>
+          <td>Blow Reed</td>
+          <td>Standard natural blow reed on that hole (e.g. Hole 4 Blow = C4 on a C Richter).</td>
+        </tr>
+        <tr>
+          <td><span class="badge">-1</span> to <span class="badge">-10</span></td>
+          <td>Draw Reed</td>
+          <td>Standard natural draw reed on that hole (e.g. Hole 4 Draw = D4 on a C Richter).</td>
+        </tr>
+        <tr>
+          <td><span class="badge">DB</span> (<code>-3'</code>, <code>-3''</code>, <code>-3'''</code>)</td>
+          <td>Draw Bend</td>
+          <td>Dual-reed draw bend pulling pitch down (each apostrophe represents one semitone).</td>
+        </tr>
+        <tr>
+          <td><span class="badge">BB</span> (<code>8'</code>, <code>9'</code>)</td>
+          <td>Blow Bend</td>
+          <td>Dual-reed blow bend on higher holes where the blow reed is higher in pitch than the draw reed.</td>
+        </tr>
+        <tr>
+          <td><span class="badge">OB</span> (<code>6+</code> / <code>6ob</code>)</td>
+          <td>Overblow</td>
+          <td>Embouchure technique to block the blow reed in order to vibrate the draw reed at a higher pitch (e.g. Hole 6 Overblow = Bb4).</td>
+        </tr>
+        <tr>
+          <td><span class="badge">OD</span> (<code>-7od</code>)</td>
+          <td>Overdraw</td>
+          <td>Embouchure technique to block the draw reed to vibrate the blow reed at a higher pitch (e.g. Hole 7 Overdraw = C#5).
+        </tr>
+        <tr>
+          <td><span class="badge">VB</span> (<code>v</code>)</td>
+          <td>Half-Valved Bend</td>
+          <td>Single-reed valve bend enabled when valves are installed to block air passage from the opposing slot.</td>
+        </tr>
+        <tr>
+          <td><span class="badge">&lt;</span> (<code>&lt;1</code>, <code>&lt;-1</code>)</td>
+          <td>Chromatic Slide-In</td>
+          <td>Pushing the slide button in on a Chromatic harmonica to access the sharp/flat reed plates.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Section 3: Guitar Chord Progression Visualizer -->
+  <section class="section-card">
+    <h2>3. Guitar Chord Progression Visualizer</h2>
+    <p>Accessible via <a href="guitarprogression.html"><code>guitarprogression.html</code></a>, this tool provides an interactive 24-fret guitar neck for finding chord voicings, visualizing scale patterns, and mapping chord progressions.</p>
+    <ul>
+      <li><strong>Tuning Selector:</strong> Explore Standard (EADGBE), Eb Standard, Drop D, DADGAD, Open C, Open E, BEBEBE, Open G, and Open D.</li>
+      <li><strong>Chord Mode:</strong> Choose any Root note and Chord Quality (Major, Minor, Minor 7, Major 7, Dominant 7, Diminished, Augmented, Sus2, Sus4, Power 5) and Voicing style (Standard or Shell) to map the chord across all 6 strings.</li>
+      <li><strong>Scale Mode:</strong> Overlay Major, Natural Minor, Major Pentatonic, Minor Pentatonic, Dorian, Phrygian, Lydian, or Mixolydian scale patterns across the fretboard.</li>
+      <li><strong>Progression Builder:</strong> Click <strong>Add chord</strong> to build a progression sequence. Each chord in the sequence is assigned a distinct color-coded pill. Hover over or click a chord pill to highlight its notes on the fretboard.</li>
+      <li><strong>Toggle Overlays:</strong> Show or hide note names and Nashville scale degrees on the fretboard.</li>
+    </ul>
+  </section>
+
+  <!-- Section 4: Chord Chart Generator -->
+  <section class="section-card">
+    <h2>4. Chord Chart Generator (Box Diagrams)</h2>
+    <p>Accessible via <a href="chordchartgenerator.html"><code>chordchartgenerator.html</code></a>, this tool generates publication-quality chord box diagrams with PNG export capabilities.</p>
+    <ul>
+      <li><strong>Configurable Diagram:</strong> Customize fret count (1–24), string count (1–12), starting fret position, muted strings (<code>X</code>), open strings (<code>O</code>), and finger numbers.</li>
+      <li><strong>High-Resolution PNG Export:</strong> Click <strong>Save as PNG</strong> to export clean, white-background diagram images.</li>
+      <li><strong>URL Query Parameter Driven:</strong> Supports programmatic creation and LLM automation via URL parameters (e.g. <code>?chord=G&amp;strings=6&amp;frets=5&amp;s0_fret=3...</code>).</li>
+    </ul>
+  </section>
+
+  <!-- Section 5: Offline & Pure Client-Side Architecture -->
+  <section class="section-card">
+    <h2>5. Offline & Client-Side Architecture</h2>
+    <p>OmniTune is 100% self-contained and client-side:</p>
+    <ul>
+      <li><strong>Zero Server Dependencies:</strong> Runs directly in any web browser without Node.js servers, databases, or cloud backends.</li>
+      <li><strong>Offline Ready:</strong> Clone or download the repository to use it completely offline on your desktop, laptop, or mobile browser.</li>
+      <li><strong>Web Audio API:</strong> Dynamic sound synthesis produces responsive audio across all modern browsers.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>OmniTune &copy; 2026 &mdash; Open source under the MIT License &mdash; <a href="https://github.com/odiernod/domdviice">GitHub Repository</a></p>
+  </footer>
 </div>
-<p align="center">&nbsp;</p>
+
 </body>
 </html>

@@ -1,21 +1,4 @@
-change Hide scale degrees to either show just note names for the scale (radio button options)
-
-Fix refresh bug which shows scale even when none selected
-<option value='threeflats'>New Standard CDGAEG</option>*
-
-update background images to be more informative/pleasing
-OR
-remove need for background images
-
-auto generate keys for harmonica tunings
-  Easy Third
-  DomTuned to be raised 5 powerdraw
-  country tuned
-  melody maker
-  trochilus tunings
-  Altered Paddy Richter (5 blow drop)
-add fourth instrument bank
-
-create "scale and key finder"
-provide better scaling layout for web browser or phone
-
+[x] Remove need for background images (migrated all instruments to dynamic HTML5 Canvas)
+Pending / Future Enhancements:
+- Change Hide scale degrees to either show just note names for the scale (radio button options)
+- Create "scale and key finder" tool

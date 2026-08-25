@@ -312,139 +312,6 @@ const TuningEngine = (function() {
     }
 
     /**
-     * Generates Staff clefs (treble1..4, bass1..4).
-     */
-    const staffNoteConfigs = {
-        treble1: [
-            { name: "A7", tone: 3520, w: 27, h: 31 },
-            { name: "F7", tone: 2793.83, w: 27, h: 31 },
-            { name: "D7", tone: 2349.32, w: 27, h: 31 },
-            { name: "B6", tone: 1975.53, w: 27, h: 31 },
-            { name: "G6", tone: 1567.98, w: 27, h: 31 },
-            { name: "E6", tone: 1318.51, w: 27, h: 29 },
-            { name: "C6", tone: 1046.5, w: 27, h: 29 },
-            { name: "A5", tone: 880, w: 27, h: 29 },
-            { name: "F5", tone: 698.46, w: 27, h: 29 },
-            { name: "D5", tone: 587.33, w: 27, h: 31 },
-            { name: "B4", tone: 493.88, w: 27, h: 31 },
-            { name: "G4", tone: 392, w: 27, h: 29 },
-            { name: "E4", tone: 329.63, w: 27, h: 31 },
-            { name: "C4", tone: 261.63, w: 27, h: 30 }
-        ],
-        treble2: [
-            { name: "B7", tone: 3951.07, w: 27, h: 31 },
-            { name: "G7", tone: 3135.96, w: 27, h: 31 },
-            { name: "E7", tone: 2637.02, w: 27, h: 31 },
-            { name: "C7", tone: 2093, w: 27, h: 30 },
-            { name: "A6", tone: 1760, w: 27, h: 30 },
-            { name: "F6", tone: 1396.91, w: 27, h: 30 },
-            { name: "D6", tone: 1174.66, w: 27, h: 29 },
-            { name: "B5", tone: 987.77, w: 27, h: 29 },
-            { name: "G5", tone: 783.99, w: 27, h: 31 },
-            { name: "E5", tone: 659.26, w: 27, h: 31 },
-            { name: "C5", tone: 523.25, w: 27, h: 31 },
-            { name: "A4", tone: 440, w: 27, h: 29 },
-            { name: "F4", tone: 349.23, w: 27, h: 31 },
-            { name: "D4", tone: 293.66, w: 27, h: 31 }
-        ],
-        treble3: [
-            { name: "C7s", tone: 2217.46, w: 27, h: 30 },
-            { name: "A6s", tone: 1864.66, w: 27, h: 30 },
-            { name: "F6s", tone: 1479.98, w: 27, h: 30 },
-            { name: "D6s", tone: 1244.51, w: 27, h: 30 },
-            { name: "C6s", tone: 1108.73, w: 27, h: 30 },
-            { name: "A5s", tone: 932.33, w: 27, h: 30 },
-            { name: "F5s", tone: 739.99, w: 27, h: 30 },
-            { name: "D5s", tone: 622.25, w: 27, h: 30 },
-            { name: "C5s", tone: 554.37, w: 27, h: 30 },
-            { name: "A4s", tone: 466.16, w: 27, h: 30 },
-            { name: "F4s", tone: 369.99, w: 27, h: 30 },
-            { name: "D4s", tone: 311.13, w: 27, h: 30 },
-            { name: "C4s", tone: 277.18, w: 27, h: 30 }
-        ],
-        treble4: [
-            { name: "G7s", tone: 3322.44, w: 27, h: 30 },
-            { blank: true, w: 27, h: 20 },
-            { name: "D7s", tone: 2489.02, w: 27, h: 30 },
-            { blank: true, w: 27, h: 20 },
-            { name: "G6s", tone: 1661.22, w: 27, h: 30 },
-            { blank: true, w: 27, h: 20 },
-            { name: "D6s", tone: 1244.51, w: 27, h: 30 },
-            { blank: true, w: 27, h: 20 },
-            { name: "G5s", tone: 830.61, w: 27, h: 30 },
-            { blank: true, w: 27, h: 20 },
-            { name: "D5s", tone: 622.25, w: 27, h: 30 },
-            { blank: true, w: 27, h: 20 },
-            { name: "G4s", tone: 415.3, w: 27, h: 30 }
-        ],
-        bass1: [
-            { name: "C4", tone: 261.63, w: 27, h: 30 },
-            { name: "A3", tone: 220, w: 27, h: 30 },
-            { name: "F3", tone: 174.61, w: 27, h: 30 },
-            { name: "D3", tone: 146.83, w: 27, h: 30 },
-            { name: "B2", tone: 123.47, w: 27, h: 33 },
-            { name: "G2", tone: 98, w: 27, h: 29 },
-            { name: "E2", tone: 82.41, w: 27, h: 31 },
-            { name: "C2", tone: 65.41, w: 27, h: 30 },
-            { name: "A1", tone: 55, w: 27, h: 31 },
-            { name: "F1", tone: 43.65, w: 27, h: 30 },
-            { name: "D1", tone: 36.71, w: 27, h: 29 }
-        ],
-        bass2: [
-            { name: "B3", tone: 246.94, w: 27, h: 29 },
-            { name: "G3", tone: 196, w: 27, h: 29 },
-            { name: "E3", tone: 164.81, w: 27, h: 31 },
-            { name: "C3", tone: 130.81, w: 27, h: 31 },
-            { name: "A2", tone: 110, w: 27, h: 30 },
-            { name: "F2", tone: 87.31, w: 27, h: 31 },
-            { name: "D2", tone: 73.42, w: 27, h: 31 },
-            { name: "B1", tone: 61.74, w: 27, h: 30 },
-            { name: "G1", tone: 49, w: 27, h: 30 },
-            { name: "E1", tone: 41.2, w: 27, h: 31 },
-            { name: "C1", tone: 32.7, w: 27, h: 29 }
-        ],
-        bass3: [
-            { name: "C4s", tone: 277.18, w: 27, h: 30 },
-            { name: "A3s", tone: 233.08, w: 27, h: 30 },
-            { name: "F3s", tone: 185, w: 27, h: 29 },
-            { blank: true, w: 27, h: 20 },
-            { name: "C3s", tone: 138.59, w: 27, h: 29 },
-            { name: "A2s", tone: 116.54, w: 27, h: 29 },
-            { name: "F2s", tone: 92.5, w: 27, h: 29 },
-            { blank: true, w: 27, h: 20 },
-            { name: "C2s", tone: 69.3, w: 27, h: 29 },
-            { name: "A1s", tone: 58.27, w: 27, h: 29 },
-            { name: "F1s", tone: 46.25, w: 27, h: 29 },
-            { blank: true, w: 27, h: 20 },
-            { name: "C1s", tone: 34.65, w: 27, h: 29 }
-        ],
-        bass4: [
-            { name: "G3s", tone: 207.65, w: 27, h: 26 },
-            { blank: true, w: 27, h: 21 },
-            { name: "D3s", tone: 155.56, w: 27, h: 26 },
-            { blank: true, w: 27, h: 35 },
-            { name: "G2s", tone: 103.83, w: 27, h: 26 },
-            { blank: true, w: 27, h: 23 },
-            { name: "D2s", tone: 77.78, w: 27, h: 26 },
-            { blank: true, w: 27, h: 33 },
-            { name: "G1s", tone: 51.91, w: 27, h: 26 },
-            { blank: true, w: 27, h: 21 },
-            { name: "D1s", tone: 38.89, w: 27, h: 26 }
-        ]
-    };
-
-    function generateStaffHtml(clefId) {
-        const notes = staffNoteConfigs[clefId];
-        if (!notes) return '';
-        return notes.map(n => {
-            if (n.blank) {
-                return `<tr>\n<td><img width="${n.w}" height="${n.h}"></td>\n</tr>`;
-            }
-            return `<tr>\n<td><img class="noNoteNames" name="${n.name}" tone="${n.tone}" width="${n.w}" height="${n.h}"></td>\n</tr>`;
-        }).join('\n');
-    }
-
-    /**
      * Master instrument generator.
      */
     function generateInstrumentHtml(type, tuning, isHalfValved = null, bankId = null) {
@@ -461,9 +328,6 @@ const TuningEngine = (function() {
         if (type && (type.startsWith('chromatic12') || type.startsWith('chromatic16'))) {
             return generateChromaticHtml(type, tuning);
         }
-        if (staffNoteConfigs.hasOwnProperty(type)) {
-            return generateStaffHtml(type);
-        }
         // Diatonic 10-hole harmonica
         return generateHarmonicaHtml(type, tuning, isHalfValved, bankId);
     }
@@ -478,7 +342,6 @@ const TuningEngine = (function() {
         generateUkuleleHtml,
         generateChromaticHtml,
         generatePianoHtml,
-        generateStaffHtml,
         generateInstrumentHtml,
         harmonicaMatrices
     };
@@ -490,10 +353,6 @@ const instrument = new Proxy({}, {
         if (typeof prop !== 'string') return target[prop];
         if (target.hasOwnProperty(prop)) return target[prop];
 
-        // Check if staff
-        if (['treble1','treble2','treble3','treble4','bass1','bass2','bass3','bass4'].includes(prop)) {
-            return TuningEngine.generateStaffHtml(prop);
-        }
         if (prop.startsWith('piano')) {
             return TuningEngine.generatePianoHtml();
         }
