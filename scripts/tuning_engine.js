@@ -136,7 +136,7 @@ const TuningEngine = (function() {
      */
     function generateHarmonicaHtml(type, key = 'c', isHalfValved = null, bankId = null) {
         const tuningDef = HARMONICA_TUNINGS[type] || HARMONICA_TUNINGS.diatonicrichter;
-        const effectiveValved = (isHalfValved !== null) ? isHalfValved : !!tuningDef.isHalfValvedDefault;
+        const effectiveValved = (isHalfValved !== null && isHalfValved !== undefined) ? !!isHalfValved : false;
 
         let offset = 0;
         const normalizedKey = (key || (tuningDef.isMinor ? (tuningDef.baseKey || 'cm') : 'c')).toLowerCase();

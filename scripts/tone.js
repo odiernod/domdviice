@@ -2,19 +2,30 @@ var clickVoice; // click voice
 var voices = []; // chord voices
 var channels = []; // keyboard channels
 var bend = 1;
+
 // Create an oscillator and an amplifier.
 function initAudio() {
-	// Use audioContext from webaudio_tools.js
-	if(!audioContext) return;
-    clickVoice = new Voice() // voice for mouse clicks
-    for (let i=0; i<8; ++i) { // voices for chords
-        voices.push(new Voice())
+    if (!audioContext) {
+        if (typeof createAudioContext === 'function') {
+            audioContext = createAudioContext();
+        }
     }
-    for (let i=0; i<8; ++i) { // voices for keyboard presses
-        channels.push(new Voice())
+    if (!audioContext) return;
+    if (!clickVoice) {
+        clickVoice = new Voice(); // voice for mouse clicks
+    }
+    if (voices.length === 0) {
+        for (let i = 0; i < 8; ++i) { // voices for chords
+            voices.push(new Voice());
+        }
+    }
+    if (channels.length === 0) {
+        for (let i = 0; i < 8; ++i) { // voices for keyboard presses
+            channels.push(new Voice());
+        }
     }
 }
-    
+
 function Voice() {
     this.note = null;
     this.osc = audioContext.createOscillator();
@@ -24,63 +35,73 @@ function Voice() {
     this.amp = audioContext.createGain();
     this.amp.gain.value = 0;
 
-    // Connect oscillator to amp and amp to the mixer of the audioContext.
-    // This is like connecting cables between jacks on a modular synth.
+    // Connect oscillator to amp and amp to audioContext destination
     this.osc.connect(this.amp);
     this.amp.connect(audioContext.destination);
     this.osc.start(0);
-    // for vibrato, from the explanatory page at
-    // http://music.arts.uci.edu/dobrian/s16/music147/examples/webaudio/html/vibrato.html
+
+    // LFO for vibrato
     this.mosc = audioContext.createOscillator();
     this.mosc.frequency.value = 6; // vibrato rate
     this.mamp = audioContext.createGain();
-    this.mamp.gain.value = 0; // vibrato depth - 20 is good
-    // Connect the LFO to its gain controller
+    this.mamp.gain.value = 0; // vibrato depth
     this.mosc.connect(this.mamp);
-    // Connect the LFO's GainNode to the frequency AudioParam of the carrier
     this.mamp.connect(this.osc.frequency);
-    // start the modulator oscillator
     this.mosc.start();
-    this.start = function(frequency, size=1, pluck=false) {
+
+    this.start = function(frequency, size = 1, pluck = false) {
+        if (!audioContext) return;
         var now = audioContext.currentTime;
         this.frequency = frequency;
-        this.osc.frequency.value = this.frequency * bend;
+        this.osc.frequency.setValueAtTime(this.frequency * bend, now);
+        this.amp.gain.cancelScheduledValues(now);
+
         if (pluck) {
-            let base = 0.6/(size+1)
-            this.amp.gain.setValueCurveAtTime(Float32Array.from([this.amp.gain.value, base*0.5, base, base*1.2, base*1.5, base]), now, 0.05)
+            // Pluck Mode: rich string-like triangle wave with sharp percussive attack and natural acoustic exponential decay
+            this.osc.type = 'triangle';
+            var peakGain = 0.55 / (size + 1);
+            this.amp.gain.setValueAtTime(0.0001, now);
+            this.amp.gain.linearRampToValueAtTime(peakGain, now + 0.003);
+            this.amp.gain.exponentialRampToValueAtTime(0.0001, now + 0.85);
+        } else {
+            // Synth Mode: smooth sine tone that sustains continuously while held
+            this.osc.type = 'sine';
+            var sustainGain = 0.4 / (size + 1);
+            this.amp.gain.setValueAtTime(Math.max(0.0001, this.amp.gain.value), now);
+            this.amp.gain.linearRampToValueAtTime(sustainGain, now + 0.02);
         }
-        // use setTargetAtTime instead of linearRampToValueAtTime so that
-        // FireFox's non-updated Web Audio API can actually do it -
-        // thanks to https://github.com/TheGoddessInari
-        else this.amp.gain.setTargetAtTime(0.6/(size+1), now, 0.1);
-    }
+    };
+
     this.stop = function() {
+        if (!audioContext) return;
         var now = audioContext.currentTime;
-        this.amp.gain.cancelScheduledValues(0);
-        while (true) {
-            try {
-                this.amp.gain.setTargetAtTime(0.0, now, 0.3);
-                break;
-            }
-            catch (e) {}
-        }
-    }
+        this.amp.gain.cancelScheduledValues(now);
+        this.amp.gain.setValueAtTime(Math.max(0.0001, this.amp.gain.value), now);
+        this.amp.gain.linearRampToValueAtTime(0.0001, now + 0.06);
+    };
+
     this.changeBend = function(value) {
-        bend = 2**(value/12) // https://en.wikipedia.org/wiki/Scientific_pitch_notation#Table_of_note_frequencies
-        this.osc.frequency.value = this.frequency * bend
-    }
+        bend = 2 ** (value / 12);
+        this.osc.frequency.setValueAtTime(this.frequency * bend, audioContext.currentTime);
+    };
+
     this.stopBend = function() {
-        this.osc.frequency.value = this.frequency;
+        this.osc.frequency.setValueAtTime(this.frequency, audioContext.currentTime);
         bend = 1;
-    }
+    };
+
     this.waveform = function(choice) {
-        if (!choice) return this.osc.type
-        else this.osc.type = {Q: 'sine', W: 'triangle', E: 'square', R: 'sawtooth'}[choice]
-    }
+        if (!choice) return this.osc.type;
+        else this.osc.type = {Q: 'sine', W: 'triangle', E: 'square', R: 'sawtooth'}[choice];
+    };
+
     this.vibrato = function(choice) {
         if (!choice) return (parseInt(this.mamp.gain.value / 5) || '`').toString();
-        else this.mamp.gain.value = {'`':0, '1':5, '2':10, '3':15, '4':20, '5':25}[choice];
-    }
+        else this.mamp.gain.value = {'`': 0, '1': 5, '2': 10, '3': 15, '4': 20, '5': 25}[choice];
+    };
 }
-// init once the page has finished loading.
-window.onload = initAudio;
+
+// Auto-initialize when possible
+if (typeof window !== 'undefined') {
+    window.addEventListener('load', initAudio);
+}

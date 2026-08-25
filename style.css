@@ -1,322 +1,398 @@
 
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
+/* ==========================================================================
+   OmniTune Modern CSS Stylesheet
+   ========================================================================== */
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;  /* border: 1px solid black; */
-	font-size: 100%;
-	text-align: right;
-    font-family: Arial;
-	z-index:10;
-	
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
-}
+
 body {
-	line-height: 1;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f1f5f9;
+    color: #0f172a;
+    line-height: 1.4;
+    padding: 10px 16px 40px 16px;
+    margin: 0;
 }
-ol, ul {
-	list-style: none;
+
+/* --- App Header & Navigation --- */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1900px;
+    margin: 0 auto 10px auto;
+    padding: 8px 16px;
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
 }
-blockquote, q {
-	quotes: none;
+
+.brand-area {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
+
+.brand-title {
+    font-size: 20px;
+    font-weight: 900;
+    color: #0f172a;
+    letter-spacing: -0.5px;
 }
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
+
+.brand-subtitle {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 500;
 }
-/* end of reset tool */
-canvas
-{
-    position: absolute;
-    left: 1480px;
-    top: 26px;
-    border: 1px solid #000000;
+
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.header-nav a {
+    color: #2563eb;
+    text-decoration: none;
+    padding: 4px 8px;
+    border-radius: 5px;
+    transition: background 0.15s ease;
+}
+
+.header-nav a:hover {
+    background: #eff6ff;
+    text-decoration: underline;
+}
+
+/* --- Global Scale & Key Control Panel --- */
+.global-control-bar {
+    max-width: 1900px;
+    margin: 0 auto 12px auto;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
     border-radius: 10px;
-    z-index: -1;
-}
-img
-{
-display: block;
-}
-table.instrument1
-{
-position:absolute;
-left:26px;
-top:60px;/* top:25px; */
-}
-div.instrumentimg1
-{
-position:absolute;
-left:26px;
-top:60px;/* top:25px; */
-z-index:-1;
+    padding: 8px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
 }
 
-/* if we draw the instrument instead of using an <img> tag we still want the canvas behind the table */
-div.instrumentimg1 canvas {
-    display:block;
-    position:absolute;
-    left:0;
-    top:0;
-}
-table.instrument2
-{
-position:absolute;
-left:920px;
-top:60px;/* top:25px; */
-}
-div.instrumentimg2
-{
-position:absolute;
-left:920px;
-top:60px;/* top:25px; */
-z-index:-1;
-}
-div.instrumentimg2 canvas {
-    display:block;
-    position:absolute;
-    left:0;
-    top:0;
-}
-table.instrument3
-{
-position:absolute;
-left:26px;
-top:650px; /*502*/
-}
-div.instrumentimg3
-{
-position:absolute;
-left:26px;
-top:650px; /*502*/
-z-index:-1;
-}
-div.instrumentimg3 canvas {
-    display:block;
-    position:absolute;
-    left:0;
-    top:0;
-}
-table.instrument4
-{
-position:absolute;
-left:26px;
-top:1200px; /*502*/
-}
-div.instrumentimg4
-{
-position:absolute;
-left:26px;
-top:1200px; /*502*/
-z-index:-1;
-}
-div.instrumentimg4 canvas {
-    display:block;
-    position:absolute;
-    left:0;
-    top:0;
+.control-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
 }
 
-/* staff canvas containers removed */
-table.treble1
-{
-position:absolute;
-left:1800px;
-top:76px;
+.control-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #334155;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
-table.treble2
-{
-position:absolute;
-left:1828px;
-top:60px;
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
-table.treble3
-{
-position:absolute;
-left:1856px;
-top:65px;
+
+/* Form Controls: Selects & Buttons */
+select {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 5px 10px;
+    border: 1px solid #94a3b8;
+    border-radius: 6px;
+    background-color: #ffffff;
+    color: #0f172a;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    height: 34px;
 }
-table.treble4
-{
-position:absolute;
-left:1886px;
-top:81px;
+
+select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
 }
-table.bass1
-{
-position:absolute;
-left:1800px;
-top:517px;
+
+button {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    background-color: #f8fafc;
+    color: #1e293b;
+    cursor: pointer;
+    height: 34px;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
-table.bass2
-{
-position:absolute;
-left:1828px;
-top:532px;
+
+button:hover {
+    background-color: #e2e8f0;
+    border-color: #94a3b8;
 }
-table.bass3
-{
-position:absolute;
-left:1856px;
-top:508px;
+
+button:active {
+    transform: scale(0.98);
 }
-table.bass4
-{
-position:absolute;
-left:1886px;
-top:555px;
+
+button.btn-primary {
+    background-color: #2563eb;
+    border-color: #1d4ed8;
+    color: #ffffff;
 }
-table.instrument1Chooser
-{
-position:absolute;
-left:90px;
-top:10px; 
-z-index: 100;
+
+button.btn-primary:hover {
+    background-color: #1d4ed8;
+    border-color: #1e40af;
 }
-table.instrument2Chooser
-{
-position:absolute;
-left:990px;
-top:10px; 
-z-index: 100;
+
+button.btn-secondary {
+    background-color: #64748b;
+    border-color: #475569;
+    color: #ffffff;
 }
-table.instrument3Chooser
-{
-position:absolute;
-left:520px;
-top:600px; /* top:473px; */
-z-index: 100;
+
+button.btn-secondary:hover {
+    background-color: #475569;
 }
-table.instrument4Chooser
-{
-position:absolute;
-left:520px;
-top:1150px; /* top:473px; */
-z-index: 100;
+
+button.btn-toggle {
+    background-color: #ffffff;
+    border-color: #cbd5e1;
+    color: #334155;
 }
-table.scaleChooser
-{
-position:absolute;
-left:300px;
-top:530px; /* top:473px; */
-z-index: 100;
+
+button.btn-toggle.active {
+    background-color: #eff6ff;
+    border-color: #3b82f6;
+    color: #1d4ed8;
 }
-td
-{
-	position: relative;
+
+/* --- Instrument Banks Dynamic Layout & Cards --- */
+.banks-container {
+    max-width: 1900px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: flex-start;
 }
-td.outline {
-	border: 3px solid black;
-	border-style: ridge;
-	
+
+.bank-card {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    overflow: hidden;
+    transition: flex 0.2s ease, width 0.2s ease;
 }
-.cell-text {
-	position: absolute; /* Position text absolutely within the cell */
-	bottom: 50%; /* Position at middle */
-	left: 50%; /* Position horizontally at the center */
-	transform: translateX(-50%); /* Adjust for the text's own width */
-	text-align: center; /* Center the text horizontally */
-	width: 100%; /* Ensure the text spans the entire cell width */
-	z-index: -1;
-  }
-td img
-{
-	position: relative;
-	top: 0;
-	left: 0;
-	z-index: 0;
+
+/* Dynamic Widths: Compact instruments can sit side-by-side */
+.bank-card.bank-card-compact {
+    flex: 1 1 calc(50% - 8px);
+    min-width: 640px;
+    max-width: 100%;
 }
-/* Text overlays for note names and scale degrees */
+
+.bank-card.bank-card-wide {
+    flex: 1 1 100%;
+    width: 100%;
+}
+
+.bank-header {
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 6px 12px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.bank-title-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.bank-badge-number {
+    background: #0f172a;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 1px 6px;
+    border-radius: 999px;
+}
+
+.bank-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.valved-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #334155;
+    background: #ffffff;
+    padding: 2px 8px;
+    border: 1px solid #cbd5e1;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 34px;
+}
+
+.valved-container input {
+    cursor: pointer;
+}
+
+/* --- Instrument Stage (Canvas & Note Table) --- */
+.instrument-stage {
+    position: relative;
+    padding: 8px 12px 28px 12px; /* Extra bottom padding for fret numbers */
+    overflow-x: auto;
+    overflow-y: hidden;
+    background: #ffffff;
+    min-height: 80px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.instrument-canvas-wrapper {
+    position: absolute;
+    top: 8px;
+    left: 12px;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.instrument-canvas-wrapper canvas {
+    display: block;
+}
+
+table[class^="instrument"] {
+    position: relative;
+    z-index: 10;
+    border-collapse: collapse;
+    border-spacing: 0;
+    user-select: none;
+    margin-bottom: 24px; /* Reserves physical table height so fret numbers below strings are never clipped */
+}
+
+table[class^="instrument"] td {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table[class^="instrument"] img {
+    display: block;
+    cursor: pointer;
+}
+
+/* --- Interactive Note Overlays & Highlighting --- */
 .noteNameText {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%,-50%);
-	font-size: 14px;
-	font-weight: 700;
-	color: #000;
-	z-index: 10;
-	pointer-events: none;
+    position: absolute;
+    top: 68%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 13px;
+    font-weight: 800;
+    color: #000000;
+    z-index: 15;
+    pointer-events: none;
+    line-height: 1;
+    white-space: nowrap;
 }
+
+/* Scale degrees: positioned above center, always white text with black border */
 .scale-degree-label {
-	position: absolute;
-	top: 56%;
-	left: 50%;
-	transform: translate(-50%,-50%);
-	font-size: 16px;
-	font-weight: 800;
-	color: #000;
-	z-index: 10;
-	pointer-events: none;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 15px;
+    font-weight: 900;
+    color: #ffffff !important;
+    text-shadow: 
+        -1px -1px 0 #000000,
+         1px -1px 0 #000000,
+        -1px  1px 0 #000000,
+         1px  1px 0 #000000,
+         0 -1px 0 #000000,
+         0  1px 0 #000000,
+        -1px  0 0 #000000,
+         1px  0 0 #000000,
+         0 2px 4px rgba(0, 0, 0, 0.9);
+    -webkit-text-stroke: 0.8px #000000;
+    z-index: 20;
+    pointer-events: none;
+    line-height: 1;
+    white-space: nowrap;
 }
-/* White text for scale degrees over black keys */
+
 .scale-degree-label.white-text,
 td.black-key .scale-degree-label,
 td:has(img[name$="s"]) .scale-degree-label {
-	color: #ffffff !important;
-	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95), 0 0 2px #000000;
+    color: #ffffff !important;
 }
-.highlight { background-color: rgba(0,120,215,0.06); }
-.highlight-outline { outline: 4px solid yellow; }
 
-/* Circular shading for degree cells: diameter equals cell width */
-.scale-degree-label { }
+.highlight {
+    background-color: rgba(0, 120, 215, 0.08);
+}
+
+.highlight-outline {
+    outline: 4px solid #facc15;
+    outline-offset: -2px;
+    z-index: 20;
+}
+
+/* Circular shading for scale degree cells */
 td.scale-degree::before {
-	content: '';
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	width: calc(100% - 8px);
-	height: 0;
-	padding-top: calc(100% - 8px);
-	border-radius: 50%;
-	background: rgba(0,120,215,0.28);
-	z-index: 1;
-	pointer-events: none;
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% - 8px);
+    height: 0;
+    padding-top: calc(100% - 8px);
+    border-radius: 50%;
+    background: rgba(0, 120, 215, 0.32);
+    z-index: 1;
+    pointer-events: none;
 }
+
 td.root::before {
-	background: rgba(179,0,0,0.36);
-}
-/* keep labels and note text above the circle */
-.scale-degree-label, .noteNameText { z-index: 10; color: #000; }
-.scale-degree-label.white-text { color: #ffffff !important; }
-.noteNameText { top: calc(62% + 4px); font-size: 16px; font-weight: 800; }
-td img.noteName
-{
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: -1;
-}
-body
-{
-background-image:url('bg80.png');
-background-repeat:no-repeat;
-background-position:left top;
+    background: rgba(220, 38, 38, 0.42);
 }

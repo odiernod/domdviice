@@ -19,11 +19,6 @@
 -->
 </head>
 <body>
-<nav aria-label="Primary navigation" style="text-align:right; margin:12px 0 20px; font-size:12px;">
-    <a href="help.html">Help</a> |
-    <a href="guitarprogression.html">Guitar Progression</a> |
-    <a href="chordchartgenerator.html">Chord Chart Generator</a>
-</nav>
 <audio id="C1" preload="auto"><source src="tones/C1.mp3" type="audio/mpeg"><source src="tones/C1.ogg" type="audio/ogg"></audio>
 <audio id="C1s" preload="auto"><source src="tones/C1s.mp3" type="audio/mpeg"><source src="tones/C1s.ogg" type="audio/ogg"></audio>
 <audio id="D1" preload="auto"><source src="tones/D1.mp3" type="audio/mpeg"><source src="tones/D1.ogg" type="audio/ogg"></audio>
@@ -203,66 +198,11 @@ function updateValvedVisibility(bankNum) {
     var type = $("#instrument" + bankNum + "Menu").val();
     if (isTenHoleHarmonica(type)) {
         $("#valved" + bankNum + "Container").show();
-        var def = (typeof HARMONICA_TUNINGS !== 'undefined') ? HARMONICA_TUNINGS[type] : null;
-        if (def && def.isHalfValvedDefault) {
-            $("#valved" + bankNum).prop('checked', true);
-        }
     } else {
         $("#valved" + bankNum + "Container").hide();
         $("#valved" + bankNum).prop('checked', false);
     }
 }
-
-// instrument menus to update tuning menus and half-valved toggle visibility
-$(document).ready(function(){
-    for (let b = 1; b <= 4; b++) {
-        (function(bankNum) {
-            $('#instrument' + bankNum + 'Menu').change(function(){
-                $("#tuning" + bankNum + "Menu").html(menu[$("#instrument" + bankNum + "Menu").val()]);
-                updateValvedVisibility(bankNum);
-            });
-            $('#valved' + bankNum).change(function(){
-                if (bankNum === 1) loadInstrument1();
-                else if (bankNum === 2) loadInstrument2();
-                else if (bankNum === 3) loadInstrument3();
-                else if (bankNum === 4) loadInstrument4();
-                updateAfterInstrumentChange();
-            });
-        })(b);
-    }
-});
-
-// when a Go! button is clicked, instrument and img are loaded
-$(document).ready(function(){
-    $('#go1').click(function (){
-            loadInstrument1();
-            updateAfterInstrumentChange();
-        });
-});
-
-// when a Go! button is clicked, instrument and img are loaded
-$(document).ready(function(){
-    $('#go2').click(function (){
-            loadInstrument2();
-            updateAfterInstrumentChange();
-        });
-});
-
-// when a Go! button is clicked, instrument and img are loaded
-$(document).ready(function(){
-    $('#go3').click(function (){
-            loadInstrument3();
-            updateAfterInstrumentChange();
-        });
-});
-
-// when a Go! button is clicked, instrument and img are loaded
-$(document).ready(function(){
-    $('#go4').click(function (){
-            loadInstrument4();
-            updateAfterInstrumentChange();
-        });
-});
 
 // helper that ensures a canvas exists in the instrument image container and returns it
 function ensureInstrumentCanvas(divId, width = 800, height = 200) {
@@ -296,7 +236,7 @@ function updateGuitarCanvas(divId, tableId) {
         var tblW = $tbl.outerWidth();
         var tblH = $tbl.outerHeight();
         var cellW = tblW / cols;
-        var labelMargin = 20;  // extra space at bottom for fret numbers
+        var labelMargin = 28;  // extra space at bottom for fret numbers
         var offsetX = cellW / 2; // shift right by half a cell
         var w = tblW + offsetX;
         var h = tblH + labelMargin;
@@ -312,7 +252,7 @@ function updateGuitarCanvas(divId, tableId) {
 // labelMargin reserves space at the bottom for the fret numbers
 function drawGuitarFretboard(canvas, cols = 24, rows = 6,
                               cellW = null, cellH = null,
-                              offsetX = 0, labelMargin = 20) {
+                              offsetX = 0, labelMargin = 28) {
     var ctx = canvas.getContext('2d');
     var w = canvas.width, h = canvas.height;
     ctx.clearRect(0, 0, w, h);
@@ -373,21 +313,21 @@ function drawGuitarFretboard(canvas, cols = 24, rows = 6,
         }
     });
 
-    // fret numbers at actual fret lines
-    ctx.fillStyle = '#000';
-    ctx.font = '12px sans-serif';
+    // fret numbers at actual fret lines (positioned cleanly in reserved margin)
+    ctx.fillStyle = '#1e293b';
+    ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'bottom';
     for (var f = 0; f <= cols; f++) {
         var x = baseX + spacingX * f;
-        ctx.fillText(f, x, h - 2);
+        ctx.fillText(f, x, h - 4);
     }
 }
 
 // draw a simple ukulele fretboard (4 strings, typical ukulele inlay markers)
 function drawUkuleleFretboard(canvas, cols = 12, rows = 4,
                               cellW = null, cellH = null,
-                              offsetX = 0, labelMargin = 20) {
+                              offsetX = 0, labelMargin = 28) {
     var ctx = canvas.getContext('2d');
     var w = canvas.width, h = canvas.height;
     ctx.clearRect(0, 0, w, h);
@@ -443,13 +383,13 @@ function drawUkuleleFretboard(canvas, cols = 12, rows = 4,
         }
     });
 
-    ctx.fillStyle = '#000';
-    ctx.font = '12px sans-serif';
+    ctx.fillStyle = '#1e293b';
+    ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'bottom';
     for (var f = 0; f <= cols; f++) {
         var x = baseX + spacingX * f;
-        ctx.fillText(f, x, h - 2);
+        ctx.fillText(f, x, h - 4);
     }
 }
 
@@ -468,7 +408,7 @@ function updateUkuleleCanvas(divId, tableId) {
         var tblW = $tbl.outerWidth();
         var tblH = $tbl.outerHeight();
         var cellW = tblW / cols;
-        var labelMargin = 20;
+        var labelMargin = 28;
         var offsetX = cellW / 2;
         var w = tblW + offsetX;
         var h = tblH + labelMargin;
@@ -1133,96 +1073,43 @@ function updatePianoCanvas(divId, tableId) {
     });
 }
 
-function loadInstrument1()
-{
-    var type = $("#instrument1Menu").val();
-    var tuning = $("#tuning1Menu").val();
-    var isValved = $("#valved1").is(":checked");
-    $("#instrument1").html(TuningEngine.generateInstrumentHtml(type, tuning, isValved, 'instrument1'));
-    attachAll("instrument1");
+function loadInstrument(bankNum) {
+    var type = $("#instrument" + bankNum + "Menu").val();
+    var tuning = $("#tuning" + bankNum + "Menu").val();
+    var isValved = $("#valved" + bankNum).is(":checked");
+    var tableId = "instrument" + bankNum;
+    var divId = "instrumentimg" + bankNum;
+
+    // Dynamically adjust bank card width (wide for 24-fret guitar / 16-hole chromatic, compact for harmonicas, pianos, ukuleles)
+    var isWide = (type === 'guitar' || (typeof type === 'string' && type.startsWith('chromatic16')));
+    var $card = $('#bank-card-' + bankNum);
+    $card.removeClass('bank-card-wide bank-card-compact')
+         .addClass(isWide ? 'bank-card-wide' : 'bank-card-compact');
+
+    $("#" + tableId).html(TuningEngine.generateInstrumentHtml(type, tuning, isValved, tableId));
+    attachAll(tableId);
     if (type === 'guitar') {
-        updateGuitarCanvas('instrumentimg1', 'instrument1');
+        updateGuitarCanvas(divId, tableId);
     } else if (type === 'ukulele') {
-        updateUkuleleCanvas('instrumentimg1', 'instrument1');
+        updateUkuleleCanvas(divId, tableId);
     } else if (type === 'piano') {
-        updatePianoCanvas('instrumentimg1', 'instrument1');
+        updatePianoCanvas(divId, tableId);
     } else if (isTenHoleHarmonica(type)) {
-        updateHarmonicaCanvas('instrumentimg1', 'instrument1');
+        updateHarmonicaCanvas(divId, tableId);
     } else if (isChromaticHarmonica(type)) {
-        updateChromaticCanvas('instrumentimg1', 'instrument1');
+        updateChromaticCanvas(divId, tableId);
     } else {
-        $("#instrumentimg1").html(img[type] || '');
+        $("#" + divId).html(img[type] || '');
     }
+    updateBankTitleBadge(bankNum);
 }
 
-function loadInstrument2()
-{
-    var type = $("#instrument2Menu").val();
-    var tuning = $("#tuning2Menu").val();
-    var isValved = $("#valved2").is(":checked");
-    $("#instrument2").html(TuningEngine.generateInstrumentHtml(type, tuning, isValved, 'instrument2'));
-    attachAll("instrument2");
-    if (type === 'guitar') {
-        updateGuitarCanvas('instrumentimg2', 'instrument2');
-    } else if (type === 'ukulele') {
-        updateUkuleleCanvas('instrumentimg2', 'instrument2');
-    } else if (type === 'piano') {
-        updatePianoCanvas('instrumentimg2', 'instrument2');
-    } else if (isTenHoleHarmonica(type)) {
-        updateHarmonicaCanvas('instrumentimg2', 'instrument2');
-    } else if (isChromaticHarmonica(type)) {
-        updateChromaticCanvas('instrumentimg2', 'instrument2');
-    } else {
-        $("#instrumentimg2").html(img[type] || '');
-    }
-}
+function loadInstrument1() { loadInstrument(1); }
+function loadInstrument2() { loadInstrument(2); }
+function loadInstrument3() { loadInstrument(3); }
+function loadInstrument4() { loadInstrument(4); }
 
-function loadInstrument3()
-{
-    var type = $("#instrument3Menu").val();
-    var tuning = $("#tuning3Menu").val();
-    var isValved = $("#valved3").is(":checked");
-    $("#instrument3").html(TuningEngine.generateInstrumentHtml(type, tuning, isValved, 'instrument3'));
-    attachAll("instrument3");
-    if (type === 'guitar') {
-        updateGuitarCanvas('instrumentimg3', 'instrument3');
-    } else if (type === 'ukulele') {
-        updateUkuleleCanvas('instrumentimg3', 'instrument3');
-    } else if (type === 'piano') {
-        updatePianoCanvas('instrumentimg3', 'instrument3');
-    } else if (isTenHoleHarmonica(type)) {
-        updateHarmonicaCanvas('instrumentimg3', 'instrument3');
-    } else if (isChromaticHarmonica(type)) {
-        updateChromaticCanvas('instrumentimg3', 'instrument3');
-    } else {
-        $("#instrumentimg3").html(img[type] || '');
-    }
-}
-
-function loadInstrument4()
-{
-    var type = $("#instrument4Menu").val();
-    var tuning = $("#tuning4Menu").val();
-    var isValved = $("#valved4").is(":checked");
-    $("#instrument4").html(TuningEngine.generateInstrumentHtml(type, tuning, isValved, 'instrument4'));
-    attachAll("instrument4");
-    if (type === 'guitar') {
-        updateGuitarCanvas('instrumentimg4', 'instrument4');
-    } else if (type === 'ukulele') {
-        updateUkuleleCanvas('instrumentimg4', 'instrument4');
-    } else if (type === 'piano') {
-        updatePianoCanvas('instrumentimg4', 'instrument4');
-    } else if (isTenHoleHarmonica(type)) {
-        updateHarmonicaCanvas('instrumentimg4', 'instrument4');
-    } else if (isChromaticHarmonica(type)) {
-        updateChromaticCanvas('instrumentimg4', 'instrument4');
-    } else {
-        $("#instrumentimg4").html(img[type] || '');
-    }
-}
-
-function updateAfterInstrumentChange()
-{
+function updateAfterInstrumentChange() {
     updateNoteNames();
     if (scaleMode) {
         var scale = $("#scaleMenu").val();
@@ -1232,305 +1119,236 @@ function updateAfterInstrumentChange()
     updateUrl();
 }
 
-// when a Go! button is clicked, instrument and img are loaded
-$(document).ready(function(){
-    // set up default instruments; bank1 is Richter harmonica with canvas
-    $('#instrument1').html(instrument.diatonicrichterc);
-    attachAll('instrument1');
-    updateHarmonicaCanvas('instrumentimg1', 'instrument1');
-    
-    $('#instrument2').html(instrument.pianostandard);
-    attachAll('instrument2');
-    updatePianoCanvas('instrumentimg2', 'instrument2');
-
-    // draw default guitar in banks 3 and 4 (size after html inserted)
-    $('#instrument3').html(instrument.guitarstandard);
-    attachAll('instrument3');
-    updateGuitarCanvas('instrumentimg3', 'instrument3');
-
-    $('#instrument4').html(instrument.guitarstandard);
-    attachAll('instrument4');
-    updateGuitarCanvas('instrumentimg4', 'instrument4');
-    attachAll('instrument1');
-    attachAll('instrument2');
-    attachAll('instrument3');
-    attachAll('instrument4');
-    $(this).on('mouseup', mouseUp);
-    for (let clef of ['treble1', 'treble2', 'treble3', 'treble4', 'bass1', 'bass2', 'bass3', 'bass4']) {
-        $("#" + clef).html(instrument[clef]);
-        attachAll(clef);
-    }
-    updateNoteNames();
-});
-
-// when scaleDegrees button is clicked toggle individual scale degrees
-$(document).ready(function(){
-    $('#scaleDegrees').click(function (){
-        showScaleDegrees = !showScaleDegrees;
-        $('#scaleDegrees').html(showScaleDegrees?'Hide Scale Degrees':
-                              'Show Scale Degrees');
-        if (scaleMode) {
-            var scale = $("#scaleMenu").val();
-            var key = $("#keyMenu").val();
-            showScale(scale, key);
-        }
-    });
-});
-
-// when noteNames button is clicked toggle showing of note names
-$(document).ready(function(){
-    $('#noteNames').click(function (){
-        toggleNoteNames();
-    });
-});
-
-// when displayScale button is clicked, display the selected scale
-$(document).ready(function(){
-    $('#displayScale').click(function (){
-        var scale = $("#scaleMenu").val();
-        var key = $("#keyMenu").val();
-        showScale(scale, key);
-        updateUrl();
-    });
-});
-
-// when clearScale button is clicked, clear all highlights
-$(document).ready(function(){
-    $('#clearScale').click(function (){
-        clearScale();
-        updateUrl();
-    });
-});
-
+function updateBankTitleBadge(bankNum) {
+    var typeText = $('#instrument' + bankNum + 'Menu option:selected').text() || 'Instrument';
+    var tuningText = $('#tuning' + bankNum + 'Menu option:selected').text() || '';
+    var isValved = $('#valved' + bankNum).is(':checked');
+    var isDiatonic = isTenHoleHarmonica($('#instrument' + bankNum + 'Menu').val());
+    var str = typeText;
+    if (tuningText) str += ' &mdash; ' + tuningText;
+    if (isValved && isDiatonic) str += ' (Half-Valved)';
+    $('#bank' + bankNum + 'Title').html(str);
+}
 </script>
-<table class='instrument1Chooser'>
-    <tr><td style="text-align: center; font-weight: bold; font-size: 20px;">Instrument Bank #1</td></tr>
-    <tr>
-    <td>
-    <select id='instrument1Menu' style="text-align: center; font-weight: bold; font-size: 15px;">
-    </select>
-    </td>
-    <td>
-    <select id='tuning1Menu' style="text-align: center; font-weight: bold; font-size: 15px;">
-    </select>
-    </td>
-    <td id='valved1Container' style="vertical-align: middle; padding-left: 6px;">
-    <label style="font-size: 13px; font-weight: bold; cursor: pointer; white-space: nowrap;"><input type="checkbox" id="valved1"> Half-Valved</label>
-    </td>
-    <td>
-    <button id='go1' style="text-align: center; font-weight: bold; font-size: 15px;">Load Instrument</button>
-    </td>
-    </tr>
-</table>
-<table class='instrument2Chooser'>
-    <tr><td style="text-align: center; font-weight: bold; font-size: 20px;">Instrument Bank #2</td></tr>
-    <tr>
-    <td>
-    <select id='instrument2Menu' style="text-align: center; font-weight: bold; font-size: 15px;">
-    </select>
-    </td>
-    <td>
-    <select id='tuning2Menu' style="text-align: center; font-weight: bold; font-size: 15px;">
-    </select>
-    </td>
-    <td id='valved2Container' style="display:none; vertical-align: middle; padding-left: 6px;">
-    <label style="font-size: 13px; font-weight: bold; cursor: pointer; white-space: nowrap;"><input type="checkbox" id="valved2"> Half-Valved</label>
-    </td>
-    <td>
-    <button id='go2' style="text-align: center; font-weight: bold; font-size: 15px;">Load Instrument</button>
-    </td>
-    </tr>
-</table>
-<table class='instrument3Chooser'>
-    <tr><td style="text-align: center; font-weight: bold; font-size: 20px;">Instrument Bank #3</td></tr>
-    <tr>
-    <td>
-    <select id='instrument3Menu' style="text-align: center; font-weight: bold; font-size: 15px;">
-    </select>
-    </td>
-    <td>
-    <select id='tuning3Menu' style="text-align: center; font-weight: bold; font-size: 15px;">
-    </select>
-    </td>
-    <td id='valved3Container' style="display:none; vertical-align: middle; padding-left: 6px;">
-    <label style="font-size: 13px; font-weight: bold; cursor: pointer; white-space: nowrap;"><input type="checkbox" id="valved3"> Half-Valved</label>
-    </td>
-    <td>
-    <button id='go3' style="text-align: center; font-weight: bold; font-size: 15px;">Load Instrument</button>
-    </td>
-    </tr>
-</table>
-<table class='instrument4Chooser'>
-    <tr><td style="text-align: center; font-weight: bold; font-size: 20px;">Instrument Bank #4</td></tr>
-    <tr>
-    <td>
-    <select id='instrument4Menu' style="text-align: center; font-weight: bold; font-size: 15px;">
-    </select>
-    </td>
-    <td>
-    <select id='tuning4Menu' style="text-align: center; font-weight: bold; font-size: 15px;">
-    </select>
-    </td>
-    <td id='valved4Container' style="display:none; vertical-align: middle; padding-left: 6px;">
-    <label style="font-size: 13px; font-weight: bold; cursor: pointer; white-space: nowrap;"><input type="checkbox" id="valved4"> Half-Valved</label>
-    </td>
-    <td>
-    <button id='go4' style="text-align: center; font-weight: bold; font-size: 15px;">Load Instrument</button>
-    </td>
-    </tr>
-</table>
-<table class='scaleChooser'>
-<tr>
-<td style="text-align: right; font-weight: bold; font-size: 20px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Choose a Scale / Chord to Display</td>
-</tr>
-<tr>
-    <td>
-    <select id='scaleMenu' style="text-align: center; font-weight: bold; font-size: 15px;">
-    <option value='blues'>Blues</option>
-    <option value='minorpentatonic'>Minor Pentatonic</option>
-    <option value='majorpentatonic'>Major Pentatonic "Country"</option>
-    <option value='major'>Major</option>
-    <option value='naturalminor'>Natural Minor</option>
-    <option value='harmonicminor'>Harmonic Minor</option>
-    <option value='melodicminor'>Melodic Minor Ascending</option>
-    <option value='mixolydian'>Mixolydian</option>
-    <option value='mixeduplydian'>'Mixed Up' Lydian-Super Blues</option>
-    <option value='dorian'>Dorian</option>
-    <option value='aeolian'>Aeolian</option>
-    <option value='phrygian'>Phrygian</option>
-    <option value='locrian'>Locrian</option>
-    <option value='gypsyminor'>Gypsy Minor</option>
-    <option value='gypsymajor'>Gypsy Major</option>
-    <option value='harmonicmajor'>Harmonic Major-Major Flat 6</option>
-    <option value='bebop'>Bebop</option>
-    <option value='bebopminor'>Bebop Minor</option>
-    <option value='bebopsubdominant'>Bebop Subdominant</option>
-    <option value='hindu'>Hindu</option>
-    <option value='spanish'>Spanish</option>
-    <option value='wholetone'>Whole Tone</option>
-    <option value='fullchromatic'>Chromatic</option>
-    <option value='majchord'>Major Chord</option>
-    <option value='mchord'>Minor Chord</option>
-    <option value='d7chord'>7th Chord</option>
-    <option value='maj7chord'>Maj7 Chord</option>
-    <option value='m7chord'>m7 Chord</option>
-    <option value='sus2chord'>Sus2 Chord</option>
-    <option value='sus4chord'>Sus4 Chord</option>
-    <option value='add9chord'>Add9 Chord</option>
-    <option value='diminishedchord'>Diminished Chord</option>
-    <option value='diminished7chord'>Dim7 Chord</option>
-    <option value='augchord'>Aug Chord</option>
-    <option value='maj6chord'>Maj6 Chord</option>
-    <option value='maj6add9chord'>Maj6add9 Chord</option>
-    <option value='m6chord'>m6 Chord</option>
-    <option value='m6add9chord'>m6add9 Chord</option>
-    <option value='d9chord'>9th Chord</option><option value='m6add9chord'>m6add9 Chord</option>
-    <option value='m9chord'>m9 Chord</option>
-    <option value='maj9chord'>Maj9 Chord</option>
-    <option value='powerchord'>Power Chord</option>
-    </select>
-    </td>
-    <td>
-    <select id='keyMenu' style="text-align: center; font-weight: bold; font-size: 15px;">
-    <option value='g'>G</option>
-    <option value='ab'>Ab / G#</option>
-    <option value='a'>A</option>
-    <option value='bb'>Bb / A#</option>
-    <option value='b'>B</option>
-    <option value='c'>C</option>
-    <option value='db'>Db / C#</option>
-    <option value='d'>D</option>
-    <option value='eb'>Eb / D#</option>
-    <option value='e'>E</option>
-    <option value='f'>F</option>
-    <option value='fs'>Gb / F#</option>
-    </select>
-    </td>
-    <td>
-    <button id='displayScale' style="text-align: center; font-weight: bold; font-size: 15px;">Display Scale</button>
-    </td>
-    <td>
-    <button id='clearScale' style="text-align: center; font-weight: bold; font-size: 15px;">Clear Scale</button>
-    </td>
-    <td>
-    <button id='scaleDegrees' style="text-align: center; font-weight: bold; font-size: 15px;">Hide Scale Degrees</button>
-    </td>
-    <td><button id='noteNames' style="text-align: center; font-weight: bold; font-size: 15px;">Hide Note Names</button></td>
 
-    </tr>
-    </table>
+<header class="app-header">
+    <div class="brand-area">
+        <h1 class="brand-title">OmniTune</h1>
+        <span class="brand-subtitle">Compare Instruments, Tunings & Scales</span>
+    </div>
+    <nav class="header-nav" aria-label="Primary navigation">
+        <a href="help.html">Help</a>
+        <a href="guitarprogression.html">Guitar Progression</a>
+        <a href="chordchartgenerator.html">Chord Chart Generator</a>
+    </nav>
+</header>
 
-<div class="instrumentimg1" id="instrumentimg1" ondragstart='return false;' ondrop='return false;'></div>
-<table class="instrument1" id="instrument1" ondragstart='return false;' ondrop='return false;'></table>
+<section class="global-control-bar" aria-label="Global Scale and Key Controls">
+    <div class="control-section">
+        <span class="control-label">Scale / Chord:</span>
+        <div class="control-group">
+            <select id="keyMenu" title="Root Key">
+                <option value="g">G</option>
+                <option value="ab">Ab / G#</option>
+                <option value="a">A</option>
+                <option value="bb">Bb / A#</option>
+                <option value="b">B</option>
+                <option value="c">C</option>
+                <option value="db">Db / C#</option>
+                <option value="d">D</option>
+                <option value="eb">Eb / D#</option>
+                <option value="e">E</option>
+                <option value="f">F</option>
+                <option value="fs">Gb / F#</option>
+            </select>
+            <select id="scaleMenu" title="Scale or Chord Formula">
+                <optgroup label="Scales & Modes">
+                    <option value="blues">Blues</option>
+                    <option value="minorpentatonic">Minor Pentatonic</option>
+                    <option value="majorpentatonic">Major Pentatonic "Country"</option>
+                    <option value="major">Major</option>
+                    <option value="naturalminor">Natural Minor</option>
+                    <option value="harmonicminor">Harmonic Minor</option>
+                    <option value="melodicminor">Melodic Minor Ascending</option>
+                    <option value="mixolydian">Mixolydian</option>
+                    <option value="mixeduplydian">'Mixed Up' Lydian-Super Blues</option>
+                    <option value="dorian">Dorian</option>
+                    <option value="aeolian">Aeolian</option>
+                    <option value="phrygian">Phrygian</option>
+                    <option value="locrian">Locrian</option>
+                    <option value="gypsyminor">Gypsy Minor</option>
+                    <option value="gypsymajor">Gypsy Major</option>
+                    <option value="harmonicmajor">Harmonic Major-Major Flat 6</option>
+                    <option value="bebop">Bebop</option>
+                    <option value="bebopminor">Bebop Minor</option>
+                    <option value="bebopsubdominant">Bebop Subdominant</option>
+                    <option value="hindu">Hindu</option>
+                    <option value="spanish">Spanish</option>
+                    <option value="wholetone">Whole Tone</option>
+                    <option value="fullchromatic">Chromatic</option>
+                </optgroup>
+                <optgroup label="Chords">
+                    <option value="majchord">Major Chord</option>
+                    <option value="mchord">Minor Chord</option>
+                    <option value="d7chord">7th Chord</option>
+                    <option value="maj7chord">Maj7 Chord</option>
+                    <option value="m7chord">m7 Chord</option>
+                    <option value="sus2chord">Sus2 Chord</option>
+                    <option value="sus4chord">Sus4 Chord</option>
+                    <option value="add9chord">Add9 Chord</option>
+                    <option value="diminishedchord">Diminished Chord</option>
+                    <option value="diminished7chord">Dim7 Chord</option>
+                    <option value="augchord">Aug Chord</option>
+                    <option value="maj6chord">Maj6 Chord</option>
+                    <option value="maj6add9chord">Maj6add9 Chord</option>
+                    <option value="m6chord">m6 Chord</option>
+                    <option value="m6add9chord">m6add9 Chord</option>
+                    <option value="d9chord">9th Chord</option>
+                    <option value="m9chord">m9 Chord</option>
+                    <option value="maj9chord">Maj9 Chord</option>
+                    <option value="powerchord">Power Chord</option>
+                </optgroup>
+            </select>
+            <button id="displayScale" class="btn-primary">Display Scale</button>
+            <button id="clearScale" class="btn-secondary">Clear Scale</button>
+        </div>
+    </div>
 
-<div class="instrumentimg2" id="instrumentimg2" ondragstart='return false;' ondrop='return false;'></div>
-<table class="instrument2" id="instrument2" ondragstart='return false;' ondrop='return false;'></table>
+    <div class="control-section">
+        <div class="control-group">
+            <button id="scaleDegrees" class="btn-toggle active">Hide Scale Degrees</button>
+            <button id="noteNames" class="btn-toggle active">Hide Note Names</button>
+            <button id="audioVoiceToggle" class="btn-toggle" title="Toggle audio voice">Sound: Pluck</button>
+        </div>
+    </div>
+</section>
 
-<div class="instrumentimg3" id="instrumentimg3" ondragstart='return false;' ondrop='return false;'></div>
-<table class="instrument3" id="instrument3" ondragstart='return false;' ondrop='return false;'></table>
+<main class="banks-container">
+    <!-- Instrument Bank #1 -->
+    <article class="bank-card bank-card-compact" id="bank-card-1">
+        <div class="bank-header">
+            <div class="bank-title-badge">
+                <span class="bank-badge-number">1</span>
+                <span id="bank1Title">10-Hole Diatonic Harmonica</span>
+            </div>
+            <div class="bank-controls">
+                <select id="instrument1Menu" aria-label="Bank 1 Instrument"></select>
+                <select id="tuning1Menu" aria-label="Bank 1 Tuning"></select>
+                <label id="valved1Container" class="valved-container" style="display:none;">
+                    <input type="checkbox" id="valved1"> Half-Valved
+                </label>
+                <button id="go1" class="btn-secondary">Load</button>
+            </div>
+        </div>
+        <div class="instrument-stage">
+            <div class="instrument-canvas-wrapper" id="instrumentimg1"></div>
+            <table class="instrument1" id="instrument1" ondragstart="return false;" ondrop="return false;"></table>
+        </div>
+    </article>
 
-<div class="instrumentimg4" id="instrumentimg4" ondragstart='return false;' ondrop='return false;'></div>
-<table class="instrument4" id="instrument4" ondragstart='return false;' ondrop='return false;'></table>
+    <!-- Instrument Bank #2 -->
+    <article class="bank-card bank-card-compact" id="bank-card-2">
+        <div class="bank-header">
+            <div class="bank-title-badge">
+                <span class="bank-badge-number">2</span>
+                <span id="bank2Title">Piano</span>
+            </div>
+            <div class="bank-controls">
+                <select id="instrument2Menu" aria-label="Bank 2 Instrument"></select>
+                <select id="tuning2Menu" aria-label="Bank 2 Tuning"></select>
+                <label id="valved2Container" class="valved-container" style="display:none;">
+                    <input type="checkbox" id="valved2"> Half-Valved
+                </label>
+                <button id="go2" class="btn-secondary">Load</button>
+            </div>
+        </div>
+        <div class="instrument-stage">
+            <div class="instrument-canvas-wrapper" id="instrumentimg2"></div>
+            <table class="instrument2" id="instrument2" ondragstart="return false;" ondrop="return false;"></table>
+        </div>
+    </article>
 
-<table class="treble1" id="treble1" ondragstart='return false;' ondrop='return false;'></table>
-<table class="treble2" id="treble2" ondragstart='return false;' ondrop='return false;'></table>
-<table class="treble3" id="treble3" ondragstart='return false;' ondrop='return false;'></table>
-<table class="treble4" id="treble4" ondragstart='return false;' ondrop='return false;'></table>
-<table class="bass1" id="bass1" ondragstart='return false;' ondrop='return false;'></table>
-<table class="bass2" id="bass2" ondragstart='return false;' ondrop='return false;'></table>
-<table class="bass3" id="bass3" ondragstart='return false;' ondrop='return false;'></table>
-<table class="bass4" id="bass4" ondragstart='return false;' ondrop='return false;'></table>
+    <!-- Instrument Bank #3 -->
+    <article class="bank-card bank-card-wide" id="bank-card-3">
+        <div class="bank-header">
+            <div class="bank-title-badge">
+                <span class="bank-badge-number">3</span>
+                <span id="bank3Title">Guitar</span>
+            </div>
+            <div class="bank-controls">
+                <select id="instrument3Menu" aria-label="Bank 3 Instrument"></select>
+                <select id="tuning3Menu" aria-label="Bank 3 Tuning"></select>
+                <label id="valved3Container" class="valved-container" style="display:none;">
+                    <input type="checkbox" id="valved3"> Half-Valved
+                </label>
+                <button id="go3" class="btn-secondary">Load</button>
+            </div>
+        </div>
+        <div class="instrument-stage">
+            <div class="instrument-canvas-wrapper" id="instrumentimg3"></div>
+            <table class="instrument3" id="instrument3" ondragstart="return false;" ondrop="return false;"></table>
+        </div>
+    </article>
 
-
-
+    <!-- Instrument Bank #4 -->
+    <article class="bank-card bank-card-wide" id="bank-card-4">
+        <div class="bank-header">
+            <div class="bank-title-badge">
+                <span class="bank-badge-number">4</span>
+                <span id="bank4Title">Guitar</span>
+            </div>
+            <div class="bank-controls">
+                <select id="instrument4Menu" aria-label="Bank 4 Instrument"></select>
+                <select id="tuning4Menu" aria-label="Bank 4 Tuning"></select>
+                <label id="valved4Container" class="valved-container" style="display:none;">
+                    <input type="checkbox" id="valved4"> Half-Valved
+                </label>
+                <button id="go4" class="btn-secondary">Load</button>
+            </div>
+        </div>
+        <div class="instrument-stage">
+            <div class="instrument-canvas-wrapper" id="instrumentimg4"></div>
+            <table class="instrument4" id="instrument4" ondragstart="return false;" ondrop="return false;"></table>
+        </div>
+    </article>
+</main>
 
 <script type="text/javascript">
-let sweep;
+let sweep = false;
 let scaleMode = false;
 let showScaleDegrees = true;
 let showNoteNames = true;
-// internal toggle: whether to draw harmonica using canvas instead of image
-let useHarmonicaCanvas = false;
+let pluck = true;
 
-
-// IE and Edge can't iterate over iterator objects in a for-each loop like Chrome
-// and Firefox can, so those objects are converted to arrays with Array.from()
-function attachAll( inTable ) {
-    for (var p of Array.from(document.getElementById(inTable).getElementsByTagName("img"))) { 
+function attachAll(inTable) {
+    var tbl = document.getElementById(inTable);
+    if (!tbl) return;
+    for (var p of Array.from(tbl.getElementsByTagName("img"))) {
         p.onmouseover = doMouseOver;
         p.onmouseout  = doMouseOut;
         p.onmousedown = doMouseDown;
-        p.setAttribute("originalSrc",p.src);
+        p.setAttribute("originalSrc", p.src);
     }
 }
 
-let pluck = true;
 function sleep(ms) {
-    // a sleep function. usage:
-    // async func() { await sleep(1000) }
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
 function highlight(name, outline = true) {
-    for (var p of Array.from(document.getElementsByName(name))) 
-    {
+    for (var p of Array.from(document.getElementsByName(name))) {
         var td = p.parentElement;
         if (outline) td.classList.add('highlight-outline');
         td.classList.add('highlight');
     }
 }
 
-
-
-function clearHighlight(name){
-    for (var p of Array.from(document.getElementsByName(name))) 
-    {
+function clearHighlight(name) {
+    for (var p of Array.from(document.getElementsByName(name))) {
         var td = p.parentElement;
-        td.classList.remove('highlight','highlight-outline','scale-degree','root');
+        td.classList.remove('highlight', 'highlight-outline', 'scale-degree', 'root');
         const deg = td.querySelector('.scale-degree-label');
         if (deg) deg.remove();
-        // only remove note name text when the global note-name overlay
-        // is not enabled. When `showNoteNames` is true the names should
-        // persist across hover events.
         if (!showNoteNames) {
             const nn = td.querySelector('.noteNameText');
             if (nn) nn.remove();
@@ -1539,14 +1357,13 @@ function clearHighlight(name){
 }
 
 function highlightBorder(name) {
-    for (var p of Array.from(document.getElementsByName(name))) 
-    {
+    for (var p of Array.from(document.getElementsByName(name))) {
         p.parentElement.classList.add('highlight-outline');
     }
 }
-function clearHighlightBorder(name){
-    for (var p of Array.from(document.getElementsByName(name))) 
-    {
+
+function clearHighlightBorder(name) {
+    for (var p of Array.from(document.getElementsByName(name))) {
         p.parentElement.classList.remove('highlight-outline');
     }
 }
@@ -1557,7 +1374,11 @@ function highlightDegree(name, degree) {
     for (var p of Array.from(document.getElementsByName(name))) {
         var td = p.parentElement;
         let span = td.querySelector('.scale-degree-label');
-        if (!span) { span = document.createElement('span'); span.className = 'scale-degree-label'; td.appendChild(span); }
+        if (!span) {
+            span = document.createElement('span');
+            span.className = 'scale-degree-label';
+            td.appendChild(span);
+        }
         span.textContent = degreeMap[degree] || degree.toString();
         if (isBlackKey) {
             span.classList.add('white-text');
@@ -1566,22 +1387,24 @@ function highlightDegree(name, degree) {
             span.classList.remove('white-text');
             td.classList.remove('black-key');
         }
-        // ensure persistent scale shading is used and any hover outline/highlight
-        // is removed so degrees show the blue background circle only
-        td.classList.remove('highlight-outline','highlight');
+        td.classList.remove('highlight-outline', 'highlight');
         td.classList.add('scale-degree');
         if (degree == 1) td.classList.add('root');
     }
 }
+
 function highlightred(name) {
     const isBlackKey = name && name.endsWith('s');
     for (var p of Array.from(document.getElementsByName(name))) {
         var td = p.parentElement;
-        // same as highlightDegree but force root styling and remove any outline
-        td.classList.remove('highlight-outline','highlight');
-        td.classList.add('scale-degree','root');
+        td.classList.remove('highlight-outline', 'highlight');
+        td.classList.add('scale-degree', 'root');
         let span = td.querySelector('.scale-degree-label');
-        if (!span) { span = document.createElement('span'); span.className = 'scale-degree-label'; td.appendChild(span); }
+        if (!span) {
+            span = document.createElement('span');
+            span.className = 'scale-degree-label';
+            td.appendChild(span);
+        }
         span.textContent = 'R';
         if (isBlackKey) {
             span.classList.add('white-text');
@@ -1592,31 +1415,26 @@ function highlightred(name) {
         }
     }
 }
+
 function doMouseOver() {
-    if (!scaleMode) 
-    {
-        highlight(this.name, true); 
-    }
-    else 
-    {
+    if (!scaleMode) {
+        highlight(this.name, true);
+    } else {
         highlightBorder(this.name);
     }
     if (sweep) playElement(this);
 }
+
 function doMouseOut() {
-    if (!scaleMode) 
-    {
+    if (!scaleMode) {
         clearHighlight(this.name);
-    }
-    else
-    {
+    } else {
         clearHighlightBorder(this.name);
     }
 }
 
-function showNoteName(name){
-    for (var p of Array.from(document.getElementsByName(name))) 
-    {
+function showNoteName(name) {
+    for (var p of Array.from(document.getElementsByName(name))) {
         if (!p.classList.contains('noNoteNames')) {
             var td = p.parentElement;
             if (!td.querySelector('.noteNameText')) {
@@ -1628,170 +1446,210 @@ function showNoteName(name){
         }
     }
 }
-function clearNoteName(name){
-    for (var p of Array.from(document.getElementsByName(name))) 
-    {
+
+function clearNoteName(name) {
+    for (var p of Array.from(document.getElementsByName(name))) {
         var td = p.parentElement;
         const node = td.querySelector('.noteNameText');
         if (node) node.remove();
     }
 }
+
 function doMouseDown() {
     if (!$(this).attr('name')) return;
     sweep = true;
     playElement(this);
 }
+
 function playElement(element) {
-    $('#version').attr('desktop')?clickVoice.start(parseFloat($(element).attr('tone')), 1, pluck):$('#'+$(element).attr('name'))[0].play()
+    if (!element) return;
+    var name = $(element).attr('name');
+    var toneAttr = $(element).attr('tone');
+    var toneVal = toneAttr ? parseFloat(toneAttr) : NaN;
+    if (isNaN(toneVal) && name && typeof TuningEngine !== 'undefined') {
+        var m = TuningEngine.noteToMidi(name);
+        if (m !== null) toneVal = TuningEngine.midiToFrequency(m);
+    }
+
+    if (!clickVoice && typeof initAudio === 'function') {
+        initAudio();
+    }
+    if (audioContext && audioContext.state !== 'running') {
+        audioContext.resume();
+    }
+
+    if (clickVoice && !isNaN(toneVal) && toneVal > 0) {
+        clickVoice.start(toneVal, 1, pluck);
+    } else if (name) {
+        var audioEl = document.getElementById(name);
+        if (audioEl) {
+            audioEl.currentTime = 0;
+            audioEl.play().catch(function() {});
+        }
+    }
 }
 
 function mouseUp() {
     sweep = false;
-    if (clickVoice)
-        clickVoice.stop();
+    if (clickVoice) clickVoice.stop();
 }
 
-$("#instrument1Menu").html(menu["instrument1"]);
-$("#tuning1Menu").html(menu[$("#instrument1Menu").val()]);
-updateValvedVisibility(1);
-
-$("#instrument2Menu").html(menu["instrument2"]);
-$("#tuning2Menu").html(menu[$("#instrument2Menu").val()]);
-updateValvedVisibility(2);
-
-$("#instrument3Menu").html(menu["instrument3"]);
-$("#tuning3Menu").html(menu[$("#instrument3Menu").val()]);
-updateValvedVisibility(3);
-
-$("#instrument4Menu").html(menu["instrument4"]);
-$("#tuning4Menu").html(menu[$("#instrument4Menu").val()]);
-updateValvedVisibility(4);
-
-
-document.body.style.zoom = "80%";
-window.scrollTo(0,0);
-//$('body').css({
-//                transform: 'scale('+(.7)+')', // set zoom
-//                transformOrigin: '50% 0' // set transform scale base
-//            });
-//$('body').css({ width: '100%' });
-
-if (top !== self) {
-    try {
-        top.location.replace(document.location);
-    } catch(e) {}
+function updateAllCanvases() {
+    for (let b = 1; b <= 4; b++) {
+        var type = $("#instrument" + b + "Menu").val();
+        var tableId = 'instrument' + b;
+        var divId = 'instrumentimg' + b;
+        if (type === 'guitar') updateGuitarCanvas(divId, tableId);
+        else if (type === 'ukulele') updateUkuleleCanvas(divId, tableId);
+        else if (type === 'piano') updatePianoCanvas(divId, tableId);
+        else if (isTenHoleHarmonica(type)) updateHarmonicaCanvas(divId, tableId);
+        else if (isChromaticHarmonica(type)) updateChromaticCanvas(divId, tableId);
+    }
 }
 
 function setSelectValuesFromUrl() {
-  try {
-    const urlParams = new URLSearchParams(window.location.search);
+    try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const selectElements = document.querySelectorAll('select');
+        selectElements.forEach(select => {
+            const paramValue = urlParams.get(select.id);
+            if (paramValue) {
+                select.value = paramValue;
+                for (let b = 1; b <= 4; b++) {
+                    if (select.id === "instrument" + b + "Menu") {
+                        $("#tuning" + b + "Menu").html(menu[$("#instrument" + b + "Menu").val()]);
+                    }
+                }
+            }
+        });
 
-    const selectElements = document.querySelectorAll('select');
-    
-    selectElements.forEach(select => {
-      const paramValue = urlParams.get(select.id);
-      if (paramValue) {
-        select.value = paramValue;
-        if (select.id == "instrument1Menu")
-        {
-          $("#tuning1Menu").html(menu[$("#instrument1Menu").val()]);
+        for (let b = 1; b <= 4; b++) {
+            updateValvedVisibility(b);
+            const valvedParam = urlParams.get('valved' + b);
+            if (valvedParam !== null) {
+                $('#valved' + b).prop('checked', valvedParam === 'true' || valvedParam === '1');
+            }
         }
-        else if (select.id == "instrument2Menu")
-        {
-          $("#tuning2Menu").html(menu[$("#instrument2Menu").val()]);
-        }
-        else if (select.id == "instrument3Menu")
-        {
-          $("#tuning3Menu").html(menu[$("#instrument3Menu").val()]);
-        }
-        else if (select.id == "instrument4Menu")
-        {
-          $("#tuning4Menu").html(menu[$("#instrument4Menu").val()]);
-        }
-      }
-    });
 
-    for (let b = 1; b <= 4; b++) {
-      updateValvedVisibility(b);
-      const valvedParam = urlParams.get('valved' + b);
-      if (valvedParam !== null) {
-        $('#valved' + b).prop('checked', valvedParam === 'true' || valvedParam === '1');
-      }
+        for (let b = 1; b <= 4; b++) {
+            loadInstrument(b);
+        }
+        updateAfterInstrumentChange();
+
+        const displayScaleParam = urlParams.get('displayScale');
+        if (displayScaleParam === 'true') {
+            var scale = $("#scaleMenu").val();
+            var key = $("#keyMenu").val();
+            showScale(scale, key);
+        }
+    } catch(e) {
+        console.error("Initialization error:", e);
     }
-
-    //need to render proper instruments
-    loadInstrument1();
-    loadInstrument2();
-    loadInstrument3();
-    loadInstrument4();
-    updateAfterInstrumentChange();
-
-    const displayScaleParam = urlParams.get('displayScale');
-    if (displayScaleParam === 'true') 
-    {
-      var scale = $("#scaleMenu").val();
-      var key = $("#keyMenu").val();
-      showScale(scale, key);
-    }
-  } catch(e) {
-    console.error("Initialization error:", e);
-  }
 }
 
 function updateUrl() {
-  try {
-    const instrument1MenuSelect = document.querySelector('select[id="instrument1Menu"]');
-    const instrument2MenuSelect = document.querySelector('select[id="instrument2Menu"]');
-    const instrument3MenuSelect = document.querySelector('select[id="instrument3Menu"]');
-    const instrument4MenuSelect = document.querySelector('select[id="instrument4Menu"]');
-    
-    const tuning1MenuSelect = document.querySelector('select[id="tuning1Menu"]');
-    const tuning2MenuSelect = document.querySelector('select[id="tuning2Menu"]');
-    const tuning3MenuSelect = document.querySelector('select[id="tuning3Menu"]');
-    const tuning4MenuSelect = document.querySelector('select[id="tuning4Menu"]');
-
-    const scaleMenuSelect = document.querySelector('select[id="scaleMenu"]');
-    const keyMenuSelect = document.querySelector('select[id="keyMenu"]');
-
-    const newUrl = new URL(window.location.href);
-    setUrlParams(instrument1MenuSelect, newUrl);
-    setUrlParams(tuning1MenuSelect, newUrl);
-    setUrlParams(instrument2MenuSelect, newUrl);
-    setUrlParams(tuning2MenuSelect, newUrl);
-    setUrlParams(instrument3MenuSelect, newUrl);
-    setUrlParams(tuning3MenuSelect, newUrl);
-    setUrlParams(instrument4MenuSelect, newUrl);
-    setUrlParams(tuning4MenuSelect, newUrl);
-
-    for (let b = 1; b <= 4; b++) {
-      var type = $('#instrument' + b + 'Menu').val();
-      if (isTenHoleHarmonica(type)) {
-        newUrl.searchParams.set('valved' + b, $('#valved' + b).is(':checked'));
-      } else {
-        newUrl.searchParams.delete('valved' + b);
-      }
-    }
-
-    setUrlParams(scaleMenuSelect, newUrl);
-    setUrlParams(keyMenuSelect, newUrl);
-
-    newUrl.searchParams.set('displayScale', scaleMode);
-
-    history.pushState({}, '', newUrl);
-  } catch(e) {
-    // pushState is restricted on local file:// URLs in some browsers
-  }
+    try {
+        const newUrl = new URL(window.location.href);
+        for (let b = 1; b <= 4; b++) {
+            setUrlParams(document.querySelector('select[id="instrument' + b + 'Menu"]'), newUrl);
+            setUrlParams(document.querySelector('select[id="tuning' + b + 'Menu"]'), newUrl);
+            var type = $('#instrument' + b + 'Menu').val();
+            if (isTenHoleHarmonica(type)) {
+                newUrl.searchParams.set('valved' + b, $('#valved' + b).is(':checked'));
+            } else {
+                newUrl.searchParams.delete('valved' + b);
+            }
+        }
+        setUrlParams(document.querySelector('select[id="scaleMenu"]'), newUrl);
+        setUrlParams(document.querySelector('select[id="keyMenu"]'), newUrl);
+        newUrl.searchParams.set('displayScale', scaleMode);
+        history.pushState({}, '', newUrl);
+    } catch(e) {}
 }
 
-function setUrlParams(ele, url)
-{
+function setUrlParams(ele, url) {
     if (ele && ele.id && ele.value !== undefined) {
         url.searchParams.set(ele.id, ele.value);
     }
 }
 
-// Call the function when the page loads
-window.onload = setSelectValuesFromUrl;
+$(document).ready(function() {
+    // Populate instrument dropdown menus
+    for (let b = 1; b <= 4; b++) {
+        $("#instrument" + b + "Menu").html(menu["instrument" + b]);
+        $("#tuning" + b + "Menu").html(menu[$("#instrument" + b + "Menu").val()]);
+        updateValvedVisibility(b);
+
+        (function(bankNum) {
+            $('#instrument' + bankNum + 'Menu').change(function() {
+                $("#tuning" + bankNum + "Menu").html(menu[$("#instrument" + bankNum + "Menu").val()]);
+                updateValvedVisibility(bankNum);
+                loadInstrument(bankNum);
+                updateAfterInstrumentChange();
+            });
+            $('#tuning' + bankNum + 'Menu').change(function() {
+                loadInstrument(bankNum);
+                updateAfterInstrumentChange();
+            });
+            $('#valved' + bankNum).change(function() {
+                loadInstrument(bankNum);
+                updateAfterInstrumentChange();
+            });
+            $('#go' + bankNum).click(function() {
+                loadInstrument(bankNum);
+                updateAfterInstrumentChange();
+            });
+        })(b);
+    }
+
+    $(document).on('mouseup', mouseUp);
+    $(window).on('resize', updateAllCanvases);
+
+    // Global scale controls
+    $('#displayScale').click(function() {
+        var scale = $("#scaleMenu").val();
+        var key = $("#keyMenu").val();
+        showScale(scale, key);
+        updateUrl();
+    });
+
+    $('#clearScale').click(function() {
+        clearScale();
+        updateUrl();
+    });
+
+    $('#scaleMenu, #keyMenu').change(function() {
+        if (scaleMode) {
+            var scale = $("#scaleMenu").val();
+            var key = $("#keyMenu").val();
+            showScale(scale, key);
+            updateUrl();
+        }
+    });
+
+    $('#scaleDegrees').click(function() {
+        showScaleDegrees = !showScaleDegrees;
+        $(this).text(showScaleDegrees ? 'Hide Scale Degrees' : 'Show Scale Degrees');
+        $(this).toggleClass('active', showScaleDegrees);
+        if (scaleMode) {
+            var scale = $("#scaleMenu").val();
+            var key = $("#keyMenu").val();
+            showScale(scale, key);
+        }
+    });
+
+    $('#noteNames').click(function() {
+        toggleNoteNames();
+        $(this).toggleClass('active', showNoteNames);
+    });
+
+    $('#audioVoiceToggle').click(function() {
+        pluck = !pluck;
+        $(this).text(pluck ? 'Sound: Pluck' : 'Sound: Synth');
+    });
+
+    setSelectValuesFromUrl();
+});
 </script>
 </body>
 </html>
