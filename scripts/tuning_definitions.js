@@ -501,35 +501,25 @@ const menu = {};
 <option value='chromatic16power'>Chromatic 16 (PowerChromatic)</option>
 `;
 
-    menu.instrument1 = `
+    const allInstrumentOptions = `
+<optgroup label="10-Hole Diatonic Harmonicas">
 ${harmonicaInstrumentOptions}
-<option value='piano'>Piano</option>
+</optgroup>
+<optgroup label="Chromatic Harmonicas">
 ${chromaticInstrumentOptions}
-<option value='ukulele'>Ukulele</option>
-`;
-
-    menu.instrument2 = `
-<option value='piano'>Piano</option>
-${harmonicaInstrumentOptions}
-${chromaticInstrumentOptions}
-<option value='ukulele'>Ukulele</option>
-`;
-
-    menu.instrument3 = `
+</optgroup>
+<optgroup label="Fretted & Keyboard Instruments">
 <option value='guitar'>Guitar</option>
-<option value='piano'>Piano</option>
-${harmonicaInstrumentOptions}
-${chromaticInstrumentOptions}
 <option value='ukulele'>Ukulele</option>
+<option value='piano'>Piano</option>
+</optgroup>
 `;
 
-    menu.instrument4 = `
-<option value='guitar'>Guitar</option>
-<option value='piano'>Piano</option>
-${harmonicaInstrumentOptions}
-${chromaticInstrumentOptions}
-<option value='ukulele'>Ukulele</option>
-`;
+    menu.allInstruments = allInstrumentOptions;
+    menu.instrument1 = allInstrumentOptions;
+    menu.instrument2 = allInstrumentOptions;
+    menu.instrument3 = allInstrumentOptions;
+    menu.instrument4 = allInstrumentOptions;
 })();
 
 if (typeof module !== 'undefined' && module.exports) {

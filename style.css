@@ -18,13 +18,24 @@ body {
     margin: 0;
 }
 
+/* --- Top Sticky Header Container --- */
+.top-sticky-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #f1f5f9;
+    padding-top: 4px;
+    padding-bottom: 2px;
+    margin-bottom: 10px;
+}
+
 /* --- App Header & Navigation --- */
 .app-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     max-width: 1900px;
-    margin: 0 auto 10px auto;
+    margin: 0 auto 8px auto;
     padding: 8px 16px;
     background: #ffffff;
     border-radius: 8px;
@@ -75,7 +86,7 @@ body {
 /* --- Global Scale & Key Control Panel --- */
 .global-control-bar {
     max-width: 1900px;
-    margin: 0 auto 12px auto;
+    margin: 0 auto;
     background: #ffffff;
     border: 1px solid #cbd5e1;
     border-radius: 10px;

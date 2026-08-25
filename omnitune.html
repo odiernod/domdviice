@@ -1131,97 +1131,99 @@ function updateBankTitleBadge(bankNum) {
 }
 </script>
 
-<header class="app-header">
-    <div class="brand-area">
-        <h1 class="brand-title">OmniTune</h1>
-        <span class="brand-subtitle">Compare Instruments, Tunings & Scales</span>
-    </div>
-    <nav class="header-nav" aria-label="Primary navigation">
-        <a href="help.html">Help</a>
-        <a href="guitarprogression.html">Guitar Progression</a>
-        <a href="chordchartgenerator.html">Chord Chart Generator</a>
-    </nav>
-</header>
-
-<section class="global-control-bar" aria-label="Global Scale and Key Controls">
-    <div class="control-section">
-        <span class="control-label">Scale / Chord:</span>
-        <div class="control-group">
-            <select id="keyMenu" title="Root Key">
-                <option value="g">G</option>
-                <option value="ab">Ab / G#</option>
-                <option value="a">A</option>
-                <option value="bb">Bb / A#</option>
-                <option value="b">B</option>
-                <option value="c">C</option>
-                <option value="db">Db / C#</option>
-                <option value="d">D</option>
-                <option value="eb">Eb / D#</option>
-                <option value="e">E</option>
-                <option value="f">F</option>
-                <option value="fs">Gb / F#</option>
-            </select>
-            <select id="scaleMenu" title="Scale or Chord Formula">
-                <optgroup label="Scales & Modes">
-                    <option value="blues">Blues</option>
-                    <option value="minorpentatonic">Minor Pentatonic</option>
-                    <option value="majorpentatonic">Major Pentatonic "Country"</option>
-                    <option value="major">Major</option>
-                    <option value="naturalminor">Natural Minor</option>
-                    <option value="harmonicminor">Harmonic Minor</option>
-                    <option value="melodicminor">Melodic Minor Ascending</option>
-                    <option value="mixolydian">Mixolydian</option>
-                    <option value="mixeduplydian">'Mixed Up' Lydian-Super Blues</option>
-                    <option value="dorian">Dorian</option>
-                    <option value="aeolian">Aeolian</option>
-                    <option value="phrygian">Phrygian</option>
-                    <option value="locrian">Locrian</option>
-                    <option value="gypsyminor">Gypsy Minor</option>
-                    <option value="gypsymajor">Gypsy Major</option>
-                    <option value="harmonicmajor">Harmonic Major-Major Flat 6</option>
-                    <option value="bebop">Bebop</option>
-                    <option value="bebopminor">Bebop Minor</option>
-                    <option value="bebopsubdominant">Bebop Subdominant</option>
-                    <option value="hindu">Hindu</option>
-                    <option value="spanish">Spanish</option>
-                    <option value="wholetone">Whole Tone</option>
-                    <option value="fullchromatic">Chromatic</option>
-                </optgroup>
-                <optgroup label="Chords">
-                    <option value="majchord">Major Chord</option>
-                    <option value="mchord">Minor Chord</option>
-                    <option value="d7chord">7th Chord</option>
-                    <option value="maj7chord">Maj7 Chord</option>
-                    <option value="m7chord">m7 Chord</option>
-                    <option value="sus2chord">Sus2 Chord</option>
-                    <option value="sus4chord">Sus4 Chord</option>
-                    <option value="add9chord">Add9 Chord</option>
-                    <option value="diminishedchord">Diminished Chord</option>
-                    <option value="diminished7chord">Dim7 Chord</option>
-                    <option value="augchord">Aug Chord</option>
-                    <option value="maj6chord">Maj6 Chord</option>
-                    <option value="maj6add9chord">Maj6add9 Chord</option>
-                    <option value="m6chord">m6 Chord</option>
-                    <option value="m6add9chord">m6add9 Chord</option>
-                    <option value="d9chord">9th Chord</option>
-                    <option value="m9chord">m9 Chord</option>
-                    <option value="maj9chord">Maj9 Chord</option>
-                    <option value="powerchord">Power Chord</option>
-                </optgroup>
-            </select>
-            <button id="displayScale" class="btn-primary">Display Scale</button>
-            <button id="clearScale" class="btn-secondary">Clear Scale</button>
+<div class="top-sticky-wrapper">
+    <header class="app-header">
+        <div class="brand-area">
+            <h1 class="brand-title">OmniTune</h1>
+            <span class="brand-subtitle">Compare Instruments, Tunings & Scales</span>
         </div>
-    </div>
+        <nav class="header-nav" aria-label="Primary navigation">
+            <a href="help.html">Help</a>
+            <a href="guitarprogression.html">Guitar Progression</a>
+            <a href="chordchartgenerator.html">Chord Chart Generator</a>
+        </nav>
+    </header>
 
-    <div class="control-section">
-        <div class="control-group">
-            <button id="scaleDegrees" class="btn-toggle active">Hide Scale Degrees</button>
-            <button id="noteNames" class="btn-toggle active">Hide Note Names</button>
-            <button id="audioVoiceToggle" class="btn-toggle" title="Toggle audio voice">Sound: Pluck</button>
+    <section class="global-control-bar" aria-label="Global Scale and Key Controls">
+        <div class="control-section">
+            <span class="control-label">Scale / Chord:</span>
+            <div class="control-group">
+                <select id="keyMenu" title="Root Key">
+                    <option value="g">G</option>
+                    <option value="ab">Ab / G#</option>
+                    <option value="a">A</option>
+                    <option value="bb">Bb / A#</option>
+                    <option value="b">B</option>
+                    <option value="c">C</option>
+                    <option value="db">Db / C#</option>
+                    <option value="d">D</option>
+                    <option value="eb">Eb / D#</option>
+                    <option value="e">E</option>
+                    <option value="f">F</option>
+                    <option value="fs">Gb / F#</option>
+                </select>
+                <select id="scaleMenu" title="Scale or Chord Formula">
+                    <optgroup label="Scales & Modes">
+                        <option value="blues">Blues</option>
+                        <option value="minorpentatonic">Minor Pentatonic</option>
+                        <option value="majorpentatonic">Major Pentatonic "Country"</option>
+                        <option value="major">Major</option>
+                        <option value="naturalminor">Natural Minor</option>
+                        <option value="harmonicminor">Harmonic Minor</option>
+                        <option value="melodicminor">Melodic Minor Ascending</option>
+                        <option value="mixolydian">Mixolydian</option>
+                        <option value="mixeduplydian">'Mixed Up' Lydian-Super Blues</option>
+                        <option value="dorian">Dorian</option>
+                        <option value="aeolian">Aeolian</option>
+                        <option value="phrygian">Phrygian</option>
+                        <option value="locrian">Locrian</option>
+                        <option value="gypsyminor">Gypsy Minor</option>
+                        <option value="gypsymajor">Gypsy Major</option>
+                        <option value="harmonicmajor">Harmonic Major-Major Flat 6</option>
+                        <option value="bebop">Bebop</option>
+                        <option value="bebopminor">Bebop Minor</option>
+                        <option value="bebopsubdominant">Bebop Subdominant</option>
+                        <option value="hindu">Hindu</option>
+                        <option value="spanish">Spanish</option>
+                        <option value="wholetone">Whole Tone</option>
+                        <option value="fullchromatic">Chromatic</option>
+                    </optgroup>
+                    <optgroup label="Chords">
+                        <option value="majchord">Major Chord</option>
+                        <option value="mchord">Minor Chord</option>
+                        <option value="d7chord">7th Chord</option>
+                        <option value="maj7chord">Maj7 Chord</option>
+                        <option value="m7chord">m7 Chord</option>
+                        <option value="sus2chord">Sus2 Chord</option>
+                        <option value="sus4chord">Sus4 Chord</option>
+                        <option value="add9chord">Add9 Chord</option>
+                        <option value="diminishedchord">Diminished Chord</option>
+                        <option value="diminished7chord">Dim7 Chord</option>
+                        <option value="augchord">Aug Chord</option>
+                        <option value="maj6chord">Maj6 Chord</option>
+                        <option value="maj6add9chord">Maj6add9 Chord</option>
+                        <option value="m6chord">m6 Chord</option>
+                        <option value="m6add9chord">m6add9 Chord</option>
+                        <option value="d9chord">9th Chord</option>
+                        <option value="m9chord">m9 Chord</option>
+                        <option value="maj9chord">Maj9 Chord</option>
+                        <option value="powerchord">Power Chord</option>
+                    </optgroup>
+                </select>
+                <button id="displayScale" class="btn-primary">Display Scale</button>
+                <button id="clearScale" class="btn-secondary">Clear Scale</button>
+            </div>
         </div>
-    </div>
-</section>
+
+        <div class="control-section">
+            <div class="control-group">
+                <button id="scaleDegrees" class="btn-toggle active">Hide Scale Degrees</button>
+                <button id="noteNames" class="btn-toggle active">Hide Note Names</button>
+                <button id="audioVoiceToggle" class="btn-toggle" title="Toggle audio voice">Sound: Pluck</button>
+            </div>
+        </div>
+    </section>
+</div>
 
 <main class="banks-container">
     <!-- Instrument Bank #1 -->
@@ -1574,10 +1576,16 @@ function setUrlParams(ele, url) {
 }
 
 $(document).ready(function() {
-    // Populate instrument dropdown menus
+    // Default initial instruments for Bank 1-4 if not specified in URL
+    const defaultInstruments = ['diatonicrichter', 'piano', 'guitar', 'guitar'];
+    const defaultTunings = ['c', 'standard', 'standard', 'standard'];
+
+    // Populate instrument dropdown menus with all available instruments
     for (let b = 1; b <= 4; b++) {
-        $("#instrument" + b + "Menu").html(menu["instrument" + b]);
+        $("#instrument" + b + "Menu").html(menu.allInstruments || menu["instrument" + b]);
+        $("#instrument" + b + "Menu").val(defaultInstruments[b - 1]);
         $("#tuning" + b + "Menu").html(menu[$("#instrument" + b + "Menu").val()]);
+        $("#tuning" + b + "Menu").val(defaultTunings[b - 1]);
         updateValvedVisibility(b);
 
         (function(bankNum) {
