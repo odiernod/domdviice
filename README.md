@@ -20,6 +20,7 @@ The main instrument comparison and scale visualizer:
 - **Scales & Chord Highlights**: Global Key and Scale selector highlighting notes across all banks simultaneously, with root emphasis and scale degree labels (Nashville Number System).
 - **Web Audio Sound**: Interactive note click/sweep with Pluck and Synth playback modes.
 - **Sticky Control Bar & Responsive Layout**: Sticky top header and dynamic side-by-side card arrangement for compact instruments.
+- **Instrument Diagram Printing**: Dedicated Print button on every bank with auto-scaled landscape paper formatting, custom metadata headers, and full fidelity to active note name, scale degree, and highlight settings.
 
 ### 2. Guitar Chord Finder & Progression Visualizer (`guitarprogression.html`)
 An interactive fretboard and harmonic progression explorer for guitarists:

@@ -417,3 +417,117 @@ td.scale-degree::before {
 td.root::before {
     background: rgba(220, 38, 38, 0.42);
 }
+
+/* --- Print Button & Banner Styling --- */
+.btn-print {
+    padding: 5px 10px;
+    font-size: 12px;
+    background-color: #f1f5f9;
+    border-color: #cbd5e1;
+    color: #334155;
+}
+
+.btn-print:hover {
+    background-color: #e2e8f0;
+    color: #0f172a;
+}
+
+.print-banner {
+    display: none;
+}
+
+/* --- Print Media Styles --- */
+@media print {
+    @page {
+        margin: 0.8cm;
+        size: landscape;
+    }
+
+    html, body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .top-sticky-wrapper,
+    .bank-controls,
+    nav,
+    button,
+    select {
+        display: none !important;
+    }
+
+    /* Print specific bank if data-print-bank attribute is present */
+    body[data-print-bank="1"] .bank-card:not(#bank-card-1),
+    body[data-print-bank="2"] .bank-card:not(#bank-card-2),
+    body[data-print-bank="3"] .bank-card:not(#bank-card-3),
+    body[data-print-bank="4"] .bank-card:not(#bank-card-4) {
+        display: none !important;
+    }
+
+    .banks-container {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .bank-card {
+        box-shadow: none !important;
+        border: 1px solid #94a3b8 !important;
+        border-radius: 6px !important;
+        margin-bottom: 20px !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        flex: none !important;
+        overflow: visible !important;
+    }
+
+    .bank-header {
+        display: none !important;
+    }
+
+    .print-banner {
+        display: block !important;
+        padding: 8px 12px 6px 12px !important;
+        border-bottom: 2px solid #0f172a !important;
+        background: #f8fafc !important;
+    }
+
+    .print-banner-title {
+        font-size: 16px !important;
+        font-weight: 800 !important;
+        color: #0f172a !important;
+        margin: 0 0 4px 0 !important;
+    }
+
+    .print-banner-meta {
+        font-size: 11px !important;
+        color: #475569 !important;
+        font-weight: 600 !important;
+    }
+
+    .instrument-stage {
+        padding: 12px 12px 30px 12px !important;
+        overflow: visible !important;
+        display: block !important;
+    }
+
+    .instrument-canvas-wrapper {
+        position: absolute !important;
+        top: 12px !important;
+        left: 12px !important;
+    }
+
+    table[class^="instrument"] {
+        position: relative !important;
+        z-index: 10 !important;
+        page-break-inside: avoid !important;
+    }
+}

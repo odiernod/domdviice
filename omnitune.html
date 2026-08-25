@@ -1145,6 +1145,10 @@ function updateBankTitleBadge(bankNum) {
 <main class="banks-container">
     <!-- Instrument Bank #1 -->
     <article class="bank-card bank-card-compact" id="bank-card-1">
+        <div class="print-banner" id="printBanner1">
+            <h2 class="print-banner-title" id="printBannerTitle1">OmniTune — Bank 1</h2>
+            <div class="print-banner-meta" id="printBannerMeta1"></div>
+        </div>
         <div class="bank-header">
             <div class="bank-title-badge">
                 <span class="bank-badge-number">1</span>
@@ -1157,6 +1161,7 @@ function updateBankTitleBadge(bankNum) {
                     <input type="checkbox" id="valved1"> Half-Valved
                 </label>
                 <button id="go1" class="btn-secondary">Load</button>
+                <button id="print1" class="btn-secondary btn-print" title="Print this diagram" onclick="printInstrumentDiagram(1)">🖨️ Print</button>
             </div>
         </div>
         <div class="instrument-stage">
@@ -1167,6 +1172,10 @@ function updateBankTitleBadge(bankNum) {
 
     <!-- Instrument Bank #2 -->
     <article class="bank-card bank-card-compact" id="bank-card-2">
+        <div class="print-banner" id="printBanner2">
+            <h2 class="print-banner-title" id="printBannerTitle2">OmniTune — Bank 2</h2>
+            <div class="print-banner-meta" id="printBannerMeta2"></div>
+        </div>
         <div class="bank-header">
             <div class="bank-title-badge">
                 <span class="bank-badge-number">2</span>
@@ -1179,6 +1188,7 @@ function updateBankTitleBadge(bankNum) {
                     <input type="checkbox" id="valved2"> Half-Valved
                 </label>
                 <button id="go2" class="btn-secondary">Load</button>
+                <button id="print2" class="btn-secondary btn-print" title="Print this diagram" onclick="printInstrumentDiagram(2)">🖨️ Print</button>
             </div>
         </div>
         <div class="instrument-stage">
@@ -1189,6 +1199,10 @@ function updateBankTitleBadge(bankNum) {
 
     <!-- Instrument Bank #3 -->
     <article class="bank-card bank-card-wide" id="bank-card-3">
+        <div class="print-banner" id="printBanner3">
+            <h2 class="print-banner-title" id="printBannerTitle3">OmniTune — Bank 3</h2>
+            <div class="print-banner-meta" id="printBannerMeta3"></div>
+        </div>
         <div class="bank-header">
             <div class="bank-title-badge">
                 <span class="bank-badge-number">3</span>
@@ -1201,6 +1215,7 @@ function updateBankTitleBadge(bankNum) {
                     <input type="checkbox" id="valved3"> Half-Valved
                 </label>
                 <button id="go3" class="btn-secondary">Load</button>
+                <button id="print3" class="btn-secondary btn-print" title="Print this diagram" onclick="printInstrumentDiagram(3)">🖨️ Print</button>
             </div>
         </div>
         <div class="instrument-stage">
@@ -1211,6 +1226,10 @@ function updateBankTitleBadge(bankNum) {
 
     <!-- Instrument Bank #4 -->
     <article class="bank-card bank-card-wide" id="bank-card-4">
+        <div class="print-banner" id="printBanner4">
+            <h2 class="print-banner-title" id="printBannerTitle4">OmniTune — Bank 4</h2>
+            <div class="print-banner-meta" id="printBannerMeta4"></div>
+        </div>
         <div class="bank-header">
             <div class="bank-title-badge">
                 <span class="bank-badge-number">4</span>
@@ -1223,6 +1242,7 @@ function updateBankTitleBadge(bankNum) {
                     <input type="checkbox" id="valved4"> Half-Valved
                 </label>
                 <button id="go4" class="btn-secondary">Load</button>
+                <button id="print4" class="btn-secondary btn-print" title="Print this diagram" onclick="printInstrumentDiagram(4)">🖨️ Print</button>
             </div>
         </div>
         <div class="instrument-stage">
@@ -1574,6 +1594,60 @@ $(document).ready(function() {
     });
 
     setSelectValuesFromUrl();
+});
+
+function printInstrumentDiagram(bankNum) {
+    const bankCard = document.getElementById(`bank-card-${bankNum}`);
+    if (!bankCard) return;
+
+    const instSelect = document.getElementById(`instrument${bankNum}Menu`);
+    const tuningSelect = document.getElementById(`tuning${bankNum}Menu`);
+    const valvedCheckbox = document.getElementById(`valved${bankNum}`);
+    const keySelect = document.getElementById('keyMenu');
+    const scaleSelect = document.getElementById('scaleMenu');
+
+    const instName = instSelect && instSelect.selectedIndex >= 0 ? instSelect.options[instSelect.selectedIndex].text : `Instrument ${bankNum}`;
+    const tuningName = tuningSelect && tuningSelect.selectedIndex >= 0 ? tuningSelect.options[tuningSelect.selectedIndex].text : '';
+    const isValved = valvedCheckbox && valvedCheckbox.checked;
+
+    const keyName = keySelect && keySelect.selectedIndex >= 0 ? keySelect.options[keySelect.selectedIndex].text : '';
+    const scaleName = scaleSelect && scaleSelect.selectedIndex >= 0 ? scaleSelect.options[scaleSelect.selectedIndex].text : '';
+
+    const titleElem = document.getElementById(`printBannerTitle${bankNum}`);
+    const metaElem = document.getElementById(`printBannerMeta${bankNum}`);
+
+    if (titleElem && metaElem) {
+        titleElem.textContent = `OmniTune — Bank ${bankNum}: ${instName} (${tuningName}${isValved ? ' • Half-Valved' : ''})`;
+        const scaleDesc = scaleMode ? `Active Scale/Chord: ${keyName} ${scaleName}` : 'Scale/Chord: None (Enharmonic View)';
+        metaElem.textContent = `${scaleDesc}  |  Note Names: ${showNoteNames ? 'Shown' : 'Hidden'}  |  Scale Degrees: ${showScaleDegrees ? 'Shown' : 'Hidden'}`;
+    }
+
+    document.body.setAttribute('data-print-bank', String(bankNum));
+
+    // Dynamic zoom scaling so wide diagrams (guitar/chromatic) fit 100% on landscape paper
+    const table = document.getElementById(`instrument${bankNum}`);
+    const stage = bankCard.querySelector('.instrument-stage');
+    if (table && stage) {
+        const tableWidth = table.offsetWidth || table.scrollWidth;
+        const printableWidth = 1000;
+        if (tableWidth > printableWidth) {
+            stage.style.zoom = (printableWidth / tableWidth).toFixed(3);
+        } else {
+            stage.style.zoom = '1';
+        }
+    }
+
+    window.print();
+
+    setTimeout(() => {
+        document.body.removeAttribute('data-print-bank');
+        document.querySelectorAll('.instrument-stage').forEach(st => st.style.zoom = '');
+    }, 600);
+}
+
+window.addEventListener('afterprint', () => {
+    document.body.removeAttribute('data-print-bank');
+    document.querySelectorAll('.instrument-stage').forEach(st => st.style.zoom = '');
 });
 </script>
 </body>
