@@ -978,10 +978,10 @@ function drawPianoDiagram(canvas, cols = 12, rows = 7, cellW = null, cellH = nul
             ctx.fillStyle = whiteGrad;
             ctx.fillRect(x, y + 4, actualCellW, actualCellH - 6);
 
-            // Note Name Typography (Positioned slightly below center)
+            // Note Name Typography (Positioned lower than center)
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            var labelY = y + actualCellH * 0.56;
+            var labelY = y + actualCellH * 0.68;
 
             if (isMiddleC) {
                 // Middle C Accent
@@ -1067,14 +1067,14 @@ function drawPianoDiagram(canvas, cols = 12, rows = 7, cellW = null, cellH = nul
             ctx.lineTo(keyX + keyW - 2, keyY + 1);
             ctx.stroke();
 
-            // Note Name Typography (Positioned slightly below center of black key)
+            // Note Name Typography (Positioned lower than center of black key)
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.fillStyle = '#ffffff';
             ctx.font = 'bold 13px "Segoe UI", Arial, sans-serif';
             ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
             ctx.shadowBlur = 3;
-            ctx.fillText(noteName, keyX + keyW / 2, keyY + keyH * 0.56);
+            ctx.fillText(noteName, keyX + keyW / 2, keyY + keyH * 0.68);
             ctx.shadowBlur = 0;
         }
 
@@ -1547,11 +1547,19 @@ function clearHighlightBorder(name){
 
 function highlightDegree(name, degree) {
     const degreeMap = {1:'R',2:'b2',3:'2',4:'b3',5:'3',6:'4',7:'b5',8:'5',9:'b6',10:'6',11:'b7',12:'7'};
+    const isBlackKey = name && name.endsWith('s');
     for (var p of Array.from(document.getElementsByName(name))) {
         var td = p.parentElement;
         let span = td.querySelector('.scale-degree-label');
         if (!span) { span = document.createElement('span'); span.className = 'scale-degree-label'; td.appendChild(span); }
         span.textContent = degreeMap[degree] || degree.toString();
+        if (isBlackKey) {
+            span.classList.add('white-text');
+            td.classList.add('black-key');
+        } else {
+            span.classList.remove('white-text');
+            td.classList.remove('black-key');
+        }
         // ensure persistent scale shading is used and any hover outline/highlight
         // is removed so degrees show the blue background circle only
         td.classList.remove('highlight-outline','highlight');
@@ -1560,6 +1568,7 @@ function highlightDegree(name, degree) {
     }
 }
 function highlightred(name) {
+    const isBlackKey = name && name.endsWith('s');
     for (var p of Array.from(document.getElementsByName(name))) {
         var td = p.parentElement;
         // same as highlightDegree but force root styling and remove any outline
@@ -1568,6 +1577,13 @@ function highlightred(name) {
         let span = td.querySelector('.scale-degree-label');
         if (!span) { span = document.createElement('span'); span.className = 'scale-degree-label'; td.appendChild(span); }
         span.textContent = 'R';
+        if (isBlackKey) {
+            span.classList.add('white-text');
+            td.classList.add('black-key');
+        } else {
+            span.classList.remove('white-text');
+            td.classList.remove('black-key');
+        }
     }
 }
 function doMouseOver() {
