@@ -1015,7 +1015,7 @@ function loadInstrument(bankNum) {
     } else if (isChromaticHarmonica(type)) {
         updateChromaticCanvas(divId, tableId);
     } else {
-        $("#" + divId).html(img[type] || '');
+        $("#" + divId).empty();
     }
     updateBankTitleBadge(bankNum);
 }

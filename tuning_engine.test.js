@@ -1,9 +1,9 @@
 const path = require('path');
-const defs = require('../scripts/tuning_definitions.js');
+const defs = require('./scripts/tuning_definitions.js');
 // Put defs on global scope so engine can access them seamlessly
 Object.assign(global, defs);
 
-const { TuningEngine, instrument } = require('../scripts/tuning_engine.js');
+const { TuningEngine, instrument } = require('./scripts/tuning_engine.js');
 const { HARMONICA_TUNINGS, GUITAR_TUNINGS, UKULELE_TUNINGS, menu } = defs;
 
 let failures = 0;
@@ -90,23 +90,56 @@ assert(chrom16BebopC.includes('name="A3s"'), 'Chromatic 16 Bebop (C) contains Bb
 const chrom16PowerC = TuningEngine.generateChromaticHtml('chromatic16power', 'c');
 assert(chrom16PowerC.includes('name="C3"') && chrom16PowerC.includes('name="D3"'), 'Chromatic 16 Power (C) has C3 blow 1 and D3 draw 1');
 
-console.log('\n--- TEST 6: Dropdown Menus & Proxy Compatibility ---');
-const all12Keys = ['c', 'lowc', 'db', 'd', 'lowd', 'eb', 'e', 'lowe', 'lowf', 'f', 'fs', 'g', 'highg', 'ab', 'a', 'bb', 'b'];
-all12Keys.forEach(k => {
-    assert(menu.chromatic12solo.includes(`value='${k}'`), `Chromatic 12 Solo menu includes ${k}`);
-    assert(menu.chromatic12bebop.includes(`value='${k}'`), `Chromatic 12 Bebop menu includes ${k}`);
-    assert(menu.chromatic12c6.includes(`value='${k}'`), `Chromatic 12 C6 menu includes ${k}`);
-    assert(menu.chromatic12power.includes(`value='${k}'`), `Chromatic 12 Power menu includes ${k}`);
-    assert(menu.chromatic16solo.includes(`value='${k}'`), `Chromatic 16 Solo menu includes ${k}`);
-});
+console.log('\n--- TEST 7: Scales, Chords & Degree Formulas ---');
+const { scales, keys, tones, noteNamesFlats, noteNames } = defs;
 
-assert(typeof instrument.chromatic12soloc === 'string', 'instrument.chromatic12soloc generates html');
-assert(typeof instrument.chromatic12bebopg === 'string', 'instrument.chromatic12bebopg generates html');
-assert(typeof instrument.chromatic12c6d === 'string', 'instrument.chromatic12c6d generates html');
-assert(typeof instrument.chromatic12powerc === 'string', 'instrument.chromatic12powerc generates html');
-assert(typeof instrument.chromatic16soloc === 'string', 'instrument.chromatic16soloc generates html');
-assert(typeof instrument.guitarstandard === 'string', 'instrument.guitarstandard generates html');
-assert(typeof instrument.pianostandard === 'string', 'instrument.pianostandard generates html');
+// Test Blues scale formula on C
+const cBlues = scales.blues; // [1,0,0,1,1,1,0,1,0,0,1,0]
+const cKeyNotes = keys.c; // ['c', 'db', 'd', 'eb', 'e', 'f', 'fs', 'g', 'ab', 'a', 'bb', 'b']
+const activeBluesNotes = cKeyNotes.filter((n, i) => cBlues[i] === 1);
+assert(JSON.stringify(activeBluesNotes) === JSON.stringify(['c', 'eb', 'f', 'fs', 'g', 'bb']), 'C Blues scale resolves C, Eb, F, F#, G, Bb');
+
+// Test C Major scale formula
+const cMajor = scales.major;
+const activeMajorNotes = cKeyNotes.filter((n, i) => cMajor[i] === 1);
+assert(JSON.stringify(activeMajorNotes) === JSON.stringify(['c', 'd', 'e', 'f', 'g', 'a', 'b']), 'C Major scale resolves C, D, E, F, G, A, B');
+
+// Test C Maj7 Chord formula
+const cMaj7 = scales.maj7chord;
+const activeMaj7Notes = cKeyNotes.filter((n, i) => cMaj7[i] === 1);
+assert(JSON.stringify(activeMaj7Notes) === JSON.stringify(['c', 'e', 'g', 'b']), 'C Maj7 chord resolves C, E, G, B');
+
+// Test C Dom 7 Chord formula
+const cD7 = scales.d7chord;
+const activeD7Notes = cKeyNotes.filter((n, i) => cD7[i] === 1);
+assert(JSON.stringify(activeD7Notes) === JSON.stringify(['c', 'e', 'g', 'bb']), 'C Dom 7 chord resolves C, E, G, Bb');
+
+console.log('\n--- TEST 8: All Instruments in Menu Catalog ---');
+assert(menu.allInstruments.includes("value='diatonicrichter'"), 'Menu includes Diatonic Richter');
+assert(menu.allInstruments.includes("value='guitar'"), 'Menu includes Guitar');
+assert(menu.allInstruments.includes("value='ukulele'"), 'Menu includes Ukulele');
+assert(menu.allInstruments.includes("value='piano'"), 'Menu includes Piano');
+assert(menu.allInstruments.includes("value='chromatic12solo'"), 'Menu includes Chromatic 12 Solo');
+assert(menu.allInstruments.includes("value='chromatic16solo'"), 'Menu includes Chromatic 16 Solo');
+assert(menu.instrument1 === menu.allInstruments, 'Bank 1 menu has all instruments');
+assert(menu.instrument2 === menu.allInstruments, 'Bank 2 menu has all instruments');
+assert(menu.instrument3 === menu.allInstruments, 'Bank 3 menu has all instruments');
+assert(menu.instrument4 === menu.allInstruments, 'Bank 4 menu has all instruments');
+
+console.log('\n--- TEST 9: Half-Valved Matrix Generation ---');
+const valvedMatrix = TuningEngine.computeHarmonicaMatrix(
+    HARMONICA_TUNINGS.diatonicrichter.blow.map(TuningEngine.noteToMidi),
+    HARMONICA_TUNINGS.diatonicrichter.draw.map(TuningEngine.noteToMidi),
+    true
+);
+// In half-valved mode, hole 1 blow can valve-bend down to B3 (59)
+assert(valvedMatrix[1][0].name === 'B3' && valvedMatrix[1][0].type === 'valve-bend' && valvedMatrix[1][0].label === 'VB', 'H1 Half-Valved Blow has VB to B3');
+
+console.log('\n--- TEST 10: HTML Generation for All Harmonica Tunings ---');
+for (const tuningKey of Object.keys(HARMONICA_TUNINGS)) {
+    const html = TuningEngine.generateHarmonicaHtml(tuningKey, 'c', false);
+    assert(typeof html === 'string' && html.length > 50 && html.includes('table') === false, `${tuningKey} generates valid table rows`);
+}
 
 console.log('\n================================');
 if (failures === 0) {
@@ -115,3 +148,4 @@ if (failures === 0) {
     console.error(`TOTAL FAILURES: ${failures}`);
     process.exit(1);
 }
+

@@ -260,34 +260,7 @@ const CHROMATIC_TUNINGS = {
     }
 };
 
-const img = {
-    diatonicrichter: '<img src="diatonic.png">',
-    paddyrichtertuned: '<img src="paddyrichter.png">',
-    piano: '<img src="piano.png">',
-    guitar: '',
-    chromatic12: '<img src="chromatic12.png">',
-    chromatic16: '<img src="chromatic16.png">',
-    diatonicminor: '<img src="diatonicminor.png">',
-    diatonicwildetuned: '<img src="wildetuned.png">',
-    paddywildetuned: '<img src="paddywilde.png">',
-    valvedpaddywildetuned: '<img src="valvedpaddywilde.png">',
-    valveddorianwildealtered: '<img src="domtuned.png">',
-    domtuned: '<img src="domtuned.png">',
-    valvedpaddy123tuned: '<img src="valvedpaddy123.png">',
-    valvedeasydiatonic: '<img src="easydiatonic.png">',
-    testchromatic10tuning: '<img src="testchromatic10.png">',
-    powerchromatic10tuning: '<img src="wholetone10.png">',
-    diatonicwildeminor: '<img src="wildeminor.png">',
-    diatonicpowerbender: '<img src="powerbender.png">',
-    powerdrawtuned: '<img src="powerdraw.png">',
-    valvedpaddywildealtered: '<img src="valvedpaddywildealtered.png">',
-    sunnyrbtuned: '<img src="valvedrbtuned.png">',
-    diminished10: '<img src="diminished10.png">',
-    augmented10: '<img src="augmented10.png">',
-    drawdiminished10: '<img src="augmented10.png">',
-    valvedwholetone10: '<img src="wholetone10.png">',
-    ukulele: ''
-};
+const img = {};
 
 // Keys, tones, scales definitions preserved for scales and degree highlight features
 const keys = {
