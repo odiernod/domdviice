@@ -37,51 +37,67 @@
       margin: 0 auto;
     }
 
-    /* Top Navigation */
-    .top-nav {
+    /* App Header & Title Bar */
+    .app-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 0;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 24px;
+      margin: 12px auto 24px auto;
+      padding: 10px 20px;
+      background: #ffffff;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
       flex-wrap: wrap;
       gap: 12px;
     }
 
+    .brand-area {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
     .brand-title {
       font-size: 20px;
-      font-weight: 800;
-      color: var(--text-main);
+      font-weight: 900;
+      color: #0f172a;
+      letter-spacing: -0.5px;
       text-decoration: none;
+    }
+
+    .brand-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .header-nav {
       display: flex;
       align-items: center;
       gap: 8px;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 16px;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
       flex-wrap: wrap;
     }
 
-    .nav-links a {
+    .header-nav a {
       color: var(--accent);
       text-decoration: none;
-      transition: color 0.15s ease;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: background 0.15s ease, color 0.15s ease;
     }
 
-    .nav-links a:hover {
+    .header-nav a:hover {
+      background: #eff6ff;
       color: var(--accent-hover);
-      text-decoration: underline;
     }
 
     /* Hero / Header */
     .hero {
       text-align: center;
-      padding: 24px 0 32px;
+      padding: 12px 0 28px;
     }
 
     .hero h1 {
@@ -222,16 +238,19 @@
 <body>
 
 <div class="container">
-  <!-- Top Navigation -->
-  <nav class="top-nav" aria-label="Primary navigation">
-    <a href="omnitune.html" class="brand-title">🎵 OmniTune</a>
-    <div class="nav-links">
-      <a href="omnitune.html">Instrument Comparator</a>
-      <a href="guitarprogression.html">Guitar Chord Progression</a>
+  <!-- Title Bar -->
+  <header class="app-header">
+    <div class="brand-area">
+      <a href="omnitune.html" class="brand-title">OmniTune</a>
+      <span class="brand-subtitle">User Guide & Instructions</span>
+    </div>
+    <nav class="header-nav" aria-label="Primary navigation">
+      <a href="omnitune.html">Compare Instruments</a>
+      <a href="guitarprogression.html">Guitar Progression</a>
       <a href="chordchartgenerator.html">Chord Chart Generator</a>
       <a href="https://github.com/odiernod/domdviice" target="_blank" rel="noopener">GitHub</a>
-    </div>
-  </nav>
+    </nav>
+  </header>
 
   <!-- Hero -->
   <header class="hero">

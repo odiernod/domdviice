@@ -40,6 +40,8 @@ test('scale degrees use compact chord-tone notation', () => {
 test('scale pitch collections resolve major and minor pentatonic intervals', () => {
   assert.deepEqual(getScalePitchClasses('C', 'majorPentatonic'), [0, 2, 4, 7, 9]);
   assert.deepEqual(getScalePitchClasses('A', 'minorPentatonic'), [9, 0, 2, 4, 7]);
+  assert.deepEqual(getScalePitchClasses('C', 'harmonicMinor'), [0, 2, 3, 5, 7, 8, 11]);
+  assert.deepEqual(getScalePitchClasses('C', 'melodicMinor'), [0, 2, 3, 5, 7, 9, 11]);
 });
 
 test('Cmaj7 resolves to the major seventh chord formula', () => {

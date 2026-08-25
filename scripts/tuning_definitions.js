@@ -63,12 +63,48 @@ const HARMONICA_TUNINGS = {
         draw: ["D4", "G4", "B4", "D5", "F5", "A5", "B5", "D6", "F6", "A6"],
         isHalfValvedDefault: false
     },
+    countrytuned: {
+        name: "Country Tuned Harmonica",
+        blow: ["C4", "E4", "G4", "C5", "E5", "G5", "C6", "E6", "G6", "C7"],
+        draw: ["D4", "G4", "B4", "D5", "F5s", "A5", "B5", "D6", "F6", "A6"],
+        isHalfValvedDefault: false
+    },
+    easythirdtuned: {
+        name: "Easy Third Tuned Harmonica",
+        blow: ["C4", "E4", "G4", "C5", "E5", "G5", "C6", "E6", "G6", "C7"],
+        draw: ["D4", "F4", "A4", "D5", "F5", "A5", "B5", "D6", "F6", "A6"],
+        isHalfValvedDefault: false
+    },
+    melodymakertuned: {
+        name: "Melody Maker Harmonica",
+        blow: ["C4", "E4", "A4", "C5", "E5", "G5", "C6", "E6", "G6", "C7"],
+        draw: ["D4", "G4", "B4", "D5", "F5s", "A5", "B5", "D6", "F6", "A6"],
+        isHalfValvedDefault: false
+    },
     diatonicminor: {
         name: "Natural Minor Harmonica",
         isMinor: true,
         // In key of Cm:
         blow: ["F3", "Ab3", "C4", "F4", "Ab4", "C5", "F5", "Ab5", "C6", "F6"],
         draw: ["G3", "C4", "Eb4", "G4", "Bb4", "C5", "Eb5", "G5", "Bb5", "D6"],
+        isHalfValvedDefault: false
+    },
+    diatonicpowerbender: {
+        name: "PowerBender Harmonica",
+        blow: ["C4", "E4", "G4", "C5", "D5", "F5", "A5", "C6", "E6", "A6"],
+        draw: ["D4", "G4", "B4", "D5", "E5", "G5", "B5", "D6", "G6", "C7"],
+        isHalfValvedDefault: false
+    },
+    powerdrawtuned: {
+        name: "PowerDraw Harmonica",
+        blow: ["C4", "E4", "G4", "C5", "E5", "G5", "A5", "C6", "E6", "A6"],
+        draw: ["D4", "G4", "B4", "D5", "F5", "A5", "B5", "D6", "G6", "C7"],
+        isHalfValvedDefault: false
+    },
+    powerchromatic10tuning: {
+        name: "Power Chromatic 10 Harmonica",
+        blow: ["C5", "D5", "F5", "A5", "C6", "D6", "F6", "A6", "C7", "D7"],
+        draw: ["D5", "E5", "G5", "B5", "D6", "E6", "G6", "B6", "D7", "E7"],
         isHalfValvedDefault: false
     },
     diatonicwildetuned: {
@@ -92,32 +128,29 @@ const HARMONICA_TUNINGS = {
         draw: ["D4", "G4", "B4", "D5", "F5", "G5", "B5", "D6", "G6", "C7"],
         isHalfValvedDefault: false
     },
-    valvedpaddywildetuned: {
-        name: "Paddy Wilde Half Valved Harmonica",
-        blow: ["C4", "E4", "A4", "C5", "E5", "E5", "A5", "C6", "E6", "A6"],
-        draw: ["D4", "G4", "B4", "D5", "F5", "G5", "B5", "D6", "G6", "C7"],
-        isHalfValvedDefault: false
-    },
-    valveddorianwildealtered: {
-        name: "Dorian Wilde Altered 5 Half Valved Harmonica",
+    dorianwildealtered: {
+        name: "Dom's 'Dorian Shred' Altered Wilde Tuned Harmonica",
         blow: ["C4", "E4", "G4", "C5", "D5", "E5", "G5", "C6", "E6", "A6"],
         draw: ["D4", "G4", "Bb4", "D5", "F5", "G5", "Bb5", "D6", "G6", "C7"],
         isHalfValvedDefault: false
     },
-    domtuned: {
-        name: "Dom G6Gm7 Tuning",
-        blow: ["B3", "E4", "G4", "B4", "D5", "E5", "G5", "B5", "E6", "A6"],
-        draw: ["D4", "G4", "Bb4", "D5", "F5", "G5", "Bb5", "D6", "G6", "C7"],
+    domshredwildeminor: {
+        name: "Dom's 'Shred Minor' 2.5 Octave Tuned Harmonica",
+        isMinor: true,
+        // In key of Am (offset 0 for Am template):
+        baseKey: "am",
+        blow: ["D4", "F4", "A4", "D5", "F5", "F5", "A5", "D6", "F6", "F6"],
+        draw: ["E4", "A4", "C5", "E5", "G5", "A5", "C6", "E6", "G6", "A6"],
         isHalfValvedDefault: false
     },
-    valvedpaddy123tuned: {
-        name: "Paddy Richter Extended Half Valved Harmonica",
+    paddy123tuned: {
+        name: "Paddy Richter Extended Harmonica",
         blow: ["C4", "E4", "A4", "C5", "E5", "A5", "C6", "E6", "A6", "C7"],
         draw: ["D4", "G4", "B4", "D5", "G5", "B5", "D6", "G6", "B6", "D7"],
         isHalfValvedDefault: false
     },
-    valvedeasydiatonic: {
-        name: "Easy Diatonic Half Valved Harmonica",
+    easydiatonic: {
+        name: "Easy Diatonic Harmonica",
         blow: ["A3", "C4", "E4", "A4", "C5", "E5", "A5", "C6", "E6", "A6"],
         draw: ["B3", "D4", "G4", "B4", "D5", "G5", "B5", "D6", "G6", "B6"],
         isHalfValvedDefault: false
@@ -128,22 +161,10 @@ const HARMONICA_TUNINGS = {
         draw: ["D4", "G4", "B4", "D5", "F5", "A5", "B5", "D6", "F6", "A6"],
         isHalfValvedDefault: false
     },
-    valvedpaddywildealtered: {
-        name: "Paddy Wilde Altered 5 Half Valved Harmonica",
-        blow: ["C4", "E4", "A4", "C5", "D5", "E5", "A5", "C6", "E6", "A6"],
-        draw: ["D4", "G4", "B4", "D5", "F5", "G5", "B5", "D6", "G6", "C7"],
-        isHalfValvedDefault: false
-    },
     diminished10: {
         name: "Diminished 10 hole Harmonica",
         blow: ["C4", "Eb4", "Gb4", "A4", "C5", "Eb5", "Gb5", "A5", "C6", "Eb6"],
         draw: ["D4", "F4", "Ab4", "B4", "D5", "F5", "Ab5", "B5", "D6", "F6"],
-        isHalfValvedDefault: false
-    },
-    drawdiminished10: {
-        name: "Draw Only Diminished 10 hole Harmonica",
-        blow: ["Ab3", "B3", "D4", "F4", "Ab4", "B4", "D5", "F5", "Ab5", "B5"],
-        draw: ["B3", "D4", "F4", "Ab4", "B4", "D5", "F5", "Ab5", "B5", "D6"],
         isHalfValvedDefault: false
     },
     augmented10: {
@@ -152,36 +173,12 @@ const HARMONICA_TUNINGS = {
         draw: ["Eb4", "G4", "B4", "Eb5", "G5", "B5", "Eb6", "G6", "B6", "Eb7"],
         isHalfValvedDefault: false
     },
-    valvedwholetone10: {
-        name: "Whole Tone 10 hole Half Valved Harmonica",
+    wholetone10: {
+        name: "Whole Tone 10 hole Harmonica",
         blow: ["C4", "E4", "Ab4", "C5", "E5", "Ab5", "C6", "E6", "Ab6", "C7"],
         draw: ["D4", "Gb4", "Bb4", "D5", "Gb5", "Bb5", "D6", "Gb6", "Bb6", "D7"],
         isHalfValvedDefault: false
     },
-    diatonicpowerbender: {
-        name: "PowerBender Harmonica",
-        blow: ["C4", "E4", "G4", "C5", "D5", "F5", "A5", "C6", "E6", "A6"],
-        draw: ["D4", "G4", "B4", "D5", "E5", "G5", "B5", "D6", "G6", "C7"],
-        isHalfValvedDefault: false
-    },
-    powerdrawtuned: {
-        name: "PowerDraw Harmonica",
-        blow: ["C4", "E4", "G4", "C5", "E5", "G5", "A5", "C6", "E6", "A6"],
-        draw: ["D4", "G4", "B4", "D5", "F5", "A5", "B5", "D6", "G6", "C7"],
-        isHalfValvedDefault: false
-    },
-    powerchromatic10tuning: {
-        name: "Power Chromatic 10 Harmonica",
-        blow: ["C5", "D5", "F5", "A5", "C6", "D6", "F6", "A6", "C7", "D7"],
-        draw: ["D5", "E5", "G5", "B5", "D6", "E6", "G6", "B6", "D7", "E7"],
-        isHalfValvedDefault: false
-    },
-    testchromatic10tuning: {
-        name: "Chromatic Test Tuning Harmonica",
-        blow: ["C5", "D5", "E5", "A5", "C6", "D6", "E6", "A6", "C7", "D7"],
-        draw: ["D5", "F5", "G5", "B5", "D6", "F6", "G6", "B6", "D7", "F7"],
-        isHalfValvedDefault: false
-    }
 };
 
 const GUITAR_TUNINGS = {
