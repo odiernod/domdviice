@@ -587,14 +587,20 @@ function drawHarmonicaDiagram(canvas, cols = 10, rows = 7,
                     fillColor = 'rgba(240, 249, 255, 0.45)';
                     borderColor = 'rgba(59, 130, 246, 0.5)';
                     innerStroke = 'rgba(59, 130, 246, 0.2)';
+                    badgeText = 'BB';
+                    badgeBg = 'rgba(37, 99, 235, 0.85)';
                 } else if (meta.type === 'draw-bend') {
                     fillColor = (depthFromCore === 1) ? 'rgba(255, 251, 235, 0.45)' : ((depthFromCore === 2) ? 'rgba(254, 243, 199, 0.55)' : 'rgba(253, 230, 138, 0.65)');
                     borderColor = (depthFromCore === 1) ? 'rgba(180, 83, 9, 0.5)' : ((depthFromCore === 2) ? 'rgba(217, 119, 6, 0.6)' : 'rgba(185, 28, 28, 0.6)');
                     innerStroke = 'rgba(217, 119, 6, 0.2)';
+                    badgeText = 'DB';
+                    badgeBg = 'rgba(217, 119, 6, 0.85)';
                 }
             } else {
                 fillColor = isUpper ? 'rgba(240, 249, 255, 0.45)' : (depthFromCore === 1 ? 'rgba(255, 251, 235, 0.45)' : (depthFromCore === 2 ? 'rgba(254, 243, 199, 0.55)' : 'rgba(253, 230, 138, 0.65)'));
                 borderColor = 'rgba(100, 116, 139, 0.4)';
+                badgeText = isUpper ? 'BB' : 'DB';
+                badgeBg = isUpper ? 'rgba(37, 99, 235, 0.85)' : 'rgba(217, 119, 6, 0.85)';
             }
 
             ctx.fillStyle = fillColor;
@@ -609,8 +615,8 @@ function drawHarmonicaDiagram(canvas, cols = 10, rows = 7,
             ctx.lineWidth = 1;
             ctx.strokeRect(x + 7, y + 7, actualCellW - 14, actualCellH - 14);
 
-            // Small badge in corner of the cell for OB, OD, VB
-            if (badgeText && (badgeText === 'OB' || badgeText === 'OD' || badgeText === 'VB')) {
+            // Small badge in corner of the cell for OB, OD, VB, BB, DB
+            if (badgeText) {
                 ctx.fillStyle = badgeBg;
                 var bw = 18, bh = 12;
                 ctx.fillRect(x + actualCellW - bw - 4, y + 4, bw, bh);

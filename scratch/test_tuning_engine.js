@@ -42,9 +42,9 @@ assert(unvalvedMatrix[1][0].name === 'D4s' && unvalvedMatrix[1][0].type === 'ove
 // Check Hole 3 (index 2): Blow G4 (67), Draw B4 (71)
 assert(unvalvedMatrix[2][2].name === 'G4', 'H3 Blow is G4');
 assert(unvalvedMatrix[3][2].name === 'B4', 'H3 Draw is B4');
-assert(unvalvedMatrix[4][2].name === 'A4s' && unvalvedMatrix[4][2].label === "' bend", 'H3 Draw bend 1 is A4s (Bb4)');
-assert(unvalvedMatrix[5][2].name === 'A4' && unvalvedMatrix[5][2].label === "'' bend", 'H3 Draw bend 2 is A4');
-assert(unvalvedMatrix[6][2].name === 'G4s' && unvalvedMatrix[6][2].label === "''' bend", 'H3 Draw bend 3 is G4s (Ab4)');
+assert(unvalvedMatrix[4][2].name === 'A4s' && unvalvedMatrix[4][2].label === 'DB', 'H3 Draw bend 1 is A4s (Bb4)');
+assert(unvalvedMatrix[5][2].name === 'A4' && unvalvedMatrix[5][2].label === 'DB', 'H3 Draw bend 2 is A4');
+assert(unvalvedMatrix[6][2].name === 'G4s' && unvalvedMatrix[6][2].label === 'DB', 'H3 Draw bend 3 is G4s (Ab4)');
 assert(unvalvedMatrix[1][2].name === 'C5' && unvalvedMatrix[1][2].type === 'overblow', 'H3 Overblow is C5');
 
 console.log('\n--- TEST 3: Diatonic Minor Keys ---');

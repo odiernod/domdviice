@@ -86,15 +86,15 @@ const TuningEngine = (function() {
                 const diff = D - B - 1;
                 if (diff >= 1) {
                     const m = D - 1;
-                    matrix[4][h] = { midi: m, name: midiToNoteId(m), tone: midiToFrequency(m), type: 'draw-bend', label: "' bend" };
+                    matrix[4][h] = { midi: m, name: midiToNoteId(m), tone: midiToFrequency(m), type: 'draw-bend', label: 'DB' };
                 }
                 if (diff >= 2) {
                     const m = D - 2;
-                    matrix[5][h] = { midi: m, name: midiToNoteId(m), tone: midiToFrequency(m), type: 'draw-bend', label: "'' bend" };
+                    matrix[5][h] = { midi: m, name: midiToNoteId(m), tone: midiToFrequency(m), type: 'draw-bend', label: 'DB' };
                 }
                 if (diff >= 3) {
                     const m = D - 3;
-                    matrix[6][h] = { midi: m, name: midiToNoteId(m), tone: midiToFrequency(m), type: 'draw-bend', label: "''' bend" };
+                    matrix[6][h] = { midi: m, name: midiToNoteId(m), tone: midiToFrequency(m), type: 'draw-bend', label: 'DB' };
                 }
 
                 // Row 1 (above blow reed): Overblow vs Blow Valve Bend
@@ -110,11 +110,11 @@ const TuningEngine = (function() {
                 const diff = B - D - 1;
                 if (diff >= 1) {
                     const m = B - 1;
-                    matrix[1][h] = { midi: m, name: midiToNoteId(m), tone: midiToFrequency(m), type: 'blow-bend', label: "' bend" };
+                    matrix[1][h] = { midi: m, name: midiToNoteId(m), tone: midiToFrequency(m), type: 'blow-bend', label: 'BB' };
                 }
                 if (diff >= 2) {
                     const m = B - 2;
-                    matrix[0][h] = { midi: m, name: midiToNoteId(m), tone: midiToFrequency(m), type: 'blow-bend', label: "'' bend" };
+                    matrix[0][h] = { midi: m, name: midiToNoteId(m), tone: midiToFrequency(m), type: 'blow-bend', label: 'BB' };
                 }
 
                 // Row 4 (below draw reed): Overdraw vs Draw Valve Bend
