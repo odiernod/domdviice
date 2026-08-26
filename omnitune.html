@@ -179,15 +179,27 @@ function updateNoteNames()
 
 function toggleNoteNames() {
     showNoteNames = !showNoteNames;
-    $('#noteNames').html(showNoteNames?'Hide Note Names':
-                              'Show Note Names')
-    if (showNoteNames)
-    {
+    $('#noteNames').html(showNoteNames ? 'Hide Note Names' : 'Show Note Names');
+    if (showNoteNames) {
         updateNoteNames();
-    }
-    else {
+    } else {
         clearNoteNames();
     }
+}
+
+function toggleAccidentals() {
+    accidentalMode = (accidentalMode === 'sharps') ? 'flats' : 'sharps';
+    updateAccidentalButton();
+    if (showNoteNames) {
+        updateNoteNames();
+    }
+    updateAllCanvases();
+}
+
+function updateAccidentalButton() {
+    const isFlats = (accidentalMode === 'flats');
+    $('#accidentalToggle').text(isFlats ? 'Notes: ♭ Flats' : 'Notes: ♯ Sharps');
+    $('#accidentalToggle').toggleClass('active', isFlats);
 }
 
 function updateValvedVisibility(bankNum) {
@@ -810,7 +822,9 @@ function drawPianoDiagram(canvas, cols = 12, rows = 7, cellW = null, cellH = nul
     var actualCellH = cellH || (h / rows);
 
     var blackKeyCols = [1, 3, 6, 8, 10]; // C#, D#, F#, G#, A#
-    var noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+    var noteNamesList = (typeof accidentalMode !== 'undefined' && accidentalMode === 'flats')
+        ? ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B']
+        : ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 
     // 1. Piano Outer Casing
     ctx.fillStyle = '#0f172a';
@@ -833,7 +847,7 @@ function drawPianoDiagram(canvas, cols = 12, rows = 7, cellW = null, cellH = nul
         for (var c = 0; c < cols; c++) {
             if (blackKeyCols.indexOf(c) !== -1) continue;
             var x = c * actualCellW;
-            var noteName = noteNames[c] + oct;
+            var noteName = noteNamesList[c] + oct;
             var isMiddleC = (r === 3 && c === 0);
 
             // Ivory Key Body Gradient
@@ -875,7 +889,7 @@ function drawPianoDiagram(canvas, cols = 12, rows = 7, cellW = null, cellH = nul
         for (var c = 0; c < cols; c++) {
             if (blackKeyCols.indexOf(c) === -1) continue;
             var x = c * actualCellW;
-            var noteName = noteNames[c] + oct;
+            var noteName = noteNamesList[c] + oct;
 
             // 1. Recessed dark keybed slot behind black key cap
             ctx.fillStyle = '#020617';
@@ -1142,6 +1156,7 @@ function updateBankTitleBadge(bankNum) {
             <div class="control-group">
                 <button id="scaleDegrees" class="btn-toggle active">Hide Scale Degrees</button>
                 <button id="noteNames" class="btn-toggle active">Hide Note Names</button>
+                <button id="accidentalToggle" class="btn-toggle active" title="Toggle sharps (#) or flats (b)">Notes: ♭ Flats</button>
                 <button id="audioVoiceToggle" class="btn-toggle" title="Toggle audio voice">Sound: Pluck</button>
             </div>
         </div>
@@ -1263,6 +1278,7 @@ let sweep = false;
 let scaleMode = false;
 let showScaleDegrees = true;
 let showNoteNames = true;
+let accidentalMode = 'flats';
 let pluck = true;
 
 function attachAll(inTable) {
@@ -1379,15 +1395,17 @@ function doMouseOut() {
 }
 
 function showNoteName(name) {
+    const map = (accidentalMode === 'flats') ? noteNamesFlats : noteNames;
     for (var p of Array.from(document.getElementsByName(name))) {
         if (!p.classList.contains('noNoteNames')) {
             var td = p.parentElement;
-            if (!td.querySelector('.noteNameText')) {
-                var span = document.createElement('span');
+            var span = td.querySelector('.noteNameText');
+            if (!span) {
+                span = document.createElement('span');
                 span.className = 'noteNameText';
-                span.textContent = noteNamesFlats[name] || name;
                 td.appendChild(span);
             }
+            span.textContent = map[name] || name;
         }
     }
 }
@@ -1481,6 +1499,15 @@ function setSelectValuesFromUrl() {
         }
         updateAfterInstrumentChange();
 
+        const accidentalsParam = urlParams.get('accidentals');
+        if (accidentalsParam === 'flats' || accidentalsParam === 'b') {
+            accidentalMode = 'flats';
+            updateAccidentalButton();
+        } else if (accidentalsParam === 'sharps' || accidentalsParam === 'sharp' || accidentalsParam === '#') {
+            accidentalMode = 'sharps';
+            updateAccidentalButton();
+        }
+
         const displayScaleParam = urlParams.get('displayScale');
         if (displayScaleParam === 'true') {
             var scale = $("#scaleMenu").val();
@@ -1508,6 +1535,7 @@ function updateUrl() {
         setUrlParams(document.querySelector('select[id="scaleMenu"]'), newUrl);
         setUrlParams(document.querySelector('select[id="keyMenu"]'), newUrl);
         newUrl.searchParams.set('displayScale', scaleMode);
+        newUrl.searchParams.set('accidentals', accidentalMode);
         history.pushState({}, '', newUrl);
     } catch(e) {}
 }
@@ -1594,6 +1622,11 @@ $(document).ready(function() {
         $(this).toggleClass('active', showNoteNames);
     });
 
+    $('#accidentalToggle').click(function() {
+        toggleAccidentals();
+        updateUrl();
+    });
+
     $('#audioVoiceToggle').click(function() {
         pluck = !pluck;
         $(this).text(pluck ? 'Sound: Pluck' : 'Sound: Synth');
@@ -1625,7 +1658,8 @@ function printInstrumentDiagram(bankNum) {
     if (titleElem && metaElem) {
         titleElem.textContent = `OmniTune — Bank ${bankNum}: ${instName} (${tuningName}${isValved ? ' • Half-Valved' : ''})`;
         const scaleDesc = scaleMode ? `Active Scale/Chord: ${keyName} ${scaleName}` : 'Scale/Chord: None (Enharmonic View)';
-        metaElem.textContent = `${scaleDesc}  |  Note Names: ${showNoteNames ? 'Shown' : 'Hidden'}  |  Scale Degrees: ${showScaleDegrees ? 'Shown' : 'Hidden'}`;
+        const accidentalLabel = (accidentalMode === 'flats') ? 'Flats ♭' : 'Sharps ♯';
+        metaElem.textContent = `${scaleDesc}  |  Note Names: ${showNoteNames ? `Shown (${accidentalLabel})` : 'Hidden'}  |  Scale Degrees: ${showScaleDegrees ? 'Shown' : 'Hidden'}`;
     }
 
     document.body.setAttribute('data-print-bank', String(bankNum));

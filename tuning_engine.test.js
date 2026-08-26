@@ -114,6 +114,13 @@ const cD7 = scales.d7chord;
 const activeD7Notes = cKeyNotes.filter((n, i) => cD7[i] === 1);
 assert(JSON.stringify(activeD7Notes) === JSON.stringify(['c', 'e', 'g', 'bb']), 'C Dom 7 chord resolves C, E, G, Bb');
 
+// Test Sharps vs Flats lookup mappings
+assert(noteNames['A4s'] === 'A#' && noteNamesFlats['A4s'] === 'Bb', 'A4s maps to A# in sharps mode and Bb in flats mode');
+assert(noteNames['C4s'] === 'C#' && noteNamesFlats['C4s'] === 'Db', 'C4s maps to C# in sharps mode and Db in flats mode');
+assert(noteNames['D4s'] === 'D#' && noteNamesFlats['D4s'] === 'Eb', 'D4s maps to D# in sharps mode and Eb in flats mode');
+assert(noteNames['F4s'] === 'F#' && noteNamesFlats['F4s'] === 'Gb', 'F4s maps to F# in sharps mode and Gb in flats mode');
+assert(noteNames['G4s'] === 'G#' && noteNamesFlats['G4s'] === 'Ab', 'G4s maps to G# in sharps mode and Ab in flats mode');
+
 console.log('\n--- TEST 8: All Instruments in Menu Catalog ---');
 assert(menu.allInstruments.includes("value='diatonicrichter'"), 'Menu includes Diatonic Richter');
 assert(menu.allInstruments.includes("value='guitar'"), 'Menu includes Guitar');

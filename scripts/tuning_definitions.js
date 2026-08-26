@@ -346,7 +346,7 @@ const noteNamesAbs = {};
 (function buildNoteNameMaps() {
     const semitonesSharp = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
     const semitonesFlat  = ['C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B'];
-    for (let oct = 1; oct <= 7; oct++) {
+    for (let oct = 0; oct <= 8; oct++) {
         for (let s = 0; s < 12; s++) {
             const baseLetter = ['C','C','D','D','E','F','F','G','G','A','A','B'][s];
             const isSharp = [0,1,0,1,0,0,1,0,1,0,1,0][s] === 1;

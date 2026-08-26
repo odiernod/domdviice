@@ -17,7 +17,7 @@ An instrument comparator, scale displayer, and tuning visualizer supporting pian
 The main instrument comparison and scale visualizer:
 - **4 Universal Instrument Banks**: Compare any combination of 10-hole Diatonic Harmonicas (21 tunings with half-valving support), Chromatic Harmonicas (12- and 16-hole models across all keys), 6-String Guitars, 4-String Ukuleles, and Pianos.
 - **Dynamic HTML5 Canvas Diagrams**: Clean, responsive, unshaded fretboards and harmonica reed plates with sharp note outlines and position markers.
-- **Scales & Chord Highlights**: Global Key and Scale selector highlighting notes across all banks simultaneously, with root emphasis and scale degree labels (Nashville Number System).
+- **Scales, Degrees & Accidentals Toggle**: Global Key and Scale selector with root emphasis, Nashville Number System degree labels, and a one-click toggle between Sharps (♯ / A#) and Flats (♭ / Bb).
 - **Web Audio Sound**: Interactive note click/sweep with Pluck and Synth playback modes.
 - **Sticky Control Bar & Responsive Layout**: Sticky top header and dynamic side-by-side card arrangement for compact instruments.
 - **Instrument Diagram Printing**: Dedicated Print button on every bank with auto-scaled landscape paper formatting, custom metadata headers, and full fidelity to active note name, scale degree, and highlight settings.
