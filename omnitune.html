@@ -246,7 +246,7 @@ function updateGuitarCanvas(divId, tableId) {
 // cols = number of note columns (frets + 1), rows = number of strings
 // cellW/cellH = measured cell dimensions; offsetX shifts the drawing right
 // labelMargin reserves space at the bottom for the fret numbers
-function drawGuitarFretboard(canvas, cols = 24, rows = 6,
+function drawGuitarFretboard(canvas, cols = 25, rows = 6,
                               cellW = null, cellH = null,
                               offsetX = 0, labelMargin = 28) {
     var ctx = canvas.getContext('2d');
@@ -255,9 +255,13 @@ function drawGuitarFretboard(canvas, cols = 24, rows = 6,
     ctx.strokeStyle = '#000';
     ctx.lineWidth = 1;
 
+    // Number of frets (total columns minus column 0 for open strings)
+    var numFrets = (cols > 1) ? (cols - 1) : cols;
+
     // compute spacing and base x position
     var spacingX = cellW || ((w - offsetX) / cols);
     var baseX = offsetX;
+    var lastFretX = baseX + spacingX * numFrets;
 
     // strings: evenly spaced in the usable area (exclude label margin)
     var usableH = h - labelMargin;
@@ -270,8 +274,8 @@ function drawGuitarFretboard(canvas, cols = 24, rows = 6,
     var topY = stringYs[0];
     var bottomY = stringYs[stringYs.length - 1];
 
-    // draw vertical nut/fret lines only between high/low strings
-    for (var f = 0; f <= cols; f++) {
+    // draw vertical nut/fret lines only between high/low strings up to the 24th fret
+    for (var f = 0; f <= numFrets; f++) {
         var x = baseX + spacingX * f;
         ctx.beginPath();
         ctx.moveTo(x, topY);
@@ -280,24 +284,24 @@ function drawGuitarFretboard(canvas, cols = 24, rows = 6,
         ctx.stroke();
     }
 
-    // draw strings
+    // draw strings: stops cleanly at the 24th fret line
     ctx.lineWidth = 1;
     stringYs.forEach(function(y) {
         ctx.beginPath();
         ctx.moveTo(baseX, y);
-        ctx.lineTo(w, y);
+        ctx.lineTo(lastFretX, y);
         ctx.stroke();
     });
 
     // fret markers (inlay dots)
-    var markers = [3,5,7,9,12,15,17,19,21];
+    var markers = [3, 5, 7, 9, 12, 15, 17, 19, 21, 24];
     ctx.fillStyle = '#444';
     markers.forEach(function(f) {
-        if (f > cols) return;
+        if (f > numFrets) return;
         var mx = baseX + spacingX * (f - 0.5);
         var ry = usableH / 2;
-        if (f === 12) {
-            // draw two vertical dots for 12th fret
+        if (f === 12 || f === 24) {
+            // draw two vertical dots for 12th and 24th frets (octave markers)
             var dy = 8;
             ctx.beginPath(); ctx.arc(mx, ry - dy, 4, 0, Math.PI*2); ctx.fill();
             ctx.beginPath(); ctx.arc(mx, ry + dy, 4, 0, Math.PI*2); ctx.fill();
@@ -309,19 +313,19 @@ function drawGuitarFretboard(canvas, cols = 24, rows = 6,
         }
     });
 
-    // fret numbers at actual fret lines (positioned cleanly in reserved margin)
+    // fret numbers at actual fret lines (0 through 24)
     ctx.fillStyle = '#1e293b';
     ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'bottom';
-    for (var f = 0; f <= cols; f++) {
+    for (var f = 0; f <= numFrets; f++) {
         var x = baseX + spacingX * f;
         ctx.fillText(f, x, h - 4);
     }
 }
 
 // draw a simple ukulele fretboard (4 strings, typical ukulele inlay markers)
-function drawUkuleleFretboard(canvas, cols = 12, rows = 4,
+function drawUkuleleFretboard(canvas, cols = 16, rows = 4,
                               cellW = null, cellH = null,
                               offsetX = 0, labelMargin = 28) {
     var ctx = canvas.getContext('2d');
@@ -330,8 +334,10 @@ function drawUkuleleFretboard(canvas, cols = 12, rows = 4,
     ctx.strokeStyle = '#000';
     ctx.lineWidth = 1;
 
+    var numFrets = (cols > 1) ? (cols - 1) : cols;
     var spacingX = cellW || ((w - offsetX) / cols);
     var baseX = offsetX;
+    var lastFretX = baseX + spacingX * numFrets;
 
     var usableH = h - labelMargin;
     var spacingY = usableH / rows;
@@ -343,7 +349,7 @@ function drawUkuleleFretboard(canvas, cols = 12, rows = 4,
     var topY = stringYs[0];
     var bottomY = stringYs[stringYs.length - 1];
 
-    for (var f = 0; f <= cols; f++) {
+    for (var f = 0; f <= numFrets; f++) {
         var x = baseX + spacingX * f;
         ctx.beginPath();
         ctx.moveTo(x, topY);
@@ -356,15 +362,15 @@ function drawUkuleleFretboard(canvas, cols = 12, rows = 4,
     stringYs.forEach(function(y) {
         ctx.beginPath();
         ctx.moveTo(baseX, y);
-        ctx.lineTo(w, y);
+        ctx.lineTo(lastFretX, y);
         ctx.stroke();
     });
 
-    // ukulele marker frets: usually 5,7,10,12 (double), 15, etc.
-    var markers = [5,7,10,12,15,17,19];
+    // ukulele marker frets: usually 5,7,10,12 (double), 15
+    var markers = [5, 7, 10, 12, 15];
     ctx.fillStyle = '#444';
     markers.forEach(function(f) {
-        if (f > cols) return;
+        if (f > numFrets) return;
         var mx = baseX + spacingX * (f - 0.5);
         var ry = usableH / 2;
         if (f === 12) {
@@ -383,7 +389,7 @@ function drawUkuleleFretboard(canvas, cols = 12, rows = 4,
     ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'bottom';
-    for (var f = 0; f <= cols; f++) {
+    for (var f = 0; f <= numFrets; f++) {
         var x = baseX + spacingX * f;
         ctx.fillText(f, x, h - 4);
     }

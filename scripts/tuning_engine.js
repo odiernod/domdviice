@@ -177,7 +177,7 @@ const TuningEngine = (function() {
     /**
      * Generates HTML table for Guitar.
      */
-    function generateGuitarHtml(tuningKey = 'standard', frets = 22) {
+    function generateGuitarHtml(tuningKey = 'standard', frets = 24) {
         const tuning = GUITAR_TUNINGS[tuningKey] || GUITAR_TUNINGS.standard;
         let html = '';
         for (const openNote of tuning.strings) {

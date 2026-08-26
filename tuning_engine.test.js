@@ -141,6 +141,13 @@ for (const tuningKey of Object.keys(HARMONICA_TUNINGS)) {
     assert(typeof html === 'string' && html.length > 50 && html.includes('table') === false, `${tuningKey} generates valid table rows`);
 }
 
+console.log('\n--- TEST 11: Guitar 24 Frets Generation ---');
+const guitarHtml = TuningEngine.generateGuitarHtml('standard');
+const guitarRows = guitarHtml.trim().split('</tr>').filter(r => r.includes('<tr'));
+assert(guitarRows.length === 6, 'Guitar has 6 strings (rows)');
+const cellCount = (guitarRows[0].match(/<td/g) || []).length;
+assert(cellCount === 25, 'Guitar has 25 columns (open string + 24 frets)');
+
 console.log('\n================================');
 if (failures === 0) {
     console.log('ALL TESTS PASSED SUCCESSFULLY!');
