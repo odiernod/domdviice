@@ -81,7 +81,7 @@
     }
     .control-row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
       gap: 12px;
       align-items: flex-end;
     }
@@ -94,8 +94,18 @@
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.4px;
+      transition: opacity 0.15s ease;
     }
-    [hidden] { display: none !important; }
+    .disabled-field {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    .disabled-field select {
+      background-color: #f8fafc;
+      color: #94a3b8;
+      cursor: not-allowed;
+      border-color: #e2e8f0;
+    }
 
     select, button {
       font-size: 13px;
@@ -483,9 +493,12 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
       }
+      .btn-add-chord {
+        grid-column: span 2;
+      }
       .button-group {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         gap: 8px;
       }
       .scroll-hint-banner {
@@ -498,6 +511,9 @@
     @media (max-width: 480px) {
       .control-row {
         grid-template-columns: 1fr;
+      }
+      .btn-add-chord {
+        grid-column: 1;
       }
       .button-group {
         grid-template-columns: 1fr;
@@ -543,36 +559,52 @@
           </select>
         </label>
 
-        <label>
-          Mode
-          <select id="modeSelect">
-            <option value="chord">Chord</option>
-            <option value="scale">Scale</option>
-          </select>
-        </label>
-
         <label id="rootField">
           Root
           <select id="rootSelect"></select>
         </label>
 
-        <label id="chordQualityField">
-          Quality
-          <select id="chordQualitySelect"></select>
+        <label id="formulaField">
+          Chord / Scale
+          <select id="formulaSelect">
+            <optgroup label="── Chords ──">
+              <option value="chord:">Major (Triad)</option>
+              <option value="chord:m">Minor</option>
+              <option value="chord:7">Dominant 7th</option>
+              <option value="chord:maj7">Major 7th</option>
+              <option value="chord:m7">Minor 7th</option>
+              <option value="chord:5">Power 5th</option>
+              <option value="chord:sus2">Sus2</option>
+              <option value="chord:sus4">Sus4</option>
+              <option value="chord:dim">Diminished</option>
+              <option value="chord:aug">Augmented</option>
+            </optgroup>
+            <optgroup label="── Scales & Modes ──">
+              <option value="scale:major">Major Scale (Ionian)</option>
+              <option value="scale:minor">Natural Minor (Aeolian)</option>
+              <option value="scale:majorPentatonic">Major Pentatonic</option>
+              <option value="scale:minorPentatonic">Minor Pentatonic</option>
+              <option value="scale:dorian">Dorian Mode</option>
+              <option value="scale:phrygian">Phrygian Mode</option>
+              <option value="scale:lydian">Lydian Mode</option>
+              <option value="scale:mixolydian">Mixolydian Mode</option>
+              <option value="scale:harmonicMinor">Harmonic Minor</option>
+              <option value="scale:melodicMinor">Melodic Minor</option>
+            </optgroup>
+          </select>
         </label>
 
         <label id="voicingField">
           Voicing
-          <select id="voicingSelect"></select>
+          <select id="voicingSelect">
+            <option value="standard">Standard</option>
+            <option value="shell">Shell</option>
+          </select>
         </label>
 
-        <label id="scaleTypeField" hidden>
-          Scale
-          <select id="scaleTypeSelect"></select>
-        </label>
+        <button id="addChordBtn" type="button" class="btn-primary btn-add-chord">+ Add to progression</button>
 
         <div class="button-group">
-          <button id="addChordBtn" type="button" class="btn-primary">+ Add chord</button>
           <button id="clearBtn" type="button" class="btn-secondary">Clear progression</button>
           <button id="toggleNoteNamesBtn" type="button" class="btn-secondary btn-toggle active">Hide note names</button>
           <button id="toggleScaleDegreesBtn" type="button" class="btn-secondary btn-toggle active">Hide scale degrees</button>
@@ -601,7 +633,7 @@
           </div>
         </div>
 
-        <div class="status-message" id="statusText">Choose a chord or scale above and click "+ Add chord" to build your progression.</div>
+        <div class="status-message" id="statusText">Choose a chord or scale above and click "+ Add" to build your progression.</div>
       </div>
     </div>
 
@@ -631,43 +663,15 @@
     const fretInspectorText = document.getElementById('fretInspectorText');
 
     const tuningSelect = document.getElementById('tuningSelect');
-    const modeSelect = document.getElementById('modeSelect');
     const rootSelect = document.getElementById('rootSelect');
-    const chordQualitySelect = document.getElementById('chordQualitySelect');
+    const formulaSelect = document.getElementById('formulaSelect');
     const voicingSelect = document.getElementById('voicingSelect');
-    const scaleTypeSelect = document.getElementById('scaleTypeSelect');
+    const voicingField = document.getElementById('voicingField');
+    const addChordBtn = document.getElementById('addChordBtn');
     const noteToggleBtn = document.getElementById('toggleNoteNamesBtn');
     const scaleDegreeToggleBtn = document.getElementById('toggleScaleDegreesBtn');
 
     const ROOT_OPTIONS = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-    const QUALITY_OPTIONS = [
-      { label: 'Major', value: '' },
-      { label: 'Minor', value: 'm' },
-      { label: 'Minor 7', value: 'm7' },
-      { label: 'Major 7', value: 'maj7' },
-      { label: 'Dominant 7', value: '7' },
-      { label: 'Diminished', value: 'dim' },
-      { label: 'Augmented', value: 'aug' },
-      { label: 'Sus2', value: 'sus2' },
-      { label: 'Sus4', value: 'sus4' },
-      { label: 'Power 5', value: '5' }
-    ];
-    const VOICING_OPTIONS = [
-      { label: 'Standard', value: 'standard' },
-      { label: 'Shell', value: 'shell' }
-    ];
-    const SCALE_OPTIONS = [
-      { label: 'Major', value: 'major' },
-      { label: 'Natural minor', value: 'minor' },
-      { label: 'Major pentatonic', value: 'majorPentatonic' },
-      { label: 'Minor pentatonic', value: 'minorPentatonic' },
-      { label: 'Dorian', value: 'dorian' },
-      { label: 'Phrygian', value: 'phrygian' },
-      { label: 'Lydian', value: 'lydian' },
-      { label: 'Mixolydian', value: 'mixolydian' },
-      { label: 'Harmonic minor', value: 'harmonicMinor' },
-      { label: 'Melodic minor', value: 'melodicMinor' }
-    ];
 
     let progression = [];
     let hoverIndex = null;        // Auditioned / Previewed chord (Hover on desktop, Tap on mobile)
@@ -677,36 +681,38 @@
     let showScaleDegrees = true;
     let draggedIndex = null;      // Currently dragged chord pill index for reordering
 
-    function populateChordSelectors() {
+    function populateRootSelector() {
       rootSelect.innerHTML = ROOT_OPTIONS.map((root) => `<option value="${root}">${root}</option>`).join('');
-      chordQualitySelect.innerHTML = QUALITY_OPTIONS.map((quality) => `<option value="${quality.value}">${quality.label}</option>`).join('');
-      voicingSelect.innerHTML = VOICING_OPTIONS.map((voicing) => `<option value="${voicing.value}">${voicing.label}</option>`).join('');
-      scaleTypeSelect.innerHTML = SCALE_OPTIONS.map((scale) => `<option value="${scale.value}">${scale.label}</option>`).join('');
       rootSelect.value = 'C';
-      chordQualitySelect.value = '';
-      voicingSelect.value = 'standard';
-      scaleTypeSelect.value = 'major';
     }
 
-    function updateModeFields() {
-      const isScale = modeSelect.value === 'scale';
-      document.getElementById('chordQualityField').hidden = isScale;
-      document.getElementById('voicingField').hidden = isScale;
-      document.getElementById('scaleTypeField').hidden = !isScale;
-      document.getElementById('addChordBtn').textContent = isScale ? '+ Add Scale' : '+ Add chord';
-    }
-
-    function resolveSelectedChordName() {
+    function updateVoicingStateAndButton() {
+      const val = formulaSelect.value || '';
+      const isScale = val.startsWith('scale:');
       const root = rootSelect.value || 'C';
-      const quality = chordQualitySelect.value || '';
-      return `${root}${quality}`;
-    }
 
-    function resolveSelectedScale() {
-      return {
-        root: rootSelect.value || 'C',
-        type: scaleTypeSelect.value || 'major'
-      };
+      // Gray out and disable Voicing when a scale is selected
+      if (isScale) {
+        voicingSelect.disabled = true;
+        voicingField.classList.add('disabled-field');
+        voicingField.title = 'Voicing applies only to chords, not scales.';
+      } else {
+        voicingSelect.disabled = false;
+        voicingField.classList.remove('disabled-field');
+        voicingField.title = '';
+      }
+
+      // Update Add button text dynamically
+      const selectedOptionText = formulaSelect.options[formulaSelect.selectedIndex].text;
+      if (isScale) {
+        addChordBtn.textContent = `+ Add ${root} ${selectedOptionText}`;
+      } else {
+        const quality = val.slice(6);
+        const voicing = voicingSelect.value;
+        const chordName = `${root}${quality}`;
+        const voicingTag = (!voicingSelect.disabled && voicing === 'shell') ? ' (Shell)' : '';
+        addChordBtn.textContent = `+ Add ${chordName}${voicingTag}`;
+      }
     }
 
     function updateAuditionBar() {
@@ -1086,24 +1092,31 @@
     }
 
     function addSelectedItem() {
-      if (modeSelect.value === 'scale') {
-        const scale = resolveSelectedScale();
-        const scaleOption = SCALE_OPTIONS.find((option) => option.value === scale.type);
+      const root = rootSelect.value || 'C';
+      const formulaVal = formulaSelect.value || 'chord:';
+
+      if (formulaVal.startsWith('scale:')) {
+        const scaleType = formulaVal.slice(6);
+        const selectedText = formulaSelect.options[formulaSelect.selectedIndex].text;
         addProgressionEntry({
           type: 'scale',
-          root: scale.root,
-          scale: scale.type,
-          label: `${scale.root} ${scaleOption ? scaleOption.label : scale.type}`
+          root,
+          scale: scaleType,
+          label: `${root} ${selectedText}`
         });
         return;
       }
 
-      const chord = resolveSelectedChordName();
+      const quality = formulaVal.slice(6);
+      const chord = `${root}${quality}`;
+      const voicing = voicingSelect.value || 'standard';
+      const voicingTag = voicing === 'shell' ? ' (Shell)' : '';
+
       addProgressionEntry({
         type: 'chord',
         chord,
-        voicing: voicingSelect.value || 'standard',
-        label: chord
+        voicing,
+        label: `${chord}${voicingTag}`
       });
     }
 
@@ -1442,7 +1455,7 @@
     guitarCanvas.addEventListener('click', handleCanvasTap);
 
     // Global Buttons & Selectors
-    document.getElementById('addChordBtn').addEventListener('click', addSelectedItem);
+    addChordBtn.addEventListener('click', addSelectedItem);
     document.getElementById('clearBtn').addEventListener('click', clearProgression);
 
     noteToggleBtn.addEventListener('click', () => {
@@ -1463,15 +1476,26 @@
       selectedNoteTarget = null;
       renderFretboard();
     });
-    rootSelect.addEventListener('change', renderFretboard);
-    chordQualitySelect.addEventListener('change', renderFretboard);
-    voicingSelect.addEventListener('change', renderFretboard);
-    scaleTypeSelect.addEventListener('change', renderFretboard);
+
+    rootSelect.addEventListener('change', () => {
+      updateVoicingStateAndButton();
+      renderFretboard();
+    });
+
+    formulaSelect.addEventListener('change', () => {
+      updateVoicingStateAndButton();
+      renderFretboard();
+    });
+
+    voicingSelect.addEventListener('change', () => {
+      updateVoicingStateAndButton();
+      renderFretboard();
+    });
+
     window.addEventListener('resize', renderFretboard);
 
-    populateChordSelectors();
-    modeSelect.addEventListener('change', updateModeFields);
-    updateModeFields();
+    populateRootSelector();
+    updateVoicingStateAndButton();
     renderProgression();
     renderFretboard();
   </script>
