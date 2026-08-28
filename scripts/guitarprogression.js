@@ -10,6 +10,8 @@
   const TUNINGS = {
     standard: ['E2', 'A2', 'D3', 'G3', 'B3', 'E4'],
     ebstandard: ['Eb2', 'Ab2', 'Db3', 'Gb3', 'Bb3', 'Eb4'],
+    allfourth: ['E2', 'A2', 'D3', 'G3', 'C4', 'F4'],
+    ebfourths: ['Eb2', 'Ab2', 'Db3', 'Gb3', 'B3', 'E4'],
     dropd: ['D2', 'A2', 'D3', 'G3', 'B3', 'E4'],
     dadgad: ['D2', 'A2', 'D3', 'G3', 'A3', 'D4'],
     openc: ['C2', 'G2', 'C3', 'G3', 'C4', 'E4'],

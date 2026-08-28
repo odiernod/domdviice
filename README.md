@@ -24,7 +24,7 @@ The main instrument comparison and scale visualizer:
 
 ### 2. Guitar Chord Finder & Progression Visualizer (`guitarprogression.html`)
 An interactive fretboard and harmonic progression explorer for guitarists:
-- **Tuning Catalog**: Standard (EADGBE), Eb Standard, Drop D, DADGAD, Open C, Open E, BEBEBE, Open G, Open D.
+- **Tuning Catalog**: Standard (EADGBE), Eb Standard, Perfect Fourths (EADGCF), Perfect Fourths Eb (EbAbDbGbBE), Drop D, DADGAD, Open C, Open E, BEBEBE, Open G, Open D.
 - **Chord & Scale Modes**: Switch between Chord mode (Roots, Qualities, and Standard/Shell Voicings) and Scale mode (Major, Minor, Pentatonic, Blues, Dorian, Phrygian, Lydian, Mixolydian).
 - **Chord Progression Builder**: Construct multi-chord progressions with color-coded badges, distinct base-pinning (`📌`) and audition-previewing (`👁️`) for desktop and mobile devices.
 - **Mobile-Friendly Audition Controller & Fret Inspector**: Step through chords with touch buttons on phones, horizontally swipe across all 24 frets, and tap any fret note to inspect scale degrees in real time.

@@ -22,6 +22,16 @@ test('Eb standard tuning uses the expected low-to-high string order', () => {
   assert.deepEqual(getTuningNotes('ebstandard'), ['Eb2', 'Ab2', 'Db3', 'Gb3', 'Bb3', 'Eb4']);
 });
 
+test('Perfect Fourths (allfourth) tuning resolves low-to-high EADGCF', () => {
+  assert.deepEqual(getTuningNotes('allfourth'), ['E2', 'A2', 'D3', 'G3', 'C4', 'F4']);
+  assert.deepEqual(getDisplayTuningNotes('allfourth'), ['F4', 'C4', 'G3', 'D3', 'A2', 'E2']);
+});
+
+test('Perfect Fourths Eb (ebfourths) tuning resolves low-to-high EbAbDbGbBE', () => {
+  assert.deepEqual(getTuningNotes('ebfourths'), ['Eb2', 'Ab2', 'Db3', 'Gb3', 'B3', 'E4']);
+  assert.deepEqual(getDisplayTuningNotes('ebfourths'), ['E4', 'B3', 'Gb3', 'Db3', 'Ab2', 'Eb2']);
+});
+
 test('display order shows the high E string at the top and the low E string at the bottom', () => {
   assert.deepEqual(getDisplayTuningNotes('standard'), ['E4', 'B3', 'G3', 'D3', 'A2', 'E2']);
 });
