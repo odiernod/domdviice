@@ -2,154 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Guitar Chord Finder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>OmniTune — Guitar Chord Finder & Progression Visualizer</title>
   <style>
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      padding: 18px;
-      font-family: Arial, sans-serif;
-      background: #edf2f7;
-      color: #1f2937;
+      padding: 14px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      background: #f1f5f9;
+      color: #0f172a;
+      -webkit-tap-highlight-color: transparent;
     }
     .page {
-      max-width: 1400px;
+      max-width: 1440px;
       margin: 0 auto;
     }
-    .toolbar {
-      background: #fff;
-      border: 1px solid #d6dde8;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-      padding: 18px;
-    }
-    .control-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      align-items: flex-end;
-    }
-    label {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      font-size: 13px;
-      color: #475569;
-      font-weight: 700;
-      flex: 1 1 180px;
-    }
-    [hidden] { display: none !important; }
-    select, button {
-      font-size: 14px;
-      border-radius: 8px;
-      border: 1px solid #ccd5e0;
-      padding: 9px 10px;
-      background: #fff;
-      color: #111827;
-      min-height: 40px;
-    }
-    button {
-      cursor: pointer;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-    .status-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 14px;
-      margin-top: 12px;
-      padding-top: 10px;
-      border-top: 1px solid #e5e7eb;
-      flex-wrap: wrap;
-    }
-    .progression-area {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px;
-      min-height: 42px;
-    }
-    .prog-label {
-      font-weight: 700;
-      color: #475569;
-    }
-    .chord-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #f8fafc;
-      border: 1px solid #dfe6ee;
-      border-radius: 999px;
-      padding: 7px 12px;
-      min-height: 36px;
-      cursor: pointer;
-      user-select: none;
-      transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
-    }
-    .chord-pill:hover {
-      transform: translateY(-1px);
-      background: #eef6ff;
-    }
-    .chord-pill.emphasized {
-      box-shadow: 0 0 0 2px currentColor;
-      background: #fffaf0;
-    }
-    .swatch {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      border: 2px solid rgba(0,0,0,0.15);
-      display: inline-block;
-      flex-shrink: 0;
-    }
-    .board-panel {
-      margin-top: 18px;
-      background: #fff;
-      border: 1px solid #d6dde8;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-      padding: 12px;
-      overflow: hidden;
-    }
-    canvas {
-      display: block;
-      width: 100%;
-      height: 440px;
-      background: linear-gradient(#fff, #f4f7fb);
-      border: 1px solid #d6dde8;
-      border-radius: 10px;
-    }
-    .status {
-      min-height: 22px;
-      color: #475569;
-      font-size: 13px;
-      font-weight: 700;
-    }
-    .hint {
-      flex-basis: 100%;
-      color: #64748b;
-      font-size: 12px;
-    }
-    /* --- App Header & Navigation (Resembles OmniTune Title Bar) --- */
+
+    /* --- App Header & Navigation (OmniTune style) --- */
     .app-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
-      padding: 10px 18px;
+      margin-bottom: 14px;
+      padding: 10px 16px;
       background: #ffffff;
       border-radius: 12px;
-      border: 1px solid #d6dde8;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      border: 1px solid #cbd5e1;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 10px;
     }
     .brand-area {
       display: flex;
       align-items: baseline;
       gap: 10px;
+      flex-wrap: wrap;
     }
     .brand-title {
       font-size: 20px;
@@ -159,14 +47,14 @@
       text-decoration: none;
     }
     .brand-subtitle {
-      font-size: 12px;
+      font-size: 13px;
       color: #64748b;
-      font-weight: 500;
+      font-weight: 600;
     }
     .header-nav {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       font-size: 13px;
       font-weight: 600;
       flex-wrap: wrap;
@@ -174,7 +62,7 @@
     .header-nav a {
       color: #2563eb;
       text-decoration: none;
-      padding: 4px 8px;
+      padding: 5px 10px;
       border-radius: 6px;
       transition: background 0.15s ease, color 0.15s ease;
     }
@@ -182,10 +70,447 @@
       background: #eff6ff;
       color: #1d4ed8;
     }
+
+    /* --- Toolbar Panel --- */
+    .toolbar {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      padding: 16px;
+    }
+    .control-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 12px;
+      align-items: flex-end;
+    }
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      font-size: 12px;
+      color: #475569;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    [hidden] { display: none !important; }
+
+    select, button {
+      font-size: 13px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      padding: 8px 10px;
+      background: #fff;
+      color: #0f172a;
+      min-height: 40px;
+      outline: none;
+      font-family: inherit;
+    }
+    select {
+      font-weight: 600;
+      cursor: pointer;
+    }
+    select:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 2px rgba(37,99,235,0.2);
+    }
+    button {
+      cursor: pointer;
+      font-weight: 700;
+      flex-shrink: 0;
+      touch-action: manipulation;
+      transition: all 0.15s ease;
+    }
+    button:active {
+      transform: scale(0.98);
+    }
+    .btn-primary {
+      background-color: #2563eb;
+      border-color: #1d4ed8;
+      color: #ffffff;
+    }
+    .btn-primary:hover {
+      background-color: #1d4ed8;
+    }
+    .btn-secondary {
+      background-color: #f1f5f9;
+      border-color: #cbd5e1;
+      color: #334155;
+    }
+    .btn-secondary:hover {
+      background-color: #e2e8f0;
+      color: #0f172a;
+    }
+    .btn-toggle.active {
+      background-color: #eff6ff;
+      border-color: #3b82f6;
+      color: #1d4ed8;
+    }
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      grid-column: 1 / -1;
+      margin-top: 4px;
+    }
+
+    /* --- Status & Progression Area --- */
+    .status-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid #e2e8f0;
+    }
+    .progression-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .prog-label {
+      font-size: 13px;
+      font-weight: 800;
+      color: #334155;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .progression-area {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      min-height: 44px;
+    }
+
+    /* Progression Pills with Drag & Drop */
+    .chord-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      border: 2px solid #cbd5e1;
+      border-radius: 999px;
+      padding: 4px 6px 4px 8px;
+      min-height: 38px;
+      user-select: none;
+      transition: all 0.15s ease;
+      touch-action: manipulation;
+      cursor: grab;
+      position: relative;
+    }
+    .chord-pill:active {
+      cursor: grabbing;
+    }
+    .chord-pill.empty {
+      color: #64748b;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-style: dashed;
+      background: #f8fafc;
+      cursor: default;
+    }
+    .chord-pill.dragging {
+      opacity: 0.4;
+      transform: scale(0.95);
+      border-style: dashed;
+    }
+    .chord-pill.drag-over {
+      border-color: #2563eb !important;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.3);
+      background: #eff6ff;
+      transform: scale(1.05);
+    }
+    .chord-pill.inspected {
+      box-shadow: 0 0 0 2px #2563eb, 0 4px 10px rgba(37,99,235,0.2);
+      background: #eff6ff;
+      border-color: #2563eb !important;
+    }
+    .chord-pill.emphasized {
+      background: #fffbeb;
+      border-color: #d97706 !important;
+      box-shadow: 0 0 0 2px #f59e0b;
+    }
+    .chord-pill.emphasized.inspected {
+      box-shadow: 0 0 0 2px #2563eb, 0 0 0 4px #f59e0b;
+    }
+
+    .drag-handle {
+      color: #94a3b8;
+      font-size: 12px;
+      cursor: grab;
+      padding: 0 1px;
+      display: inline-flex;
+      align-items: center;
+      line-height: 1;
+    }
+    .swatch {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      border: 2px solid rgba(0,0,0,0.15);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .pill-main-btn {
+      background: transparent;
+      border: none;
+      padding: 2px 4px;
+      font-weight: 800;
+      font-size: 13px;
+      color: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: inherit;
+    }
+    .pill-pin-btn {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #475569;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      min-height: 24px;
+    }
+    .pill-pin-btn:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+    .chord-pill.emphasized .pill-pin-btn {
+      background: #fef3c7;
+      border-color: #fde68a;
+      color: #92400e;
+      font-weight: 800;
+    }
+    .pill-del-btn {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      padding: 0;
+      transition: all 0.15s ease;
+    }
+    .pill-del-btn:hover {
+      color: #ef4444;
+      background: #fee2e2;
+    }
+
+    /* --- Mobile & Desktop Audition Controller --- */
+    .audition-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 8px 12px;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+    .audition-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #1e293b;
+      flex-wrap: wrap;
+    }
+    .badge-inspected {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #2563eb;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 999px;
+    }
+    .badge-pinned {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #f59e0b;
+      color: #78350f;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 999px;
+    }
+    .audition-buttons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .audition-btn {
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      min-height: 32px;
+      border-radius: 6px;
+      background: #fff;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+    }
+    .audition-btn:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+    .audition-btn.active {
+      background: #eff6ff;
+      border-color: #3b82f6;
+      color: #1d4ed8;
+    }
+
+    .status-message {
+      font-size: 13px;
+      font-weight: 600;
+      color: #475569;
+    }
+    .hint {
+      color: #64748b;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    /* --- Board Panel (Fretboard Canvas) --- */
+    .board-panel {
+      margin-top: 14px;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      padding: 12px;
+    }
+    .scroll-hint-banner {
+      display: none;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 6px 10px;
+      margin-bottom: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #475569;
+      text-align: center;
+    }
+    .fretboard-scroll-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      background: #ffffff;
+      scrollbar-width: thin;
+    }
+    canvas {
+      display: block;
+      width: 100%;
+      min-width: 1080px; /* Ensures readable frets on all viewports */
+      height: 420px;
+      background: #ffffff;
+      cursor: crosshair;
+      touch-action: pan-x;
+    }
+
+    .fret-inspector {
+      margin-top: 10px;
+      padding: 9px 14px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 40px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .fret-inspector-content {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .fret-inspector-badge {
+      background: #0f172a;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
+    /* --- Responsive Breakpoints --- */
+    @media (max-width: 768px) {
+      body {
+        padding: 8px;
+      }
+      .app-header {
+        padding: 8px 12px;
+      }
+      .toolbar {
+        padding: 12px;
+      }
+      .control-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      .button-group {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+      .scroll-hint-banner {
+        display: block;
+      }
+      canvas {
+        height: 380px;
+      }
+    }
+    @media (max-width: 480px) {
+      .control-row {
+        grid-template-columns: 1fr;
+      }
+      .button-group {
+        grid-template-columns: 1fr;
+      }
+      .brand-title {
+        font-size: 18px;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="page">
+    <!-- App Header -->
     <header class="app-header">
       <div class="brand-area">
         <a href="omnitune.html" class="brand-title">OmniTune</a>
@@ -197,6 +522,8 @@
         <a href="chordchartgenerator.html">Chord Chart Generator</a>
       </nav>
     </header>
+
+    <!-- Toolbar -->
     <div class="toolbar">
       <div class="control-row">
         <label>
@@ -242,29 +569,65 @@
           <select id="scaleTypeSelect"></select>
         </label>
 
-        <button id="addChordBtn" type="button">Add chord</button>
-        <button id="clearBtn" type="button">Clear progression</button>
-        <button id="toggleNoteNamesBtn" type="button">Hide note names</button>
-        <button id="toggleScaleDegreesBtn" type="button">Hide scale degrees</button>
-        <div class="hint">Hover over a chord or scale label to show its scale degrees.</div>
+        <div class="button-group">
+          <button id="addChordBtn" type="button" class="btn-primary">+ Add chord</button>
+          <button id="clearBtn" type="button" class="btn-secondary">Clear progression</button>
+          <button id="toggleNoteNamesBtn" type="button" class="btn-secondary btn-toggle active">Hide note names</button>
+          <button id="toggleScaleDegreesBtn" type="button" class="btn-secondary btn-toggle active">Hide scale degrees</button>
+        </div>
       </div>
 
+      <!-- Progression Area -->
       <div class="status-bar">
+        <div class="progression-header">
+          <span class="prog-label">Chord Progression</span>
+          <span class="hint">Drag pills to reorder • Tap to preview • Tap 📌 to pin/unpin baseline</span>
+        </div>
         <div class="progression-area" id="progressionList"></div>
-        <div class="status" id="statusText">Choose a chord and build a progression.</div>
+
+        <!-- Mobile & Desktop Audition Controller -->
+        <div class="audition-bar" id="auditionBar" style="display:none;">
+          <div class="audition-info" id="auditionInfo">
+            <span class="badge-inspected" id="auditionBadge">👁️ Auditioning</span>
+            <span id="auditionText">1. C Major</span>
+          </div>
+          <div class="audition-buttons">
+            <button id="auditionPrevBtn" type="button" class="audition-btn" title="Audition previous chord">◀ Prev</button>
+            <button id="auditionNextBtn" type="button" class="audition-btn" title="Audition next chord">Next ▶</button>
+            <button id="auditionPinBtn" type="button" class="audition-btn" title="Pin / Unpin as base anchor">📌 Pin Base</button>
+            <button id="auditionClearBtn" type="button" class="audition-btn" title="Clear audition preview">✕ Dismiss</button>
+          </div>
+        </div>
+
+        <div class="status-message" id="statusText">Choose a chord or scale above and click "+ Add chord" to build your progression.</div>
       </div>
     </div>
 
+    <!-- Fretboard Board Panel -->
     <div class="board-panel">
-      <canvas id="guitarCanvas" width="1200" height="440"></canvas>
+      <div class="scroll-hint-banner">↔ Swipe fretboard horizontally to view all 24 frets</div>
+      <div class="fretboard-scroll-wrapper" id="fretboardScrollWrapper">
+        <canvas id="guitarCanvas" width="1200" height="420"></canvas>
+      </div>
+      <div class="fret-inspector" id="fretInspector">
+        <div class="fret-inspector-content">
+          <span class="fret-inspector-badge">Inspector</span>
+          <span id="fretInspectorText">Tap any fret note or chord pill to inspect harmonic scale degrees.</span>
+        </div>
+      </div>
     </div>
   </div>
 
   <script src="scripts/guitarprogression.js"></script>
   <script>
-    const COLOR_ORDER = ['#ff3b30', '#2ecc71', '#1e90ff', '#f4c430', '#9b59b6', '#ff8c00'];
+    const COLOR_ORDER = ['#2563eb', '#16a34a', '#dc2626', '#d97706', '#7c3aed', '#0891b2'];
     const progressionList = document.getElementById('progressionList');
     const statusText = document.getElementById('statusText');
+    const auditionBar = document.getElementById('auditionBar');
+    const auditionText = document.getElementById('auditionText');
+    const auditionPinBtn = document.getElementById('auditionPinBtn');
+    const fretInspectorText = document.getElementById('fretInspectorText');
+
     const tuningSelect = document.getElementById('tuningSelect');
     const modeSelect = document.getElementById('modeSelect');
     const rootSelect = document.getElementById('rootSelect');
@@ -305,10 +668,12 @@
     ];
 
     let progression = [];
-    let hoverIndex = null;
-    let emphasizedIndex = null;
+    let hoverIndex = null;        // Auditioned / Previewed chord (Hover on desktop, Tap on mobile)
+    let emphasizedIndex = null;   // Pinned baseline chord/scale
+    let selectedNoteTarget = null;// Interactive fretboard tap { stringIndex, fret, note, pitchClass }
     let showNoteNames = true;
     let showScaleDegrees = true;
+    let draggedIndex = null;      // Currently dragged chord pill index for reordering
 
     function populateChordSelectors() {
       rootSelect.innerHTML = ROOT_OPTIONS.map((root) => `<option value="${root}">${root}</option>`).join('');
@@ -326,7 +691,7 @@
       document.getElementById('chordQualityField').hidden = isScale;
       document.getElementById('voicingField').hidden = isScale;
       document.getElementById('scaleTypeField').hidden = !isScale;
-      document.getElementById('addChordBtn').textContent = isScale ? 'Add Scale' : 'Add chord';
+      document.getElementById('addChordBtn').textContent = isScale ? '+ Add Scale' : '+ Add chord';
     }
 
     function resolveSelectedChordName() {
@@ -342,65 +707,359 @@
       };
     }
 
+    function updateAuditionBar() {
+      if (!progression.length) {
+        auditionBar.style.display = 'none';
+        return;
+      }
+      auditionBar.style.display = 'flex';
+
+      const activeIdx = hoverIndex !== null ? hoverIndex : emphasizedIndex;
+      if (activeIdx !== null && progression[activeIdx]) {
+        const item = progression[activeIdx];
+        const isHovered = hoverIndex === activeIdx;
+        const isEmp = emphasizedIndex === activeIdx;
+        const badge = document.getElementById('auditionBadge');
+
+        if (isHovered && isEmp) {
+          badge.textContent = '📌 Base & 👁️ Preview';
+          badge.className = 'badge-pinned';
+        } else if (isEmp) {
+          badge.textContent = '📌 Base Anchor';
+          badge.className = 'badge-pinned';
+        } else {
+          badge.textContent = '👁️ Auditioning';
+          badge.className = 'badge-inspected';
+        }
+
+        auditionText.textContent = `${activeIdx + 1}. ${item.label} (${activeIdx + 1} of ${progression.length})`;
+        auditionPinBtn.textContent = isEmp ? '📌 Unpin Base' : '📌 Pin as Base';
+        auditionPinBtn.classList.toggle('active', isEmp);
+      } else {
+        document.getElementById('auditionBadge').textContent = 'Progression';
+        document.getElementById('auditionBadge').className = 'badge-inspected';
+        auditionText.textContent = `${progression.length} chord${progression.length > 1 ? 's' : ''} loaded`;
+        auditionPinBtn.textContent = '📌 Pin Base';
+        auditionPinBtn.classList.remove('active');
+      }
+    }
+
+    function updateInspectorInfo() {
+      if (selectedNoteTarget) {
+        const { fret, note, pitchClass, openNote, stringIndex } = selectedNoteTarget;
+        const stringNum = 6 - stringIndex; // 1 = high E, 6 = low E
+        const formattedNote = GuitarProgression.formatNoteName(note);
+
+        let parts = [`Fret ${fret} • String ${stringNum} (${openNote}) : ${formattedNote}`];
+
+        // Degree in Pinned / Emphasized Chord
+        if (emphasizedIndex !== null && progression[emphasizedIndex]) {
+          const emp = progression[emphasizedIndex];
+          const deg = GuitarProgression.getScaleDegree(emp.chord || emp.root, pitchClass);
+          if (deg) {
+            parts.push(`📌 ${deg} of ${emp.label} (Base)`);
+          }
+        }
+
+        // Degree in Hovered / Inspected Chord
+        if (hoverIndex !== null && progression[hoverIndex] && hoverIndex !== emphasizedIndex) {
+          const hov = progression[hoverIndex];
+          const deg = GuitarProgression.getScaleDegree(hov.chord || hov.root, pitchClass);
+          if (deg) {
+            parts.push(`👁️ ${deg} of ${hov.label} (Auditioning)`);
+          }
+        }
+
+        // Other chords in progression
+        const otherMatches = [];
+        progression.forEach((p, idx) => {
+          if (idx === emphasizedIndex || idx === hoverIndex) return;
+          const deg = GuitarProgression.getScaleDegree(p.chord || p.root, pitchClass);
+          if (deg) {
+            otherMatches.push(`${deg} of ${p.label}`);
+          }
+        });
+        if (otherMatches.length) {
+          parts.push(`Also in: ${otherMatches.join(', ')}`);
+        }
+
+        fretInspectorText.textContent = parts.join('  |  ');
+      } else if (hoverIndex !== null && progression[hoverIndex]) {
+        const item = progression[hoverIndex];
+        fretInspectorText.textContent = `👁️ Auditioning: ${item.label}. Notes and scale degrees are highlighted on the fretboard.`;
+      } else if (emphasizedIndex !== null && progression[emphasizedIndex]) {
+        const item = progression[emphasizedIndex];
+        fretInspectorText.textContent = `📌 Pinned baseline: ${item.label}. Tap another chord pill to audition it against this base.`;
+      } else {
+        fretInspectorText.textContent = 'Tap any fret note or chord pill to inspect harmonic scale degrees.';
+      }
+    }
+
     function renderProgression() {
       progressionList.innerHTML = '';
 
       if (!progression.length) {
         const empty = document.createElement('div');
-        empty.className = 'chord-pill';
-        empty.style.opacity = '0.7';
-        empty.textContent = 'No chords yet';
+        empty.className = 'chord-pill empty';
+        empty.textContent = 'No chords in progression yet';
         progressionList.appendChild(empty);
+        updateAuditionBar();
+        updateInspectorInfo();
         return;
       }
 
       progression.forEach((entry, index) => {
         const item = document.createElement('div');
         item.className = 'chord-pill';
+        item.draggable = true;
+        item.dataset.index = String(index);
         item.style.borderColor = entry.color;
         item.style.color = entry.color;
-        if (emphasizedIndex === index) item.classList.add('emphasized');
-        item.setAttribute('role', 'button');
-        item.tabIndex = 0;
-        item.title = 'Click to emphasize; click again to clear emphasis.';
 
+        const isEmp = emphasizedIndex === index;
+        const isHover = hoverIndex === index;
+
+        if (isEmp) item.classList.add('emphasized');
+        if (isHover) item.classList.add('inspected');
+
+        // Drag Handle Icon
+        const dragHandle = document.createElement('span');
+        dragHandle.className = 'drag-handle';
+        dragHandle.innerHTML = '⋮⋮';
+        dragHandle.title = 'Click and drag to reorder chord sequence';
+
+        // Color Swatch
         const swatch = document.createElement('span');
         swatch.className = 'swatch';
         swatch.style.background = entry.color;
 
-        const label = document.createElement('span');
-        label.textContent = `${index + 1}. ${entry.label}`;
-        label.style.fontWeight = '700';
+        // Main preview/inspect button
+        const mainBtn = document.createElement('button');
+        mainBtn.type = 'button';
+        mainBtn.className = 'pill-main-btn';
+        mainBtn.innerHTML = `<span>${index + 1}. ${entry.label}</span>`;
+        mainBtn.title = 'Tap to audition/preview this chord on the fretboard';
 
+        // Pin Button: Unpins if currently pinned, or transfers pin to this chord
+        const pinBtn = document.createElement('button');
+        pinBtn.type = 'button';
+        pinBtn.className = 'pill-pin-btn';
+        pinBtn.textContent = isEmp ? '📌 Pinned' : '📌 Pin';
+        pinBtn.title = isEmp ? 'Click to unpin baseline anchor' : 'Click to transfer baseline pin to this chord';
+
+        // Delete Button: Explicit click and touch
+        const delBtn = document.createElement('button');
+        delBtn.type = 'button';
+        delBtn.className = 'pill-del-btn';
+        delBtn.textContent = '✕';
+        delBtn.title = `Remove "${entry.label}" from progression`;
+
+        item.appendChild(dragHandle);
         item.appendChild(swatch);
-        item.appendChild(label);
+        item.appendChild(mainBtn);
+        item.appendChild(pinBtn);
+        item.appendChild(delBtn);
 
+        // --- Drag & Drop Handlers ---
+        item.addEventListener('dragstart', (e) => {
+          draggedIndex = index;
+          e.dataTransfer.effectAllowed = 'move';
+          e.dataTransfer.setData('text/plain', String(index));
+          item.classList.add('dragging');
+        });
+
+        item.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          e.dataTransfer.dropEffect = 'move';
+          item.classList.add('drag-over');
+        });
+
+        item.addEventListener('dragleave', () => {
+          item.classList.remove('drag-over');
+        });
+
+        item.addEventListener('dragend', () => {
+          item.classList.remove('dragging');
+          document.querySelectorAll('.chord-pill').forEach(p => p.classList.remove('drag-over'));
+          draggedIndex = null;
+        });
+
+        item.addEventListener('drop', (e) => {
+          e.preventDefault();
+          item.classList.remove('drag-over');
+          if (draggedIndex !== null && draggedIndex !== index) {
+            reorderProgression(draggedIndex, index);
+          }
+        });
+
+        // --- Touch Drag Support for Mobile ---
+        let touchStartY = 0;
+        let touchStartX = 0;
+        let isTouching = false;
+
+        dragHandle.addEventListener('touchstart', (e) => {
+          touchStartX = e.touches[0].clientX;
+          touchStartY = e.touches[0].clientY;
+          isTouching = true;
+          draggedIndex = index;
+          item.classList.add('dragging');
+        }, { passive: true });
+
+        dragHandle.addEventListener('touchmove', (e) => {
+          if (!isTouching) return;
+          const touch = e.touches[0];
+          const elem = document.elementFromPoint(touch.clientX, touch.clientY);
+          const targetPill = elem ? elem.closest('.chord-pill') : null;
+
+          document.querySelectorAll('.chord-pill').forEach(p => p.classList.remove('drag-over'));
+          if (targetPill && targetPill !== item && targetPill.dataset.index !== undefined) {
+            targetPill.classList.add('drag-over');
+          }
+        }, { passive: true });
+
+        dragHandle.addEventListener('touchend', (e) => {
+          if (!isTouching) return;
+          isTouching = false;
+          item.classList.remove('dragging');
+
+          const touch = e.changedTouches[0];
+          const elem = document.elementFromPoint(touch.clientX, touch.clientY);
+          const targetPill = elem ? elem.closest('.chord-pill') : null;
+
+          document.querySelectorAll('.chord-pill').forEach(p => p.classList.remove('drag-over'));
+
+          if (targetPill && targetPill.dataset.index !== undefined) {
+            const targetIdx = Number(targetPill.dataset.index);
+            if (!isNaN(targetIdx) && targetIdx !== index) {
+              reorderProgression(index, targetIdx);
+            }
+          }
+          draggedIndex = null;
+        });
+
+        // --- Desktop Hover Events (Highlight without rebuilding DOM) ---
         item.addEventListener('mouseenter', () => {
-          hoverIndex = index;
-          renderFretboard();
+          if (window.matchMedia('(hover: hover)').matches && draggedIndex === null) {
+            hoverIndex = index;
+            document.querySelectorAll('.chord-pill').forEach((p, idx) => {
+              p.classList.toggle('inspected', idx === hoverIndex);
+            });
+            updateAuditionBar();
+            updateInspectorInfo();
+            renderFretboard();
+          }
         });
 
         item.addEventListener('mouseleave', () => {
-          hoverIndex = null;
-          renderFretboard();
+          if (window.matchMedia('(hover: hover)').matches && draggedIndex === null) {
+            hoverIndex = null;
+            document.querySelectorAll('.chord-pill').forEach((p) => {
+              p.classList.remove('inspected');
+            });
+            updateAuditionBar();
+            updateInspectorInfo();
+            renderFretboard();
+          }
         });
 
-        item.addEventListener('click', () => {
-          emphasizedIndex = emphasizedIndex === index ? null : index;
+        // --- Mobile / Click Audition Preview Toggle ---
+        mainBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          hoverIndex = (hoverIndex === index) ? null : index;
           renderProgression();
           renderFretboard();
         });
 
-        item.addEventListener('keydown', (event) => {
-          if (event.key !== 'Enter' && event.key !== ' ') return;
-          event.preventDefault();
-          emphasizedIndex = emphasizedIndex === index ? null : index;
+        // --- Pin / Transfer / Unpin Action ---
+        pinBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (emphasizedIndex === index) {
+            // Unpin if currently pinned
+            emphasizedIndex = null;
+            statusText.textContent = `Unpinned baseline anchor.`;
+          } else {
+            // Transfer pin to this chord
+            emphasizedIndex = index;
+            statusText.textContent = `📌 Transferred baseline pin to "${entry.label}".`;
+          }
           renderProgression();
           renderFretboard();
+        });
+
+        // --- Delete Chord Action ---
+        delBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          removeProgressionEntry(index);
         });
 
         progressionList.appendChild(item);
       });
+
+      updateAuditionBar();
+      updateInspectorInfo();
+    }
+
+    function reorderProgression(fromIndex, toIndex) {
+      if (fromIndex < 0 || fromIndex >= progression.length || toIndex < 0 || toIndex >= progression.length) return;
+
+      const [moved] = progression.splice(fromIndex, 1);
+      progression.splice(toIndex, 0, moved);
+
+      // Reassign colors to match new sequence order
+      progression.forEach((entry, idx) => {
+        entry.color = COLOR_ORDER[idx % COLOR_ORDER.length];
+      });
+
+      // Shift emphasizedIndex accurately
+      if (emphasizedIndex === fromIndex) {
+        emphasizedIndex = toIndex;
+      } else if (fromIndex < emphasizedIndex && toIndex >= emphasizedIndex) {
+        emphasizedIndex -= 1;
+      } else if (fromIndex > emphasizedIndex && toIndex <= emphasizedIndex) {
+        emphasizedIndex += 1;
+      }
+
+      // Shift hoverIndex accurately
+      if (hoverIndex === fromIndex) {
+        hoverIndex = toIndex;
+      } else if (fromIndex < hoverIndex && toIndex >= hoverIndex) {
+        hoverIndex -= 1;
+      } else if (fromIndex > hoverIndex && toIndex <= hoverIndex) {
+        hoverIndex += 1;
+      }
+
+      renderProgression();
+      renderFretboard();
+      statusText.textContent = `Moved "${moved.label}" to position ${toIndex + 1}.`;
+    }
+
+    function removeProgressionEntry(index) {
+      if (index < 0 || index >= progression.length) return;
+      const removed = progression.splice(index, 1)[0];
+
+      // Re-assign colors to match updated order
+      progression.forEach((entry, idx) => {
+        entry.color = COLOR_ORDER[idx % COLOR_ORDER.length];
+      });
+
+      if (emphasizedIndex === index) {
+        emphasizedIndex = null;
+      } else if (emphasizedIndex > index) {
+        emphasizedIndex -= 1;
+      }
+
+      if (hoverIndex === index) {
+        hoverIndex = null;
+      } else if (hoverIndex > index) {
+        hoverIndex -= 1;
+      }
+
+      renderProgression();
+      renderFretboard();
+      statusText.textContent = `Removed "${removed.label}" from progression.`;
     }
 
     function addProgressionEntry(entry) {
@@ -411,12 +1070,17 @@
 
       progression.push({
         ...entry,
-        color: COLOR_ORDER[progression.length] || COLOR_ORDER[0],
+        color: COLOR_ORDER[progression.length % COLOR_ORDER.length],
       });
+
+      // Default first chord to emphasized base if none set
+      if (progression.length === 1 && emphasizedIndex === null) {
+        emphasizedIndex = 0;
+      }
 
       renderProgression();
       renderFretboard();
-      statusText.textContent = `${entry.label} added to the progression.`;
+      statusText.textContent = `Added "${entry.label}" to progression.`;
     }
 
     function addSelectedItem() {
@@ -445,6 +1109,7 @@
       progression = [];
       hoverIndex = null;
       emphasizedIndex = null;
+      selectedNoteTarget = null;
       renderProgression();
       renderFretboard();
       statusText.textContent = 'Progression cleared.';
@@ -467,7 +1132,7 @@
       const ctx = canvas.getContext('2d');
       const dpr = window.devicePixelRatio || 1;
       const cssWidth = canvas.clientWidth || 1200;
-      const cssHeight = canvas.clientHeight || 440;
+      const cssHeight = canvas.clientHeight || 420;
 
       canvas.width = Math.round(cssWidth * dpr);
       canvas.height = Math.round(cssHeight * dpr);
@@ -476,7 +1141,7 @@
 
       const boardWidth = cssWidth;
       const boardHeight = cssHeight;
-      const leftPad = 36;
+      const leftPad = 38;
       const rightPad = 28;
       const topPad = 36;
       const bottomPad = 28;
@@ -489,45 +1154,48 @@
       const stringSpacing = usableHeight / Math.max(stringCount - 1, 1);
 
       ctx.clearRect(0, 0, boardWidth, boardHeight);
-      ctx.fillStyle = '#fff';
+      ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, boardWidth, boardHeight);
 
-      // draw fret lines: fret 0 sits exactly on the nut line at the left edge.
+      // Fretboard body background tone
+      ctx.fillStyle = '#fafcff';
+      ctx.fillRect(leftPad, topPad, usableWidth, usableHeight);
+
+      // Draw vertical nut/fret lines only between high/low strings
       for (let fret = 0; fret <= maxFret; fret += 1) {
         const x = leftPad + (fret * fretSpacing);
         ctx.beginPath();
         ctx.moveTo(x, topPad);
         ctx.lineTo(x, topPad + usableHeight);
-        ctx.strokeStyle = fret === 0 ? '#20242c' : '#a7b1bd';
-        ctx.lineWidth = fret === 0 ? 3 : 1;
+        ctx.strokeStyle = fret === 0 ? '#0f172a' : '#cbd5e1';
+        ctx.lineWidth = fret === 0 ? 3.5 : 1;
         ctx.stroke();
       }
 
-      // draw strings
+      // Draw horizontal strings
       const stringYs = [];
       for (let i = 0; i < stringCount; i += 1) {
         const y = topPad + (i * stringSpacing);
         stringYs.push(y);
       }
-      stringYs.forEach((y) => {
+      stringYs.forEach((y, idx) => {
         ctx.beginPath();
         ctx.moveTo(leftPad, y);
         ctx.lineTo(leftPad + usableWidth, y);
-        ctx.strokeStyle = '#1f2937';
-        ctx.lineWidth = 1.2;
+        ctx.strokeStyle = '#334155';
+        ctx.lineWidth = 1 + (idx * 0.35); // thicker for lower strings
         ctx.stroke();
       });
 
-      // draw fret markers to match the OmniTune fretboard: single dots between frets,
-      // with a double dot at the 12th fret.
-      [3, 5, 7, 9, 12, 15, 17, 19, 21].forEach((markerFret) => {
+      // Fret markers: 3, 5, 7, 9, 12 (double), 15, 17, 19, 21, 24 (double)
+      [3, 5, 7, 9, 12, 15, 17, 19, 21, 24].forEach((markerFret) => {
         if (markerFret > maxFret) return;
         const x = leftPad + (markerFret - 0.5) * fretSpacing;
         const y = topPad + usableHeight / 2;
-        ctx.fillStyle = 'rgba(70,70,70,0.8)';
+        ctx.fillStyle = '#94a3b8';
 
-        if (markerFret === 12) {
-          const dy = 8;
+        if (markerFret === 12 || markerFret === 24) {
+          const dy = 9;
           ctx.beginPath();
           ctx.arc(x, y - dy, 4, 0, Math.PI * 2);
           ctx.fill();
@@ -542,11 +1210,11 @@
       });
 
       const toneData = getVisibleToneData();
-
       const nonHighlighted = toneData.filter((entry) => entry.index !== emphasizedIndex && entry.index !== hoverIndex);
       const emphasized = toneData.filter((entry) => entry.index === emphasizedIndex && entry.index !== hoverIndex);
       const hovered = toneData.filter((entry) => entry.index === hoverIndex);
 
+      // PASS 1: Non-highlighted progression chords (28% opacity)
       nonHighlighted.forEach((entry) => {
         entry.positions.forEach((pos) => {
           const x = leftPad + (pos.fret * fretSpacing);
@@ -554,20 +1222,22 @@
 
           ctx.beginPath();
           ctx.fillStyle = entry.color;
-          ctx.globalAlpha = 0.35;
+          ctx.globalAlpha = 0.28;
           ctx.arc(x, y, 12, 0, Math.PI * 2);
           ctx.fill();
           ctx.globalAlpha = 1;
 
           if (showNoteNames) {
-            ctx.fillStyle = '#111827';
-            ctx.font = '11px Arial';
+            ctx.fillStyle = '#64748b';
+            ctx.font = '10px -apple-system, Arial, sans-serif';
             ctx.textAlign = 'center';
-            ctx.fillText(GuitarProgression.formatNoteName(pos.note), x, y - 16);
+            ctx.textBaseline = 'alphabetic';
+            ctx.fillText(GuitarProgression.formatNoteName(pos.note), x, y - 15);
           }
         });
       });
 
+      // PASS 2: Emphasized base chord (Full opacity + distinct border)
       emphasized.forEach((entry) => {
         entry.positions.forEach((pos) => {
           const x = leftPad + (pos.fret * fretSpacing);
@@ -576,12 +1246,16 @@
           ctx.beginPath();
           ctx.fillStyle = entry.color;
           ctx.globalAlpha = 1;
-          ctx.arc(x, y, 12, 0, Math.PI * 2);
+          ctx.arc(x, y, 13, 0, Math.PI * 2);
           ctx.fill();
-          ctx.globalAlpha = 1;
+
+          ctx.strokeStyle = '#ffffff';
+          ctx.lineWidth = 2;
+          ctx.stroke();
         });
       });
 
+      // PASS 3: Auditioned / Hovered chord (Full opacity + outer highlight ring)
       hovered.forEach((entry) => {
         entry.positions.forEach((pos) => {
           const x = leftPad + (pos.fret * fretSpacing);
@@ -590,12 +1264,23 @@
           ctx.beginPath();
           ctx.fillStyle = entry.color;
           ctx.globalAlpha = 1;
-          ctx.arc(x, y, 12, 0, Math.PI * 2);
+          ctx.arc(x, y, 13, 0, Math.PI * 2);
           ctx.fill();
-          ctx.globalAlpha = 1;
+
+          ctx.strokeStyle = '#ffffff';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+
+          // Highlight outer ring
+          ctx.beginPath();
+          ctx.strokeStyle = entry.color;
+          ctx.lineWidth = 2.5;
+          ctx.arc(x, y, 15, 0, Math.PI * 2);
+          ctx.stroke();
         });
       });
 
+      // PASS 4: Labels & Scale Degrees
       [...emphasized, ...hovered].forEach((entry) => {
         entry.positions.forEach((pos) => {
           const x = leftPad + (pos.fret * fretSpacing);
@@ -604,8 +1289,8 @@
             && (hoverIndex === null || entry.index === hoverIndex);
 
           if (showNoteNames) {
-            ctx.fillStyle = '#111827';
-            ctx.font = '11px Arial';
+            ctx.fillStyle = '#0f172a';
+            ctx.font = 'bold 11px -apple-system, Arial, sans-serif';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'alphabetic';
             ctx.fillText(GuitarProgression.formatNoteName(pos.note), x, y - 16);
@@ -615,67 +1300,171 @@
             const scaleDegree = GuitarProgression.getScaleDegree(entry.chord, pos.pitchClass);
             if (!scaleDegree) return;
 
-            ctx.fillStyle = '#000000';
-            ctx.font = 'bold 10px Arial';
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 11px -apple-system, Arial, sans-serif';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            ctx.globalAlpha = 1;
+            ctx.shadowColor = 'rgba(0,0,0,0.8)';
+            ctx.shadowBlur = 2;
             ctx.fillText(scaleDegree, x, y);
+            ctx.shadowBlur = 0;
           }
         });
       });
 
+      // PASS 5: Interactive Note Selection Reticle
+      if (selectedNoteTarget) {
+        const x = leftPad + (selectedNoteTarget.fret * fretSpacing);
+        const y = topPad + ((stringCount - 1 - selectedNoteTarget.stringIndex) * stringSpacing);
+        ctx.beginPath();
+        ctx.strokeStyle = '#2563eb';
+        ctx.lineWidth = 3;
+        ctx.arc(x, y, 18, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
       ctx.globalAlpha = 1;
       ctx.textBaseline = 'alphabetic';
 
+      // Open string note labels at left
       if (showNoteNames) {
         strings.forEach((stringNote, index) => {
           const y = topPad + (index * stringSpacing);
-          ctx.fillStyle = '#1f2937';
-          ctx.font = '11px Arial';
+          ctx.fillStyle = '#0f172a';
+          ctx.font = 'bold 12px -apple-system, Arial, sans-serif';
           ctx.textAlign = 'left';
-          ctx.fillText(GuitarProgression.formatNoteName(stringNote), 6, y + 4);
+          ctx.textBaseline = 'middle';
+          ctx.fillText(GuitarProgression.formatNoteName(stringNote), 6, y);
         });
       }
 
-      // fret numbers align with the fret lines instead of floating midway between them.
-      ctx.fillStyle = '#1f2937';
-      ctx.font = '12px Arial';
+      // Fret numbers aligned at fret lines
+      ctx.fillStyle = '#1e293b';
+      ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
       ctx.textAlign = 'center';
+      ctx.textBaseline = 'bottom';
       for (let fret = 0; fret <= maxFret; fret += 1) {
         const textX = leftPad + (fret * fretSpacing);
-        ctx.fillText(String(fret), textX, boardHeight - 8);
+        ctx.fillText(String(fret), textX, boardHeight - 6);
+      }
+
+      updateInspectorInfo();
+    }
+
+    // Canvas pointer/touch handler
+    function handleCanvasTap(evt) {
+      const canvas = document.getElementById('guitarCanvas');
+      const rect = canvas.getBoundingClientRect();
+      const clientX = evt.touches ? evt.touches[0].clientX : evt.clientX;
+      const clientY = evt.touches ? evt.touches[0].clientY : evt.clientY;
+      const cssX = clientX - rect.left;
+      const cssY = clientY - rect.top;
+
+      const leftPad = 38;
+      const rightPad = 28;
+      const topPad = 36;
+      const bottomPad = 28;
+      const maxFret = 24;
+      const strings = GuitarProgression.getDisplayTuningNotes(tuningSelect.value);
+      const stringCount = strings.length;
+      const usableWidth = (canvas.clientWidth || 1200) - leftPad - rightPad;
+      const usableHeight = (canvas.clientHeight || 420) - topPad - bottomPad;
+      const fretSpacing = usableWidth / maxFret;
+      const stringSpacing = usableHeight / Math.max(stringCount - 1, 1);
+
+      const rawFret = Math.round((cssX - leftPad) / fretSpacing);
+      const fret = Math.max(0, Math.min(maxFret, rawFret));
+
+      const rawString = Math.round((cssY - topPad) / stringSpacing);
+      const displayStringIndex = Math.max(0, Math.min(stringCount - 1, rawString));
+      const physicalStringIndex = stringCount - 1 - displayStringIndex;
+
+      const tuningNotes = GuitarProgression.getTuningNotes(tuningSelect.value);
+      const openNote = tuningNotes[physicalStringIndex];
+      const frettedNote = GuitarProgression.fretNoteForString(openNote, fret);
+
+      if (frettedNote) {
+        const midi = GuitarProgression.noteToMidi(frettedNote);
+        const pitchClass = midi !== null ? (midi % 12) : null;
+        selectedNoteTarget = {
+          stringIndex: physicalStringIndex,
+          displayStringIndex,
+          fret,
+          note: frettedNote,
+          pitchClass,
+          openNote
+        };
+        renderFretboard();
       }
     }
 
-    document.getElementById('addChordBtn').addEventListener('click', () => {
-      addSelectedItem();
+    // Audition Controller buttons
+    document.getElementById('auditionPrevBtn').addEventListener('click', () => {
+      if (!progression.length) return;
+      if (hoverIndex === null) hoverIndex = progression.length - 1;
+      else hoverIndex = (hoverIndex - 1 + progression.length) % progression.length;
+      renderProgression();
+      renderFretboard();
     });
 
+    document.getElementById('auditionNextBtn').addEventListener('click', () => {
+      if (!progression.length) return;
+      if (hoverIndex === null) hoverIndex = 0;
+      else hoverIndex = (hoverIndex + 1) % progression.length;
+      renderProgression();
+      renderFretboard();
+    });
+
+    document.getElementById('auditionPinBtn').addEventListener('click', () => {
+      const targetIdx = hoverIndex !== null ? hoverIndex : emphasizedIndex;
+      if (targetIdx !== null) {
+        if (emphasizedIndex === targetIdx) {
+          emphasizedIndex = null;
+        } else {
+          emphasizedIndex = targetIdx;
+        }
+        renderProgression();
+        renderFretboard();
+      }
+    });
+
+    document.getElementById('auditionClearBtn').addEventListener('click', () => {
+      hoverIndex = null;
+      selectedNoteTarget = null;
+      renderProgression();
+      renderFretboard();
+    });
+
+    // Canvas click & touch listeners
+    const guitarCanvas = document.getElementById('guitarCanvas');
+    guitarCanvas.addEventListener('click', handleCanvasTap);
+
+    // Global Buttons & Selectors
+    document.getElementById('addChordBtn').addEventListener('click', addSelectedItem);
     document.getElementById('clearBtn').addEventListener('click', clearProgression);
 
     noteToggleBtn.addEventListener('click', () => {
       showNoteNames = !showNoteNames;
       noteToggleBtn.textContent = showNoteNames ? 'Hide note names' : 'Show note names';
+      noteToggleBtn.classList.toggle('active', showNoteNames);
       renderFretboard();
     });
 
     scaleDegreeToggleBtn.addEventListener('click', () => {
       showScaleDegrees = !showScaleDegrees;
       scaleDegreeToggleBtn.textContent = showScaleDegrees ? 'Hide scale degrees' : 'Show scale degrees';
+      scaleDegreeToggleBtn.classList.toggle('active', showScaleDegrees);
       renderFretboard();
     });
 
-    tuningSelect.addEventListener('change', renderFretboard);
-    rootSelect.addEventListener('change', () => {
+    tuningSelect.addEventListener('change', () => {
+      selectedNoteTarget = null;
       renderFretboard();
     });
-    chordQualitySelect.addEventListener('change', () => {
-      renderFretboard();
-    });
-    voicingSelect.addEventListener('change', () => {
-      renderFretboard();
-    });
+    rootSelect.addEventListener('change', renderFretboard);
+    chordQualitySelect.addEventListener('change', renderFretboard);
+    voicingSelect.addEventListener('change', renderFretboard);
+    scaleTypeSelect.addEventListener('change', renderFretboard);
     window.addEventListener('resize', renderFretboard);
 
     populateChordSelectors();
