@@ -294,6 +294,40 @@
       color: var(--text-muted);
       font-weight: 600;
     }
+    details.collapsible-workflow-box {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-bottom: 12px;
+    }
+    details.collapsible-workflow-box > summary {
+      list-style: none;
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    details.collapsible-workflow-box > summary::-webkit-details-marker {
+      display: none;
+    }
+    .collapsible-chevron {
+      display: inline-block;
+      font-size: 12px;
+      color: var(--accent);
+      transition: transform 0.18s ease;
+    }
+    details.collapsible-workflow-box[open] .collapsible-chevron {
+      transform: rotate(90deg);
+    }
+    details.collapsible-workflow-box[open] > summary {
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 8px;
+      margin-bottom: 8px;
+    }
     .custom-chord-controls {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
@@ -554,13 +588,6 @@
         <h2 class="card-title">
           <span>🔊 Backing Band, Rhythm &amp; Sound Control Panel</span>
         </h2>
-        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-          <button type="button" id="playStopBtn" class="btn-play">▶ Play Progression</button>
-          <label style="display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:700; cursor:pointer;">
-            <input type="checkbox" id="loopToggle" checked /> Loop
-          </label>
-          <button type="button" id="soundCheckBtn" class="btn-secondary btn-sm" title="Audition current chord sound">🔔 Test Sound</button>
-        </div>
       </div>
 
       <div class="controls-grid">
@@ -767,27 +794,34 @@
         </div>
       </div>
 
-      <!-- QUICK DIATONIC & MODAL DEGREE PADS IN ACTIVE KEY -->
-      <div class="workflow-box" style="margin-bottom:12px;">
-        <div class="workflow-box-header" style="border-bottom:none; padding-bottom:0;">
+      <!-- COLLAPSIBLE QUICK DIATONIC & MODAL DEGREE PADS IN ACTIVE KEY (DEFAULT COLLAPSED) -->
+      <details class="collapsible-workflow-box" id="quickPaletteDetails">
+        <summary>
           <span class="workflow-step-title">
+            <span class="collapsible-chevron">▶</span>
             🎹 Quick Roman Numeral Palette in Key of <span id="paletteKeyLabel" style="color:var(--amber);">C</span>
           </span>
-          <span class="workflow-step-sub">Tap any degree pad below to hear it and immediately append it to the progression</span>
-        </div>
+          <span class="workflow-step-sub">Click to expand — tap any degree pad to hear and append it to the progression</span>
+        </summary>
         <div class="palette-grid" id="degreePaletteGrid"></div>
-      </div>
+      </details>
 
       <!-- INTEGRATED ACTIVE PROGRESSION TIMELINE -->
       <div id="progressionTimelineCard" style="padding-top:4px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:8px;">
           <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
             <span style="font-size:12.5px; font-weight:900; text-transform:uppercase; letter-spacing:0.4px;">⛓️ Active Chord Progression Timeline</span>
             <span id="activeChordBanner" style="font-size:12px; font-weight:800; padding:3px 10px; border-radius:999px; background:rgba(16,185,129,0.16); color:var(--emerald); border:1px solid rgba(16,185,129,0.35);">
               Bar #1
             </span>
           </div>
-          <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <button type="button" id="playStopBtn" class="btn-play">▶ Play Progression</button>
+            <label style="display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:700; cursor:pointer; padding:0 4px;">
+              <input type="checkbox" id="loopToggle" checked /> Loop
+            </label>
+            <button type="button" id="soundCheckBtn" class="btn-secondary btn-sm" title="Audition current chord sound">🔔 Test Sound</button>
+            <span style="width:1px; height:22px; background:var(--border); margin:0 2px;"></span>
             <button type="button" id="prevChordBtn" class="btn-secondary btn-sm">◀ Prev Chord</button>
             <button type="button" id="nextChordBtn" class="btn-secondary btn-sm">Next Chord ▶</button>
             <button type="button" id="pinChordBtn" class="btn-secondary btn-sm">📌 Pin Base</button>
@@ -816,13 +850,8 @@
             <select id="inst1TuningSelect"></select>
           </label>
 
-          <!-- Harmonica Position & Half-Valved Helpers for Instrument 1 -->
+          <!-- Harmonica Half-Valved Helper for Instrument 1 -->
           <div id="inst1HarpHelpers" class="hidden" style="display:flex; align-items:center; gap:4px; flex-wrap:wrap;">
-            <span id="inst1PosBadge" style="font-size:10.5px; font-weight:800; padding:3px 7px; border-radius:4px; background:rgba(16,185,129,0.16); color:var(--emerald);">2nd Pos</span>
-            <button type="button" class="btn-secondary btn-sm harp-pos-btn" data-pos="1" title="1st Position (Straight)">1st</button>
-            <button type="button" class="btn-secondary btn-sm harp-pos-btn" data-pos="2" title="2nd Position (Cross)">2nd</button>
-            <button type="button" class="btn-secondary btn-sm harp-pos-btn" data-pos="3" title="3rd Position (Dorian)">3rd</button>
-            <button type="button" class="btn-secondary btn-sm harp-pos-btn" data-pos="4" title="4th Position (Aeolian Minor)">4th</button>
             <label id="inst1ValvedWrap" style="font-size:11px; font-weight:700; display:inline-flex; align-items:center; gap:3px; cursor:pointer;">
               <input type="checkbox" id="inst1ValvedToggle" /> Valved
             </label>
@@ -1936,6 +1965,8 @@
       diatonicrichter:    { name: 'Richter Harmonica', blow: ['C4','E4','G4','C5','E5','G5','C6','E6','G6','C7'], draw: ['D4','G4','B4','D5','F5','A5','B5','D6','F6','A6'] },
       diatonicwildetuned: { name: 'Wilde Tuned Harmonica', blow: ['C4','E4','G4','C5','E5','E5','G5','C6','E6','A6'], draw: ['D4','G4','B4','D5','F5','G5','B5','D6','G6','C7'] },
       diatonicwildeminor: { name: 'Wilde Minor Harmonica', isMinor: true, baseKey: 'am', blow: ['D4','F4','A4','D5','F5','F5','A5','D6','F6','B6'], draw: ['E4','A4','C5','E5','G5','A5','C6','E6','A6','D7'] },
+      domshredwildeminor: { name: "Dom's 'Shred Minor' 2.5 Octave Tuned Harmonica", isMinor: true, baseKey: 'am', blow: ['D4','F4','A4','D5','F5','F5','A5','D6','F6','F6'], draw: ['E4','A4','C5','E5','G5','A5','C6','E6','G6','A6'] },
+      dorianwildealtered: { name: "Dom's 'Dorian Shred' Altered Wilde Tuned Harmonica", blow: ['C4','E4','G4','C5','D5','E5','G5','C6','E6','A6'], draw: ['D4','G4','Bb4','D5','F5','G5','Bb5','D6','G6','C7'] },
       paddyrichtertuned:  { name: 'Paddy Richter Harmonica', blow: ['C4','E4','A4','C5','E5','G5','C6','E6','G6','C7'], draw: ['D4','G4','B4','D5','F5','A5','B5','D6','F6','A6'] },
       countrytuned:       { name: 'Country Tuned Harmonica', blow: ['C4','E4','G4','C5','E5','G5','C6','E6','G6','C7'], draw: ['D4','G4','B4','D5','F5s','A5','B5','D6','F6','A6'] },
       melodymakertuned:   { name: 'Melody Maker Harmonica', blow: ['C4','E4','A4','C5','E5','G5','C6','E6','G6','C7'], draw: ['D4','G4','B4','D5','F5s','A5','B5','D6','F6','A6'] },
@@ -2195,7 +2226,8 @@
         cols = is16 ? 16 : 12;
         combAfter = 1;
         rowHeaders = ['Blow (Slide In)', 'BLOW (Out)', 'DRAW (Out)', 'Draw (Slide In)'];
-        const off = keyOffsets[instState.tuning] || 0;
+        const cleanKey = String(instState.tuning || 'c').toLowerCase().replace(/m$/, '');
+        const off = keyOffsets[cleanKey] || 0;
         const baseBlow = is16
           ? [48,52,55,60, 60,64,67,72, 72,76,79,84, 84,88,91,96]
           : [60,64,67,72, 72,76,79,84, 84,88,91,96];
@@ -2214,7 +2246,15 @@
         }
       } else {
         const def = harmCatalog[type] || harmCatalog.diatonicrichter;
-        const off = keyOffsets[instState.tuning] || 0;
+        const cleanKey = String(instState.tuning || 'c').toLowerCase().replace(/m$/, '');
+        const targetOffset = keyOffsets[cleanKey] ?? 0;
+        let baseOffset = 0;
+        if (def.isMinor) {
+          // Minor harmonicas (Wilde Minor, Dom's Shred Minor, Natural Minor) are labeled by their 2-Draw root
+          const cleanBaseKey = String(def.baseKey || 'cm').toLowerCase().replace(/m$/, '');
+          baseOffset = keyOffsets[cleanBaseKey] ?? 0;
+        }
+        const off = targetOffset - baseOffset;
         const blowMidi = def.blow.map(n => parseNoteToMidi(n) + off);
         const drawMidi = def.draw.map(n => parseNoteToMidi(n) + off);
 
@@ -2592,10 +2632,32 @@
       }
       if (isHarmonicaType(type)) {
         if (labelEl) labelEl.textContent = 'Harp Key:';
-        if (harpHelpersEl) harpHelpersEl.classList.remove('hidden');
-        const keysList = ['c','db','d','eb','e','f','fs','g','ab','a','bb','b','lowc','lowd','lowe','lowf','highg'];
-        selectEl.innerHTML = keysList.map(k => `<option value="${k}">${k.toUpperCase().replace('FS','F#')}</option>`).join('');
-        if (!keysList.includes(instState.tuning)) instState.tuning = 'c';
+        const isChrom = String(type).startsWith('chromatic');
+        if (harpHelpersEl) harpHelpersEl.classList.toggle('hidden', isChrom);
+        const harmDef = getHarmonicaCatalog()[type];
+        const isMinorHarp = Boolean(harmDef && harmDef.isMinor);
+        const keysList = [
+          { val: 'c', major: 'C', minor: 'Cm' },
+          { val: 'db', major: 'Db', minor: 'Dbm' },
+          { val: 'd', major: 'D', minor: 'Dm' },
+          { val: 'eb', major: 'Eb', minor: 'Ebm' },
+          { val: 'e', major: 'E', minor: 'Em' },
+          { val: 'f', major: 'F', minor: 'Fm' },
+          { val: 'fs', major: 'F#', minor: 'F#m' },
+          { val: 'g', major: 'G', minor: 'Gm' },
+          { val: 'ab', major: 'Ab', minor: 'Abm' },
+          { val: 'a', major: 'A', minor: 'Am' },
+          { val: 'bb', major: 'Bb', minor: 'Bbm' },
+          { val: 'b', major: 'B', minor: 'Bm' },
+          { val: 'lowc', major: 'Low C', minor: 'Low Cm' },
+          { val: 'lowd', major: 'Low D', minor: 'Low Dm' },
+          { val: 'lowe', major: 'Low E', minor: 'Low Em' },
+          { val: 'lowf', major: 'Low F', minor: 'Low Fm' },
+          { val: 'highg', major: 'High G', minor: 'High Gm' }
+        ];
+        selectEl.innerHTML = keysList.map(k => `<option value="${k.val}">${isMinorHarp ? k.minor : k.major}</option>`).join('');
+        const normalizedTuning = String(instState.tuning || 'c').toLowerCase().replace(/m$/, '');
+        instState.tuning = keysList.some(k => k.val === normalizedTuning) ? normalizedTuning : 'c';
         selectEl.value = instState.tuning;
         return;
       }
@@ -2962,20 +3024,6 @@
       document.getElementById('inst1ValvedToggle').addEventListener('change', (e) => {
         STATE.inst1.valved = e.target.checked;
         renderAllVisualizers();
-      });
-
-      // Harmonica Position Quick Buttons
-      document.querySelectorAll('.harp-pos-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const pos = Number(btn.dataset.pos) || 2;
-          const songPc = CHROMATIC.indexOf(STATE.key);
-          const harpPc = ((songPc - (pos - 1) * 7) % 12 + 12) % 12;
-          const keyMap = ['c','db','d','eb','e','f','fs','g','ab','a','bb','b'];
-          STATE.inst1.tuning = keyMap[harpPc];
-          inst1Tun.value = STATE.inst1.tuning;
-          document.getElementById('inst1PosBadge').textContent = `${pos}${pos===1?'st':(pos===2?'nd':(pos===3?'rd':'th'))} Pos`;
-          renderAllVisualizers();
-        });
       });
 
       document.getElementById('toggleDualInstBtn').addEventListener('click', (e) => {

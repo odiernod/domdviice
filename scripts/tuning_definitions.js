@@ -24,6 +24,15 @@ const HARMONICA_KEY_OFFSETS = {
 
 // Minor keys map to semitone shifts relative to C
 const HARMONICA_MINOR_KEY_OFFSETS = {
+    lowc: -12,
+    lowcm: -12,
+    lowd: -10,
+    lowdm: -10,
+    lowe: -8,
+    lowem: -8,
+    lowf: -7,
+    lowfm: -7,
+    g: -5,
     gm: -5,
     ab: -4,
     abm: -4,
@@ -47,7 +56,8 @@ const HARMONICA_MINOR_KEY_OFFSETS = {
     fm: 5,
     fs: 6,
     fsm: 6,
-    g: 7
+    highg: 7,
+    highgm: 7
 };
 
 const HARMONICA_TUNINGS = {
