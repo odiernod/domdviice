@@ -588,7 +588,7 @@
             <option value="bossa">Bossa Nova / Latin Syncopation</option>
             <option value="shuffle">Blues Shuffle Comp</option>
             <option value="arpeggio">Arpeggiated / Broken Chords</option>
-            <option value="funk">Funk / Soul 16th Skank</option>
+            <option value="funk">Funk / Soul 16th Groove</option>
             <option value="folk_strum">Folk / Pop Strum</option>
             <option value="quarters">Steady Quarter-Note Pulse</option>
           </select>
@@ -650,8 +650,8 @@
           Mix (Chords / Bass / Drums)
           <div style="display:flex; gap:6px; align-items:center;">
             <input type="range" id="chordVolSlider" min="0" max="100" value="80" title="Chord Volume" />
-            <input type="range" id="bassVolSlider" min="0" max="100" value="82" title="Bass Volume" />
-            <input type="range" id="drumVolSlider" min="0" max="100" value="70" title="Drum Volume" />
+            <input type="range" id="bassVolSlider" min="0" max="100" value="50" title="Bass Volume" />
+            <input type="range" id="drumVolSlider" min="0" max="100" value="50" title="Drum Volume" />
           </div>
         </label>
       </div>
@@ -1261,8 +1261,8 @@
       bpm: 108,
       drive: 8,
       chordVol: 0.80,
-      bassVol: 0.82,
-      drumVol: 0.70,
+      bassVol: 0.50,
+      drumVol: 0.50,
       chordTimbre: 'epiano',
       compStyle: 'charleston',
       bassMode: 'walking',
@@ -2087,14 +2087,27 @@
 
           const rawNext = (STATE.showNextGhost && nextProfile) ? nextProfile.getRoleForPc(pInfo.pitchClass) : null;
           const ghostRole = (rawNext && STATE.targetRoles.has(rawNext.role) && (rawNext.isGuide || rawNext.role === 'root')) ? rawNext : null;
+          const isScaleTone = isBackgroundScalePitch(pInfo.pitchClass);
 
-          // Optional background scale dot
-          if (!activeRole && !ghostRole && isBackgroundScalePitch(pInfo.pitchClass)) {
+          // Prominent background scale overlay dot
+          if (!activeRole && !ghostRole && isScaleTone) {
             ctx.save();
             ctx.beginPath();
-            ctx.fillStyle = isLight ? 'rgba(100,116,139,0.25)' : 'rgba(148,163,184,0.22)';
-            ctx.arc(x, y, 6, 0, Math.PI * 2);
+            ctx.fillStyle = isLight ? '#7c3aed' : '#8b5cf6';
+            ctx.globalAlpha = 0.88;
+            ctx.arc(x, y, 9.5, 0, Math.PI * 2);
             ctx.fill();
+            ctx.lineWidth = 1.6;
+            ctx.strokeStyle = '#ffffff';
+            ctx.stroke();
+
+            if (STATE.showNotes) {
+              ctx.fillStyle = '#ffffff';
+              ctx.font = 'bold 8.5px ui-monospace, monospace';
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'middle';
+              ctx.fillText(pInfo.pitchName, x, y + 0.5);
+            }
             ctx.restore();
             continue;
           }
@@ -2235,9 +2248,13 @@
       ctx.fillStyle = isLight ? '#ffffff' : '#0b0e15';
       ctx.fillRect(0, 0, w, h);
 
-      const leftPad = 112, rightPad = 18, topPad = 12, bottomPad = 12, combH = 26;
-      const cellW = (w - leftPad - rightPad) / cols;
+      const leftPad = 116, rightPad = 18, topPad = 12, bottomPad = 12, combH = 26;
       const cellH = (h - topPad - bottomPad - combH) / rows;
+      const rawCellW = (w - leftPad - rightPad) / cols;
+      // Compress cell width so 10-hole harmonica notes are compact squares rather than wide rectangles
+      const targetSquareW = isChrom ? Math.round(cellH * 0.92) : Math.round(cellH * 1.18);
+      const cellW = Math.min(rawCellW, Math.max(44, targetSquareW));
+      const gridW = cols * cellW;
       const getRowY = (r) => topPad + r * cellH + (r > combAfter ? combH : 0);
 
       for (let r = 0; r < rows; r++) {
@@ -2251,7 +2268,7 @@
       // Comb Rail
       const combY = topPad + (combAfter + 1) * cellH;
       ctx.fillStyle = isLight ? '#e2e8f0' : '#1e293b';
-      ctx.fillRect(leftPad, combY, w - leftPad - rightPad, combH);
+      ctx.fillRect(leftPad, combY, gridW, combH);
       for (let c = 0; c < cols; c++) {
         ctx.fillStyle = isLight ? '#0f172a' : '#f8fafc';
         ctx.font = 'bold 11.5px ui-monospace, monospace';
@@ -2266,12 +2283,15 @@
         const by = getRowY(cell.r) + 2.5;
         const bw = cellW - 5;
         const bh = cellH - 5;
+        const cx = bx + bw / 2;
+        const cy = by + bh / 2 + 2;
         hitBoxes.push({ x: bx, y: by, w: bw, h: bh, ...cell, label: `Hole ${cell.hole} (${cell.badge})` });
 
         const rawRole = activeProfile.getRoleForPc(cell.pitchClass);
         const activeRole = (rawRole && STATE.targetRoles.has(rawRole.role)) ? rawRole : null;
         const rawNext = (STATE.showNextGhost && nextProfile) ? nextProfile.getRoleForPc(cell.pitchClass) : null;
         const ghostRole = (rawNext && STATE.targetRoles.has(rawNext.role) && (rawNext.isGuide || rawNext.role === 'root')) ? rawNext : null;
+        const isScaleTone = isBackgroundScalePitch(cell.pitchClass);
 
         ctx.save();
         ctx.beginPath();
@@ -2293,6 +2313,12 @@
           ctx.strokeStyle = '#fbbf24';
           ctx.lineWidth = 1.6;
           ctx.stroke();
+        } else if (isScaleTone) {
+          ctx.fillStyle = isLight ? 'rgba(124, 58, 237, 0.12)' : 'rgba(139, 92, 246, 0.16)';
+          ctx.strokeStyle = isLight ? '#7c3aed' : '#8b5cf6';
+          ctx.lineWidth = 1.5;
+          ctx.fill();
+          ctx.stroke();
         } else {
           ctx.fillStyle = cell.isCore ? (isLight ? '#f1f5f9' : '#171e2e') : (isLight ? '#f8fafc' : '#111622');
           ctx.strokeStyle = isLight ? '#cbd5e1' : '#263147';
@@ -2309,17 +2335,33 @@
         ctx.textBaseline = 'top';
         ctx.fillText(cell.badge, bx + 4, by + 3);
 
+        // Prominent Scale Overlay Dot inside harmonica cell when not an active/ghost chord tone
+        if (!activeRole && !ghostRole && isScaleTone) {
+          ctx.save();
+          ctx.beginPath();
+          ctx.fillStyle = isLight ? '#7c3aed' : '#8b5cf6';
+          ctx.globalAlpha = 0.9;
+          ctx.arc(cx, cy + 1, Math.min(11, Math.min(bw, bh) * 0.34), 0, Math.PI * 2);
+          ctx.fill();
+          ctx.lineWidth = 1.4;
+          ctx.strokeStyle = '#ffffff';
+          ctx.stroke();
+          ctx.restore();
+        }
+
         // Center text
         const parts = [];
         if (activeRole && STATE.showDegrees) parts.push(activeRole.degree);
         else if (!activeRole && ghostRole && STATE.showDegrees) parts.push(ghostRole.degree);
         if (STATE.showNotes || !STATE.showDegrees) parts.push(cell.pitchName);
 
-        ctx.fillStyle = activeRole ? (activeRole.role === 'root' ? '#090d16' : '#ffffff') : (isLight ? '#334155' : '#94a3b8');
-        ctx.font = 'bold 10px ui-monospace, monospace';
+        ctx.fillStyle = activeRole
+          ? (activeRole.role === 'root' ? '#090d16' : '#ffffff')
+          : ((!activeRole && !ghostRole && isScaleTone) ? '#ffffff' : (isLight ? '#334155' : '#94a3b8'));
+        ctx.font = 'bold 9.5px ui-monospace, monospace';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText(parts.join('•'), bx + bw / 2, by + bh / 2 + 3);
+        ctx.fillText(parts.join('•'), cx, cy + 1);
       });
 
       instState.hitBoxes = hitBoxes;
@@ -2365,6 +2407,7 @@
           const activeRole = (rawRole && STATE.targetRoles.has(rawRole.role)) ? rawRole : null;
           const rawNext = (STATE.showNextGhost && nextProfile) ? nextProfile.getRoleForPc(pInfo.pitchClass) : null;
           const ghostRole = (rawNext && STATE.targetRoles.has(rawNext.role) && (rawNext.isGuide || rawNext.role === 'root')) ? rawNext : null;
+          const isScaleTone = isBackgroundScalePitch(pInfo.pitchClass);
 
           ctx.fillStyle = activeRole ? activeRole.color : '#f8fafc';
           ctx.strokeStyle = '#334155';
@@ -2377,6 +2420,20 @@
             ctx.fillStyle = ghostRole.color;
             ctx.globalAlpha = 0.32;
             ctx.fillRect(x + 2, y + usableH - 42, whiteW - 5, 36);
+            ctx.restore();
+          }
+
+          // Prominent Scale Overlay Dot on White Key
+          if (!activeRole && !ghostRole && isScaleTone) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.fillStyle = isLight ? '#7c3aed' : '#8b5cf6';
+            ctx.globalAlpha = 0.90;
+            ctx.arc(x + whiteW / 2, y + usableH - 34, Math.min(10, whiteW * 0.34), 0, Math.PI * 2);
+            ctx.fill();
+            ctx.lineWidth = 1.6;
+            ctx.strokeStyle = '#ffffff';
+            ctx.stroke();
             ctx.restore();
           }
 
@@ -2408,12 +2465,29 @@
 
           const rawRole = activeProfile.getRoleForPc(pInfo.pitchClass);
           const activeRole = (rawRole && STATE.targetRoles.has(rawRole.role)) ? rawRole : null;
+          const rawNext = (STATE.showNextGhost && nextProfile) ? nextProfile.getRoleForPc(pInfo.pitchClass) : null;
+          const ghostRole = (rawNext && STATE.targetRoles.has(rawNext.role) && (rawNext.isGuide || rawNext.role === 'root')) ? rawNext : null;
+          const isScaleTone = isBackgroundScalePitch(pInfo.pitchClass);
 
           ctx.fillStyle = activeRole ? activeRole.color : '#0f172a';
           ctx.strokeStyle = activeRole ? '#ffffff' : '#334155';
           ctx.lineWidth = 1.4;
           ctx.fillRect(x, y, blackW, blackH);
           ctx.strokeRect(x, y, blackW, blackH);
+
+          // Prominent Scale Overlay Dot on Black Key
+          if (!activeRole && !ghostRole && isScaleTone) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.fillStyle = isLight ? '#8b5cf6' : '#a78bfa';
+            ctx.globalAlpha = 0.94;
+            ctx.arc(x + blackW / 2, y + blackH - 28, Math.min(8.5, blackW * 0.38), 0, Math.PI * 2);
+            ctx.fill();
+            ctx.lineWidth = 1.5;
+            ctx.strokeStyle = '#ffffff';
+            ctx.stroke();
+            ctx.restore();
+          }
 
           if (activeRole && STATE.showDegrees) {
             ctx.fillStyle = activeRole.role === 'root' ? '#090d16' : '#ffffff';
