@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>OmniTune — Progression Studio, Guide Tone Visualizer & Ear Trainer</title>
+  <title>OmniTune — Progression Studio &amp; Multi-Instrument Guide Tone Visualizer</title>
   <style>
     :root {
       --bg: #0b0e14;
@@ -60,7 +60,8 @@
       transition: background 0.2s ease, color 0.2s ease;
     }
     .page {
-      max-width: 1480px;
+      inline-size: 100%;
+      max-inline-size: 100%;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
@@ -71,14 +72,15 @@
     .app-header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: safe center;
       padding: 10px 16px;
       background: var(--card-bg);
       border-radius: 12px;
       border: 1px solid var(--border);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
       flex-wrap: wrap;
       gap: 12px;
+      inline-size: 100%;
     }
     .brand-area {
       display: flex;
@@ -100,13 +102,13 @@
     }
     .header-right {
       display: flex;
-      align-items: center;
+      align-items: safe center;
       gap: 10px;
       flex-wrap: wrap;
     }
     .header-nav {
       display: flex;
-      align-items: center;
+      align-items: safe center;
       gap: 6px;
       font-size: 13px;
       font-weight: 600;
@@ -123,38 +125,14 @@
       background: rgba(59, 130, 246, 0.14);
     }
 
-    /* --- Mode Tabs --- */
-    .mode-tabs {
-      display: inline-flex;
-      background: var(--input-bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 3px;
-      gap: 4px;
-    }
-    .mode-tab {
-      border: none;
-      background: transparent;
-      color: var(--text-muted);
-      font-size: 12px;
-      font-weight: 800;
-      padding: 6px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      min-height: 30px;
-    }
-    .mode-tab.active {
-      background: var(--accent);
-      color: #ffffff;
-    }
-
     /* --- Cards & Grids --- */
     .card {
+      inline-size: 100%;
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 14px 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
     .card-header-row {
       display: flex;
@@ -250,19 +228,75 @@
       border-radius: 6px;
     }
 
-    /* --- Backing Band & Audio Controls Grid --- */
-    .studio-top-grid {
-      display: grid;
-      grid-template-columns: 1.35fr 1fr;
-      gap: 14px;
+    .btn-danger {
+      background: rgba(244, 63, 94, 0.1);
+      border-color: rgba(244, 63, 94, 0.4);
+      color: var(--rose);
     }
-    @media (max-width: 1100px) {
-      .studio-top-grid { grid-template-columns: 1fr; }
+    .btn-danger:hover {
+      background: var(--rose);
+      border-color: var(--rose);
+      color: #ffffff;
     }
 
+    /* --- Full-Width Sound & Chord Controls Layout --- */
     .controls-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+      gap: 12px;
+      align-items: end;
+      inline-size: 100%;
+    }
+
+    .chord-workflow-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.45fr;
+      gap: 14px;
+      inline-size: 100%;
+      margin-bottom: 12px;
+    }
+    @media (max-width: 1080px) {
+      .chord-workflow-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .workflow-box {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .workflow-box-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 6px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 6px;
+    }
+    .workflow-step-title {
+      font-size: 12.5px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .workflow-step-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .custom-chord-controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
       gap: 10px;
       align-items: end;
     }
@@ -296,15 +330,15 @@
     }
     .key-pill.active {
       background: var(--amber);
-      color: #090d16;
+      color: #ffffff;
       border-color: var(--amber);
     }
 
     .palette-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(98px, 1fr));
       gap: 6px;
-      margin-top: 10px;
+      margin-top: 8px;
     }
     .chord-pad {
       display: flex;
@@ -313,7 +347,7 @@
       justify-content: center;
       padding: 7px 6px;
       border-radius: 8px;
-      background: var(--bg-elevated);
+      background: var(--input-bg);
       border: 1px solid var(--border);
       cursor: pointer;
       transition: all 0.12s ease;
@@ -347,10 +381,10 @@
       flex-wrap: wrap;
       align-items: center;
       gap: 8px;
-      min-height: 52px;
-      padding: 10px;
+      min-height: 54px;
+      padding: 10px 12px;
       background: var(--input-bg);
-      border: 1px solid var(--border-subtle);
+      border: 1px solid var(--border);
       border-radius: 10px;
     }
     .chord-pill {
@@ -369,8 +403,8 @@
     }
     .chord-pill.active-playing {
       border-color: var(--amber) !important;
-      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.28);
-      transform: scale(1.03);
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.25);
+      transform: scale(1.02);
     }
     .chord-pill.next-ghost {
       border-style: dashed;
@@ -448,7 +482,7 @@
       min-height: 28px;
     }
     .deg-pill.on {
-      color: #ffffff;
+      color: var(--text-main);
     }
     .deg-dot {
       width: 9px;
@@ -489,32 +523,6 @@
       gap: 8px;
     }
 
-    /* --- Ear Trainer Quiz Panel --- */
-    .quiz-slot-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin: 12px 0;
-    }
-    @media (max-width: 640px) {
-      .quiz-slot-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    .quiz-slot {
-      min-height: 76px;
-      border-radius: 10px;
-      border: 2px solid var(--border);
-      background: var(--input-bg);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      padding: 8px;
-    }
-    .quiz-slot.selected {
-      border-color: var(--amber);
-      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.22);
-    }
     .hidden { display: none !important; }
   </style>
 </head>
@@ -524,16 +532,11 @@
     <header class="app-header">
       <div class="brand-area">
         <a href="omnitune.html" class="brand-title">OmniTune</a>
-        <span class="brand-subtitle">Progression Studio, Guide Tone Visualizer &amp; Ear Trainer</span>
+        <span class="brand-subtitle">Progression Studio &amp; Multi-Instrument Guide Tone Visualizer</span>
       </div>
 
       <div class="header-right">
-        <div class="mode-tabs" role="tablist">
-          <button type="button" id="tabStudioMode" class="mode-tab active">🎹 Progression Studio</button>
-          <button type="button" id="tabQuizMode" class="mode-tab">🎧 Ear Trainer Quiz</button>
-        </div>
-
-        <button type="button" id="themeToggleBtn" class="btn-secondary btn-sm" title="Switch Light / Dark Theme">☀️ Light Theme</button>
+        <button type="button" id="themeToggleBtn" class="btn-secondary btn-sm" title="Switch Light / Dark Theme">🌙 Dark Theme</button>
 
         <nav class="header-nav" aria-label="Primary navigation">
           <a href="omnitune.html">Compare Instruments</a>
@@ -545,238 +548,257 @@
       </div>
     </header>
 
-    <!-- TOP GRID: TRANSPORT + BACKING BAND ENGINE & CHORD BUILDER -->
-    <div class="studio-top-grid">
-      <!-- LEFT CARD: TRANSPORT, TEMPO & MULTI-TIMBRE BACKING BAND -->
-      <section class="card">
-        <div class="card-header-row">
-          <h2 class="card-title">
-            <span>🔊 Backing Band, Rhythm &amp; Sound Engine</span>
-          </h2>
-          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-            <button type="button" id="playStopBtn" class="btn-play">▶ Play Progression</button>
-            <label style="display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:700; cursor:pointer;">
-              <input type="checkbox" id="loopToggle" checked /> Loop
-            </label>
-            <button type="button" id="soundCheckBtn" class="btn-secondary btn-sm" title="Audition current chord sound">🔔 Test Sound</button>
+    <!-- 1. FULL-WIDTH SOUND CONTROL PANEL (ABOVE CHORD SELECTOR) -->
+    <section class="card" id="soundEngineCard">
+      <div class="card-header-row">
+        <h2 class="card-title">
+          <span>🔊 Backing Band, Rhythm &amp; Sound Control Panel</span>
+        </h2>
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+          <button type="button" id="playStopBtn" class="btn-play">▶ Play Progression</button>
+          <label style="display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:700; cursor:pointer;">
+            <input type="checkbox" id="loopToggle" checked /> Loop
+          </label>
+          <button type="button" id="soundCheckBtn" class="btn-secondary btn-sm" title="Audition current chord sound">🔔 Test Sound</button>
+        </div>
+      </div>
+
+      <div class="controls-grid">
+        <label class="field-label">
+          Chord Instrument / Sound
+          <select id="chordTimbreSelect">
+            <option value="epiano" selected>Electric Piano (Rhodes / Warm Tine)</option>
+            <option value="piano">Acoustic Grand Piano</option>
+            <option value="organ">Warm Organ / Synth Pad</option>
+            <option value="clean_jazz">Jazz Archtop Clean Guitar</option>
+            <option value="clean_pure">Acoustic / Crystal Clean Guitar</option>
+            <option value="blues_drive">Blues Tube Overdrive Guitar</option>
+            <option value="rock_plexi">Rock Crunch Guitar</option>
+            <option value="lead_high">High-Gain Lead Synth/Guitar</option>
+            <option value="mute">Mute Chords (Bass / Drums Only)</option>
+          </select>
+        </label>
+
+        <label class="field-label">
+          Comping / Rhythm Style
+          <select id="compStyleSelect">
+            <option value="sustained">Sustained Whole-Bar Pad</option>
+            <option value="charleston" selected>Syncopated Comp (Charleston / Jazz-Pop)</option>
+            <option value="jazz_swing">Jazz Swing Comping</option>
+            <option value="bossa">Bossa Nova / Latin Syncopation</option>
+            <option value="shuffle">Blues Shuffle Comp</option>
+            <option value="arpeggio">Arpeggiated / Broken Chords</option>
+            <option value="funk">Funk / Soul 16th Skank</option>
+            <option value="folk_strum">Folk / Pop Strum</option>
+            <option value="quarters">Steady Quarter-Note Pulse</option>
+          </select>
+        </label>
+
+        <label class="field-label">
+          Bassline Mode
+          <select id="bassModeSelect">
+            <option value="root">Root Sustained</option>
+            <option value="walking" selected>Walking Bass (1–3–5–Approach)</option>
+            <option value="two_feel">Root–5th Alternating (Two-Feel / Bossa)</option>
+            <option value="eighth">8th-Note Bass Groove</option>
+            <option value="bass_solo">Bass Only (Mutes Upper Chords)</option>
+            <option value="off">Bass Off</option>
+          </select>
+        </label>
+
+        <label class="field-label">
+          Beat / Drum Groove
+          <select id="drumGrooveSelect">
+            <option value="jazz_swing" selected>Jazz Swing Ride &amp; Hi-Hat</option>
+            <option value="shuffle">Blues 12/8 Shuffle</option>
+            <option value="bossa">Bossa Nova / Rimshot</option>
+            <option value="funk">Funk / Neo-Soul Pocket</option>
+            <option value="rock">Pop / Rock 8th Groove</option>
+            <option value="halftime">Half-Time Ballad</option>
+            <option value="metronome">Metronome Click Only</option>
+            <option value="off">Drums Off</option>
+          </select>
+        </label>
+
+        <label class="field-label">
+          Voicing &amp; Inversion
+          <select id="voicingModeSelect">
+            <option value="full" selected>Full Chord (7ths / Extensions)</option>
+            <option value="shell">Shell Voicing (Root–3rd–7th)</option>
+            <option value="triad">Triad Only (Root–3rd–5th)</option>
+            <option value="power">Power 5th (Root–5th)</option>
+            <option value="bass">Bass Note Only</option>
+          </select>
+        </label>
+
+        <label class="field-label">
+          Tempo (BPM: <span id="bpmValueLabel">108</span>)
+          <div class="slider-row">
+            <button type="button" id="bpmDownBtn" class="btn-secondary btn-sm">-5</button>
+            <input type="range" id="bpmSlider" min="40" max="220" value="108" />
+            <input type="number" id="bpmInput" min="40" max="220" value="108" style="width:62px; text-align:center;" />
+            <button type="button" id="bpmUpBtn" class="btn-secondary btn-sm">+5</button>
           </div>
-        </div>
+        </label>
 
-        <div class="controls-grid">
-          <label class="field-label">
-            Chord Instrument / Sound
-            <select id="chordTimbreSelect">
-              <option value="epiano" selected>Electric Piano (Rhodes / Warm Tine)</option>
-              <option value="piano">Acoustic Grand Piano</option>
-              <option value="organ">Warm Organ / Synth Pad</option>
-              <option value="clean_jazz">Jazz Archtop Clean Guitar</option>
-              <option value="clean_pure">Acoustic / Crystal Clean Guitar</option>
-              <option value="blues_drive">Blues Tube Overdrive Guitar</option>
-              <option value="rock_plexi">Rock Crunch Guitar</option>
-              <option value="lead_high">High-Gain Lead Synth/Guitar</option>
-              <option value="mute">Mute Chords (Bass / Drums Only)</option>
-            </select>
-          </label>
+        <label class="field-label">
+          Drive / Saturation (<span id="driveValueLabel">8%</span>)
+          <input type="range" id="driveSlider" min="0" max="100" value="8" />
+        </label>
 
-          <label class="field-label">
-            Comping / Rhythm Style
-            <select id="compStyleSelect">
-              <option value="sustained">Sustained Whole-Bar Pad</option>
-              <option value="charleston" selected>Syncopated Comp (Charleston / Jazz-Pop)</option>
-              <option value="jazz_swing">Jazz Swing Comping</option>
-              <option value="bossa">Bossa Nova / Latin Syncopation</option>
-              <option value="shuffle">Blues Shuffle Comp</option>
-              <option value="arpeggio">Arpeggiated / Broken Chords</option>
-              <option value="funk">Funk / Soul 16th Skank</option>
-              <option value="folk_strum">Folk / Pop Strum</option>
-              <option value="quarters">Steady Quarter-Note Pulse</option>
-            </select>
-          </label>
+        <label class="field-label">
+          Mix (Chords / Bass / Drums)
+          <div style="display:flex; gap:6px; align-items:center;">
+            <input type="range" id="chordVolSlider" min="0" max="100" value="80" title="Chord Volume" />
+            <input type="range" id="bassVolSlider" min="0" max="100" value="82" title="Bass Volume" />
+            <input type="range" id="drumVolSlider" min="0" max="100" value="70" title="Drum Volume" />
+          </div>
+        </label>
+      </div>
+    </section>
 
-          <label class="field-label">
-            Bassline Mode
-            <select id="bassModeSelect">
-              <option value="root">Root Sustained</option>
-              <option value="walking" selected>Walking Bass (1–3–5–Approach)</option>
-              <option value="two_feel">Root–5th Alternating (Two-Feel / Bossa)</option>
-              <option value="eighth">8th-Note Bass Groove</option>
-              <option value="bass_solo">Bass Only (Mutes Upper Chords)</option>
-              <option value="off">Bass Off</option>
-            </select>
-          </label>
-
-          <label class="field-label">
-            Beat / Drum Groove
-            <select id="drumGrooveSelect">
-              <option value="jazz_swing" selected>Jazz Swing Ride &amp; Hi-Hat</option>
-              <option value="shuffle">Blues 12/8 Shuffle</option>
-              <option value="bossa">Bossa Nova / Rimshot</option>
-              <option value="funk">Funk / Neo-Soul Pocket</option>
-              <option value="rock">Pop / Rock 8th Groove</option>
-              <option value="halftime">Half-Time Ballad</option>
-              <option value="metronome">Metronome Click Only</option>
-              <option value="off">Drums Off</option>
-            </select>
-          </label>
-
-          <label class="field-label">
-            Voicing &amp; Inversion
-            <select id="voicingModeSelect">
-              <option value="full" selected>Full Chord (7ths / Extensions)</option>
-              <option value="shell">Shell Voicing (Root–3rd–7th)</option>
-              <option value="triad">Triad Only (Root–3rd–5th)</option>
-              <option value="power">Power 5th (Root–5th)</option>
-              <option value="bass">Bass Note Only</option>
-            </select>
-          </label>
-
-          <label class="field-label">
-            Tempo (BPM: <span id="bpmValueLabel">108</span>)
-            <div class="slider-row">
-              <button type="button" id="bpmDownBtn" class="btn-secondary btn-sm">-5</button>
-              <input type="range" id="bpmSlider" min="40" max="220" value="108" />
-              <input type="number" id="bpmInput" min="40" max="220" value="108" style="width:62px; text-align:center;" />
-              <button type="button" id="bpmUpBtn" class="btn-secondary btn-sm">+5</button>
-            </div>
-          </label>
-
-          <label class="field-label">
-            Drive / Saturation (<span id="driveValueLabel">8%</span>)
-            <input type="range" id="driveSlider" min="0" max="100" value="8" />
-          </label>
-
-          <label class="field-label">
-            Mix (Chords / Bass / Drums)
-            <div style="display:flex; gap:6px; align-items:center;">
-              <input type="range" id="chordVolSlider" min="0" max="100" value="80" title="Chord Volume" />
-              <input type="range" id="bassVolSlider" min="0" max="100" value="82" title="Bass Volume" />
-              <input type="range" id="drumVolSlider" min="0" max="100" value="70" title="Drum Volume" />
-            </div>
-          </label>
-        </div>
-      </section>
-
-      <!-- RIGHT CARD: PRESET GENRE PROGRESSIONS & CUSTOM CHORD BUILDER -->
-      <section class="card">
-        <div class="card-header-row">
-          <h2 class="card-title">🎼 Key Center, Genre Presets &amp; Custom Chord Builder</h2>
-          <div style="display:flex; align-items:center; gap:6px;">
-            <span style="font-size:11px; color:var(--text-muted); font-weight:800;">KEY:</span>
+    <!-- 2. FULL-WIDTH CHORD SELECTOR & PROGRESSION BUILDER -->
+    <section class="card" id="chordBuilderCard">
+      <div class="card-header-row">
+        <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+          <h2 class="card-title">🎼 Chord Selector &amp; Progression Builder</h2>
+          <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+            <span style="font-size:11px; color:var(--text-muted); font-weight:800;">SONG KEY:</span>
             <div class="key-pills" id="keyPillsContainer"></div>
           </div>
         </div>
 
-        <div class="controls-grid">
-          <label class="field-label" style="grid-column: span 2;">
-            Load Multi-Genre Progression Preset
-            <select id="presetProgSelect"></select>
-          </label>
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+          <button type="button" id="undoChordBtn" class="btn-secondary btn-sm" title="Remove the last chord in the progression">↩ Undo Last Chord</button>
+          <button type="button" id="clearProgBtn" class="btn-danger btn-sm" title="Clear all chords from the current progression">🗑 Clear Progression</button>
+        </div>
+      </div>
 
-          <label class="field-label">
-            Add Custom Root
-            <select id="customRootSelect"></select>
-          </label>
-
-          <label class="field-label">
-            All 21 OmniTune Chord Qualities
-            <select id="customQualitySelect">
-              <optgroup label="── Triads &amp; Suspended ──">
-                <option value="maj">Major Triad</option>
-                <option value="m">Minor Triad (m)</option>
-                <option value="sus2">Suspended 2nd (sus2)</option>
-                <option value="sus4">Suspended 4th (sus4)</option>
-                <option value="5">Power Chord (5)</option>
-                <option value="dim">Diminished (dim)</option>
-                <option value="aug">Augmented (aug)</option>
-              </optgroup>
-              <optgroup label="── 7th Chords (Jazz / Blues / Soul) ──">
-                <option value="7" selected>Dominant 7th (7)</option>
-                <option value="maj7">Major 7th (maj7)</option>
-                <option value="m7">Minor 7th (m7)</option>
-                <option value="m7b5">Half-Diminished (m7♭5 / ø7)</option>
-                <option value="dim7">Diminished 7th (dim7)</option>
-                <option value="mmaj7">Minor-Major 7th (mMaj7)</option>
-                <option value="7sus4">Dominant 7sus4 (7sus4)</option>
-              </optgroup>
-              <optgroup label="── 6th &amp; Extended 9th Chords ──">
-                <option value="6">Major 6th (6)</option>
-                <option value="m6">Minor 6th (m6)</option>
-                <option value="6add9">Major 6/9 (6add9)</option>
-                <option value="m6add9">Minor 6/9 (m6add9)</option>
-                <option value="add9">Major add9 (add9)</option>
-                <option value="9">Dominant 9th (9)</option>
-                <option value="maj9">Major 9th (maj9)</option>
-                <option value="m9">Minor 9th (m9)</option>
-              </optgroup>
-            </select>
-          </label>
-
-          <label class="field-label">
-            Inversion / Bass
-            <select id="customInversionSelect">
-              <option value="0">Root Position</option>
-              <option value="1">1st Inv (3rd in Bass)</option>
-              <option value="2">2nd Inv (5th in Bass)</option>
-              <option value="3">3rd Inv (7th in Bass)</option>
-            </select>
-          </label>
-
-          <button type="button" id="addCustomChordBtn" class="btn-primary">+ Add Chord</button>
+      <!-- TWO DISTINCT WORKFLOWS: PRESET PROGRESSION vs. INDIVIDUAL CUSTOM CHORD -->
+      <div class="chord-workflow-grid">
+        <!-- WORKFLOW A: LOAD A PRESET PROGRESSION -->
+        <div class="workflow-box">
+          <div class="workflow-box-header">
+            <span class="workflow-step-title">📂 Load a Preset Progression</span>
+            <span class="workflow-step-sub">Replaces current timeline with a full progression</span>
+          </div>
+          <div style="display:flex; gap:8px; align-items:flex-end; flex-wrap:wrap;">
+            <label class="field-label" style="flex:1 1 240px;">
+              Multi-Genre Progression Library (Blues, Rock, Jazz, Soul, Folk)
+              <select id="presetProgSelect"></select>
+            </label>
+            <button type="button" id="reloadPresetBtn" class="btn-secondary" title="Reload the selected preset progression">🔄 Load Preset</button>
+          </div>
+          <div id="presetSummaryBadge" style="font-size:11.5px; color:var(--text-muted); font-family:ui-monospace,monospace; padding:4px 8px; background:var(--input-bg); border:1px solid var(--border-subtle); border-radius:6px;">
+            Preset Chords: I7 – I7 – I7 – I7 – IV7 – IV7 – I7 – I7 – V7 – IV7 – I7 – V7
+          </div>
         </div>
 
-        <!-- Quick Diatonic & Modal Degree Pads in Active Key -->
-        <div style="margin-top:10px;">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <span style="font-size:11px; font-weight:800; color:var(--text-muted); text-transform:uppercase;">
-              Quick Degree Palette in Key of <span id="paletteKeyLabel" style="color:var(--amber);">C</span> (Tap to Audition &amp; Append):
+        <!-- WORKFLOW B: BUILD & ADD AN INDIVIDUAL CHORD -->
+        <div class="workflow-box">
+          <div class="workflow-box-header">
+            <span class="workflow-step-title">➕ Build &amp; Add an Individual Chord</span>
+            <span class="workflow-step-sub">Pick root, chord quality, and inversion to append a single chord</span>
+          </div>
+          <div class="custom-chord-controls">
+            <label class="field-label">
+              Chord Root Note
+              <select id="customRootSelect"></select>
+            </label>
+
+            <label class="field-label" style="grid-column: span 2;">
+              Chord Quality (All 21 OmniTune Chords)
+              <select id="customQualitySelect">
+                <optgroup label="── Triads &amp; Power Chords ──">
+                  <option value="maj">Major Triad (maj)</option>
+                  <option value="m">Minor Triad (m)</option>
+                  <option value="5">Power Chord (5)</option>
+                  <option value="sus2">Suspended 2nd (sus2)</option>
+                  <option value="sus4">Suspended 4th (sus4)</option>
+                  <option value="dim">Diminished Triad (dim)</option>
+                  <option value="aug">Augmented Triad (aug)</option>
+                </optgroup>
+                <optgroup label="── 7th Chords (Blues / Jazz / Rock) ──">
+                  <option value="7" selected>Dominant 7th (7)</option>
+                  <option value="maj7">Major 7th (maj7)</option>
+                  <option value="m7">Minor 7th (m7)</option>
+                  <option value="m7b5">Half-Diminished (m7♭5 / ø7)</option>
+                  <option value="dim7">Diminished 7th (dim7)</option>
+                  <option value="mmaj7">Minor-Major 7th (mMaj7)</option>
+                  <option value="7sus4">Dominant 7sus4 (7sus4)</option>
+                </optgroup>
+                <optgroup label="── 6th &amp; Extended 9th Chords ──">
+                  <option value="6">Major 6th (6)</option>
+                  <option value="m6">Minor 6th (m6)</option>
+                  <option value="6add9">Major 6/9 (6add9)</option>
+                  <option value="m6add9">Minor 6/9 (m6add9)</option>
+                  <option value="add9">Major add9 (add9)</option>
+                  <option value="9">Dominant 9th (9)</option>
+                  <option value="maj9">Major 9th (maj9)</option>
+                  <option value="m9">Minor 9th (m9)</option>
+                </optgroup>
+              </select>
+            </label>
+
+            <label class="field-label">
+              Inversion / Bass
+              <select id="customInversionSelect">
+                <option value="0">Root Position</option>
+                <option value="1">1st Inv (3rd in Bass)</option>
+                <option value="2">2nd Inv (5th in Bass)</option>
+                <option value="3">3rd Inv (7th in Bass)</option>
+              </select>
+            </label>
+
+            <label class="field-label">
+              Bar Length
+              <select id="customBarsSelect">
+                <option value="0.5">½ Bar</option>
+                <option value="1" selected>1 Bar</option>
+                <option value="2">2 Bars</option>
+              </select>
+            </label>
+
+            <div style="display:flex; gap:6px; align-items:center;">
+              <button type="button" id="previewCustomChordBtn" class="btn-secondary" title="Hear this chord before adding it">🔊 Hear</button>
+              <button type="button" id="addCustomChordBtn" class="btn-primary" style="flex:1; white-space:nowrap;">+ Add C7</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUICK DIATONIC & MODAL DEGREE PADS IN ACTIVE KEY -->
+      <div class="workflow-box" style="margin-bottom:12px;">
+        <div class="workflow-box-header" style="border-bottom:none; padding-bottom:0;">
+          <span class="workflow-step-title">
+            🎹 Quick Roman Numeral Palette in Key of <span id="paletteKeyLabel" style="color:var(--amber);">C</span>
+          </span>
+          <span class="workflow-step-sub">Tap any degree pad below to hear it and immediately append it to the progression</span>
+        </div>
+        <div class="palette-grid" id="degreePaletteGrid"></div>
+      </div>
+
+      <!-- INTEGRATED ACTIVE PROGRESSION TIMELINE -->
+      <div id="progressionTimelineCard" style="padding-top:4px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+          <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+            <span style="font-size:12.5px; font-weight:900; text-transform:uppercase; letter-spacing:0.4px;">⛓️ Active Chord Progression Timeline</span>
+            <span id="activeChordBanner" style="font-size:12px; font-weight:800; padding:3px 10px; border-radius:999px; background:rgba(16,185,129,0.16); color:var(--emerald); border:1px solid rgba(16,185,129,0.35);">
+              Bar #1
             </span>
           </div>
-          <div class="palette-grid" id="degreePaletteGrid"></div>
+          <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+            <button type="button" id="prevChordBtn" class="btn-secondary btn-sm">◀ Prev Chord</button>
+            <button type="button" id="nextChordBtn" class="btn-secondary btn-sm">Next Chord ▶</button>
+            <button type="button" id="pinChordBtn" class="btn-secondary btn-sm">📌 Pin Base</button>
+          </div>
         </div>
-      </section>
-    </div>
 
-    <!-- EAR TRAINER QUIZ PANEL (Hidden when in Studio Mode) -->
-    <section id="earTrainerPanel" class="card hidden">
-      <div class="card-header-row">
-        <h2 class="card-title">🎧 Multi-Genre Ear Trainer Quiz Mode</h2>
-        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
-          <span style="font-size:12px; font-weight:800;">Score: <strong id="quizScoreLabel" style="color:var(--emerald);">0/0</strong></span>
-          <span style="font-size:12px; font-weight:800;">Streak: <strong id="quizStreakLabel" style="color:var(--amber);">0 🔥</strong></span>
-          <button type="button" id="quizNewBtn" class="btn-primary btn-sm">🎲 New Mystery Progression</button>
-          <button type="button" id="quizPlayTonicBtn" class="btn-secondary btn-sm">🔔 Play Tonic (I)</button>
-          <button type="button" id="quizCheckBtn" class="btn-play btn-sm">✔ Check Guess</button>
-          <button type="button" id="quizRevealBtn" class="btn-secondary btn-sm">👁️ Reveal Answer</button>
-        </div>
+        <div class="progression-area" id="progressionTimeline"></div>
       </div>
-      <div style="font-size:12.5px; color:var(--text-muted);">
-        Listen to the progression in Key of <strong id="quizKeyLabel" style="color:var(--amber);">C</strong>. Tap a bar slot below, then click any chord pad in the Quick Degree Palette above to fill in your answer!
-      </div>
-      <div id="quizSlotsContainer" class="quiz-slot-grid"></div>
-      <div id="quizFeedbackMsg" style="font-size:13px; font-weight:700; min-height:22px;"></div>
     </section>
 
-    <!-- PROGRESSION TIMELINE & VOICE-LEADING CHAIN -->
-    <section class="card" id="progressionTimelineCard">
-      <div class="card-header-row" style="margin-bottom:8px;">
-        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
-          <h2 class="card-title">⛓️ Active Chord Progression Timeline</h2>
-          <span id="activeChordBanner" style="font-size:12px; font-weight:800; padding:3px 10px; border-radius:999px; background:rgba(16,185,129,0.16); color:var(--emerald); border:1px solid rgba(16,185,129,0.35);">
-            Bar #1
-          </span>
-        </div>
-        <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
-          <button type="button" id="prevChordBtn" class="btn-secondary btn-sm">◀ Prev</button>
-          <button type="button" id="nextChordBtn" class="btn-secondary btn-sm">Next ▶</button>
-          <button type="button" id="pinChordBtn" class="btn-secondary btn-sm">📌 Pin Base</button>
-          <button type="button" id="clearProgBtn" class="btn-secondary btn-sm">🗑 Clear</button>
-        </div>
-      </div>
-
-      <div class="progression-area" id="progressionTimeline"></div>
-    </section>
-
-    <!-- MULTI-INSTRUMENT GUIDE TONE VISUALIZER -->
+    <!-- 3. MULTI-INSTRUMENT GUIDE TONE VISUALIZER -->
     <section class="card">
       <div class="card-header-row">
         <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
@@ -873,11 +895,11 @@
         <canvas id="inst1Canvas" class="inst-canvas" width="1220" height="330"></canvas>
       </div>
 
-      <!-- OPTIONAL SECONDARY INSTRUMENT COMPARISON STAGE -->
+      <!-- OPTIONAL SECONDARY INSTRUMENT COMPARISON STAGE (LEFT-ALIGNED CONTROLS RIGHT AFTER TITLE) -->
       <div id="inst2Stage" class="hidden" style="margin-top:14px; padding-top:12px; border-top:1px solid var(--border-subtle);">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
-          <strong style="font-size:12px; text-transform:uppercase; color:var(--text-muted);">🔄 Secondary Comparison Instrument</strong>
-          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+        <div style="display:flex; justify-content:flex-start; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:8px;">
+          <strong style="font-size:12.5px; text-transform:uppercase; color:var(--text-main); letter-spacing:0.4px;">🔄 Second Instrument</strong>
+          <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
             <label style="font-size:11px; font-weight:800; color:var(--text-muted); display:flex; align-items:center; gap:5px;">
               Instrument 2:
               <select id="inst2Select"></select>
@@ -977,8 +999,9 @@
       { rn: '♭VII7',  semi: 10, q: '7' }
     ];
 
-    // Multi-Genre Progression Preset Library (General Music: Blues, Jazz, Pop/Soul, Folk, Rock)
+    // Multi-Genre Progression Preset Library (General Music: Blues, Rock, Jazz, Pop/Soul/Funk, Folk/World)
     const PROGRESSION_PRESETS = [
+      // ── BLUES ──
       {
         category: 'Blues',
         name: 'Classic 12-Bar Blues (Standard Turnaround)',
@@ -1019,6 +1042,138 @@
           { semi: 2, q: 'm7', rn: 'iim7' }, { semi: 7, q: '7', rn: 'V7' }, { semi: 0, q: '7', rn: 'I7' }, { semi: 7, q: '7', rn: 'V7' }
         ]
       },
+
+      // ── ROCK ──
+      {
+        category: 'Rock',
+        name: 'Classic Rock Mixolydian Loop (I – ♭VII – IV – I)',
+        bpm: 120, timbre: 'rock_plexi', comp: 'folk_strum', bass: 'eighth', drum: 'rock',
+        chords: [
+          { semi: 0, q: 'maj', rn: 'I' }, { semi: 10, q: 'maj', rn: '♭VII' }, { semi: 5, q: 'maj', rn: 'IV' }, { semi: 0, q: 'maj', rn: 'I' }
+        ]
+      },
+      {
+        category: 'Rock',
+        name: 'Power Mixolydian Chug (I – IV – ♭VII – I)',
+        bpm: 122, timbre: 'rock_plexi', comp: 'quarters', bass: 'eighth', drum: 'rock',
+        chords: [
+          { semi: 0, q: 'maj', rn: 'I' }, { semi: 5, q: 'maj', rn: 'IV' }, { semi: 10, q: 'maj', rn: '♭VII' }, { semi: 0, q: 'maj', rn: 'I' }
+        ]
+      },
+      {
+        category: 'Rock',
+        name: 'Aeolian Step-Down Walk (i – ♭VII – ♭VI – ♭VII)',
+        bpm: 116, timbre: 'rock_plexi', comp: 'quarters', bass: 'eighth', drum: 'rock',
+        chords: [
+          { semi: 0, q: 'm', rn: 'i' }, { semi: 10, q: 'maj', rn: '♭VII' }, { semi: 8, q: 'maj', rn: '♭VI' }, { semi: 10, q: 'maj', rn: '♭VII' }
+        ]
+      },
+      {
+        category: 'Rock',
+        name: 'Epic Aeolian Ascending Climb (i – ♭VI – ♭VII – i)',
+        bpm: 128, timbre: 'rock_plexi', comp: 'quarters', bass: 'eighth', drum: 'rock',
+        chords: [
+          { semi: 0, q: 'm', rn: 'i' }, { semi: 8, q: 'maj', rn: '♭VI' }, { semi: 10, q: 'maj', rn: '♭VII' }, { semi: 0, q: 'm', rn: 'i' }
+        ]
+      },
+      {
+        category: 'Rock',
+        name: 'Blues-Rock Pentatonic Punch (I7 – ♭III – IV7 – I7)',
+        bpm: 114, timbre: 'blues_drive', comp: 'quarters', bass: 'eighth', drum: 'rock',
+        chords: [
+          { semi: 0, q: '7', rn: 'I7' }, { semi: 3, q: 'maj', rn: '♭III' }, { semi: 5, q: '7', rn: 'IV7' }, { semi: 0, q: '7', rn: 'I7' }
+        ]
+      },
+      {
+        category: 'Rock',
+        name: 'Arena Rock / Garage Loop (I – IV – V – IV)',
+        bpm: 126, timbre: 'rock_plexi', comp: 'quarters', bass: 'eighth', drum: 'rock',
+        chords: [
+          { semi: 0, q: 'maj', rn: 'I' }, { semi: 5, q: 'maj', rn: 'IV' }, { semi: 7, q: 'maj', rn: 'V' }, { semi: 5, q: 'maj', rn: 'IV' }
+        ]
+      },
+      {
+        category: 'Rock',
+        name: 'Grunge Dual Chromatic Borrow (I – ♭III – ♭VII – IV)',
+        bpm: 110, timbre: 'rock_plexi', comp: 'folk_strum', bass: 'eighth', drum: 'rock',
+        chords: [
+          { semi: 0, q: 'maj', rn: 'I' }, { semi: 3, q: 'maj', rn: '♭III' }, { semi: 10, q: 'maj', rn: '♭VII' }, { semi: 5, q: 'maj', rn: 'IV' }
+        ]
+      },
+      {
+        category: 'Rock',
+        name: 'Nirvana Chromatic Mediant Shift (I – ♭VI – IV – V)',
+        bpm: 118, timbre: 'rock_plexi', comp: 'folk_strum', bass: 'eighth', drum: 'rock',
+        chords: [
+          { semi: 0, q: 'maj', rn: 'I' }, { semi: 8, q: 'maj', rn: '♭VI' }, { semi: 5, q: 'maj', rn: 'IV' }, { semi: 7, q: 'maj', rn: 'V' }
+        ]
+      },
+      {
+        category: 'Rock',
+        name: 'Alternative Chromatic Stomp (I – IV – ♭VI – V)',
+        bpm: 116, timbre: 'rock_plexi', comp: 'quarters', bass: 'eighth', drum: 'rock',
+        chords: [
+          { semi: 0, q: 'maj', rn: 'I' }, { semi: 5, q: 'maj', rn: 'IV' }, { semi: 8, q: 'maj', rn: '♭VI' }, { semi: 7, q: 'maj', rn: 'V' }
+        ]
+      },
+      {
+        category: 'Rock',
+        name: 'Minor-Start Alt-Rock / Pop-Punk (vi – IV – I – V)',
+        bpm: 130, timbre: 'rock_plexi', comp: 'quarters', bass: 'eighth', drum: 'rock',
+        chords: [
+          { semi: 9, q: 'm', rn: 'vi' }, { semi: 5, q: 'maj', rn: 'IV' }, { semi: 0, q: 'maj', rn: 'I' }, { semi: 7, q: 'maj', rn: 'V' }
+        ]
+      },
+      {
+        category: 'Rock',
+        name: 'Minor Heavy Rock Crunch (i – ♭VI – ♭III – ♭VII)',
+        bpm: 118, timbre: 'rock_plexi', comp: 'quarters', bass: 'eighth', drum: 'rock',
+        chords: [
+          { semi: 0, q: 'm', rn: 'i' }, { semi: 8, q: 'maj', rn: '♭VI' }, { semi: 3, q: 'maj', rn: '♭III' }, { semi: 10, q: 'maj', rn: '♭VII' }
+        ]
+      },
+      {
+        category: 'Rock',
+        name: 'Southern Rock Cadence (I – ♭VII – I – IV)',
+        bpm: 114, timbre: 'blues_drive', comp: 'folk_strum', bass: 'two_feel', drum: 'rock',
+        chords: [
+          { semi: 0, q: 'maj', rn: 'I' }, { semi: 10, q: 'maj', rn: '♭VII' }, { semi: 0, q: 'maj', rn: 'I' }, { semi: 5, q: 'maj', rn: 'IV' }
+        ]
+      },
+      {
+        category: 'Rock',
+        name: 'Dorian Classic Rock Groove (im7 – IV7 – im7 – IV7)',
+        bpm: 112, timbre: 'organ', comp: 'charleston', bass: 'two_feel', drum: 'rock',
+        chords: [
+          { semi: 0, q: 'm7', rn: 'im7' }, { semi: 5, q: '7', rn: 'IV7' }, { semi: 0, q: 'm7', rn: 'im7' }, { semi: 5, q: '7', rn: 'IV7' }
+        ]
+      },
+      {
+        category: 'Rock',
+        name: 'Phrygian Heavy Metal Slam (i5 – ♭II5 – i5 – V7)',
+        bpm: 124, timbre: 'lead_high', comp: 'quarters', bass: 'eighth', drum: 'rock',
+        chords: [
+          { semi: 0, q: '5', rn: 'i5' }, { semi: 1, q: '5', rn: '♭II5' }, { semi: 0, q: '5', rn: 'i5' }, { semi: 7, q: '7', rn: 'V7' }
+        ]
+      },
+      {
+        category: 'Rock',
+        name: 'Subtonic Dominant Launchpad (I – ♭VII – V – I)',
+        bpm: 122, timbre: 'rock_plexi', comp: 'quarters', bass: 'eighth', drum: 'rock',
+        chords: [
+          { semi: 0, q: 'maj', rn: 'I' }, { semi: 10, q: 'maj', rn: '♭VII' }, { semi: 7, q: 'maj', rn: 'V' }, { semi: 0, q: 'maj', rn: 'I' }
+        ]
+      },
+      {
+        category: 'Rock',
+        name: 'Classic Rock Plagal Bounce (I – IV – I – V)',
+        bpm: 124, timbre: 'blues_drive', comp: 'folk_strum', bass: 'two_feel', drum: 'rock',
+        chords: [
+          { semi: 0, q: 'maj', rn: 'I' }, { semi: 5, q: 'maj', rn: 'IV' }, { semi: 0, q: 'maj', rn: 'I' }, { semi: 7, q: 'maj', rn: 'V' }
+        ]
+      },
+
+      // ── JAZZ ──
       {
         category: 'Jazz',
         name: 'Jazz ii–V–I–VI Major Turnaround',
@@ -1044,6 +1199,8 @@
           { semi: 11, q: 'm7b5', rn: 'viiø7' }, { semi: 4, q: '7', rn: 'III7' }, { semi: 9, q: 'm7', rn: 'vim7' }, { semi: 9, q: 'm6', rn: 'vim6' }
         ]
       },
+
+      // ── POP / SOUL / FUNK ──
       {
         category: 'Pop / Soul / Funk',
         name: 'Neo-Soul / R&B Royal Road (IVmaj7–V7–iiim7–vim7)',
@@ -1069,7 +1226,17 @@
         ]
       },
       {
-        category: 'Folk / World / Rock',
+        category: 'Pop / Soul / Funk',
+        name: '50s Doo-Wop & Soul Ballad (I – vi – IV – V)',
+        bpm: 100, timbre: 'epiano', comp: 'arpeggio', bass: 'two_feel', drum: 'halftime',
+        chords: [
+          { semi: 0, q: 'maj', rn: 'I' }, { semi: 9, q: 'm', rn: 'vi' }, { semi: 5, q: 'maj', rn: 'IV' }, { semi: 7, q: '7', rn: 'V7' }
+        ]
+      },
+
+      // ── FOLK / WORLD ──
+      {
+        category: 'Folk / World',
         name: 'Andalusian Flamenco / Gypsy Descent (i – ♭VII – ♭VI – V7)',
         bpm: 110, timbre: 'clean_pure', comp: 'arpeggio', bass: 'two_feel', drum: 'bossa',
         chords: [
@@ -1077,9 +1244,9 @@
         ]
       },
       {
-        category: 'Folk / World / Rock',
-        name: 'Mixolydian Celtic / Classic Rock Loop (I – ♭VII – IV – I)',
-        bpm: 118, timbre: 'clean_jazz', comp: 'folk_strum', bass: 'two_feel', drum: 'rock',
+        category: 'Folk / World',
+        name: 'Celtic Mixolydian Acoustic Reel (I – ♭VII – IV – I)',
+        bpm: 118, timbre: 'clean_pure', comp: 'folk_strum', bass: 'two_feel', drum: 'rock',
         chords: [
           { semi: 0, q: 'maj', rn: 'I' }, { semi: 10, q: 'maj', rn: '♭VII' }, { semi: 5, q: 'maj', rn: 'IV' }, { semi: 0, q: 'maj', rn: 'I' }
         ]
@@ -1090,7 +1257,6 @@
        2. STUDIO STATE & TARGET DEGREE LOGIC
        ========================================================================= */
     const STATE = {
-      mode: 'studio', // 'studio' | 'quiz'
       key: 'C',
       bpm: 108,
       drive: 8,
@@ -1115,16 +1281,7 @@
       inst2: { enabled: false, type: 'diatonicrichter', tuning: 'f', valved: false, hitBoxes: [] },
       selectedTarget: null,
       progression: [],
-      loopTimeouts: [],
-      quiz: {
-        answerChords: [],
-        userGuesses: [],
-        selectedSlot: 0,
-        revealed: false,
-        score: 0,
-        total: 0,
-        streak: 0
-      }
+      loopTimeouts: []
     };
 
     const ROLE_META = {
@@ -1683,7 +1840,7 @@
         stopPlayback();
         return;
       }
-      const activeList = STATE.mode === 'quiz' ? STATE.quiz.answerChords : STATE.progression;
+      const activeList = STATE.progression;
       if (!activeList.length) return;
 
       await ensureAudio();
@@ -1698,7 +1855,7 @@
 
     function schedulePlaybackPass() {
       if (!STATE.isPlaying) return;
-      const activeList = STATE.mode === 'quiz' ? STATE.quiz.answerChords : STATE.progression;
+      const activeList = STATE.progression;
       if (!activeList.length) {
         stopPlayback();
         return;
@@ -1828,7 +1985,7 @@
     }
 
     function getActiveAndNextProfiles() {
-      const list = STATE.mode === 'quiz' ? STATE.quiz.answerChords : STATE.progression;
+      const list = STATE.progression;
       if (!list.length) {
         const fallback = getChordProfile({ semi: 0, q: 'maj7', rn: 'Imaj7' });
         return { activeProfile: fallback, nextProfile: null, pinnedProfile: null };
@@ -2394,19 +2551,15 @@
           <span class="pad-guides">${prof.thirdDeg}:${prof.thirdNote} • ${prof.seventhDeg}:${prof.seventhNote}</span>
         `;
         btn.addEventListener('click', () => {
-          auditionSingleChord(item);
-          if (STATE.mode === 'quiz') {
-            STATE.quiz.userGuesses[STATE.quiz.selectedSlot] = { ...item };
-            if (STATE.quiz.selectedSlot < STATE.quiz.userGuesses.length - 1) {
-              STATE.quiz.selectedSlot++;
-            }
-            renderQuizSlots();
-          } else {
-            STATE.progression.push({ ...item, bars: 1, inversion: Number(document.getElementById('customInversionSelect').value) || 0 });
-            STATE.activeBarIndex = STATE.progression.length - 1;
-            renderProgressionTimeline();
-            renderAllVisualizers();
-          }
+          const bars = parseFloat(document.getElementById('customBarsSelect')?.value) || 1;
+          const inv = Number(document.getElementById('customInversionSelect')?.value) || 0;
+          const entry = { ...item, bars, inversion: inv };
+          auditionSingleChord(entry);
+          STATE.progression.push(entry);
+          STATE.activeBarIndex = STATE.progression.length - 1;
+          renderProgressionTimeline();
+          renderAllVisualizers();
+          rescheduleIfPlaying();
         });
         grid.appendChild(btn);
       });
@@ -2419,7 +2572,8 @@
 
       container.innerHTML = '';
       if (!STATE.progression.length) {
-        container.innerHTML = `<span style="color:var(--text-muted); font-size:12.5px;">No chords in timeline. Choose a Genre Preset or tap any Degree Pad above!</span>`;
+        if (banner) banner.textContent = 'Empty Timeline';
+        container.innerHTML = `<span style="color:var(--text-muted); font-size:12.5px;">No chords in timeline. Load a Preset Progression above, build a Custom Chord, or tap any Roman Numeral pad!</span>`;
         return;
       }
 
@@ -2427,7 +2581,7 @@
       const nextIdx = (activeIdx + 1) % STATE.progression.length;
       const activeProf = getChordProfile(STATE.progression[activeIdx]);
       if (banner) {
-        banner.textContent = `${STATE.isPlaying ? '▶ PLAYING' : 'AUDITIONING'} #${activeIdx + 1}: ${activeProf.symbol} (${activeProf.rn})`;
+        banner.textContent = `${STATE.isPlaying ? '▶ PLAYING' : 'SELECTED'} #${activeIdx + 1}: ${activeProf.symbol} (${activeProf.rn})`;
       }
 
       STATE.progression.forEach((entry, idx) => {
@@ -2479,55 +2633,46 @@
     }
 
     /* =========================================================================
-       6. EAR TRAINER QUIZ MODE
-       ========================================================================= */
-    function startNewQuizQuestion() {
-      stopPlayback();
-      const preset = PROGRESSION_PRESETS[Math.floor(Math.random() * PROGRESSION_PRESETS.length)];
-      STATE.quiz.answerChords = preset.chords.map(c => ({ ...c, bars: 1 }));
-      STATE.quiz.userGuesses = new Array(STATE.quiz.answerChords.length).fill(null);
-      STATE.quiz.selectedSlot = 0;
-      STATE.quiz.revealed = false;
-      document.getElementById('quizFeedbackMsg').textContent = `Mystery "${preset.category}" progression loaded (${STATE.quiz.answerChords.length} bars). Press Play Progression to listen!`;
-      renderQuizSlots();
-    }
-
-    function renderQuizSlots() {
-      const container = document.getElementById('quizSlotsContainer');
-      const keyLbl = document.getElementById('quizKeyLabel');
-      if (keyLbl) keyLbl.textContent = STATE.key;
-      if (!container) return;
-
-      container.innerHTML = '';
-      STATE.quiz.answerChords.forEach((ans, idx) => {
-        const guess = STATE.quiz.userGuesses[idx];
-        const slot = document.createElement('div');
-        slot.className = `quiz-slot ${STATE.quiz.selectedSlot === idx ? 'selected' : ''}`;
-        const guessProf = guess ? getChordProfile(guess) : null;
-        const ansProf = getChordProfile(ans);
-
-        slot.innerHTML = `
-          <span style="font-size:10px; color:var(--text-dim); font-weight:800;">BAR ${idx + 1}</span>
-          <span style="font-size:16px; font-weight:900; color:${guessProf ? 'var(--amber)' : 'var(--text-dim)'};">
-            ${guessProf ? `${guessProf.symbol} (${guess.rn})` : '—'}
-          </span>
-          ${STATE.quiz.revealed ? `<span style="font-size:11px; color:var(--emerald); font-weight:800;">Answer: ${ansProf.symbol} (${ans.rn})</span>` : ''}
-        `;
-        slot.addEventListener('click', () => {
-          STATE.quiz.selectedSlot = idx;
-          renderQuizSlots();
-        });
-        container.appendChild(slot);
-      });
-    }
-
-    /* =========================================================================
-       7. INITIALIZATION & EVENT WIRING
+       6. INITIALIZATION & EVENT WIRING
        ========================================================================= */
     document.addEventListener('DOMContentLoaded', () => {
-      // Populate Key Pills & Custom Root Select
       const keyPills = document.getElementById('keyPillsContainer');
       const customRoot = document.getElementById('customRootSelect');
+      const customQuality = document.getElementById('customQualitySelect');
+      const customInversion = document.getElementById('customInversionSelect');
+      const customBars = document.getElementById('customBarsSelect');
+      const addCustomBtn = document.getElementById('addCustomChordBtn');
+      const presetSel = document.getElementById('presetProgSelect');
+      const presetSummary = document.getElementById('presetSummaryBadge');
+
+      function getPendingCustomChordEntry() {
+        const root = customRoot.value || STATE.key;
+        const q = customQuality.value || '7';
+        const inv = Number(customInversion.value) || 0;
+        const bars = parseFloat(customBars.value) || 1;
+        const semi = ((CHROMATIC.indexOf(root) - CHROMATIC.indexOf(STATE.key)) % 12 + 12) % 12;
+        return { root, semi, q, rn: `${root}${CHORD_FORMULAS[q]?.suffix || ''}`, inversion: inv, bars };
+      }
+
+      function updateCustomChordButtonLabel() {
+        const entry = getPendingCustomChordEntry();
+        const prof = getChordProfile(entry);
+        const barTxt = entry.bars === 0.5 ? '½b' : `${entry.bars}b`;
+        if (addCustomBtn) {
+          addCustomBtn.textContent = `+ Add ${prof.symbol} (${barTxt})`;
+        }
+      }
+
+      function updatePresetSummaryBadge() {
+        const idx = Number(presetSel.value) || 0;
+        const p = PROGRESSION_PRESETS[idx];
+        if (!p || !presetSummary) return;
+        const chordNames = p.chords.map(c => getChordProfile(c).symbol).join(' – ');
+        const rnNames = p.chords.map(c => c.rn).join(' – ');
+        presetSummary.textContent = `Key of ${STATE.key}: ${chordNames}   (${rnNames})`;
+      }
+
+      // Populate Key Pills & Custom Root Select
       CHROMATIC.forEach(k => {
         const b = document.createElement('button');
         b.type = 'button';
@@ -2536,9 +2681,16 @@
         b.addEventListener('click', () => {
           STATE.key = k;
           document.querySelectorAll('.key-pill').forEach(p => p.classList.toggle('active', p.textContent === k));
+          // Clear hardcoded root on diatonic chords so they transpose cleanly with Song Key
+          STATE.progression.forEach(entry => {
+            if (entry.semi !== undefined && !entry.isFixedRoot) {
+              delete entry.root;
+            }
+          });
           renderDegreePalette();
+          updatePresetSummaryBadge();
+          updateCustomChordButtonLabel();
           renderProgressionTimeline();
-          renderQuizSlots();
           renderAllVisualizers();
           rescheduleIfPlaying();
         });
@@ -2550,13 +2702,19 @@
         customRoot.appendChild(opt);
       });
 
-      // Populate Genre Progression Presets
-      const presetSel = document.getElementById('presetProgSelect');
-      PROGRESSION_PRESETS.forEach((p, idx) => {
-        const opt = document.createElement('option');
-        opt.value = String(idx);
-        opt.textContent = `[${p.category}] ${p.name}`;
-        presetSel.appendChild(opt);
+      // Populate Genre Progression Presets grouped by Category (<optgroup>)
+      const categories = [...new Set(PROGRESSION_PRESETS.map(p => p.category))];
+      categories.forEach(cat => {
+        const group = document.createElement('optgroup');
+        group.label = `── ${cat} Progressions ──`;
+        PROGRESSION_PRESETS.forEach((p, idx) => {
+          if (p.category !== cat) return;
+          const opt = document.createElement('option');
+          opt.value = String(idx);
+          opt.textContent = p.name;
+          group.appendChild(opt);
+        });
+        presetSel.appendChild(group);
       });
 
       function loadPresetByIndex(idx) {
@@ -2579,22 +2737,48 @@
         document.getElementById('bassModeSelect').value = STATE.bassMode;
         document.getElementById('drumGrooveSelect').value = STATE.drumGroove;
 
+        updatePresetSummaryBadge();
         renderProgressionTimeline();
         renderAllVisualizers();
       }
 
       presetSel.addEventListener('change', (e) => loadPresetByIndex(Number(e.target.value)));
+      document.getElementById('reloadPresetBtn').addEventListener('click', () => loadPresetByIndex(Number(presetSel.value) || 0));
 
-      // Add Custom Chord button
-      document.getElementById('addCustomChordBtn').addEventListener('click', () => {
-        const root = customRoot.value;
-        const q = document.getElementById('customQualitySelect').value;
-        const inv = Number(document.getElementById('customInversionSelect').value) || 0;
-        const semi = ((CHROMATIC.indexOf(root) - CHROMATIC.indexOf(STATE.key)) % 12 + 12) % 12;
-        const entry = { root, semi, q, rn: `${root}${CHORD_FORMULAS[q]?.suffix || ''}`, inversion: inv, bars: 1 };
+      // Live update for Custom Single-Chord Builder controls
+      [customRoot, customQuality, customInversion, customBars].forEach(el => {
+        el.addEventListener('change', updateCustomChordButtonLabel);
+      });
+
+      document.getElementById('previewCustomChordBtn').addEventListener('click', () => {
+        auditionSingleChord(getPendingCustomChordEntry());
+      });
+
+      addCustomBtn.addEventListener('click', () => {
+        const entry = getPendingCustomChordEntry();
+        entry.isFixedRoot = true;
         auditionSingleChord(entry);
         STATE.progression.push(entry);
         STATE.activeBarIndex = STATE.progression.length - 1;
+        renderProgressionTimeline();
+        renderAllVisualizers();
+        rescheduleIfPlaying();
+      });
+
+      // Undo & Clear Progression Buttons (located right next to chord controls)
+      document.getElementById('undoChordBtn').addEventListener('click', () => {
+        if (!STATE.progression.length) return;
+        STATE.progression.pop();
+        STATE.activeBarIndex = Math.max(0, STATE.progression.length - 1);
+        renderProgressionTimeline();
+        renderAllVisualizers();
+        rescheduleIfPlaying();
+      });
+
+      document.getElementById('clearProgBtn').addEventListener('click', () => {
+        stopPlayback();
+        STATE.progression = [];
+        STATE.activeBarIndex = 0;
         renderProgressionTimeline();
         renderAllVisualizers();
       });
@@ -2603,7 +2787,7 @@
       document.getElementById('playStopBtn').addEventListener('click', startOrTogglePlayback);
       document.getElementById('loopToggle').addEventListener('change', (e) => { STATE.loop = e.target.checked; });
       document.getElementById('soundCheckBtn').addEventListener('click', () => {
-        const item = STATE.progression[STATE.activeBarIndex] || { semi: 0, q: 'maj7', rn: 'Imaj7' };
+        const item = STATE.progression[STATE.activeBarIndex] || getPendingCustomChordEntry();
         auditionSingleChord(item);
       });
 
@@ -2677,13 +2861,6 @@
       });
       document.getElementById('pinChordBtn').addEventListener('click', () => {
         STATE.pinnedIndex = STATE.pinnedIndex === STATE.activeBarIndex ? null : STATE.activeBarIndex;
-        renderProgressionTimeline();
-        renderAllVisualizers();
-      });
-      document.getElementById('clearProgBtn').addEventListener('click', () => {
-        stopPlayback();
-        STATE.progression = [];
-        STATE.activeBarIndex = 0;
         renderProgressionTimeline();
         renderAllVisualizers();
       });
@@ -2817,7 +2994,7 @@
       attachCanvasTap('inst1Canvas', STATE.inst1);
       attachCanvasTap('inst2Canvas', STATE.inst2);
 
-      // Theme Toggle
+      // Theme Toggle (Light Theme is default)
       document.getElementById('themeToggleBtn').addEventListener('click', (e) => {
         const cur = document.documentElement.getAttribute('data-theme');
         const next = cur === 'light' ? 'dark' : 'light';
@@ -2826,57 +3003,11 @@
         renderAllVisualizers();
       });
 
-      // Studio vs Ear Trainer Quiz Mode
-      document.getElementById('tabStudioMode').addEventListener('click', () => {
-        stopPlayback();
-        STATE.mode = 'studio';
-        document.getElementById('tabStudioMode').classList.add('active');
-        document.getElementById('tabQuizMode').classList.remove('active');
-        document.getElementById('earTrainerPanel').classList.add('hidden');
-        document.getElementById('progressionTimelineCard').classList.remove('hidden');
-        renderAllVisualizers();
-      });
-      document.getElementById('tabQuizMode').addEventListener('click', () => {
-        stopPlayback();
-        STATE.mode = 'quiz';
-        document.getElementById('tabQuizMode').classList.add('active');
-        document.getElementById('tabStudioMode').classList.remove('active');
-        document.getElementById('earTrainerPanel').classList.remove('hidden');
-        document.getElementById('progressionTimelineCard').classList.add('hidden');
-        if (!STATE.quiz.answerChords.length) startNewQuizQuestion();
-        renderAllVisualizers();
-      });
-
-      document.getElementById('quizNewBtn').addEventListener('click', startNewQuizQuestion);
-      document.getElementById('quizPlayTonicBtn').addEventListener('click', () => auditionSingleChord({ semi: 0, q: 'maj7', rn: 'Imaj7' }));
-      document.getElementById('quizRevealBtn').addEventListener('click', () => {
-        STATE.quiz.revealed = true;
-        renderQuizSlots();
-      });
-      document.getElementById('quizCheckBtn').addEventListener('click', () => {
-        STATE.quiz.total++;
-        const allMatch = STATE.quiz.answerChords.every((ans, i) => {
-          const g = STATE.quiz.userGuesses[i];
-          return g && g.semi === ans.semi;
-        });
-        if (allMatch) {
-          STATE.quiz.score++;
-          STATE.quiz.streak++;
-          document.getElementById('quizFeedbackMsg').textContent = '🎉 Spot on! Every chord root in the progression matched!';
-          document.getElementById('quizFeedbackMsg').style.color = 'var(--emerald)';
-        } else {
-          STATE.quiz.streak = 0;
-          document.getElementById('quizFeedbackMsg').textContent = '❌ Not quite! Listen again or click Reveal Answer to inspect the chords.';
-          document.getElementById('quizFeedbackMsg').style.color = 'var(--rose)';
-        }
-        document.getElementById('quizScoreLabel').textContent = `${STATE.quiz.score}/${STATE.quiz.total}`;
-        document.getElementById('quizStreakLabel').textContent = `${STATE.quiz.streak} 🔥`;
-      });
-
       window.addEventListener('resize', renderAllVisualizers);
 
       // Initial Boot
       renderDegreePalette();
+      updateCustomChordButtonLabel();
       loadPresetByIndex(0);
     });
   </script>
