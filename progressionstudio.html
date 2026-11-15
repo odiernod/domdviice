@@ -694,11 +694,6 @@
             <div class="key-pills" id="keyPillsContainer"></div>
           </div>
         </div>
-
-        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-          <button type="button" id="undoChordBtn" class="btn-secondary btn-sm" title="Remove the last chord in the progression">↩ Undo Last Chord</button>
-          <button type="button" id="clearProgBtn" class="btn-danger btn-sm" title="Clear all chords from the current progression">🗑 Clear Progression</button>
-        </div>
       </div>
 
       <!-- TWO DISTINCT WORKFLOWS: PRESET PROGRESSION vs. INDIVIDUAL CUSTOM CHORD -->
@@ -821,6 +816,7 @@
               <input type="checkbox" id="loopToggle" checked /> Loop
             </label>
             <button type="button" id="soundCheckBtn" class="btn-secondary btn-sm" title="Audition current chord sound">🔔 Test Sound</button>
+            <button type="button" id="clearProgBtn" class="btn-danger btn-sm" title="Clear all chords from the current progression">🗑 Clear Progression</button>
             <span style="width:1px; height:22px; background:var(--border); margin:0 2px;"></span>
             <button type="button" id="prevChordBtn" class="btn-secondary btn-sm">◀ Prev Chord</button>
             <button type="button" id="nextChordBtn" class="btn-secondary btn-sm">Next Chord ▶</button>
@@ -1709,34 +1705,45 @@
       return { chordFreqs, bassMidi };
     }
 
-    function scheduleBarAudio(profile, nextProfile, barStart, beatDur) {
-      const barDur = beatDur * 4;
+    function scheduleBarAudio(profile, nextProfile, barStart, beatDur, beatsInSlice = 4) {
+      const sliceDur = beatDur * beatsInSlice;
       const { chordFreqs, bassMidi } = getChordVoicingFreqs(profile);
       const comp = STATE.compStyle;
 
-      // 1. Schedule Chords
+      // 1. Schedule Chords (clipped to beatsInSlice at normal beatDur tempo)
       if (comp === 'sustained') {
-        chordFreqs.forEach(f => playSynthVoice(f, barStart, barDur * 0.95, 0.72));
+        chordFreqs.forEach(f => playSynthVoice(f, barStart, sliceDur * 0.95, 0.72));
       } else if (comp === 'charleston') {
         // Beat 1 & Beat 2-and ("Charleston" rhythm) + Beat 4
-        chordFreqs.forEach(f => {
-          playSynthVoice(f, barStart, beatDur * 1.35, 0.76);
-          playSynthVoice(f, barStart + beatDur * 1.5, beatDur * 1.2, 0.68);
-          playSynthVoice(f, barStart + beatDur * 3.0, beatDur * 0.85, 0.60);
+        const hits = [
+          { b: 0, dur: 1.35, vel: 0.76 },
+          { b: 1.5, dur: 1.2, vel: 0.68 },
+          { b: 3.0, dur: 0.85, vel: 0.60 }
+        ];
+        hits.forEach(h => {
+          if (h.b >= beatsInSlice) return;
+          const clampedDur = Math.min(h.dur, Math.max(0.25, beatsInSlice - h.b - 0.05));
+          chordFreqs.forEach(f => playSynthVoice(f, barStart + h.b * beatDur, beatDur * clampedDur, h.vel));
         });
       } else if (comp === 'jazz_swing') {
-        const swingOff = beatDur * 0.66;
-        chordFreqs.forEach(f => {
-          playSynthVoice(f, barStart, beatDur * 0.55, 0.70);
-          playSynthVoice(f, barStart + beatDur + swingOff, beatDur * 0.8, 0.68);
-          playSynthVoice(f, barStart + beatDur * 3, beatDur * 0.7, 0.62);
+        const hits = [
+          { b: 0, dur: 0.55, vel: 0.70 },
+          { b: 1.66, dur: 0.8, vel: 0.68 },
+          { b: 3.0, dur: 0.7, vel: 0.62 }
+        ];
+        hits.forEach(h => {
+          if (h.b >= beatsInSlice) return;
+          const clampedDur = Math.min(h.dur, Math.max(0.25, beatsInSlice - h.b - 0.04));
+          chordFreqs.forEach(f => playSynthVoice(f, barStart + h.b * beatDur, beatDur * clampedDur, h.vel));
         });
       } else if (comp === 'bossa') {
         [0, 1.5, 2.5, 3.5].forEach((b, idx) => {
-          chordFreqs.forEach(f => playSynthVoice(f, barStart + b * beatDur, beatDur * 0.75, idx === 0 ? 0.72 : 0.58));
+          if (b >= beatsInSlice) return;
+          const clampedDur = Math.min(0.75, Math.max(0.25, beatsInSlice - b - 0.04));
+          chordFreqs.forEach(f => playSynthVoice(f, barStart + b * beatDur, beatDur * clampedDur, idx === 0 ? 0.72 : 0.58));
         });
       } else if (comp === 'shuffle') {
-        for (let b = 0; b < 4; b++) {
+        for (let b = 0; b < beatsInSlice; b++) {
           const t = barStart + b * beatDur;
           chordFreqs.forEach(f => {
             playSynthVoice(f, t, beatDur * 0.55, 0.72);
@@ -1745,27 +1752,32 @@
         }
       } else if (comp === 'arpeggio') {
         const eighth = beatDur * 0.5;
-        for (let s = 0; s < 8; s++) {
+        const eighthCount = Math.round(beatsInSlice * 2);
+        for (let s = 0; s < eighthCount; s++) {
           const f = chordFreqs[s % Math.max(1, chordFreqs.length)];
           if (f) playSynthVoice(f, barStart + s * eighth, eighth * 1.4, 0.70);
         }
       } else if (comp === 'funk') {
         const sixteenth = beatDur * 0.25;
+        const maxStep = Math.round(beatsInSlice * 4);
         [0, 3, 6, 8, 11, 14].forEach(step => {
+          if (step >= maxStep) return;
           chordFreqs.forEach(f => playSynthVoice(f, barStart + step * sixteenth, sixteenth * 1.1, 0.66));
         });
       } else if (comp === 'quarters') {
-        for (let b = 0; b < 4; b++) {
+        for (let b = 0; b < beatsInSlice; b++) {
           chordFreqs.forEach(f => playSynthVoice(f, barStart + b * beatDur, beatDur * 0.8, 0.68));
         }
       } else {
         // Folk/Pop Strum
         [0, 1.0, 1.5, 2.5, 3.0, 3.5].forEach((b, idx) => {
-          chordFreqs.forEach((f, sIdx) => playSynthVoice(f, barStart + b * beatDur + sIdx * 0.012, beatDur * 0.6, idx % 2 === 0 ? 0.72 : 0.55));
+          if (b >= beatsInSlice) return;
+          const clampedDur = Math.min(0.6, Math.max(0.25, beatsInSlice - b - 0.04));
+          chordFreqs.forEach((f, sIdx) => playSynthVoice(f, barStart + b * beatDur + sIdx * 0.012, beatDur * clampedDur, idx % 2 === 0 ? 0.72 : 0.55));
         });
       }
 
-      // 2. Schedule Bassline
+      // 2. Schedule Bassline (clipped to beatsInSlice at normal beatDur tempo)
       const bm = STATE.bassMode;
       const f = CHORD_FORMULAS[profile.quality] || CHORD_FORMULAS.maj;
       const rootMidi = 36 + profile.rootPc;
@@ -1775,28 +1787,36 @@
       const approachMidi = nextRootMidi > rootMidi ? nextRootMidi - 1 : nextRootMidi + 1;
 
       if (bm === 'root' || bm === 'bass_solo') {
-        playBassVoice(bassMidi, barStart, barDur * 0.95, 0.85);
+        playBassVoice(bassMidi, barStart, sliceDur * 0.95, 0.85);
       } else if (bm === 'two_feel') {
-        playBassVoice(rootMidi, barStart, beatDur * 1.9, 0.82);
-        playBassVoice(fifthMidi, barStart + beatDur * 2, beatDur * 1.9, 0.76);
+        playBassVoice(rootMidi, barStart, beatDur * Math.min(1.9, beatsInSlice * 0.95), 0.82);
+        if (beatsInSlice > 2) {
+          playBassVoice(fifthMidi, barStart + beatDur * 2, beatDur * 1.9, 0.76);
+        }
       } else if (bm === 'walking') {
-        const walkNotes = [rootMidi, thirdMidi, fifthMidi, approachMidi];
-        walkNotes.forEach((m, b) => playBassVoice(m, barStart + b * beatDur, beatDur * 0.92, 0.80));
+        const walkNotes = beatsInSlice <= 2
+          ? [rootMidi, approachMidi]
+          : [rootMidi, thirdMidi, fifthMidi, approachMidi];
+        for (let b = 0; b < beatsInSlice; b++) {
+          const m = walkNotes[b % walkNotes.length];
+          playBassVoice(m, barStart + b * beatDur, beatDur * 0.92, 0.80);
+        }
       } else if (bm === 'eighth') {
         const eighth = beatDur * 0.5;
-        for (let s = 0; s < 8; s++) {
-          playBassVoice(s === 6 ? fifthMidi : bassMidi, barStart + s * eighth, eighth * 0.88, s % 2 === 0 ? 0.80 : 0.62);
+        const eighthCount = Math.round(beatsInSlice * 2);
+        for (let s = 0; s < eighthCount; s++) {
+          playBassVoice(s === eighthCount - 2 ? fifthMidi : bassMidi, barStart + s * eighth, eighth * 0.88, s % 2 === 0 ? 0.80 : 0.62);
         }
       }
 
-      // 3. Schedule Drums / Metronome
+      // 3. Schedule Drums / Metronome (clipped to beatsInSlice at normal beatDur tempo)
       const dg = STATE.drumGroove;
       if (dg === 'metronome') {
-        for (let b = 0; b < 4; b++) {
+        for (let b = 0; b < beatsInSlice; b++) {
           playDrumHit(b === 0 ? 'click_hi' : 'click_lo', barStart + b * beatDur, b === 0 ? 0.8 : 0.55);
         }
       } else if (dg === 'jazz_swing') {
-        for (let b = 0; b < 4; b++) {
+        for (let b = 0; b < beatsInSlice; b++) {
           const t = barStart + b * beatDur;
           playDrumHit('ride', t, 0.25);
           if (b === 1 || b === 3) {
@@ -1806,32 +1826,48 @@
           if (b === 0) playDrumHit('kick', t, 0.38);
         }
       } else if (dg === 'shuffle') {
-        for (let b = 0; b < 4; b++) {
+        for (let b = 0; b < beatsInSlice; b++) {
           const t = barStart + b * beatDur;
           playDrumHit(b % 2 === 0 ? 'kick' : 'snare', t, b % 2 === 0 ? 0.65 : 0.42);
           playDrumHit('hat', t, 0.20);
           playDrumHit('hat', t + beatDur * 0.66, 0.14);
         }
       } else if (dg === 'bossa') {
-        playDrumHit('kick', barStart, 0.6);
-        playDrumHit('kick', barStart + beatDur * 1.5, 0.48);
-        playDrumHit('kick', barStart + beatDur * 2.0, 0.58);
-        playDrumHit('kick', barStart + beatDur * 3.5, 0.48);
-        [0, 1.5, 3.0].forEach(b => playDrumHit('rim', barStart + b * beatDur, 0.35));
-        for (let s = 0; s < 8; s++) playDrumHit('hat', barStart + s * beatDur * 0.5, 0.14);
+        [
+          { b: 0, v: 0.6 },
+          { b: 1.5, v: 0.48 },
+          { b: 2.0, v: 0.58 },
+          { b: 3.5, v: 0.48 }
+        ].forEach(k => {
+          if (k.b < beatsInSlice) playDrumHit('kick', barStart + k.b * beatDur, k.v);
+        });
+        [0, 1.5, 3.0].forEach(b => {
+          if (b < beatsInSlice) playDrumHit('rim', barStart + b * beatDur, 0.35);
+        });
+        const eighthCount = Math.round(beatsInSlice * 2);
+        for (let s = 0; s < eighthCount; s++) playDrumHit('hat', barStart + s * beatDur * 0.5, 0.14);
       } else if (dg === 'funk') {
-        playDrumHit('kick', barStart, 0.72);
-        playDrumHit('snare', barStart + beatDur, 0.45);
-        playDrumHit('kick', barStart + beatDur * 1.75, 0.55);
-        playDrumHit('kick', barStart + beatDur * 2.5, 0.62);
-        playDrumHit('snare', barStart + beatDur * 3, 0.48);
-        for (let s = 0; s < 8; s++) playDrumHit('hat', barStart + s * beatDur * 0.5, 0.18);
+        [
+          { b: 0, type: 'kick', v: 0.72 },
+          { b: 1.0, type: 'snare', v: 0.45 },
+          { b: 1.75, type: 'kick', v: 0.55 },
+          { b: 2.5, type: 'kick', v: 0.62 },
+          { b: 3.0, type: 'snare', v: 0.48 }
+        ].forEach(h => {
+          if (h.b < beatsInSlice) playDrumHit(h.type, barStart + h.b * beatDur, h.v);
+        });
+        const eighthCount = Math.round(beatsInSlice * 2);
+        for (let s = 0; s < eighthCount; s++) playDrumHit('hat', barStart + s * beatDur * 0.5, 0.18);
       } else if (dg === 'halftime') {
         playDrumHit('kick', barStart, 0.72);
-        playDrumHit('snare', barStart + beatDur * 2, 0.48);
-        for (let b = 0; b < 4; b++) playDrumHit('hat', barStart + b * beatDur, 0.18);
+        if (beatsInSlice > 2) {
+          playDrumHit('snare', barStart + beatDur * 2, 0.48);
+        } else if (beatsInSlice === 2) {
+          playDrumHit('snare', barStart + beatDur, 0.44);
+        }
+        for (let b = 0; b < beatsInSlice; b++) playDrumHit('hat', barStart + b * beatDur, 0.18);
       } else if (dg === 'rock') {
-        for (let b = 0; b < 4; b++) {
+        for (let b = 0; b < beatsInSlice; b++) {
           const t = barStart + b * beatDur;
           playDrumHit(b % 2 === 0 ? 'kick' : 'snare', t, b % 2 === 0 ? 0.68 : 0.44);
           playDrumHit('hat', t, 0.20);
@@ -1903,10 +1939,11 @@
 
         if (barCount >= 1) {
           for (let b = 0; b < Math.round(barCount); b++) {
-            scheduleBarAudio(profile, b === Math.round(barCount) - 1 ? nextProfile : profile, entryStart + b * singleBarDur, beatDur);
+            scheduleBarAudio(profile, b === Math.round(barCount) - 1 ? nextProfile : profile, entryStart + b * singleBarDur, beatDur, 4);
           }
         } else {
-          scheduleBarAudio(profile, nextProfile, entryStart, beatDur * 0.5);
+          // 1/2 bar chord: plays 2 beats (half the beats of a 1-bar chord) at the exact same beatDur tempo
+          scheduleBarAudio(profile, nextProfile, entryStart, beatDur, 2);
         }
 
         const delayMs = Math.max(0, (entryStart - audioCtx.currentTime) * 1000);
@@ -2901,16 +2938,7 @@
         rescheduleIfPlaying();
       });
 
-      // Undo & Clear Progression Buttons (located right next to chord controls)
-      document.getElementById('undoChordBtn').addEventListener('click', () => {
-        if (!STATE.progression.length) return;
-        STATE.progression.pop();
-        STATE.activeBarIndex = Math.max(0, STATE.progression.length - 1);
-        renderProgressionTimeline();
-        renderAllVisualizers();
-        rescheduleIfPlaying();
-      });
-
+      // Clear Progression Button (located by the Play Progression controls)
       document.getElementById('clearProgBtn').addEventListener('click', () => {
         stopPlayback();
         STATE.progression = [];

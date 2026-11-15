@@ -354,15 +354,53 @@
     </table>
   </section>
 
-  <!-- Section 3: Guitar Chord Progression Visualizer -->
+  <!-- Section 3: Progression Studio & Guide Tone Visualizer -->
   <section class="section-card">
-    <h2>3. Guitar Chord Progression Visualizer</h2>
+    <h2>3. Progression Studio &amp; Guide Tone Visualizer</h2>
+    <p>Accessible via <a href="progressionstudio.html"><code>progressionstudio.html</code></a>, the <strong>Progression Studio</strong> combines a real-time Web Audio backing band (chords, bass, and drums) with a synchronized multi-instrument guide-tone visualizer for practicing improvisation, voice leading, and chord changes across any genre.</p>
+
+    <h3>🔊 Backing Band, Rhythm &amp; Sound Control Panel</h3>
+    <ul>
+      <li><strong>Chord Instrument / Sound:</strong> Switch chord playback between <em>Electric Piano (Rhodes)</em>, <em>Acoustic Grand Piano</em>, <em>Warm Organ / Synth Pad</em>, <em>Jazz Archtop Clean Guitar</em>, <em>Acoustic / Crystal Clean Guitar</em>, <em>Blues Tube Overdrive Guitar</em>, <em>Rock Crunch Guitar</em>, <em>High-Gain Lead</em>, or <em>Mute Chords</em> (for practicing over bass and drums alone).</li>
+      <li><strong>Comping / Rhythm Style:</strong> Choose how chords are articulated in each bar, including <em>Sustained Whole-Bar Pad</em>, <em>Syncopated Comp (Charleston)</em>, <em>Jazz Swing</em>, <em>Bossa Nova</em>, <em>Blues Shuffle</em>, <em>Arpeggiated</em>, <em>Funk / Soul 16th Groove</em>, <em>Folk / Pop Strum</em>, or <em>Steady Quarter-Note Pulse</em>.</li>
+      <li><strong>Bassline Mode:</strong> Select <em>Walking Bass (1–3–5–Chromatic Approach)</em>, <em>Root Sustained</em>, <em>Root–5th Alternating (Two-Feel / Bossa)</em>, <em>8th-Note Groove</em>, <em>Bass Only</em>, or <em>Bass Off</em>.</li>
+      <li><strong>Beat / Drum Groove:</strong> Play along with synthesized <em>Jazz Swing Ride &amp; Hi-Hat</em>, <em>Blues 12/8 Shuffle</em>, <em>Bossa Nova / Rimshot</em>, <em>Funk / Neo-Soul Pocket</em>, <em>Pop / Rock 8th Groove</em>, <em>Half-Time Ballad</em>, <em>Metronome Click Only</em>, or <em>Drums Off</em>.</li>
+      <li><strong>Voicing, Tempo, Drive &amp; Mix:</strong> Filter chord playback to <em>Full Chord</em>, <em>Shell Voicing (R–3–7)</em>, <em>Triad</em>, <em>Power 5th</em>, or <em>Bass Note Only</em>; dial in any tempo from <code>40</code> to <code>220 BPM</code>; adjust tube saturation with the <strong>Drive</strong> slider; and balance the <strong>Chords / Bass / Drums</strong> volume sliders in real time.</li>
+    </ul>
+
+    <h3>🎼 Chord Selector &amp; Progression Builder</h3>
+    <ul>
+      <li><strong>Song Key Selector:</strong> Click any of the 12 <strong>Song Key</strong> pills (<code>C</code> through <code>B</code>) to transpose preset progressions, Roman numeral pads, and background scale overlays immediately.</li>
+      <li><strong>Load a Preset Progression:</strong> Choose from dozens of curated progressions grouped by genre (<em>Blues</em>, <em>Rock</em>, <em>Jazz</em>, <em>R&amp;B / Neo-Soul</em>, and <em>Pop / Folk</em>)—including 12-Bar Blues, Minor Blues, Classic Rock Anthems, Andalusian Cadences, Jazz <code>ii–V–I</code> Turnarounds, and Rhythm Changes. Loading a preset also configures an idiomatic backing band style and tempo.</li>
+      <li><strong>Build &amp; Add an Individual Chord:</strong> Pick any <strong>Chord Root Note</strong>, any of the <strong>21 OmniTune Chord Qualities</strong> (triads, power chords, 7ths, 6ths, and extended 9th chords), an <strong>Inversion</strong> (Root, 1st, 2nd, or 3rd inversion), and a <strong>Bar Length</strong> (<code>½ Bar</code>, <code>1 Bar</code>, or <code>2 Bars</code>). Click <strong>🔊 Hear</strong> to preview the chord or <strong>+ Add</strong> to append it to your timeline.</li>
+      <li><strong>Quick Roman Numeral Palette:</strong> Click the collapsible <strong>🎹 Quick Roman Numeral Palette</strong> bar to expand diatonic and borrowed modal chord pads in the active key. Tapping any pad plays the chord and appends it to the timeline.</li>
+    </ul>
+
+    <h3>⛓️ Active Chord Progression Timeline &amp; Transport Controls</h3>
+    <ul>
+      <li><strong>Playback &amp; Loop Controls:</strong> Use <strong>▶ Play Progression</strong> (or <strong>⏹ Stop Playing</strong> to halt audio immediately), toggle <strong>Loop</strong>, click <strong>🔔 Test Sound</strong> to audition the currently selected chord, or click <strong>🗑 Clear Progression</strong> to start a fresh timeline from scratch.</li>
+      <li><strong>Timeline Editing &amp; Durations:</strong> Click any chord pill in the timeline to jump to and audition that bar. Use the per-chord duration dropdown (<code>½b</code>, <code>1b</code>, <code>2b</code>) to adjust how many beats the chord lasts (a <code>½b</code> chord plays for 2 beats at the current tempo, <code>1b</code> plays for 4 beats, and <code>2b</code> plays for 8 beats), or click <code>✕</code> on any chord pill to remove it.</li>
+      <li><strong>Stepping &amp; Pinning:</strong> Use <strong>◀ Prev Chord</strong> and <strong>Next Chord ▶</strong> to step through changes manually while practicing, or click <strong>📌 Pin Base</strong> to lock a reference chord on the timeline.</li>
+    </ul>
+
+    <h3>🎯 Real-Time Multi-Instrument Guide Tone Visualizer</h3>
+    <ul>
+      <li><strong>Multi-Instrument &amp; Dual Comparison:</strong> Visualize chord changes on <strong>Guitar</strong> (all alternate tunings, 24 frets), <strong>Ukulele &amp; 4-String Bass</strong>, <strong>Piano Keyboard</strong> (4 octaves), <strong>10-Hole Diatonic Harmonicas</strong> (Richter, Wilde Tuned, Wilde Minor, Dom's Shred Minor, Natural Minor, Paddy Richter, PowerBender, etc., with optional <strong>Valved</strong> bends), and <strong>12/16-Hole Chromatic Harmonicas</strong>. Click <strong>+ Compare 2nd Instrument</strong> to display a second instrument diagram simultaneously.</li>
+      <li><strong>Target Presets &amp; Granular Degree Pills:</strong> Filter the diagram to show <em>Guide Tones + Root (R, 3rd, 7th)</em>, <em>Guide Tones Only (3rd &amp; 7th)</em>, <em>All Active Chord Tones</em>, <em>Triad Tones</em>, or toggle individual harmonic roles (<strong>R</strong>, <strong>3rd/♭3</strong>, <strong>7th/♭7</strong>, <strong>5th/♭5</strong>, <strong>6th/13th</strong>, <strong>9th/2nd</strong>).</li>
+      <li><strong>Next Chord Ghosting (👻 Next Ghost):</strong> When enabled, the upcoming chord's guide tones and root appear as dashed ghost rings on the diagram (with the last chord wrapping around to preview the first chord), helping you spot smooth voice-leading paths before the next bar arrives.</li>
+      <li><strong>Scale Overlay &amp; Interactive Note Inspector:</strong> Select a background <strong>Scale Overlay</strong> (Blues, Minor/Major Pentatonic, Dorian, Mixolydian, Major, Natural/Harmonic/Melodic Minor, Bebop, Lydian) to display scale tones as violet dots behind the active chord tones. Tap any fret, harmonica hole/bend, or piano key to hear its pitch and inspect its exact harmonic role in the bottom inspector bar.</li>
+    </ul>
+  </section>
+
+  <!-- Section 4: Guitar Chord Progression Visualizer -->
+  <section class="section-card">
+    <h2>4. Guitar Chord Progression Visualizer</h2>
     <p>Accessible via <a href="guitarprogression.html"><code>guitarprogression.html</code></a>, this tool provides an interactive 24-fret guitar neck for finding chord voicings, visualizing scale patterns, and mapping chord progressions on both desktop and mobile devices.</p>
     <ul>
       <li><strong>Tuning Selector:</strong> Explore Standard (EADGBE), Eb Standard, Perfect Fourths (EADGCF), Perfect Fourths Eb (EbAbDbGbBE), Drop D, DADGAD, Open C, Open E, BEBEBE, Open G, and Open D.</li>
-      <li><strong>Chord & Scale Modes:</strong> Map chords with standard or shell voicings, or overlay Major, Minor, Pentatonic, Dorian, Phrygian, Lydian, Mixolydian, Harmonic Minor, and Melodic Minor scales across 24 frets.</li>
-      <li><strong>Progression Builder & Multi-Chord Layering:</strong> Add up to 6 chords or scales to a progression sequence. Non-highlighted chords render in translucent background color while active chords render brightly.</li>
-      <li><strong>Mobile-Friendly Audition & Pinning:</strong>
+      <li><strong>Chord &amp; Scale Modes:</strong> Map chords with standard or shell voicings, or overlay Major, Minor, Pentatonic, Dorian, Phrygian, Lydian, Mixolydian, Harmonic Minor, and Melodic Minor scales across 24 frets.</li>
+      <li><strong>Progression Builder &amp; Multi-Chord Layering:</strong> Add up to 6 chords or scales to a progression sequence. Non-highlighted chords render in translucent background color while active chords render brightly.</li>
+      <li><strong>Mobile-Friendly Audition &amp; Pinning:</strong>
         <ul>
           <li><strong>Pin Base Chord (📌):</strong> Pin any chord or scale as a persistent baseline anchor on the fretboard.</li>
           <li><strong>Audition / Hover Preview (👁️):</strong> Tap any chord pill or use the mobile step buttons (<code>◀ Prev</code> / <code>Next ▶</code>) to preview/hover that chord and inspect its scale degrees overlaid against the pinned base chord.</li>
@@ -374,9 +412,9 @@
     </ul>
   </section>
 
-  <!-- Section 4: Chord Chart Generator -->
+  <!-- Section 5: Chord Chart Generator -->
   <section class="section-card">
-    <h2>4. Chord Chart Generator (Box Diagrams)</h2>
+    <h2>5. Chord Chart Generator (Box Diagrams)</h2>
     <p>Accessible via <a href="chordchartgenerator.html"><code>chordchartgenerator.html</code></a>, this tool generates publication-quality chord box diagrams with PNG export capabilities.</p>
     <ul>
       <li><strong>Configurable Diagram:</strong> Customize fret count (1–24), string count (1–12), starting fret position, muted strings (<code>X</code>), open strings (<code>O</code>), and finger numbers.</li>
@@ -385,9 +423,9 @@
     </ul>
   </section>
 
-  <!-- Section 5: Offline & Pure Client-Side Architecture -->
+  <!-- Section 6: Offline & Pure Client-Side Architecture -->
   <section class="section-card">
-    <h2>5. Offline & Client-Side Architecture</h2>
+    <h2>6. Offline &amp; Client-Side Architecture</h2>
     <p>OmniTune is 100% self-contained and client-side:</p>
     <ul>
       <li><strong>Zero Server Dependencies:</strong> Runs directly in any web browser without Node.js servers, databases, or cloud backends.</li>
