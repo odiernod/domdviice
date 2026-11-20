@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OmniTune: Compare Instruments, Tunings and Scales</title>
 <meta name="google-site-verification" content="olHl8uiFXMySsnI5oNglFjNkfGOy0udu50WoaPlh3zg" />
 <meta name="description" content="OmniTune: Compare Instruments, Tunings and Scales">
@@ -1073,16 +1075,19 @@ function updateBankTitleBadge(bankNum) {
             <h1 class="brand-title">OmniTune</h1>
             <span class="brand-subtitle">Compare Instruments, Tunings & Scales</span>
         </div>
-        <nav class="header-nav" aria-label="Primary navigation">
-            <a href="help.html">Help</a>
-            <a href="progressionstudio.html">Progression Studio</a>
-            <a href="guitarprogression.html">Guitar Progression</a>
-            <a href="chordchartgenerator.html">Chord Chart Generator</a>
-        </nav>
+        <div class="header-right">
+            <button type="button" id="tutorialModeBtn" class="btn-tutorial btn-sm" aria-controls="tutorialPanel" aria-expanded="false" title="Open interactive Settings Tour &amp; Comparison Setups">🎓 Tutorial Mode</button>
+            <nav class="header-nav" aria-label="Primary navigation">
+                <a href="help.html">Help</a>
+                <a href="progressionstudio.html">Progression Studio</a>
+                <a href="guitarprogression.html">Guitar Progression</a>
+                <a href="chordchartgenerator.html">Chord Chart Generator</a>
+            </nav>
+        </div>
     </header>
 
     <section class="global-control-bar" aria-label="Global Scale and Key Controls">
-        <div class="control-section">
+        <div class="control-section" id="scaleControlSection">
             <span class="control-label">Scale / Chord:</span>
             <div class="control-group">
                 <select id="keyMenu" title="Root Key">
@@ -1153,7 +1158,7 @@ function updateBankTitleBadge(bankNum) {
             </div>
         </div>
 
-        <div class="control-section">
+        <div class="control-section" id="displayToggleSection">
             <div class="control-group">
                 <button id="scaleDegrees" class="btn-toggle active">Hide Scale Degrees</button>
                 <button id="noteNames" class="btn-toggle active">Hide Note Names</button>
@@ -1171,7 +1176,7 @@ function updateBankTitleBadge(bankNum) {
             <h2 class="print-banner-title" id="printBannerTitle1">OmniTune — Bank 1</h2>
             <div class="print-banner-meta" id="printBannerMeta1"></div>
         </div>
-        <div class="bank-header">
+        <div class="bank-header" id="bank1Header">
             <div class="bank-title-badge">
                 <span class="bank-badge-number">1</span>
                 <span id="bank1Title">10-Hole Diatonic Harmonica</span>
@@ -1186,7 +1191,7 @@ function updateBankTitleBadge(bankNum) {
                 <button id="print1" class="btn-secondary btn-print" title="Print this diagram" onclick="printInstrumentDiagram(1)">🖨️ Print</button>
             </div>
         </div>
-        <div class="instrument-stage">
+        <div class="instrument-stage" id="bank1Stage">
             <div class="instrument-canvas-wrapper" id="instrumentimg1"></div>
             <table class="instrument1" id="instrument1" ondragstart="return false;" ondrop="return false;"></table>
         </div>
@@ -1213,7 +1218,7 @@ function updateBankTitleBadge(bankNum) {
                 <button id="print2" class="btn-secondary btn-print" title="Print this diagram" onclick="printInstrumentDiagram(2)">🖨️ Print</button>
             </div>
         </div>
-        <div class="instrument-stage">
+        <div class="instrument-stage" id="bank2Stage">
             <div class="instrument-canvas-wrapper" id="instrumentimg2"></div>
             <table class="instrument2" id="instrument2" ondragstart="return false;" ondrop="return false;"></table>
         </div>
@@ -1273,6 +1278,29 @@ function updateBankTitleBadge(bankNum) {
         </div>
     </article>
 </main>
+
+<!-- INTERACTIVE NON-MODAL TUTORIAL PANEL -->
+<dialog id="tutorialPanel" class="tutorial-panel" popover="manual" aria-labelledby="tutorialPanelTitle">
+    <div class="tutorial-header">
+        <div class="tutorial-title-wrap">
+            <h2 id="tutorialPanelTitle" class="tutorial-title">🎓 Compare Instruments Guide</h2>
+            <span id="tutorialHeaderBadge" class="tutorial-badge">Tour 1/7</span>
+        </div>
+        <div class="tutorial-header-actions">
+            <button type="button" id="tutorialMinimizeBtn" class="tutorial-icon-btn" title="Minimize or expand tutorial panel" aria-label="Minimize tutorial panel">▾</button>
+            <button type="button" id="tutorialCloseBtn" class="tutorial-icon-btn" title="Close Tutorial Mode (Esc)" aria-label="Close Tutorial Mode">✕</button>
+        </div>
+    </div>
+
+    <div class="tutorial-tabs" role="tablist" aria-label="Tutorial Mode sections">
+        <button type="button" id="tutorialTabTour" class="tutorial-tab-btn active" role="tab" aria-selected="true" aria-controls="tutorialBody">🗺️ Settings Tour</button>
+        <button type="button" id="tutorialTabSetups" class="tutorial-tab-btn" role="tab" aria-selected="false" aria-controls="tutorialBody">🎯 Comparison Setups</button>
+    </div>
+
+    <div id="tutorialBody" class="tutorial-body" role="tabpanel"></div>
+
+    <div id="tutorialFooter" class="tutorial-footer"></div>
+</dialog>
 
 <script type="text/javascript">
 let sweep = false;
@@ -1591,11 +1619,13 @@ $(document).ready(function() {
         var key = $("#keyMenu").val();
         showScale(scale, key);
         updateUrl();
+        if (typeof window.__syncCompareTutorialUi === 'function') window.__syncCompareTutorialUi();
     });
 
     $('#clearScale').click(function() {
         clearScale();
         updateUrl();
+        if (typeof window.__syncCompareTutorialUi === 'function') window.__syncCompareTutorialUi();
     });
 
     $('#scaleMenu, #keyMenu').change(function() {
@@ -1605,6 +1635,7 @@ $(document).ready(function() {
             showScale(scale, key);
             updateUrl();
         }
+        if (typeof window.__syncCompareTutorialUi === 'function') window.__syncCompareTutorialUi();
     });
 
     $('#scaleDegrees').click(function() {
@@ -1616,24 +1647,797 @@ $(document).ready(function() {
             var key = $("#keyMenu").val();
             showScale(scale, key);
         }
+        if (typeof window.__syncCompareTutorialUi === 'function') window.__syncCompareTutorialUi();
     });
 
     $('#noteNames').click(function() {
         toggleNoteNames();
         $(this).toggleClass('active', showNoteNames);
+        if (typeof window.__syncCompareTutorialUi === 'function') window.__syncCompareTutorialUi();
     });
 
     $('#accidentalToggle').click(function() {
         toggleAccidentals();
         updateUrl();
+        if (typeof window.__syncCompareTutorialUi === 'function') window.__syncCompareTutorialUi();
     });
 
     $('#audioVoiceToggle').click(function() {
         pluck = !pluck;
         $(this).text(pluck ? 'Sound: Pluck' : 'Sound: Synth');
+        if (typeof window.__syncCompareTutorialUi === 'function') window.__syncCompareTutorialUi();
     });
 
     setSelectValuesFromUrl();
+
+    /* =========================================================================
+       INTERACTIVE TUTORIAL MODE (SETTINGS TOUR + COMPARISON SETUPS)
+       ========================================================================= */
+    const tutorialBtn = document.getElementById('tutorialModeBtn');
+    const tutorialPanel = document.getElementById('tutorialPanel');
+    const tutorialHeaderBadge = document.getElementById('tutorialHeaderBadge');
+    const tutorialMinimizeBtn = document.getElementById('tutorialMinimizeBtn');
+    const tutorialCloseBtn = document.getElementById('tutorialCloseBtn');
+    const tutorialTabTour = document.getElementById('tutorialTabTour');
+    const tutorialTabSetups = document.getElementById('tutorialTabSetups');
+    const tutorialBody = document.getElementById('tutorialBody');
+    const tutorialFooter = document.getElementById('tutorialFooter');
+
+    const TUTORIAL_STATE = {
+        isOpen: false,
+        isMinimized: false,
+        activeTab: 'tour', // 'tour' | 'setups'
+        tourStepIndex: 0,
+        activeSetupId: null,
+        selectedVariants: {
+            'cross-harp-blues': '2nd-g-blues',
+            'diatonic-showdown': '2nd-g-blues',
+            'minor-harps-modal': 'a-natminor',
+            'guitar-alt-tunings': 'd-dorian',
+            'chord-arpeggio-translation': 'c-maj7',
+            'solo-chromatic-compare': 'c-bebop'
+        },
+        snapshot: null,
+        statusMessage: '',
+        flashTimeout: null
+    };
+
+    const TUTORIAL_TOUR_STEPS = [
+        {
+            title: 'Welcome to Compare Instruments',
+            targets: [],
+            scroll: false,
+            copy: 'OmniTune lets you compare up to 4 instruments and tunings side-by-side with synchronized scale/chord highlighting, exact pitch matching, and instant Web Audio playback.',
+            bullets: [
+                '<strong>Top Bar:</strong> Pick a root key and scale or chord arpeggio, then toggle scale degrees, note names, accidentals, and audio voice.',
+                '<strong>4 Universal Banks:</strong> Load any combination of Diatonic &amp; Chromatic Harmonicas, Guitars, Ukuleles/Bass, and Piano.',
+                '<strong>Live Cross-Highlight:</strong> Hover any note on one diagram to light up the exact same pitch across all 4 instruments.'
+            ],
+            tip: 'Every control and instrument stays live while this guide is open—click around as you go, or switch to Comparison Setups for one-click multi-instrument views.'
+        },
+        {
+            title: 'Global Key & Scale / Chord Selector',
+            targets: ['scaleControlSection'],
+            scroll: false,
+            copy: 'Highlight a wide range of scales, modes, and chord arpeggios across all four loaded instruments at once.',
+            bullets: [
+                '<strong>Root Key &amp; Formula:</strong> Choose a key (<code>G</code> through <code>Gb/F#</code>) and any Scale, Mode, or Chord from the dropdown.',
+                '<strong>Display Scale:</strong> Lights up every matching pitch across all 4 banks, with Root notes highlighted in bold red (<code>R</code>).',
+                '<strong>Clear Scale:</strong> Turns off scale highlighting to return to a clean enharmonic hover-comparison view.'
+            ],
+            tip: 'Select <strong>G</strong> and <strong>Blues</strong>, click <em>Display Scale</em>, then switch the key dropdown—active scales update automatically!'
+        },
+        {
+            title: 'Visual Overlays & Sound Voice',
+            targets: ['displayToggleSection'],
+            scroll: false,
+            copy: 'Customize how intervals and pitch labels appear across every instrument, and choose your preview sound.',
+            bullets: [
+                '<strong>Scale Degrees:</strong> Shows Nashville interval labels (<code>R</code>, <code>b3</code>, <code>3</code>, <code>4</code>, <code>b5</code>, <code>5</code>, <code>b7</code>, <code>7</code>) above each highlighted note.',
+                '<strong>Note Names &amp; Accidentals:</strong> Toggle letter labels on/off and switch between <code>♭ Flats</code> and <code>♯ Sharps</code> across all diagrams.',
+                '<strong>Sound: Pluck / Synth:</strong> Switch between a decaying guitar-like pluck and a sustained synth tone when clicking notes.'
+            ],
+            tip: 'Click <em>Hide Note Names</em> or <em>Hide Scale Degrees</em> to simplify busy diagrams like the 24-fret guitar or 7-octave piano.'
+        },
+        {
+            title: '4 Universal Instrument Banks',
+            targets: ['bank1Header'],
+            scroll: true,
+            copy: 'You can simultaneously compare four different instruments or four tunings of the same instrument.',
+            bullets: [
+                '<strong>Instrument &amp; Tuning Menus:</strong> Pick from 10-Hole Diatonic Harmonicas, 12/16-Hole Chromatics, 6-String Guitars, Ukulele/Bass, or Piano.',
+                '<strong>Smart Layout:</strong> Compact instruments (Harmonicas, Piano, Ukulele) automatically pair side-by-side, while wide 24-fret Guitars and 16-Hole Chromatics expand full width.',
+                '<strong>Instant Reload:</strong> Changing either dropdown updates that bank immediately while preserving your active scale overlay.'
+            ],
+            tip: 'Compare two harmonicas in Banks 1 &amp; 2 side-by-side while keeping Standard and Open G Guitars stacked below in Banks 3 &amp; 4.'
+        },
+        {
+            title: 'Harmonica Bends, Overblows & Layout',
+            targets: ['bank-card-1'],
+            scroll: true,
+            copy: 'For any 10-hole diatonic harmonica, OmniTune dynamically computes every bend and overbend available for each tuning.',
+            bullets: [
+                '<strong>Core Body:</strong> <code>BLOW</code> and <code>DRAW</code> rows sit inside the solid black frame with hole numbers <code>1–10</code> along the comb.',
+                '<strong>Bend &amp; Overbend Badges:</strong> <code>DB</code> (Draw Bend), <code>BB</code> (Blow Bend), <code>OB</code> (Overblow), and <code>OD</code> (Overdraw) appear above and below the reeds.',
+                '<strong>Half-Valved Option:</strong> When a 10-hole diatonic is loaded, the <em>Half-Valved</em> checkbox swaps overbends for single-reed Valve Bends (<code>VB</code>).'
+            ],
+            tip: 'Switch Bank 1 between <strong>Richter</strong>, <strong>Wilde Tuned</strong>, <strong>Paddy Richter</strong>, and <strong>PowerDraw</strong> to watch the available bends recalculate instantly.'
+        },
+        {
+            title: 'Pitch Cross-Highlighting & Audio Sweep',
+            targets: ['bank1Stage', 'bank2Stage'],
+            scroll: true,
+            copy: 'Use hover highlighting and click-drag audio to translate riffs, melodies, and voicings between instruments by exact octave.',
+            bullets: [
+                '<strong>Hover Any Note:</strong> Every identical pitch (same note &amp; octave) across all 4 banks outlines in bright yellow simultaneously.',
+                '<strong>Click or Sweep:</strong> Click any fret, key, or harmonica hole to hear it—or hold the mouse button down and drag across cells to sweep a phrase.'
+            ],
+            tip: 'Hover over Hole 4 Blow on a C Richter Harmonica to see the exact middle <code>C4</code> light up on Piano and Guitar at the same time!'
+        },
+        {
+            title: 'Printing Diagrams & Shareable URLs',
+            targets: ['print1'],
+            scroll: true,
+            copy: 'Save or share any comparison setup cleanly—on paper or by link.',
+            bullets: [
+                '<strong>Single-Bank Print (🖨️ Print):</strong> Prints just that instrument in auto-scaled landscape format with a header showing its tuning, active scale, and display toggles.',
+                '<strong>Full Page Print:</strong> Use <code>Ctrl+P</code> / <code>Cmd+P</code> to print all 4 active banks cleanly without menus or buttons.',
+                '<strong>Auto-Synced URL:</strong> Every bank, tuning, key, scale, and accidental change updates the browser URL so you can bookmark or share your exact setup.'
+            ],
+            tip: 'Ready to explore curated comparisons? Click "Explore Comparison Setups" below to load a 4-bank view in one click!'
+        }
+    ];
+
+    const COMPARISON_SETUPS = [
+        {
+            id: 'cross-harp-blues',
+            icon: '🎸',
+            title: 'Cross-Harp & 3rd Position Blues',
+            shortDesc: 'Compares C Richter and C Solo Chromatic harmonicas against Standard and Open G Guitar in 2nd or 3rd position.',
+            chips: ['C Richter', 'C Solo Chromatic', 'Std & Open G Guitar'],
+            variants: [
+                {
+                    id: '2nd-g-blues',
+                    label: '2nd Pos: G Blues',
+                    key: 'g',
+                    scale: 'blues',
+                    note: 'In 2nd Position (Cross Harp) on a C Richter, Draw 2 is your Root (R) and bends on holes 2–4 give classic blues phrasing. Compare how G Blues maps onto C Solo Chromatic, Standard Guitar, and Open G Guitar!'
+                },
+                {
+                    id: '3rd-d-blues',
+                    label: '3rd Pos: D Blues',
+                    key: 'd',
+                    scale: 'blues',
+                    note: 'In 3rd Position (D on a C harp), Draw 4 is your Root (R) and holes 4–6 draw form a dark minor blues pocket. Notice how smoothly D Blues also lays out on the C Solo Chromatic alongside Standard and Open G Guitar.'
+                },
+                {
+                    id: '3rd-d-minpent',
+                    label: '3rd Pos: D Minor Pent.',
+                    key: 'd',
+                    scale: 'minorpentatonic',
+                    note: '3rd Position D Minor Pentatonic strips the pattern down to its 5 core tones (R, b3, 4, 5, b7) across C Richter, C Solo Chromatic, Standard Guitar, and Open G Guitar.'
+                }
+            ],
+            banks: [
+                { instrument: 'diatonicrichter', tuning: 'c', valved: false },
+                { instrument: 'chromatic12solo', tuning: 'c', valved: false },
+                { instrument: 'guitar', tuning: 'standard', valved: false },
+                { instrument: 'guitar', tuning: 'openg', valved: false }
+            ]
+        },
+        {
+            id: 'diatonic-showdown',
+            icon: '🎶',
+            title: 'Diatonic Harmonica Tuning Showdown',
+            shortDesc: 'Side-by-side comparison of four C diatonic tunings: Richter, Wilde Tuned, Paddy Richter, and PowerDraw.',
+            chips: ['Richter', 'Wilde', 'Paddy Richter', 'PowerDraw'],
+            variants: [
+                {
+                    id: '2nd-g-blues',
+                    label: '2nd Pos: G Blues',
+                    key: 'g',
+                    scale: 'blues',
+                    note: 'Compare G Blues (2nd Position) across all four C harps: notice how Wilde Tuned and PowerDraw rearrange the upper octave for intuitive draw bends instead of blow bends.'
+                },
+                {
+                    id: '3rd-d-minpent',
+                    label: '3rd Pos: D Minor Pent.',
+                    key: 'd',
+                    scale: 'minorpentatonic',
+                    note: 'In 3rd Position (D Minor Pentatonic), compare the middle and upper octaves—hover any note on Richter to see how the exact same pitch moves on Wilde, Paddy Richter, and PowerDraw.'
+                },
+                {
+                    id: '1st-c-major',
+                    label: '1st Pos: C Major',
+                    key: 'c',
+                    scale: 'major',
+                    note: 'In 1st Position (C Major), look at Hole 3 Blow on Paddy Richter—raising G to A gives you the 6th degree cleanly without needing a whole-step 3-draw bend.'
+                }
+            ],
+            banks: [
+                { instrument: 'diatonicrichter', tuning: 'c', valved: false },
+                { instrument: 'diatonicwildetuned', tuning: 'c', valved: false },
+                { instrument: 'paddyrichtertuned', tuning: 'c', valved: false },
+                { instrument: 'powerdrawtuned', tuning: 'c', valved: false }
+            ]
+        },
+        {
+            id: 'minor-harps-modal',
+            icon: '🌙',
+            title: 'Minor Harmonica & Modal Comparison',
+            shortDesc: 'Contrasts Am Natural Minor, Am Wilde Minor, and C Paddy Richter harmonicas alongside Standard Guitar.',
+            chips: ['Natural Minor', 'Wilde Minor', 'Paddy Richter', 'Guitar'],
+            variants: [
+                {
+                    id: 'a-natminor',
+                    label: 'A Natural Minor',
+                    key: 'a',
+                    scale: 'naturalminor',
+                    note: 'Both Am Natural Minor and Am Wilde Minor put the A minor tonic chord right on holes 2–4 draw, while C Paddy Richter gives a natural A on 3-blow. Hover any hole to trace the exact pitch on Guitar.'
+                },
+                {
+                    id: 'a-blues',
+                    label: 'A Blues',
+                    key: 'a',
+                    scale: 'blues',
+                    note: 'Compare how A Blues bends line up effortlessly on Natural Minor and Wilde Minor harps versus Paddy Richter and Standard Guitar.'
+                },
+                {
+                    id: 'a-dorian',
+                    label: 'A Dorian',
+                    key: 'a',
+                    scale: 'dorian',
+                    note: 'A Dorian raises the 6th degree (F#) for a bright funky/fusion minor color—spot where the natural 6th sits on Natural Minor, Wilde Minor, and Paddy Richter.'
+                }
+            ],
+            banks: [
+                { instrument: 'diatonicminor', tuning: 'am', valved: false },
+                { instrument: 'diatonicwildeminor', tuning: 'am', valved: false },
+                { instrument: 'paddyrichtertuned', tuning: 'c', valved: false },
+                { instrument: 'guitar', tuning: 'standard', valved: false }
+            ]
+        },
+        {
+            id: 'guitar-alt-tunings',
+            icon: '🎼',
+            title: 'Guitar Alternate Tunings Explorer',
+            shortDesc: 'Stacks Standard EADGBE, DADGAD, Open G, and Perfect Fourths (EADGCF) guitars for direct fretboard comparison.',
+            chips: ['Standard', 'DADGAD', 'Open G', 'Perfect 4ths'],
+            variants: [
+                {
+                    id: 'd-dorian',
+                    label: 'D Dorian',
+                    key: 'd',
+                    scale: 'dorian',
+                    note: 'See how D Dorian unlocks open drone strings on DADGAD (D–A–D–G–A–D) compared to Standard, Open G, and symmetric Perfect Fourths.'
+                },
+                {
+                    id: 'g-major',
+                    label: 'G Major',
+                    key: 'g',
+                    scale: 'major',
+                    note: 'In G Major, every open string on Open G (D–G–D–G–B–D) is a G chord tone (R, 3, or 5)—contrast those open resonances against Standard and Perfect Fourths.'
+                },
+                {
+                    id: 'e-minpent',
+                    label: 'E Minor Pent.',
+                    key: 'e',
+                    scale: 'minorpentatonic',
+                    note: 'Notice how E Minor Pentatonic shapes stay completely uniform across all 6 strings in Perfect Fourths (no B-string shift!) compared to Standard, DADGAD, and Open G.'
+                }
+            ],
+            banks: [
+                { instrument: 'guitar', tuning: 'standard', valved: false },
+                { instrument: 'guitar', tuning: 'dadgad', valved: false },
+                { instrument: 'guitar', tuning: 'openg', valved: false },
+                { instrument: 'guitar', tuning: 'allfourth', valved: false }
+            ]
+        },
+        {
+            id: 'chord-arpeggio-translation',
+            icon: '🎹',
+            title: 'Chord Arpeggio Translation',
+            shortDesc: 'Maps chord tones (R, 3, 5, 7) simultaneously across Piano, Standard Guitar, Soprano Ukulele, and 4-String Bass.',
+            chips: ['Piano', 'Guitar', 'Ukulele', 'Bass EADG'],
+            variants: [
+                {
+                    id: 'c-maj7',
+                    label: 'C Maj7',
+                    key: 'c',
+                    scale: 'maj7chord',
+                    note: 'Only C Maj7 chord tones (R, 3, 5, 7) are highlighted across Piano, Guitar, Ukulele, and Bass. Hover any key on Piano to verify its exact octave on each fretted neck!'
+                },
+                {
+                    id: 'g-d7',
+                    label: 'G7',
+                    key: 'g',
+                    scale: 'd7chord',
+                    note: 'Trace the dominant G7 guide tones (3 = B, b7 = F) across Piano, Guitar, Ukulele, and Bass. Try hiding Note Names to test your scale-degree sight reading.'
+                },
+                {
+                    id: 'a-m7',
+                    label: 'Am7',
+                    key: 'a',
+                    scale: 'm7chord',
+                    note: 'See how Am7 (R, b3, 5, b7) spans from low Bass roots up through Guitar, Piano, and the re-entrant high-G Soprano Ukulele.'
+                }
+            ],
+            banks: [
+                { instrument: 'piano', tuning: 'standard', valved: false },
+                { instrument: 'guitar', tuning: 'standard', valved: false },
+                { instrument: 'ukulele', tuning: 'sopranogcea', valved: false },
+                { instrument: 'ukulele', tuning: 'bass', valved: false }
+            ]
+        },
+        {
+            id: 'solo-chromatic-compare',
+            icon: '🎷',
+            title: 'Solo Chromatic vs. Piano & Diatonic',
+            shortDesc: 'Compares a 12-Hole C Solo Chromatic against Piano, C Richter, and C Wilde Tuned harmonicas.',
+            chips: ['C Solo Chromatic', 'Piano', 'C Richter', 'C Wilde'],
+            variants: [
+                {
+                    id: 'c-bebop',
+                    label: 'C Bebop',
+                    key: 'c',
+                    scale: 'bebop',
+                    note: 'Compare how C Solo Chromatic reaches chromatic passing tones via Slide-In (IN) rows versus draw bends and overblows on C Richter and C Wilde Tuned harmonicas.'
+                },
+                {
+                    id: 'eb-major',
+                    label: 'Eb Major (Slide-In)',
+                    key: 'eb',
+                    scale: 'major',
+                    note: 'Playing Eb Major on a C harp showcases the Solo Chromatic’s strength: push the slide IN for crisp, bend-free flats mirrored directly on the Piano keyboard.'
+                },
+                {
+                    id: 'c-maj7',
+                    label: 'C Maj7 Chord',
+                    key: 'c',
+                    scale: 'maj7chord',
+                    note: 'Notice the repeating 4-hole octave layout on the Solo Chromatic (holes 1–4, 5–8, 9–12) compared to the Richter and Wilde diatonic note layouts.'
+                }
+            ],
+            banks: [
+                { instrument: 'chromatic12solo', tuning: 'c', valved: false },
+                { instrument: 'piano', tuning: 'standard', valved: false },
+                { instrument: 'diatonicrichter', tuning: 'c', valved: false },
+                { instrument: 'diatonicwildetuned', tuning: 'c', valved: false }
+            ]
+        }
+    ];
+
+    function captureComparisonSnapshot() {
+        const banks = [];
+        for (let b = 1; b <= 4; b++) {
+            banks.push({
+                instrument: $('#instrument' + b + 'Menu').val(),
+                tuning: $('#tuning' + b + 'Menu').val(),
+                valved: $('#valved' + b).is(':checked')
+            });
+        }
+        return {
+            banks,
+            key: $('#keyMenu').val(),
+            scale: $('#scaleMenu').val(),
+            scaleMode: Boolean(scaleMode),
+            showScaleDegrees: Boolean(showScaleDegrees),
+            showNoteNames: Boolean(showNoteNames),
+            accidentalMode: accidentalMode,
+            pluck: Boolean(pluck)
+        };
+    }
+
+    function applyComparisonConfig(cfg) {
+        if (!cfg) return;
+
+        if (Array.isArray(cfg.banks)) {
+            for (let b = 1; b <= 4; b++) {
+                const bankCfg = cfg.banks[b - 1];
+                if (!bankCfg) continue;
+                const $inst = $('#instrument' + b + 'Menu');
+                const $tun = $('#tuning' + b + 'Menu');
+                $inst.val(bankCfg.instrument);
+                $tun.html(menu[$inst.val()]);
+                if (bankCfg.tuning) $tun.val(bankCfg.tuning);
+                updateValvedVisibility(b);
+                $('#valved' + b).prop('checked', Boolean(bankCfg.valved));
+                loadInstrument(b);
+            }
+        }
+
+        if (cfg.accidentalMode === 'flats' || cfg.accidentalMode === 'sharps') {
+            accidentalMode = cfg.accidentalMode;
+            updateAccidentalButton();
+        }
+
+        if (cfg.showNoteNames !== undefined) {
+            showNoteNames = Boolean(cfg.showNoteNames);
+            $('#noteNames')
+                .html(showNoteNames ? 'Hide Note Names' : 'Show Note Names')
+                .toggleClass('active', showNoteNames);
+        }
+
+        if (cfg.showScaleDegrees !== undefined) {
+            showScaleDegrees = Boolean(cfg.showScaleDegrees);
+            $('#scaleDegrees')
+                .text(showScaleDegrees ? 'Hide Scale Degrees' : 'Show Scale Degrees')
+                .toggleClass('active', showScaleDegrees);
+        }
+
+        if (cfg.pluck !== undefined) {
+            pluck = Boolean(cfg.pluck);
+            $('#audioVoiceToggle').text(pluck ? 'Sound: Pluck' : 'Sound: Synth');
+        }
+
+        if (cfg.key !== undefined) {
+            $('#keyMenu').val(cfg.key);
+        }
+        if (cfg.scale !== undefined) {
+            $('#scaleMenu').val(cfg.scale);
+        }
+
+        if (showNoteNames) {
+            updateNoteNames();
+        } else {
+            clearNoteNames();
+        }
+
+        if (cfg.scaleMode === false) {
+            clearScale();
+        } else {
+            showScale($('#scaleMenu').val(), $('#keyMenu').val());
+        }
+
+        // Refresh all canvases after compact/wide card reflow settles
+        requestAnimationFrame(() => updateAllCanvases());
+        updateUrl();
+    }
+
+    function clearSpotlights() {
+        if (TUTORIAL_STATE.flashTimeout) {
+            clearTimeout(TUTORIAL_STATE.flashTimeout);
+            TUTORIAL_STATE.flashTimeout = null;
+        }
+        document.querySelectorAll('.tutorial-spotlight').forEach(el => el.classList.remove('tutorial-spotlight'));
+    }
+
+    function applySpotlights(targetIds, options = {}) {
+        clearSpotlights();
+        if (!Array.isArray(targetIds) || !targetIds.length) return;
+
+        let firstEl = null;
+        targetIds.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.add('tutorial-spotlight');
+                if (!firstEl) firstEl = el;
+            }
+        });
+
+        if (firstEl && options.scroll !== false) {
+            firstEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        if (options.flashMs) {
+            TUTORIAL_STATE.flashTimeout = setTimeout(() => {
+                document.querySelectorAll('.tutorial-spotlight').forEach(el => el.classList.remove('tutorial-spotlight'));
+                TUTORIAL_STATE.flashTimeout = null;
+            }, options.flashMs);
+        }
+    }
+
+    function getActiveVariant(setup) {
+        if (!setup || !Array.isArray(setup.variants) || !setup.variants.length) return null;
+        const selectedId = TUTORIAL_STATE.selectedVariants[setup.id];
+        return setup.variants.find(v => v.id === selectedId) || setup.variants[0];
+    }
+
+    function applyComparisonSetup(setupId) {
+        const setup = COMPARISON_SETUPS.find(s => s.id === setupId);
+        if (!setup) return;
+
+        if (!TUTORIAL_STATE.snapshot) {
+            TUTORIAL_STATE.snapshot = captureComparisonSnapshot();
+        }
+
+        const variant = getActiveVariant(setup);
+        applyComparisonConfig({
+            banks: setup.banks,
+            key: variant ? variant.key : 'g',
+            scale: variant ? variant.scale : 'blues',
+            scaleMode: true,
+            showScaleDegrees: true,
+            showNoteNames: true,
+            accidentalMode: 'flats'
+        });
+
+        TUTORIAL_STATE.activeSetupId = setup.id;
+        TUTORIAL_STATE.statusMessage = `Loaded "${setup.title}"${variant ? ` (${variant.label})` : ''} across all 4 banks.`;
+        renderTutorialPanel();
+        applySpotlights(['bank-card-1', 'bank-card-2'], { flashMs: 1800, scroll: true });
+    }
+
+    function restorePreTutorialSetup() {
+        if (!TUTORIAL_STATE.snapshot) return;
+        applyComparisonConfig(TUTORIAL_STATE.snapshot);
+        TUTORIAL_STATE.snapshot = null;
+        TUTORIAL_STATE.activeSetupId = null;
+        TUTORIAL_STATE.statusMessage = 'Restored your previous 4-bank comparison setup.';
+        clearSpotlights();
+        renderTutorialPanel();
+    }
+
+    window.__syncCompareTutorialUi = () => {
+        if (TUTORIAL_STATE.isOpen && TUTORIAL_STATE.activeTab === 'setups' && TUTORIAL_STATE.activeSetupId) {
+            renderTutorialPanel();
+        }
+    };
+
+    function renderTutorialPanel() {
+        const isTour = TUTORIAL_STATE.activeTab === 'tour';
+        tutorialTabTour.classList.toggle('active', isTour);
+        tutorialTabTour.setAttribute('aria-selected', String(isTour));
+        tutorialTabSetups.classList.toggle('active', !isTour);
+        tutorialTabSetups.setAttribute('aria-selected', String(!isTour));
+
+        tutorialPanel.classList.toggle('minimized', TUTORIAL_STATE.isMinimized);
+        tutorialMinimizeBtn.textContent = TUTORIAL_STATE.isMinimized ? '▴' : '▾';
+        tutorialMinimizeBtn.setAttribute('aria-label', TUTORIAL_STATE.isMinimized ? 'Expand tutorial panel' : 'Minimize tutorial panel');
+
+        if (isTour) {
+            const stepIdx = TUTORIAL_STATE.tourStepIndex;
+            const total = TUTORIAL_TOUR_STEPS.length;
+            const step = TUTORIAL_TOUR_STEPS[stepIdx];
+            tutorialHeaderBadge.textContent = `Tour ${stepIdx + 1}/${total}`;
+
+            const pct = Math.round(((stepIdx + 1) / total) * 100);
+            tutorialBody.innerHTML = `
+                <div class="tutorial-step-meta">
+                    <span>Step ${stepIdx + 1} of ${total}</span>
+                    <span>${pct}%</span>
+                </div>
+                <div class="tutorial-progress-track" aria-hidden="true">
+                    <div class="tutorial-progress-fill" style="width:${pct}%;"></div>
+                </div>
+                <h3 class="tutorial-step-heading">${step.title}</h3>
+                <p class="tutorial-step-copy">${step.copy}</p>
+                <ul class="tutorial-bullets">
+                    ${step.bullets.map(b => `<li>${b}</li>`).join('')}
+                </ul>
+                <div class="tutorial-try-tip"><strong>Try it:</strong> ${step.tip}</div>
+            `;
+
+            const isFirst = stepIdx === 0;
+            const isLast = stepIdx === total - 1;
+            tutorialFooter.innerHTML = `
+                <button type="button" id="tutorialPrevStepBtn" class="btn-secondary btn-sm" ${isFirst ? 'disabled style="opacity:0.45;cursor:not-allowed;"' : ''}>◀ Back</button>
+                ${isLast
+                    ? `<button type="button" id="tutorialFinishTourBtn" class="btn-primary btn-sm">🎯 Explore Comparison Setups ▶</button>`
+                    : `<button type="button" id="tutorialJumpSetupsBtn" class="btn-secondary btn-sm">🎯 Comparison Setups</button>
+                       <button type="button" id="tutorialNextStepBtn" class="btn-primary btn-sm">Next ▶</button>`
+                }
+            `;
+
+            document.getElementById('tutorialPrevStepBtn')?.addEventListener('click', () => {
+                if (TUTORIAL_STATE.tourStepIndex > 0) {
+                    TUTORIAL_STATE.tourStepIndex--;
+                    renderTutorialPanel();
+                    applyTourStepSpotlight();
+                }
+            });
+            document.getElementById('tutorialNextStepBtn')?.addEventListener('click', () => {
+                if (TUTORIAL_STATE.tourStepIndex < total - 1) {
+                    TUTORIAL_STATE.tourStepIndex++;
+                    renderTutorialPanel();
+                    applyTourStepSpotlight();
+                }
+            });
+            const goSetups = () => {
+                TUTORIAL_STATE.activeTab = 'setups';
+                clearSpotlights();
+                renderTutorialPanel();
+                tutorialTabSetups.focus();
+            };
+            document.getElementById('tutorialJumpSetupsBtn')?.addEventListener('click', goSetups);
+            document.getElementById('tutorialFinishTourBtn')?.addEventListener('click', goSetups);
+        } else {
+            const activeSetup = COMPARISON_SETUPS.find(s => s.id === TUTORIAL_STATE.activeSetupId);
+            tutorialHeaderBadge.textContent = activeSetup ? 'Setup Active' : `${COMPARISON_SETUPS.length} Setups`;
+
+            let html = '';
+            if (TUTORIAL_STATE.statusMessage) {
+                html += `<div class="tutorial-status-toast" role="status">${TUTORIAL_STATE.statusMessage}</div>`;
+            } else {
+                html += `<p class="tutorial-step-copy" style="font-size:12px; color:#475569;">Pick a curated 4-bank comparison below to load all four instruments and an active scale in one click. You can restore your exact prior setup anytime.</p>`;
+            }
+
+            html += `<div class="tutorial-setup-list">`;
+            COMPARISON_SETUPS.forEach(setup => {
+                const isActive = TUTORIAL_STATE.activeSetupId === setup.id;
+                const selectedVariant = getActiveVariant(setup);
+                const variantHtml = Array.isArray(setup.variants) && setup.variants.length
+                    ? `
+                        <div class="tutorial-pair-row" aria-label="${setup.title} scale options">
+                            ${setup.variants.map(v => `
+                                <button type="button" class="tutorial-pair-btn ${selectedVariant && selectedVariant.id === v.id ? 'active' : ''}" data-setup-id="${setup.id}" data-variant-id="${v.id}">${v.label}</button>
+                            `).join('')}
+                        </div>
+                    `
+                    : '';
+
+                const activeDetailsHtml = isActive
+                    ? `
+                        <div class="tutorial-card-active-details">
+                            <p class="tutorial-step-copy" style="font-size:12px;">${selectedVariant ? selectedVariant.note : setup.shortDesc}</p>
+                            <div class="tutorial-coach-actions">
+                                <button type="button" id="tutorialQuickScaleBtn" class="${scaleMode ? 'btn-secondary' : 'btn-primary'} btn-sm">${scaleMode ? 'Clear Scale' : 'Display Scale'}</button>
+                                <button type="button" id="tutorialQuickDegreesBtn" class="btn-toggle btn-sm ${showScaleDegrees ? 'active' : ''}">Degrees: ${showScaleDegrees ? 'ON' : 'OFF'}</button>
+                                <button type="button" id="tutorialQuickNotesBtn" class="btn-toggle btn-sm ${showNoteNames ? 'active' : ''}">Notes: ${showNoteNames ? 'ON' : 'OFF'}</button>
+                            </div>
+                        </div>
+                    `
+                    : '';
+
+                html += `
+                    <div class="tutorial-setup-card ${isActive ? 'active' : ''}">
+                        <div class="tutorial-setup-top">
+                            <h3 class="tutorial-setup-title">${setup.icon} ${setup.title}</h3>
+                            <button type="button" class="${isActive ? 'btn-secondary' : 'btn-primary'} btn-sm tutorial-apply-setup-btn" data-setup-id="${setup.id}">
+                                ${isActive ? '↻ Re-Apply' : 'Apply'}
+                            </button>
+                        </div>
+                        <p class="tutorial-setup-desc">${setup.shortDesc}</p>
+                        <div class="tutorial-chip-row">
+                            ${setup.chips.map(c => `<span class="tutorial-chip">${c}</span>`).join('')}
+                        </div>
+                        ${variantHtml}
+                        ${activeDetailsHtml}
+                    </div>
+                `;
+            });
+            html += `</div>`;
+
+            tutorialBody.innerHTML = html;
+
+            tutorialFooter.innerHTML = `
+                <button type="button" id="tutorialBackToTourBtn" class="btn-secondary btn-sm">🗺️ Settings Tour</button>
+                <div style="display:flex; gap:6px; align-items:center;">
+                    ${TUTORIAL_STATE.snapshot ? `<button type="button" id="tutorialFooterRestoreBtn" class="btn-secondary btn-sm">↩ Restore Previous</button>` : ''}
+                    <button type="button" id="tutorialDoneBtn" class="btn-primary btn-sm">Done</button>
+                </div>
+            `;
+
+            tutorialBody.querySelectorAll('.tutorial-apply-setup-btn').forEach(btn => {
+                btn.addEventListener('click', () => applyComparisonSetup(btn.dataset.setupId));
+            });
+            tutorialBody.querySelectorAll('.tutorial-pair-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const sId = btn.dataset.setupId;
+                    const vId = btn.dataset.variantId;
+                    if (sId && vId) {
+                        TUTORIAL_STATE.selectedVariants[sId] = vId;
+                        applyComparisonSetup(sId);
+                    }
+                });
+            });
+            document.getElementById('tutorialQuickScaleBtn')?.addEventListener('click', () => {
+                document.getElementById(scaleMode ? 'clearScale' : 'displayScale')?.click();
+            });
+            document.getElementById('tutorialQuickDegreesBtn')?.addEventListener('click', () => {
+                document.getElementById('scaleDegrees')?.click();
+            });
+            document.getElementById('tutorialQuickNotesBtn')?.addEventListener('click', () => {
+                document.getElementById('noteNames')?.click();
+            });
+            document.getElementById('tutorialFooterRestoreBtn')?.addEventListener('click', restorePreTutorialSetup);
+            document.getElementById('tutorialBackToTourBtn')?.addEventListener('click', () => {
+                TUTORIAL_STATE.activeTab = 'tour';
+                renderTutorialPanel();
+                applyTourStepSpotlight();
+                tutorialTabTour.focus();
+            });
+            document.getElementById('tutorialDoneBtn')?.addEventListener('click', closeTutorialMode);
+        }
+    }
+
+    function applyTourStepSpotlight() {
+        if (!TUTORIAL_STATE.isOpen || TUTORIAL_STATE.activeTab !== 'tour') {
+            clearSpotlights();
+            return;
+        }
+        const step = TUTORIAL_TOUR_STEPS[TUTORIAL_STATE.tourStepIndex];
+        if (!step) return;
+        applySpotlights(step.targets, { scroll: step.scroll !== false });
+    }
+
+    function openTutorialMode(initialTab) {
+        if (initialTab) TUTORIAL_STATE.activeTab = initialTab;
+        TUTORIAL_STATE.isOpen = true;
+        TUTORIAL_STATE.isMinimized = false;
+
+        if (typeof tutorialPanel.showPopover === 'function') {
+            try {
+                if (!tutorialPanel.matches(':popover-open')) tutorialPanel.showPopover();
+            } catch (err) {
+                tutorialPanel.classList.add('tutorial-fallback-open');
+            }
+        } else {
+            tutorialPanel.classList.add('tutorial-fallback-open');
+        }
+
+        tutorialBtn.classList.add('active');
+        tutorialBtn.setAttribute('aria-expanded', 'true');
+        renderTutorialPanel();
+        if (TUTORIAL_STATE.activeTab === 'tour') applyTourStepSpotlight();
+
+        // Route focus inside the panel so keyboard/screen-reader users immediately perceive it
+        (TUTORIAL_STATE.activeTab === 'tour' ? tutorialTabTour : tutorialTabSetups).focus();
+    }
+
+    function closeTutorialMode() {
+        if (!TUTORIAL_STATE.isOpen) return;
+        TUTORIAL_STATE.isOpen = false;
+        TUTORIAL_STATE.isMinimized = false;
+        clearSpotlights();
+
+        if (typeof tutorialPanel.hidePopover === 'function') {
+            try {
+                if (tutorialPanel.matches(':popover-open')) tutorialPanel.hidePopover();
+            } catch (err) {
+                tutorialPanel.classList.remove('tutorial-fallback-open');
+            }
+        }
+        tutorialPanel.classList.remove('tutorial-fallback-open');
+
+        tutorialBtn.classList.remove('active');
+        tutorialBtn.setAttribute('aria-expanded', 'false');
+        tutorialBtn.focus();
+    }
+
+    tutorialBtn.addEventListener('click', () => {
+        if (TUTORIAL_STATE.isOpen) closeTutorialMode();
+        else openTutorialMode();
+    });
+    tutorialCloseBtn.addEventListener('click', closeTutorialMode);
+    tutorialMinimizeBtn.addEventListener('click', () => {
+        TUTORIAL_STATE.isMinimized = !TUTORIAL_STATE.isMinimized;
+        renderTutorialPanel();
+    });
+    tutorialTabTour.addEventListener('click', () => {
+        TUTORIAL_STATE.activeTab = 'tour';
+        renderTutorialPanel();
+        applyTourStepSpotlight();
+    });
+    tutorialTabSetups.addEventListener('click', () => {
+        TUTORIAL_STATE.activeTab = 'setups';
+        clearSpotlights();
+        renderTutorialPanel();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (!TUTORIAL_STATE.isOpen) return;
+        if (e.key === 'Escape') {
+            e.preventDefault();
+            closeTutorialMode();
+            return;
+        }
+        const activeTag = document.activeElement?.tagName;
+        if (activeTag === 'INPUT' || activeTag === 'SELECT' || activeTag === 'TEXTAREA') return;
+        if (TUTORIAL_STATE.activeTab === 'tour' && tutorialPanel.contains(document.activeElement)) {
+            if (e.key === 'ArrowRight' && TUTORIAL_STATE.tourStepIndex < TUTORIAL_TOUR_STEPS.length - 1) {
+                e.preventDefault();
+                TUTORIAL_STATE.tourStepIndex++;
+                renderTutorialPanel();
+                applyTourStepSpotlight();
+            } else if (e.key === 'ArrowLeft' && TUTORIAL_STATE.tourStepIndex > 0) {
+                e.preventDefault();
+                TUTORIAL_STATE.tourStepIndex--;
+                renderTutorialPanel();
+                applyTourStepSpotlight();
+            }
+        }
+    });
 });
 
 function printInstrumentDiagram(bankNum) {
