@@ -129,16 +129,11 @@ function showScale(scale, key) {
     }
     
 
-    //skip root note, already highlighted red in the above for block
+    // Highlight every tone in the active scale/chord using Progression Studio interval badge styling
     for (let i = 0; i < scaleNotes.length; i++) {
         var scaleTones = tones[scaleNotes[i]];
         for (let j = 0; j < scaleTones.length; j++){
-           if (showScaleDegrees) {highlightDegree(scaleTones[j], nashvilleNumbers[i]);}
-           else {
-            if (i == 0) highlightred(scaleTones[j]); //highlight root notes in red
-            else highlight(scaleTones[j]);
-           }
-            
+            highlightDegree(scaleTones[j], nashvilleNumbers[i], showScaleDegrees);
         }
     }
 }
@@ -1024,7 +1019,8 @@ function loadInstrument(bankNum) {
     $card.removeClass('bank-card-wide bank-card-compact')
          .addClass(isWide ? 'bank-card-wide' : 'bank-card-compact');
 
-    $("#" + tableId).html(TuningEngine.generateInstrumentHtml(type, tuning, isValved, tableId));
+    var instKind = (type === 'piano') ? 'piano' : ((type === 'guitar' || type === 'ukulele') ? 'fretted' : 'harmonica');
+    $("#" + tableId).attr('data-inst-kind', instKind).html(TuningEngine.generateInstrumentHtml(type, tuning, isValved, tableId));
     attachAll(tableId);
     if (type === 'guitar') {
         updateGuitarCanvas(divId, tableId);
@@ -1333,10 +1329,26 @@ function highlight(name, outline = true) {
     }
 }
 
+const DEGREE_ROLE_CLASSES = ['deg-root', 'deg-third', 'deg-fifth', 'deg-seventh', 'deg-sixth', 'deg-ninth', 'deg-fourth'];
+const DEGREE_ROLE_MAP = {
+    1:  { label: 'R',  cls: 'deg-root' },
+    2:  { label: '♭2', cls: 'deg-ninth' },
+    3:  { label: '2',  cls: 'deg-ninth' },
+    4:  { label: '♭3', cls: 'deg-third' },
+    5:  { label: '3',  cls: 'deg-third' },
+    6:  { label: '4',  cls: 'deg-fourth' },
+    7:  { label: '♭5', cls: 'deg-fifth' },
+    8:  { label: '5',  cls: 'deg-fifth' },
+    9:  { label: '♭6', cls: 'deg-sixth' },
+    10: { label: '6',  cls: 'deg-sixth' },
+    11: { label: '♭7', cls: 'deg-seventh' },
+    12: { label: '7',  cls: 'deg-seventh' }
+};
+
 function clearHighlight(name) {
     for (var p of Array.from(document.getElementsByName(name))) {
         var td = p.parentElement;
-        td.classList.remove('highlight', 'highlight-outline', 'scale-degree', 'root');
+        td.classList.remove('highlight', 'highlight-outline', 'scale-degree', 'has-degree-label', 'root', ...DEGREE_ROLE_CLASSES);
         const deg = td.querySelector('.scale-degree-label');
         if (deg) deg.remove();
         if (!showNoteNames) {
@@ -1358,52 +1370,35 @@ function clearHighlightBorder(name) {
     }
 }
 
-function highlightDegree(name, degree) {
-    const degreeMap = {1:'R',2:'b2',3:'2',4:'b3',5:'3',6:'4',7:'b5',8:'5',9:'b6',10:'6',11:'b7',12:'7'};
+function highlightDegree(name, degree, showLabel = true) {
+    const meta = DEGREE_ROLE_MAP[degree] || { label: String(degree), cls: 'deg-fourth' };
     const isBlackKey = name && name.endsWith('s');
     for (var p of Array.from(document.getElementsByName(name))) {
         var td = p.parentElement;
-        let span = td.querySelector('.scale-degree-label');
-        if (!span) {
-            span = document.createElement('span');
-            span.className = 'scale-degree-label';
-            td.appendChild(span);
-        }
-        span.textContent = degreeMap[degree] || degree.toString();
-        if (isBlackKey) {
-            span.classList.add('white-text');
-            td.classList.add('black-key');
-        } else {
-            span.classList.remove('white-text');
-            td.classList.remove('black-key');
-        }
-        td.classList.remove('highlight-outline', 'highlight');
-        td.classList.add('scale-degree');
+        td.classList.remove('highlight-outline', 'highlight', 'root', ...DEGREE_ROLE_CLASSES);
+        td.classList.add('scale-degree', meta.cls);
         if (degree == 1) td.classList.add('root');
+        if (isBlackKey) td.classList.add('black-key');
+        else td.classList.remove('black-key');
+
+        let span = td.querySelector('.scale-degree-label');
+        if (showLabel) {
+            if (!span) {
+                span = document.createElement('span');
+                span.className = 'scale-degree-label';
+                td.appendChild(span);
+            }
+            span.textContent = meta.label;
+            td.classList.add('has-degree-label');
+        } else {
+            if (span) span.remove();
+            td.classList.remove('has-degree-label');
+        }
     }
 }
 
 function highlightred(name) {
-    const isBlackKey = name && name.endsWith('s');
-    for (var p of Array.from(document.getElementsByName(name))) {
-        var td = p.parentElement;
-        td.classList.remove('highlight-outline', 'highlight');
-        td.classList.add('scale-degree', 'root');
-        let span = td.querySelector('.scale-degree-label');
-        if (!span) {
-            span = document.createElement('span');
-            span.className = 'scale-degree-label';
-            td.appendChild(span);
-        }
-        span.textContent = 'R';
-        if (isBlackKey) {
-            span.classList.add('white-text');
-            td.classList.add('black-key');
-        } else {
-            span.classList.remove('white-text');
-            td.classList.remove('black-key');
-        }
-    }
+    highlightDegree(name, 1, showScaleDegrees);
 }
 
 function doMouseOver() {
@@ -1722,7 +1717,7 @@ $(document).ready(function() {
             copy: 'Highlight a wide range of scales, modes, and chord arpeggios across all four loaded instruments at once.',
             bullets: [
                 '<strong>Root Key &amp; Formula:</strong> Choose a key (<code>G</code> through <code>Gb/F#</code>) and any Scale, Mode, or Chord from the dropdown.',
-                '<strong>Display Scale:</strong> Lights up every matching pitch across all 4 banks, with Root notes highlighted in bold red (<code>R</code>).',
+                '<strong>Display Scale:</strong> Lights up every matching pitch across all 4 banks with color-coded interval badges—Amber for Roots (<code>R</code>), Emerald for 3rds, Sky Blue for 7ths, Indigo for 5ths, and Violet/Pink for other degrees.',
                 '<strong>Clear Scale:</strong> Turns off scale highlighting to return to a clean enharmonic hover-comparison view.'
             ],
             tip: 'Select <strong>G</strong> and <strong>Blues</strong>, click <em>Display Scale</em>, then switch the key dropdown—active scales update automatically!'

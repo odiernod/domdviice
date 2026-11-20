@@ -35,6 +35,9 @@ const TuningEngine = (function() {
         return +(440 * Math.pow(2, (midi - 69) / 12)).toFixed(2);
     }
 
+    // Inline 1x1 transparent spacer so cells never show broken image icons offline or on reload
+    const BLANK_IMG_SRC = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+
     // Active matrix store for canvas renderer to access note metadata per bank
     const harmonicaMatrices = {
         instrument1: null,
@@ -166,9 +169,9 @@ const TuningEngine = (function() {
         return matrix.map(row => {
             const cells = row.map(cell => {
                 if (!cell) {
-                    return `<td><img src="blank.png" width="63" height="63"></td>`;
+                    return `<td><img src="${BLANK_IMG_SRC}" alt="" width="63" height="63"></td>`;
                 }
-                return `<td><img name="${cell.name}" tone="${cell.tone}" src="blank.png" width="63" height="63"></td>`;
+                return `<td><img name="${cell.name}" tone="${cell.tone}" src="${BLANK_IMG_SRC}" alt="" width="63" height="63"></td>`;
             }).join('\n');
             return `<tr>\n${cells}\n</tr>`;
         }).join('\n');
@@ -187,7 +190,7 @@ const TuningEngine = (function() {
                 const midi = baseMidi + f;
                 const name = midiToNoteId(midi);
                 const tone = midiToFrequency(midi);
-                html += `<td><img name="${name}" tone="${tone}" src="blank.png" width="63" height="63"></td>\n`;
+                html += `<td><img name="${name}" tone="${tone}" src="${BLANK_IMG_SRC}" alt="" width="63" height="63"></td>\n`;
             }
             html += '</tr>\n';
         }
@@ -207,7 +210,7 @@ const TuningEngine = (function() {
                 const midi = baseMidi + f;
                 const name = midiToNoteId(midi);
                 const tone = midiToFrequency(midi);
-                html += `<td><img name="${name}" tone="${tone}" src="blank.png" width="63" height="63"></td>\n`;
+                html += `<td><img name="${name}" tone="${tone}" src="${BLANK_IMG_SRC}" alt="" width="63" height="63"></td>\n`;
             }
             html += '</tr>\n';
         }
@@ -286,7 +289,7 @@ const TuningEngine = (function() {
             const cells = r.map(midi => {
                 const name = midiToNoteId(midi);
                 const tone = midiToFrequency(midi);
-                return `<td><img name="${name}" tone="${tone}" src="blank.png" width="63" height="63"></td>`;
+                return `<td><img name="${name}" tone="${tone}" src="${BLANK_IMG_SRC}" alt="" width="63" height="63"></td>`;
             }).join('\n');
             return `<tr>\n${cells}\n</tr>`;
         }).join('\n');
@@ -304,7 +307,7 @@ const TuningEngine = (function() {
                 const midi = baseMidi + s;
                 const name = midiToNoteId(midi);
                 const tone = midiToFrequency(midi);
-                html += `<td><img class="noNoteNames" name="${name}" tone="${tone}" src="blank.png" width="63" height="63"></td>\n`;
+                html += `<td><img class="noNoteNames" name="${name}" tone="${tone}" src="${BLANK_IMG_SRC}" alt="" width="63" height="63"></td>\n`;
             }
             html += '</tr>\n';
         }

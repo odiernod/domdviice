@@ -341,91 +341,273 @@ table[class^="instrument"] img {
     cursor: pointer;
 }
 
-/* --- Interactive Note Overlays & Highlighting --- */
+/* --- Interactive Note Overlays & Highlighting (Progression Studio & Guitar Progression Styling) --- */
 .noteNameText {
     position: absolute;
-    top: 68%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     font-size: 13px;
     font-weight: 800;
-    color: #000000;
-    text-shadow: 
-        -1px -1px 0 #ffffff,
-         1px -1px 0 #ffffff,
-        -1px  1px 0 #ffffff,
-         1px  1px 0 #ffffff,
-         0 -1px 0 #ffffff,
-         0  1px 0 #ffffff,
-        -1px  0 0 #ffffff,
-         1px  0 0 #ffffff;
-    -webkit-text-stroke: 0.4px #ffffff;
+    color: #1e293b;
+    background: rgba(255, 255, 255, 0.88);
+    padding: 2px 4px;
+    border-radius: 4px;
     z-index: 15;
     pointer-events: none;
     line-height: 1;
     white-space: nowrap;
 }
 
-/* Scale degrees: positioned above center, always white text with black border */
+/* Crisp circular note badge (matches Progression Studio & Guitar Progression) */
+td.scale-degree::before,
+td.highlight::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #2563eb;
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.24);
+    z-index: 2;
+    pointer-events: none;
+    box-sizing: border-box;
+}
+
+/* Semantic interval colors from Progression Studio ROLE_META */
+td.deg-root::before,
+td.root::before {
+    background: #f59e0b;
+    box-shadow: 0 0 0 2.5px #fde68a, 0 2px 6px rgba(15, 23, 42, 0.24);
+}
+td.deg-third::before {
+    background: #10b981;
+    box-shadow: 0 0 0 2.5px #6ee7b7, 0 2px 6px rgba(15, 23, 42, 0.24);
+}
+td.deg-seventh::before {
+    background: #0ea5e9;
+    box-shadow: 0 0 0 2.5px #7dd3fc, 0 2px 6px rgba(15, 23, 42, 0.24);
+}
+td.deg-fifth::before {
+    background: #6366f1;
+}
+td.deg-sixth::before {
+    background: #ec4899;
+}
+td.deg-ninth::before {
+    background: #a855f7;
+}
+td.deg-fourth::before {
+    background: #7c3aed;
+}
+
+/* Hover highlight outside scale mode (Guitar Progression active blue circle + outer ring) */
+td.highlight:not(.scale-degree)::before {
+    background: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.35), 0 3px 10px rgba(37, 99, 235, 0.32);
+}
+
+td.highlight:not(.scale-degree) .noteNameText {
+    background: transparent;
+    padding: 0;
+    color: #ffffff;
+    font-size: 12.5px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+/* Scale degree label centered inside the circular badge */
 .scale-degree-label {
     position: absolute;
-    top: 30%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 15px;
-    font-weight: 900;
-    color: #ffffff !important;
-    text-shadow: 
-        -1px -1px 0 #000000,
-         1px -1px 0 #000000,
-        -1px  1px 0 #000000,
-         1px  1px 0 #000000,
-         0 -1px 0 #000000,
-         0  1px 0 #000000,
-        -1px  0 0 #000000,
-         1px  0 0 #000000,
-         0 2px 4px rgba(0, 0, 0, 0.9);
-    -webkit-text-stroke: 0.8px #000000;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 12px;
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
     z-index: 20;
     pointer-events: none;
     line-height: 1;
     white-space: nowrap;
 }
 
-.scale-degree-label.white-text,
-td.black-key .scale-degree-label,
-td:has(img[name$="s"]) .scale-degree-label {
-    color: #ffffff !important;
+/* Dark high-contrast text on Amber Root badge (exact Progression Studio rule) */
+td.deg-root .scale-degree-label,
+td.root .scale-degree-label {
+    color: #090d16;
+    text-shadow: none;
 }
 
-.highlight {
-    background-color: rgba(0, 120, 215, 0.08);
-}
-
-.highlight-outline {
-    outline: 4px solid #facc15;
-    outline-offset: -2px;
+/* Highlighted cell when Scale Degrees are OFF: center note name inside the colored circle */
+td.scale-degree:not(.has-degree-label) .noteNameText {
+    top: 50%;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+    background: transparent;
+    padding: 0;
+    font-size: 12.5px;
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
     z-index: 20;
 }
 
-/* Circular shading for scale degree cells */
-td.scale-degree::before {
+td.scale-degree:not(.has-degree-label).deg-root .noteNameText,
+td.scale-degree:not(.has-degree-label).root .noteNameText {
+    color: #090d16;
+    text-shadow: none;
+}
+
+/* Highlighted cell when Scale Degrees are ON: clean note name above circle on Fretted instruments */
+table[data-inst-kind="fretted"] td.scale-degree.has-degree-label .noteNameText {
+    top: 8px;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+    font-size: 11.5px;
+    color: #0f172a;
+    background: rgba(255, 255, 255, 0.92);
+    padding: 1px 4px;
+    border-radius: 4px;
+    z-index: 22;
+}
+
+/* Harmonica & Chromatic: larger 40px centered circle keeps BOTH degree and note name cleanly inside,
+   completely clear of comb hole numbers (bottom of BLOW / top of DRAW) and corner badges (DB/OB/IN) */
+table[data-inst-kind="harmonica"] td.scale-degree::before,
+table[data-inst-kind="harmonica"] td.highlight::before {
+    top: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+table[data-inst-kind="harmonica"] td.scale-degree.has-degree-label:has(.noteNameText) .scale-degree-label {
+    top: 38%;
+    font-size: 13px;
+    font-weight: 900;
+}
+
+table[data-inst-kind="harmonica"] td.scale-degree.has-degree-label:not(:has(.noteNameText)) .scale-degree-label {
+    top: 50%;
+    font-size: 14px;
+    font-weight: 900;
+}
+
+table[data-inst-kind="harmonica"] td.scale-degree.has-degree-label .noteNameText {
+    top: 63%;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+    font-size: 12.5px;
+    font-weight: 800;
+    color: #ffffff;
+    background: transparent;
+    padding: 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+    z-index: 22;
+}
+
+table[data-inst-kind="harmonica"] td.scale-degree.has-degree-label.deg-root .noteNameText,
+table[data-inst-kind="harmonica"] td.scale-degree.has-degree-label.root .noteNameText {
+    color: #090d16;
+    text-shadow: none;
+}
+
+table[data-inst-kind="harmonica"] td.scale-degree:not(.has-degree-label) .noteNameText,
+table[data-inst-kind="harmonica"] td.highlight:not(.scale-degree) .noteNameText {
+    font-size: 14px;
+}
+
+table[data-inst-kind="harmonica"] td.scale-degree.highlight-outline::after {
+    top: 50%;
+    width: 46px;
+    height: 46px;
+}
+
+table[data-inst-kind="harmonica"] td.highlight-outline:not(.scale-degree):not(.highlight)::after {
+    top: 50%;
+    width: 42px;
+    height: 42px;
+}
+
+/* Piano: position badge in upper key area so canvas C4/F#4 key labels below stay 100% clear */
+table[data-inst-kind="piano"] td.scale-degree::before,
+table[data-inst-kind="piano"] td.highlight::before {
+    top: 34%;
+    width: 26px;
+    height: 26px;
+}
+
+table[data-inst-kind="piano"] .scale-degree-label {
+    top: 34%;
+    font-size: 11px;
+}
+
+table[data-inst-kind="piano"] td.highlight-outline::after {
+    top: 34%;
+    width: 34px;
+    height: 34px;
+}
+
+/* Piano black keys have a shorter ebony cap whose label sits higher (~36px), so nudge badge slightly higher */
+table[data-inst-kind="piano"] td.black-key.scale-degree::before,
+table[data-inst-kind="piano"] td.black-key.highlight::before,
+table[data-inst-kind="piano"] td:has(img[name$="s"]).highlight::before {
+    top: 25%;
+    width: 22px;
+    height: 22px;
+}
+
+table[data-inst-kind="piano"] td.black-key .scale-degree-label {
+    top: 25%;
+    font-size: 9.5px;
+}
+
+table[data-inst-kind="piano"] td.black-key.highlight-outline::after,
+table[data-inst-kind="piano"] td:has(img[name$="s"]).highlight-outline::after {
+    top: 25%;
+    width: 30px;
+    height: 30px;
+}
+
+/* Crisp circular hover cross-highlight reticle (replaces boxy yellow outline) */
+td.highlight-outline {
+    z-index: 25;
+}
+
+td.scale-degree.highlight-outline::after {
     content: '';
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: calc(100% - 8px);
-    height: 0;
-    padding-top: calc(100% - 8px);
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
-    background: rgba(0, 120, 215, 0.32);
-    z-index: 1;
+    border: 3px solid #facc15;
+    box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.55);
+    z-index: 25;
     pointer-events: none;
+    box-sizing: border-box;
 }
 
-td.root::before {
-    background: rgba(220, 38, 38, 0.42);
+td.highlight-outline:not(.scale-degree):not(.highlight)::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 3px solid #2563eb;
+    background: rgba(37, 99, 235, 0.14);
+    z-index: 25;
+    pointer-events: none;
+    box-sizing: border-box;
 }
 
 /* --- Print Button & Banner Styling --- */
