@@ -926,6 +926,556 @@
         width: auto;
       }
     }
+
+    /* =========================================================================
+       GUIDED PRACTICE — HEADER BUTTON, HUB MODAL & ACTIVE LESSON COACH CARD
+       ========================================================================= */
+    .btn-practice {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(14, 165, 233, 0.18));
+      border: 1.5px solid var(--emerald);
+      color: var(--text-main);
+      font-weight: 800;
+    }
+    .btn-practice:hover {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.30), rgba(14, 165, 233, 0.28));
+      border-color: var(--sky);
+    }
+    .btn-practice.active {
+      background: var(--emerald);
+      border-color: var(--emerald);
+      color: #ffffff;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.28);
+    }
+
+    /* Practice Hub Modal (<dialog>) */
+    dialog.practice-hub-modal {
+      margin: auto;
+      padding: 0;
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      background: var(--card-bg);
+      color: var(--text-main);
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.38);
+      width: min(980px, calc(100vw - 24px));
+      max-height: min(88vh, 820px);
+      overflow: hidden;
+      flex-direction: column;
+    }
+    dialog.practice-hub-modal[open] {
+      display: flex;
+    }
+    dialog.practice-hub-modal:modal {
+      overscroll-behavior: contain;
+    }
+    dialog.practice-hub-modal::backdrop {
+      background: rgba(15, 23, 42, 0.56);
+      backdrop-filter: blur(3px);
+      overflow: hidden;
+      overscroll-behavior: contain;
+    }
+
+    .practice-hub-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 14px 18px;
+      background: var(--card-header);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .practice-hub-title-group {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .practice-hub-title {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: -0.2px;
+      color: var(--text-main);
+    }
+    .practice-key-badge {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(245, 158, 11, 0.16);
+      border: 1px solid rgba(245, 158, 11, 0.42);
+      color: var(--amber);
+    }
+    .practice-hub-tabs {
+      display: flex;
+      gap: 8px;
+      padding: 10px 18px;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border-subtle);
+      flex-wrap: wrap;
+    }
+    .practice-hub-tab {
+      min-height: 34px;
+      padding: 6px 14px;
+      font-size: 12.5px;
+      font-weight: 800;
+      border-radius: 8px;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .practice-hub-tab.active {
+      background: var(--emerald);
+      border-color: var(--emerald);
+      color: #ffffff;
+    }
+    .practice-hub-body {
+      padding: 16px 18px;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      flex: 1 1 auto;
+    }
+
+    .pillars-layout {
+      display: grid;
+      grid-template-columns: 270px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+    @media (max-width: 820px) {
+      .pillars-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+    .pillar-nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .pillar-nav-item {
+      text-align: left;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 2px;
+      padding: 9px 11px;
+      border-radius: 10px;
+      background: var(--bg-elevated);
+      border: 1.5px solid var(--border);
+      color: var(--text-main);
+    }
+    .pillar-nav-item:hover {
+      border-color: var(--emerald);
+    }
+    .pillar-nav-item.active {
+      border-color: var(--emerald);
+      background: rgba(16, 185, 129, 0.12);
+      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.18);
+    }
+    .pillar-nav-head {
+      font-size: 12.5px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      width: 100%;
+    }
+    .pillar-nav-sub {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      line-height: 1.35;
+    }
+
+    .pillar-detail-pane {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .pillar-hero-box {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--emerald);
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+    .pillar-hero-title {
+      margin: 0 0 4px;
+      font-size: 15px;
+      font-weight: 900;
+      color: var(--text-main);
+    }
+    .pillar-hero-phil {
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+
+    .lesson-card-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .lesson-card {
+      background: var(--bg-elevated);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      transition: border-color 0.15s ease;
+    }
+    .lesson-card:hover {
+      border-color: var(--accent);
+    }
+    .lesson-card.current-active {
+      border-color: var(--emerald);
+      background: rgba(16, 185, 129, 0.08);
+    }
+    .lesson-card-info {
+      flex: 1 1 260px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .lesson-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .lesson-code-pill {
+      font-size: 10px;
+      font-weight: 900;
+      font-family: ui-monospace, monospace;
+      padding: 2px 6px;
+      border-radius: 5px;
+      background: rgba(59, 130, 246, 0.16);
+      color: var(--accent);
+      border: 1px solid rgba(59, 130, 246, 0.35);
+    }
+    .lesson-level-pill {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 5px;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .lesson-card-title {
+      margin: 0;
+      font-size: 13.5px;
+      font-weight: 900;
+      color: var(--text-main);
+    }
+    .lesson-card-summary {
+      margin: 0;
+      font-size: 11.5px;
+      line-height: 1.4;
+      color: var(--text-muted);
+    }
+
+    /* Diagnostic Fix-a-Flaw Grid */
+    .diag-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px;
+    }
+    .diag-card {
+      background: var(--bg-elevated);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 13px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .diag-card h3 {
+      margin: 0;
+      font-size: 13.5px;
+      font-weight: 900;
+      color: var(--text-main);
+    }
+    .diag-label {
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: var(--rose);
+    }
+    .diag-prescription {
+      font-size: 11.5px;
+      line-height: 1.45;
+      color: var(--text-main);
+      padding: 7px 9px;
+      border-radius: 8px;
+      background: rgba(16, 185, 129, 0.10);
+      border: 1px solid rgba(16, 185, 129, 0.28);
+    }
+
+    /* Reference Matrices */
+    .ref-section {
+      margin-bottom: 16px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+    .ref-section h3 {
+      margin: 0 0 8px;
+      font-size: 13.5px;
+      font-weight: 900;
+      color: var(--text-main);
+    }
+    .ref-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11.5px;
+    }
+    .ref-table th, .ref-table td {
+      text-align: left;
+      padding: 7px 8px;
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: top;
+      line-height: 1.4;
+    }
+    .ref-table th {
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      color: var(--text-muted);
+      font-weight: 900;
+    }
+
+    /* Docked Active Lesson Coach Card (inside .page above Visualizer) */
+    .practice-coach-card {
+      border-left: 4px solid var(--emerald);
+      background: var(--card-bg);
+    }
+    .coach-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 10px;
+    }
+    .coach-title-block {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .coach-pillar-badge {
+      font-size: 10.5px;
+      font-weight: 900;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.16);
+      color: var(--emerald);
+      border: 1px solid rgba(16, 185, 129, 0.38);
+    }
+    .coach-lesson-title {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 900;
+      color: var(--text-main);
+    }
+    .coach-body-grid {
+      display: grid;
+      grid-template-columns: 1.55fr 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+    @media (max-width: 960px) {
+      .coach-body-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .coach-blocks-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 9px;
+    }
+    .coach-block-btn {
+      min-height: 32px;
+      padding: 5px 11px;
+      font-size: 11.5px;
+      font-weight: 800;
+      border-radius: 8px;
+      background: var(--bg-elevated);
+      border: 1.5px solid var(--border);
+      color: var(--text-muted);
+    }
+    .coach-block-btn.active {
+      background: var(--accent);
+      border-color: var(--accent-hover);
+      color: #ffffff;
+    }
+    .coach-instruction-box {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .coach-focus-tag {
+      font-size: 10.5px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: var(--accent);
+    }
+    .coach-instruction-text {
+      margin: 0;
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: var(--text-main);
+    }
+
+    /* Live Beat & Metric Launchpad Strip */
+    .beat-strip-box {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .beat-strip-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 10.5px;
+      font-weight: 800;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+    }
+    .beat-slots-row {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 4px;
+    }
+    .beat-slot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 32px;
+      border-radius: 7px;
+      font-size: 11.5px;
+      font-weight: 900;
+      font-family: ui-monospace, monospace;
+      background: var(--input-bg);
+      border: 1.5px solid var(--border);
+      color: var(--text-muted);
+      transition: transform 0.08s ease, background 0.08s ease, border-color 0.08s ease;
+    }
+    .beat-slot.downbeat {
+      color: var(--text-main);
+    }
+    .beat-slot.target {
+      border-color: var(--emerald);
+      background: rgba(16, 185, 129, 0.16);
+      color: var(--emerald);
+    }
+    .beat-slot.banned {
+      border-color: var(--rose);
+      background: rgba(244, 63, 94, 0.14);
+      color: var(--rose);
+      text-decoration: line-through;
+    }
+    .beat-slot.now {
+      transform: scale(1.07);
+      border-color: var(--amber) !important;
+      background: var(--amber) !important;
+      color: #090d16 !important;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.28);
+    }
+
+    /* Practice Timer & Transport Box */
+    .coach-right-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .coach-timer-box {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 9px 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .coach-timer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .coach-timer-clock {
+      font-size: 20px;
+      font-weight: 900;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      color: var(--text-main);
+      letter-spacing: 0.5px;
+    }
+    .coach-timer-clock.done {
+      color: var(--emerald);
+    }
+    .coach-details-row {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 820px) {
+      .coach-details-row {
+        grid-template-columns: 1fr;
+      }
+    }
+    .coach-info-panel {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 8px 11px;
+      font-size: 12px;
+      line-height: 1.45;
+      color: var(--text-muted);
+    }
+    .coach-info-panel summary {
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 11.5px;
+      color: var(--text-main);
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .coach-info-panel summary::-webkit-details-marker { display: none; }
+    .coach-info-panel ul {
+      margin: 6px 0 0;
+      padding-left: 17px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
   </style>
 </head>
 <body>
@@ -938,6 +1488,7 @@
       </div>
 
       <div class="header-right">
+        <button type="button" id="guidedPracticeBtn" class="btn-practice btn-sm" aria-haspopup="dialog" title="Open Pillar-Based Guided Practice &amp; Diagnostic Drills">🧭 Guided Practice</button>
         <button type="button" id="tutorialModeBtn" class="btn-tutorial btn-sm" aria-controls="tutorialPanel" aria-expanded="false" title="Open interactive Settings Tour &amp; Practice Setups">🎓 Tutorial Mode</button>
         <button type="button" id="themeToggleBtn" class="btn-secondary btn-sm" title="Switch Light / Dark Theme">🌙 Dark Theme</button>
 
@@ -1012,6 +1563,7 @@
             <option value="rock">Pop / Rock 8th Groove</option>
             <option value="halftime">Half-Time Ballad</option>
             <option value="metronome">Metronome Click Only</option>
+            <option value="metronome_8th">Metronome (8th-Note Subdivisions)</option>
             <option value="off">Drums Off</option>
           </select>
         </label>
@@ -1197,6 +1749,9 @@
       </div>
     </section>
 
+    <!-- 2b. ACTIVE GUIDED PRACTICE COACH CARD (SHOWN WHEN A LESSON IS ACTIVE) -->
+    <section class="card practice-coach-card hidden" id="practiceCoachCard" aria-label="Active Guided Practice Lesson"></section>
+
     <!-- 3. MULTI-INSTRUMENT GUIDE TONE VISUALIZER -->
     <section class="card" id="visualizerCard">
       <div class="card-header-row">
@@ -1340,9 +1895,31 @@
     <div id="tutorialFooter" class="tutorial-footer"></div>
   </dialog>
 
+  <!-- GUIDED PRACTICE HUB MODAL -->
+  <dialog id="practiceHubModal" class="practice-hub-modal" closedby="any" aria-labelledby="practiceHubTitle">
+    <div class="practice-hub-header">
+      <div class="practice-hub-title-group">
+        <h2 id="practiceHubTitle" class="practice-hub-title">🧭 Guided Practice — The Architecture of Melodic Improvisation</h2>
+        <span id="practiceHubKeyBadge" class="practice-key-badge">Active Key: C</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <button type="button" id="practiceHubCloseBtn" class="btn-secondary btn-sm" aria-label="Close Guided Practice Hub">✕ Close</button>
+      </div>
+    </div>
+
+    <div class="practice-hub-tabs" role="tablist" aria-label="Guided Practice sections">
+      <button type="button" id="practiceTabPillars" class="practice-hub-tab active" role="tab" aria-selected="true" aria-controls="practiceHubBody">🏛️ Practice Pillars (7)</button>
+      <button type="button" id="practiceTabDiagnostics" class="practice-hub-tab" role="tab" aria-selected="false" aria-controls="practiceHubBody">🩺 Fix a Flaw (6)</button>
+      <button type="button" id="practiceTabReference" class="practice-hub-tab" role="tab" aria-selected="false" aria-controls="practiceHubBody">📚 Theory &amp; Reference</button>
+    </div>
+
+    <div id="practiceHubBody" class="practice-hub-body" role="tabpanel"></div>
+  </dialog>
+
   <!-- Load OmniTune shared definitions if present in same repo -->
   <script src="scripts/tuning_definitions.js" onerror="window.__omnituneStandaloneFallback=true"></script>
   <script src="scripts/tuning_engine.js" onerror="window.__omnituneStandaloneFallback=true"></script>
+  <script src="scripts/practice_curriculum.js" onerror="window.__omnituneNoCurriculum=true"></script>
 
   <script>
     /* =========================================================================
@@ -1694,6 +2271,7 @@
       showDegrees: true,
       bgScale: 'none',
       targetRoles: new Set(['root', 'third', 'seventh']),
+      trainingOverlay: null,
       inst1: { type: 'guitar', tuning: 'standard', valved: false, hitBoxes: [] },
       inst2: { enabled: false, type: 'diatonicrichter', tuning: 'f', valved: false, hitBoxes: [] },
       selectedTarget: null,
@@ -2207,6 +2785,11 @@
         for (let b = 0; b < beatsInSlice; b++) {
           playDrumHit(b === 0 ? 'click_hi' : 'click_lo', barStart + b * beatDur, b === 0 ? 0.8 : 0.55);
         }
+      } else if (dg === 'metronome_8th') {
+        for (let b = 0; b < beatsInSlice; b++) {
+          playDrumHit(b === 0 ? 'click_hi' : 'click_lo', barStart + b * beatDur, b === 0 ? 0.82 : 0.55);
+          playDrumHit('click_lo', barStart + (b + 0.5) * beatDur, 0.24);
+        }
       } else if (dg === 'jazz_swing') {
         for (let b = 0; b < beatsInSlice; b++) {
           const t = barStart + b * beatDur;
@@ -2289,6 +2872,8 @@
         btn.textContent = '▶ Play Progression';
       }
       if (typeof window.__syncTutorialPlayBtn === 'function') window.__syncTutorialPlayBtn();
+      if (typeof window.__syncPracticePlayBtn === 'function') window.__syncPracticePlayBtn();
+      if (typeof window.__onPracticeBeatPulse === 'function') window.__onPracticeBeatPulse(-1);
       renderProgressionTimeline();
       renderAllVisualizers();
     }
@@ -2309,7 +2894,22 @@
         btn.textContent = '⏹ Stop Playing';
       }
       if (typeof window.__syncTutorialPlayBtn === 'function') window.__syncTutorialPlayBtn();
+      if (typeof window.__syncPracticePlayBtn === 'function') window.__syncPracticePlayBtn();
       schedulePlaybackPass();
+    }
+
+    function scheduleBeatPulses(barStart, beatDur, beatsInSlice) {
+      if (typeof window.__onPracticeBeatPulse !== 'function') return;
+      const slots = Math.round(beatsInSlice * 2);
+      for (let s = 0; s < slots; s++) {
+        const slotTime = barStart + s * (beatDur * 0.5);
+        const delayMs = Math.max(0, (slotTime - audioCtx.currentTime) * 1000);
+        const tPulse = setTimeout(() => {
+          if (!STATE.isPlaying) return;
+          if (typeof window.__onPracticeBeatPulse === 'function') window.__onPracticeBeatPulse(s);
+        }, delayMs);
+        STATE.loopTimeouts.push(tPulse);
+      }
     }
 
     function schedulePlaybackPass() {
@@ -2333,11 +2933,14 @@
 
         if (barCount >= 1) {
           for (let b = 0; b < Math.round(barCount); b++) {
-            scheduleBarAudio(profile, b === Math.round(barCount) - 1 ? nextProfile : profile, entryStart + b * singleBarDur, beatDur, 4);
+            const thisBarStart = entryStart + b * singleBarDur;
+            scheduleBarAudio(profile, b === Math.round(barCount) - 1 ? nextProfile : profile, thisBarStart, beatDur, 4);
+            scheduleBeatPulses(thisBarStart, beatDur, 4);
           }
         } else {
           // 1/2 bar chord: plays 2 beats (half the beats of a 1-bar chord) at the exact same beatDur tempo
           scheduleBarAudio(profile, nextProfile, entryStart, beatDur, 2);
+          scheduleBeatPulses(entryStart, beatDur, 2);
         }
 
         const delayMs = Math.max(0, (entryStart - audioCtx.currentTime) * 1000);
@@ -2462,6 +3065,91 @@
       return { activeProfile, nextProfile, pinnedProfile, activeIdx: idx, nextIdx, isWrap: idx === list.length - 1 };
     }
 
+    function resolveVisualPitchState(pc, activeProfile, nextProfile) {
+      const ov = STATE.trainingOverlay;
+      const keyPc = CHROMATIC.indexOf(STATE.key);
+
+      if (ov && ov.type === 'palette' && Array.isArray(ov.semis)) {
+        const rel = ((pc - keyPc) % 12 + 12) % 12;
+        if (ov.semis.includes(rel)) {
+          const degLabel = (ov.labels && ov.labels[rel] !== undefined) ? String(ov.labels[rel]) : String(rel);
+          const isTonic = rel === 0;
+          const isFifth = rel === 7;
+          return {
+            activeRole: {
+              role: isTonic ? 'root' : (isFifth ? 'fifth' : 'third'),
+              degree: degLabel,
+              color: isTonic ? '#f59e0b' : (isFifth ? '#6366f1' : '#10b981'),
+              ring: isTonic ? '#fde68a' : (isFifth ? '#a5b4fc' : '#6ee7b7'),
+              isGuide: !isTonic && !isFifth,
+              label: `Palette ${degLabel}`,
+              note: CHROMATIC[pc]
+            },
+            ghostRole: null,
+            isScaleTone: false,
+            approachHint: null
+          };
+        }
+        return { activeRole: null, ghostRole: null, isScaleTone: false, approachHint: null };
+      }
+
+      const rawRole = activeProfile.getRoleForPc(pc);
+      let activeRole = (rawRole && STATE.targetRoles.has(rawRole.role)) ? rawRole : null;
+      const rawNext = (STATE.showNextGhost && nextProfile) ? nextProfile.getRoleForPc(pc) : null;
+      const ghostRole = (rawNext && STATE.targetRoles.has(rawNext.role) && (rawNext.isGuide || rawNext.role === 'root')) ? rawNext : null;
+      const isScaleTone = isBackgroundScalePitch(pc);
+
+      if (!activeRole && ov && ov.type === 'extra-interval' && typeof ov.semiFromChordRoot === 'number') {
+        const extraPc = (activeProfile.rootPc + ov.semiFromChordRoot) % 12;
+        if (pc === extraPc) {
+          activeRole = {
+            role: 'sixth',
+            degree: ov.degreeLabel || '6',
+            color: ov.color || '#ec4899',
+            ring: '#f9a8d4',
+            isGuide: true,
+            label: `Color ${ov.degreeLabel || '6'}`,
+            note: CHROMATIC[pc]
+          };
+        }
+      }
+
+      let approachHint = null;
+      if (!activeRole && ov && ov.type === 'approach') {
+        const roles = Array.isArray(ov.targetRoles) ? ov.targetRoles : ['third'];
+        const targetPcs = [];
+        if (roles.includes('root')) targetPcs.push(activeProfile.rootPc);
+        if (roles.includes('third')) targetPcs.push(activeProfile.thirdPc);
+        if (roles.includes('fifth')) targetPcs.push(activeProfile.fifthPc);
+        if (roles.includes('seventh')) targetPcs.push(activeProfile.seventhPc);
+
+        const majorSemis = [0, 2, 4, 5, 7, 9, 11];
+        for (const tPc of targetPcs) {
+          if (pc === (tPc + 11) % 12) {
+            approachHint = { symbol: '↗', color: '#f43f5e' };
+            break;
+          }
+          if (ov.mode === 'double-below' && pc === (tPc + 10) % 12) {
+            approachHint = { symbol: '»', color: '#fb7185' };
+            break;
+          }
+          if (ov.mode === 'enclosure') {
+            // Find next diatonic scale pitch above tPc in active Song Key
+            const relT = ((tPc - keyPc) % 12 + 12) % 12;
+            const nextScaleRel = majorSemis.find(s => s > relT);
+            const aboveRel = nextScaleRel !== undefined ? nextScaleRel : 0;
+            const abovePc = (keyPc + aboveRel) % 12;
+            if (pc === abovePc) {
+              approachHint = { symbol: '↘', color: '#f43f5e' };
+              break;
+            }
+          }
+        }
+      }
+
+      return { activeRole, ghostRole, isScaleTone, approachHint };
+    }
+
     function renderFrettedCanvas(ctx, w, h, instState, activeProfile, nextProfile) {
       const isUke = instState.type === 'ukulele';
       const catalog = isUke ? getUkuleleCatalog() : getGuitarCatalog();
@@ -2544,12 +3232,34 @@
 
           hitBoxes.push({ x: x - 14, y: y - 14, w: 28, h: 28, ...pInfo, label: `Fret ${f} (${openNote})` });
 
-          const rawRole = activeProfile.getRoleForPc(pInfo.pitchClass);
-          const activeRole = (rawRole && STATE.targetRoles.has(rawRole.role)) ? rawRole : null;
+          const { activeRole, ghostRole, isScaleTone, approachHint } = resolveVisualPitchState(pInfo.pitchClass, activeProfile, nextProfile);
 
-          const rawNext = (STATE.showNextGhost && nextProfile) ? nextProfile.getRoleForPc(pInfo.pitchClass) : null;
-          const ghostRole = (rawNext && STATE.targetRoles.has(rawNext.role) && (rawNext.isGuide || rawNext.role === 'root')) ? rawNext : null;
-          const isScaleTone = isBackgroundScalePitch(pInfo.pitchClass);
+          // Chromatic approach / enclosure hint marker (when Guided Practice approach overlay is active)
+          if (!activeRole && approachHint) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.fillStyle = isLight ? 'rgba(244, 63, 94, 0.16)' : 'rgba(244, 63, 94, 0.24)';
+            ctx.arc(x, y, 10, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.setLineDash([3, 2]);
+            ctx.strokeStyle = approachHint.color;
+            ctx.lineWidth = 1.8;
+            ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.fillStyle = isLight ? '#be123c' : '#fda4af';
+            ctx.font = 'bold 10px ui-monospace, monospace';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(approachHint.symbol, x, y + 0.5);
+            if (STATE.showNotes) {
+              ctx.fillStyle = isLight ? '#be123c' : '#fda4af';
+              ctx.font = 'bold 8.5px ui-monospace, monospace';
+              ctx.textBaseline = 'alphabetic';
+              ctx.fillText(pInfo.pitchName, x, y - 12);
+            }
+            ctx.restore();
+            continue;
+          }
 
           // Prominent background scale overlay dot
           if (!activeRole && !ghostRole && isScaleTone) {
@@ -2758,11 +3468,7 @@
         const cy = by + bh / 2 + 2;
         hitBoxes.push({ x: bx, y: by, w: bw, h: bh, ...cell, label: `Hole ${cell.hole} (${cell.badge})` });
 
-        const rawRole = activeProfile.getRoleForPc(cell.pitchClass);
-        const activeRole = (rawRole && STATE.targetRoles.has(rawRole.role)) ? rawRole : null;
-        const rawNext = (STATE.showNextGhost && nextProfile) ? nextProfile.getRoleForPc(cell.pitchClass) : null;
-        const ghostRole = (rawNext && STATE.targetRoles.has(rawNext.role) && (rawNext.isGuide || rawNext.role === 'root')) ? rawNext : null;
-        const isScaleTone = isBackgroundScalePitch(cell.pitchClass);
+        const { activeRole, ghostRole, isScaleTone, approachHint } = resolveVisualPitchState(cell.pitchClass, activeProfile, nextProfile);
 
         ctx.save();
         ctx.beginPath();
@@ -2775,6 +3481,13 @@
           ctx.fill();
           ctx.lineWidth = activeRole.isGuide ? 2.2 : 1.5;
           ctx.strokeStyle = '#ffffff';
+          ctx.stroke();
+        } else if (approachHint) {
+          ctx.fillStyle = isLight ? 'rgba(244, 63, 94, 0.14)' : 'rgba(244, 63, 94, 0.22)';
+          ctx.setLineDash([4, 2]);
+          ctx.strokeStyle = approachHint.color;
+          ctx.lineWidth = 1.7;
+          ctx.fill();
           ctx.stroke();
         } else if (ghostRole) {
           ctx.fillStyle = ghostRole.color;
@@ -2806,8 +3519,8 @@
         ctx.textBaseline = 'top';
         ctx.fillText(cell.badge, bx + 4, by + 3);
 
-        // Prominent Scale Overlay Dot inside harmonica cell when not an active/ghost chord tone
-        if (!activeRole && !ghostRole && isScaleTone) {
+        // Prominent Scale Overlay Dot inside harmonica cell when not an active/ghost/approach tone
+        if (!activeRole && !approachHint && !ghostRole && isScaleTone) {
           ctx.save();
           ctx.beginPath();
           ctx.fillStyle = isLight ? '#7c3aed' : '#8b5cf6';
@@ -2823,12 +3536,13 @@
         // Center text
         const parts = [];
         if (activeRole && STATE.showDegrees) parts.push(activeRole.degree);
+        else if (!activeRole && approachHint) parts.push(approachHint.symbol);
         else if (!activeRole && ghostRole && STATE.showDegrees) parts.push(ghostRole.degree);
         if (STATE.showNotes || !STATE.showDegrees) parts.push(cell.pitchName);
 
         ctx.fillStyle = activeRole
           ? (activeRole.role === 'root' ? '#090d16' : '#ffffff')
-          : ((!activeRole && !ghostRole && isScaleTone) ? '#ffffff' : (isLight ? '#334155' : '#94a3b8'));
+          : ((!activeRole && approachHint) ? (isLight ? '#be123c' : '#fda4af') : ((!activeRole && !ghostRole && isScaleTone) ? '#ffffff' : (isLight ? '#334155' : '#94a3b8')));
         ctx.font = 'bold 9.5px ui-monospace, monospace';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
@@ -2874,11 +3588,7 @@
           const x = padX + (oct * 7 + wIdx) * whiteW;
           const y = padY;
 
-          const rawRole = activeProfile.getRoleForPc(pInfo.pitchClass);
-          const activeRole = (rawRole && STATE.targetRoles.has(rawRole.role)) ? rawRole : null;
-          const rawNext = (STATE.showNextGhost && nextProfile) ? nextProfile.getRoleForPc(pInfo.pitchClass) : null;
-          const ghostRole = (rawNext && STATE.targetRoles.has(rawNext.role) && (rawNext.isGuide || rawNext.role === 'root')) ? rawNext : null;
-          const isScaleTone = isBackgroundScalePitch(pInfo.pitchClass);
+          const { activeRole, ghostRole, isScaleTone, approachHint } = resolveVisualPitchState(pInfo.pitchClass, activeProfile, nextProfile);
 
           ctx.fillStyle = activeRole ? activeRole.color : '#f8fafc';
           ctx.strokeStyle = '#334155';
@@ -2886,7 +3596,24 @@
           ctx.fillRect(x, y, whiteW - 1, usableH);
           ctx.strokeRect(x, y, whiteW - 1, usableH);
 
-          if (!activeRole && ghostRole) {
+          if (!activeRole && approachHint) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.fillStyle = 'rgba(244, 63, 94, 0.18)';
+            ctx.arc(x + whiteW / 2, y + usableH - 34, Math.min(10, whiteW * 0.36), 0, Math.PI * 2);
+            ctx.fill();
+            ctx.setLineDash([3, 2]);
+            ctx.strokeStyle = approachHint.color;
+            ctx.lineWidth = 1.6;
+            ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.fillStyle = '#be123c';
+            ctx.font = 'bold 10px ui-monospace, monospace';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(approachHint.symbol, x + whiteW / 2, y + usableH - 34);
+            ctx.restore();
+          } else if (!activeRole && ghostRole) {
             ctx.save();
             ctx.fillStyle = ghostRole.color;
             ctx.globalAlpha = 0.32;
@@ -2895,7 +3622,7 @@
           }
 
           // Prominent Scale Overlay Dot on White Key
-          if (!activeRole && !ghostRole && isScaleTone) {
+          if (!activeRole && !approachHint && !ghostRole && isScaleTone) {
             ctx.save();
             ctx.beginPath();
             ctx.fillStyle = isLight ? '#7c3aed' : '#8b5cf6';
@@ -2934,11 +3661,7 @@
           const x = padX + (oct * 7 + offset) * whiteW;
           const y = padY;
 
-          const rawRole = activeProfile.getRoleForPc(pInfo.pitchClass);
-          const activeRole = (rawRole && STATE.targetRoles.has(rawRole.role)) ? rawRole : null;
-          const rawNext = (STATE.showNextGhost && nextProfile) ? nextProfile.getRoleForPc(pInfo.pitchClass) : null;
-          const ghostRole = (rawNext && STATE.targetRoles.has(rawNext.role) && (rawNext.isGuide || rawNext.role === 'root')) ? rawNext : null;
-          const isScaleTone = isBackgroundScalePitch(pInfo.pitchClass);
+          const { activeRole, ghostRole, isScaleTone, approachHint } = resolveVisualPitchState(pInfo.pitchClass, activeProfile, nextProfile);
 
           ctx.fillStyle = activeRole ? activeRole.color : '#0f172a';
           ctx.strokeStyle = activeRole ? '#ffffff' : '#334155';
@@ -2946,8 +3669,27 @@
           ctx.fillRect(x, y, blackW, blackH);
           ctx.strokeRect(x, y, blackW, blackH);
 
+          if (!activeRole && approachHint) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.fillStyle = 'rgba(244, 63, 94, 0.28)';
+            ctx.arc(x + blackW / 2, y + blackH - 28, Math.min(9, blackW * 0.40), 0, Math.PI * 2);
+            ctx.fill();
+            ctx.setLineDash([3, 2]);
+            ctx.strokeStyle = approachHint.color;
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.fillStyle = '#fda4af';
+            ctx.font = 'bold 9.5px ui-monospace, monospace';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(approachHint.symbol, x + blackW / 2, y + blackH - 28);
+            ctx.restore();
+          }
+
           // Prominent Scale Overlay Dot on Black Key
-          if (!activeRole && !ghostRole && isScaleTone) {
+          if (!activeRole && !approachHint && !ghostRole && isScaleTone) {
             ctx.save();
             ctx.beginPath();
             ctx.fillStyle = isLight ? '#8b5cf6' : '#a78bfa';
@@ -2998,7 +3740,8 @@
       // Header summary update
       const summaryEl = document.getElementById('liveGuideSummary');
       if (summaryEl) {
-        summaryEl.textContent = `${activeProfile.symbol} (${activeProfile.rn}) — 3rd: ${activeProfile.thirdNote} (${activeProfile.thirdDeg}) • 7th: ${activeProfile.seventhNote} (${activeProfile.seventhDeg}) • Root: ${activeProfile.rootNote} • 5th: ${activeProfile.fifthNote}`;
+        const ovBadge = (STATE.trainingOverlay && STATE.trainingOverlay.badge) ? `  •  [${STATE.trainingOverlay.badge}]` : '';
+        summaryEl.textContent = `${activeProfile.symbol} (${activeProfile.rn}) — 3rd: ${activeProfile.thirdNote} (${activeProfile.thirdDeg}) • 7th: ${activeProfile.seventhNote} (${activeProfile.seventhDeg}) • Root: ${activeProfile.rootNote} • 5th: ${activeProfile.fifthNote}${ovBadge}`;
       }
       const ghostHint = document.getElementById('ghostNextHint');
       if (ghostHint) {
@@ -3261,6 +4004,7 @@
           renderAllVisualizers();
           rescheduleIfPlaying();
           if (typeof window.__syncTutorialDynamicUi === 'function') window.__syncTutorialDynamicUi();
+          if (typeof window.__syncPracticeDynamicUi === 'function') window.__syncPracticeDynamicUi();
         });
         keyPills.appendChild(b);
 
@@ -3635,6 +4379,7 @@
           bgScale: STATE.bgScale,
           targetRoles: Array.from(STATE.targetRoles),
           targetPreset: document.getElementById('targetPresetSelect')?.value || 'guide-root',
+          trainingOverlay: STATE.trainingOverlay ? JSON.parse(JSON.stringify(STATE.trainingOverlay)) : null,
           inst2: {
             enabled: STATE.inst2.enabled,
             type: STATE.inst2.type,
@@ -3749,6 +4494,8 @@
           STATE.showDegrees = Boolean(cfg.showDegrees);
           document.getElementById('toggleDegreesBtn').textContent = `Degrees: ${STATE.showDegrees ? 'ON' : 'OFF'}`;
         }
+
+        STATE.trainingOverlay = cfg.trainingOverlay ? JSON.parse(JSON.stringify(cfg.trainingOverlay)) : null;
 
         if (cfg.inst2 !== undefined) {
           STATE.inst2.enabled = Boolean(cfg.inst2.enabled);
@@ -4402,6 +5149,546 @@
           }
         }
       });
+
+      /* =======================================================================
+         8. PILLAR-BASED GUIDED PRACTICE CONTROLLER
+         ======================================================================= */
+      const CURRICULUM = window.OMNITUNE_PRACTICE_CURRICULUM || null;
+      const practiceBtn = document.getElementById('guidedPracticeBtn');
+      const practiceHubModal = document.getElementById('practiceHubModal');
+      const practiceHubKeyBadge = document.getElementById('practiceHubKeyBadge');
+      const practiceHubCloseBtn = document.getElementById('practiceHubCloseBtn');
+      const practiceTabPillars = document.getElementById('practiceTabPillars');
+      const practiceTabDiagnostics = document.getElementById('practiceTabDiagnostics');
+      const practiceTabReference = document.getElementById('practiceTabReference');
+      const practiceHubBody = document.getElementById('practiceHubBody');
+      const practiceCoachCard = document.getElementById('practiceCoachCard');
+
+      const PRACTICE_STATE = {
+        hubTab: 'pillars', // 'pillars' | 'diagnostics' | 'reference'
+        selectedPillarId: CURRICULUM && CURRICULUM.PILLARS[0] ? CURRICULUM.PILLARS[0].id : null,
+        activeLessonId: null,
+        activeBlockIndex: 0,
+        sessionScale: 'full', // 'full' | 'express'
+        coachCollapsed: false,
+        snapshot: null,
+        timerRemainingSec: 600,
+        timerRunning: false,
+        timerInterval: null,
+        activeBeatSlot: -1
+      };
+
+      if (!CURRICULUM && practiceBtn) {
+        practiceBtn.classList.add('hidden');
+      }
+
+      // Light-dismiss fallback for browsers without native <dialog closedby="any">
+      if (practiceHubModal && !('closedBy' in HTMLDialogElement.prototype)) {
+        const isOutsideDialog = (e, dlg) => {
+          const r = dlg.getBoundingClientRect();
+          return e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom;
+        };
+        let pressedOutside = false;
+        practiceHubModal.addEventListener('pointerdown', (e) => {
+          pressedOutside = isOutsideDialog(e, practiceHubModal);
+        });
+        practiceHubModal.addEventListener('pointerup', (e) => {
+          if (pressedOutside && isOutsideDialog(e, practiceHubModal)) practiceHubModal.close();
+        });
+      }
+
+      function playGentleChime() {
+        ensureAudio().then(() => {
+          if (!audioCtx || !masterGain) return;
+          const now = audioCtx.currentTime;
+          [523.25, 659.25, 783.99].forEach((freq, i) => {
+            const osc = audioCtx.createOscillator();
+            const g = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, now + i * 0.12);
+            g.gain.setValueAtTime(0.0001, now + i * 0.12);
+            g.gain.linearRampToValueAtTime(0.18, now + i * 0.12 + 0.02);
+            g.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.12 + 0.55);
+            osc.connect(g);
+            g.connect(masterGain);
+            osc.start(now + i * 0.12);
+            osc.stop(now + i * 0.12 + 0.6);
+          });
+        }).catch(() => {});
+      }
+
+      function formatClock(totalSec) {
+        const clamped = Math.max(0, Math.floor(totalSec));
+        const m = Math.floor(clamped / 60);
+        const s = clamped % 60;
+        return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+      }
+
+      function stopPracticeTimer() {
+        if (PRACTICE_STATE.timerInterval) {
+          clearInterval(PRACTICE_STATE.timerInterval);
+          PRACTICE_STATE.timerInterval = null;
+        }
+        PRACTICE_STATE.timerRunning = false;
+      }
+
+      function resetTimerForCurrentBlock() {
+        stopPracticeTimer();
+        const found = CURRICULUM && PRACTICE_STATE.activeLessonId ? CURRICULUM.findLessonById(PRACTICE_STATE.activeLessonId) : null;
+        const block = found ? found.lesson.blocks[PRACTICE_STATE.activeBlockIndex] : null;
+        const mins = block
+          ? (PRACTICE_STATE.sessionScale === 'express' ? block.expressMins : block.fullMins)
+          : 10;
+        PRACTICE_STATE.timerRemainingSec = mins * 60;
+      }
+
+      function updateTimerDomOnly() {
+        const clockEl = document.getElementById('practiceTimerClock');
+        const toggleBtn = document.getElementById('practiceTimerToggleBtn');
+        if (clockEl) {
+          clockEl.textContent = formatClock(PRACTICE_STATE.timerRemainingSec);
+          clockEl.classList.toggle('done', PRACTICE_STATE.timerRemainingSec <= 0);
+        }
+        if (toggleBtn) {
+          toggleBtn.textContent = PRACTICE_STATE.timerRunning ? '⏸ Pause' : '▶ Start';
+        }
+      }
+
+      function togglePracticeTimer() {
+        if (PRACTICE_STATE.timerRunning) {
+          stopPracticeTimer();
+          updateTimerDomOnly();
+          return;
+        }
+        if (PRACTICE_STATE.timerRemainingSec <= 0) {
+          resetTimerForCurrentBlock();
+        }
+        PRACTICE_STATE.timerRunning = true;
+        PRACTICE_STATE.timerInterval = setInterval(() => {
+          PRACTICE_STATE.timerRemainingSec = Math.max(0, PRACTICE_STATE.timerRemainingSec - 1);
+          updateTimerDomOnly();
+          if (PRACTICE_STATE.timerRemainingSec <= 0) {
+            stopPracticeTimer();
+            updateTimerDomOnly();
+            playGentleChime();
+          }
+        }, 1000);
+        updateTimerDomOnly();
+      }
+
+      function updateBeatStripDom(slotIdx) {
+        PRACTICE_STATE.activeBeatSlot = slotIdx;
+        const strip = document.getElementById('practiceBeatSlots');
+        if (!strip) return;
+        strip.querySelectorAll('.beat-slot').forEach(el => {
+          const idx = Number(el.dataset.slot);
+          el.classList.toggle('now', slotIdx >= 0 && idx === slotIdx);
+        });
+      }
+      window.__onPracticeBeatPulse = updateBeatStripDom;
+
+      function syncPracticePlayBtn() {
+        const btn = document.getElementById('practiceQuickPlayBtn');
+        if (!btn) return;
+        btn.classList.toggle('playing', STATE.isPlaying);
+        btn.textContent = STATE.isPlaying ? '⏹ Stop' : '▶ Play Track';
+      }
+      window.__syncPracticePlayBtn = syncPracticePlayBtn;
+
+      window.__syncPracticeDynamicUi = () => {
+        if (practiceHubKeyBadge) {
+          practiceHubKeyBadge.textContent = `Active Key: ${STATE.key} (Preserved)`;
+        }
+        if (practiceHubModal && practiceHubModal.open) {
+          renderPracticeHub();
+        }
+        if (PRACTICE_STATE.activeLessonId) {
+          renderPracticeCoachCard();
+        }
+      };
+
+      function openPracticeHub(initialTab) {
+        if (!CURRICULUM || !practiceHubModal) return;
+        if (initialTab) PRACTICE_STATE.hubTab = initialTab;
+        if (TUTORIAL_STATE.isOpen) closeTutorialMode();
+        if (practiceHubKeyBadge) {
+          practiceHubKeyBadge.textContent = `Active Key: ${STATE.key} (Preserved)`;
+        }
+        renderPracticeHub();
+        if (!practiceHubModal.open) {
+          practiceHubModal.showModal();
+        }
+      }
+
+      function renderPracticeHub() {
+        if (!CURRICULUM || !practiceHubBody) return;
+        const tab = PRACTICE_STATE.hubTab;
+        practiceTabPillars.classList.toggle('active', tab === 'pillars');
+        practiceTabPillars.setAttribute('aria-selected', String(tab === 'pillars'));
+        practiceTabDiagnostics.classList.toggle('active', tab === 'diagnostics');
+        practiceTabDiagnostics.setAttribute('aria-selected', String(tab === 'diagnostics'));
+        practiceTabReference.classList.toggle('active', tab === 'reference');
+        practiceTabReference.setAttribute('aria-selected', String(tab === 'reference'));
+
+        if (tab === 'pillars') {
+          const selectedPillar = CURRICULUM.PILLARS.find(p => p.id === PRACTICE_STATE.selectedPillarId) || CURRICULUM.PILLARS[0];
+          PRACTICE_STATE.selectedPillarId = selectedPillar.id;
+
+          practiceHubBody.innerHTML = `
+            <div class="pillars-layout">
+              <div class="pillar-nav-list" role="listbox" aria-label="Practice Pillars">
+                ${CURRICULUM.PILLARS.map(p => `
+                  <button type="button" class="pillar-nav-item ${p.id === selectedPillar.id ? 'active' : ''}" data-pillar-id="${p.id}">
+                    <span class="pillar-nav-head">${p.icon} Pillar ${p.number}: ${p.title}</span>
+                    <span class="pillar-nav-sub">${p.lessons.length} lessons • ${p.tagline}</span>
+                  </button>
+                `).join('')}
+              </div>
+
+              <div class="pillar-detail-pane">
+                <div class="pillar-hero-box">
+                  <h3 class="pillar-hero-title">${selectedPillar.icon} Pillar ${selectedPillar.number}: ${selectedPillar.title}</h3>
+                  <p class="pillar-hero-phil">${selectedPillar.philosophy}</p>
+                </div>
+
+                <div class="lesson-card-grid">
+                  ${selectedPillar.lessons.map(lesson => {
+                    const isCurrent = PRACTICE_STATE.activeLessonId === lesson.id;
+                    return `
+                      <div class="lesson-card ${isCurrent ? 'current-active' : ''}">
+                        <div class="lesson-card-info">
+                          <div class="lesson-meta-row">
+                            <span class="lesson-code-pill">${lesson.code}</span>
+                            <span class="lesson-level-pill">${lesson.level}</span>
+                            <span class="lesson-level-pill">3 Studio Blocks</span>
+                          </div>
+                          <h4 class="lesson-card-title">${lesson.title}</h4>
+                          <p class="lesson-card-summary">${lesson.summary}</p>
+                        </div>
+                        <button type="button" class="${isCurrent ? 'btn-secondary' : 'btn-primary'} btn-sm practice-launch-lesson-btn" data-lesson-id="${lesson.id}">
+                          ${isCurrent ? '↻ Reload Lesson' : '▶ Start Lesson'}
+                        </button>
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              </div>
+            </div>
+          `;
+
+          practiceHubBody.querySelectorAll('.pillar-nav-item').forEach(btn => {
+            btn.addEventListener('click', () => {
+              PRACTICE_STATE.selectedPillarId = btn.dataset.pillarId;
+              renderPracticeHub();
+            });
+          });
+          practiceHubBody.querySelectorAll('.practice-launch-lesson-btn').forEach(btn => {
+            btn.addEventListener('click', () => launchPracticeLesson(btn.dataset.lessonId, 0));
+          });
+        } else if (tab === 'diagnostics') {
+          practiceHubBody.innerHTML = `
+            <p style="margin:0 0 12px; font-size:12.5px; color:var(--text-muted); line-height:1.5;">
+              Identify what feels stuck in your playing and jump straight into the constraint-based corrective drill designed to rewire that habit. All drills load in your active Song Key (<strong>${STATE.key}</strong>) and preserve your instrument.
+            </p>
+            <div class="diag-grid">
+              ${CURRICULUM.DIAGNOSTICS.map(d => `
+                <div class="diag-card">
+                  <span class="diag-label">Diagnostic Symptom</span>
+                  <h3>${d.icon} ${d.symptom}</h3>
+                  <p style="margin:0; font-size:11.5px; color:var(--text-muted); line-height:1.4;"><strong>Root Flaw:</strong> ${d.flaw}</p>
+                  <div class="diag-prescription">
+                    <strong>Prescribed Drill — ${d.drillName}:</strong> ${d.prescription}
+                  </div>
+                  <div style="margin-top:auto; padding-top:4px; display:flex; justify-content:flex-end;">
+                    <button type="button" class="btn-primary btn-sm practice-launch-diag-btn" data-lesson-id="${d.lessonId}" data-block-idx="${d.blockIndex}">
+                      ▶ Load Corrective Drill
+                    </button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          `;
+
+          practiceHubBody.querySelectorAll('.practice-launch-diag-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+              launchPracticeLesson(btn.dataset.lessonId, Number(btn.dataset.blockIdx) || 0);
+            });
+          });
+        } else {
+          const ref = CURRICULUM.buildReferenceData(STATE.key);
+          practiceHubBody.innerHTML = `
+            <div class="ref-section">
+              <h3>🧭 Foundational Philosophy &amp; Why Constraints Work</h3>
+              <p style="margin:0 0 8px; font-size:12px; color:var(--text-muted); line-height:1.5;">
+                By imposing deliberate task constraints (like "only 3 notes", "never start on Beat 1", or "leave 2 beats of silence"), you suppress mechanical autopilot and force your musical ear to self-organize. When constraints are lifted, those new instincts remain.
+              </p>
+              <ul class="tutorial-bullets" style="margin-top:6px;">
+                ${ref.principles.map(p => `<li><strong>${p.title}:</strong> ${p.text}</li>`).join('')}
+              </ul>
+            </div>
+
+            <div class="ref-section">
+              <h3>🎨 Quick-Reference Tone Matrix (Key of ${ref.key})</h3>
+              <table class="ref-table">
+                <thead>
+                  <tr><th>Chord Context</th><th>Target 7th &amp; Character</th><th>Target 6th &amp; Role</th></tr>
+                </thead>
+                <tbody>
+                  ${ref.toneMatrix.map(row => `
+                    <tr>
+                      <td><strong>${row.context}</strong></td>
+                      <td>${row.seventh}</td>
+                      <td>${row.sixth}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+
+            <div class="ref-section">
+              <h3>🧬 Motif Transformation Toolkit (Key of ${ref.key})</h3>
+              <table class="ref-table">
+                <thead>
+                  <tr><th>Technique</th><th>Musical Function</th><th>Illustration</th></tr>
+                </thead>
+                <tbody>
+                  ${ref.motifToolkit.map(row => `
+                    <tr>
+                      <td><strong>${row.name}</strong></td>
+                      <td>${row.role}</td>
+                      <td>${row.example}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+
+            <div class="ref-section">
+              <h3>🛤️ Voice-Leading Progression Maps (Key of ${ref.key})</h3>
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                ${ref.voiceLeadingMaps.map(m => `
+                  <div style="padding:8px 10px; border-radius:8px; background:var(--input-bg); border:1px solid var(--border-subtle);">
+                    <div style="font-size:12px; font-weight:900; color:var(--text-main); margin-bottom:4px;">${m.title}</div>
+                    ${m.paths.map(line => `<div style="font-size:11.5px; color:var(--text-muted); line-height:1.45;">• ${line}</div>`).join('')}
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }
+      }
+
+      function applyCurrentPracticeBlock() {
+        if (!CURRICULUM || !PRACTICE_STATE.activeLessonId) return;
+        const found = CURRICULUM.findLessonById(PRACTICE_STATE.activeLessonId);
+        if (!found) return;
+        const block = found.lesson.blocks[PRACTICE_STATE.activeBlockIndex] || found.lesson.blocks[0];
+        if (!block) return;
+
+        // Explicitly preserve active STATE.key & Instrument 1 by NOT passing cfg.key
+        const cfg = { ...block.config };
+        delete cfg.key;
+        applyStudioConfig(cfg);
+        resetTimerForCurrentBlock();
+        renderPracticeCoachCard();
+      }
+
+      function launchPracticeLesson(lessonId, blockIndex = 0) {
+        if (!CURRICULUM) return;
+        const found = CURRICULUM.findLessonById(lessonId);
+        if (!found) return;
+
+        if (!PRACTICE_STATE.snapshot) {
+          PRACTICE_STATE.snapshot = captureStudioSnapshot();
+        }
+        PRACTICE_STATE.selectedPillarId = found.pillar.id;
+        PRACTICE_STATE.activeLessonId = found.lesson.id;
+        PRACTICE_STATE.activeBlockIndex = Math.max(0, Math.min(blockIndex, found.lesson.blocks.length - 1));
+        PRACTICE_STATE.coachCollapsed = false;
+
+        if (practiceHubModal && practiceHubModal.open) {
+          practiceHubModal.close();
+        }
+        if (practiceBtn) practiceBtn.classList.add('active');
+        practiceCoachCard.classList.remove('hidden');
+
+        applyCurrentPracticeBlock();
+        practiceCoachCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+
+      function exitPracticeMode(restoreStudio = true) {
+        stopPracticeTimer();
+        stopPlayback();
+        PRACTICE_STATE.activeLessonId = null;
+        PRACTICE_STATE.activeBlockIndex = 0;
+        PRACTICE_STATE.activeBeatSlot = -1;
+        practiceCoachCard.classList.add('hidden');
+        if (practiceBtn) practiceBtn.classList.remove('active');
+
+        if (restoreStudio && PRACTICE_STATE.snapshot) {
+          // Restore studio settings while keeping the user's currently chosen Song Key
+          const snap = { ...PRACTICE_STATE.snapshot };
+          delete snap.key;
+          applyStudioConfig(snap);
+        } else {
+          STATE.trainingOverlay = null;
+          renderAllVisualizers();
+        }
+        PRACTICE_STATE.snapshot = null;
+      }
+
+      function renderPracticeCoachCard() {
+        if (!CURRICULUM || !PRACTICE_STATE.activeLessonId) return;
+        const found = CURRICULUM.findLessonById(PRACTICE_STATE.activeLessonId);
+        if (!found) return;
+
+        const { pillar, lesson, lessonIndex } = found;
+        const block = lesson.blocks[PRACTICE_STATE.activeBlockIndex] || lesson.blocks[0];
+        const key = STATE.key;
+        const slotLabels = ['1', '&', '2', '&', '3', '&', '4', '&'];
+        const beatCue = block.beatCue || { mode: 'quarter', targets: [], banned: [], label: 'Live Beat Pulse (1 & 2 & 3 & 4 &)' };
+        const bannedSet = new Set(beatCue.banned || []);
+        const targetSet = new Set(beatCue.targets || []);
+        const hasPrevLesson = lessonIndex > 0;
+        const hasNextLesson = lessonIndex < pillar.lessons.length - 1;
+
+        practiceCoachCard.innerHTML = `
+          <div class="coach-top-row">
+            <div class="coach-title-block">
+              <span class="coach-pillar-badge">${pillar.icon} Pillar ${pillar.number} • ${lesson.code}</span>
+              <h2 class="coach-lesson-title">${lesson.title}</h2>
+              <span class="practice-key-badge">Key: ${key}</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+              <button type="button" id="coachPrevLessonBtn" class="btn-secondary btn-sm" ${!hasPrevLesson ? 'disabled style="opacity:0.45;cursor:not-allowed;"' : ''}>◀ Prev Lesson</button>
+              <button type="button" id="coachNextLessonBtn" class="btn-secondary btn-sm" ${!hasNextLesson ? 'disabled style="opacity:0.45;cursor:not-allowed;"' : ''}>Next Lesson ▶</button>
+              <button type="button" id="coachSwitchLessonBtn" class="btn-secondary btn-sm">🧭 Switch Lesson</button>
+              <button type="button" id="coachCollapseBtn" class="btn-secondary btn-sm">${PRACTICE_STATE.coachCollapsed ? '▾ Expand' : '▴ Compact'}</button>
+              <button type="button" id="coachExitRestoreBtn" class="btn-danger btn-sm" title="Exit Guided Practice and restore your prior studio settings">↩ Exit &amp; Restore</button>
+            </div>
+          </div>
+
+          <div class="${PRACTICE_STATE.coachCollapsed ? 'hidden' : ''}">
+            <div class="coach-body-grid">
+              <div>
+                <div class="coach-blocks-row" role="tablist" aria-label="Lesson practice blocks">
+                  ${lesson.blocks.map((b, idx) => {
+                    const mins = PRACTICE_STATE.sessionScale === 'express' ? b.expressMins : b.fullMins;
+                    return `
+                      <button type="button" class="coach-block-btn ${idx === PRACTICE_STATE.activeBlockIndex ? 'active' : ''}" data-block-idx="${idx}">
+                        ${b.label} (${mins}m)
+                      </button>
+                    `;
+                  }).join('')}
+                </div>
+
+                <div class="coach-instruction-box">
+                  <div class="coach-focus-tag">${block.focus}</div>
+                  <p class="coach-instruction-text">${block.instructions(key)}</p>
+                </div>
+              </div>
+
+              <div class="coach-right-stack">
+                <div class="coach-timer-box">
+                  <div class="coach-timer-top">
+                    <span id="practiceTimerClock" class="coach-timer-clock ${PRACTICE_STATE.timerRemainingSec <= 0 ? 'done' : ''}">${formatClock(PRACTICE_STATE.timerRemainingSec)}</span>
+                    <div style="display:flex; gap:4px; align-items:center;">
+                      <button type="button" id="practiceScaleFullBtn" class="btn-sm ${PRACTICE_STATE.sessionScale === 'full' ? 'btn-primary' : 'btn-secondary'}" title="40 min playing blocks (10/15/15)">Full</button>
+                      <button type="button" id="practiceScaleExpressBtn" class="btn-sm ${PRACTICE_STATE.sessionScale === 'express' ? 'btn-primary' : 'btn-secondary'}" title="18 min express blocks (4/7/7)">Express</button>
+                    </div>
+                  </div>
+                  <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+                    <button type="button" id="practiceQuickPlayBtn" class="btn-play btn-sm ${STATE.isPlaying ? 'playing' : ''}" style="padding:4px 12px; font-size:11.5px;">${STATE.isPlaying ? '⏹ Stop' : '▶ Play Track'}</button>
+                    <button type="button" id="practiceTimerToggleBtn" class="btn-secondary btn-sm">${PRACTICE_STATE.timerRunning ? '⏸ Pause' : '▶ Start'}</button>
+                    <button type="button" id="practiceTimerResetBtn" class="btn-secondary btn-sm">↺ Reset</button>
+                  </div>
+                </div>
+
+                <div class="beat-strip-box">
+                  <div class="beat-strip-header">
+                    <span>🥁 ${beatCue.label}</span>
+                  </div>
+                  <div class="beat-slots-row" id="practiceBeatSlots">
+                    ${slotLabels.map((lbl, idx) => {
+                      const cls = ['beat-slot'];
+                      if (idx % 2 === 0) cls.push('downbeat');
+                      if (bannedSet.has(idx)) cls.push('banned');
+                      else if (targetSet.has(idx)) cls.push('target');
+                      if (PRACTICE_STATE.activeBeatSlot === idx) cls.push('now');
+                      return `<div class="${cls.join(' ')}" data-slot="${idx}">${lbl}</div>`;
+                    }).join('')}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="coach-details-row">
+              <details class="coach-info-panel" open>
+                <summary>📖 Why This Lesson Matters</summary>
+                <p style="margin:6px 0 0;">${lesson.why(key)}</p>
+              </details>
+              <details class="coach-info-panel" open>
+                <summary>🎧 What to Listen For (Self-Check)</summary>
+                <ul>
+                  ${lesson.listenFor(key).map(q => `<li>${q}</li>`).join('')}
+                </ul>
+              </details>
+            </div>
+          </div>
+        `;
+
+        // Wire Coach Card controls
+        practiceCoachCard.querySelectorAll('.coach-block-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            PRACTICE_STATE.activeBlockIndex = Number(btn.dataset.blockIdx) || 0;
+            applyCurrentPracticeBlock();
+          });
+        });
+        document.getElementById('practiceQuickPlayBtn')?.addEventListener('click', startOrTogglePlayback);
+        document.getElementById('practiceTimerToggleBtn')?.addEventListener('click', togglePracticeTimer);
+        document.getElementById('practiceTimerResetBtn')?.addEventListener('click', () => {
+          resetTimerForCurrentBlock();
+          updateTimerDomOnly();
+        });
+        document.getElementById('practiceScaleFullBtn')?.addEventListener('click', () => {
+          PRACTICE_STATE.sessionScale = 'full';
+          resetTimerForCurrentBlock();
+          renderPracticeCoachCard();
+        });
+        document.getElementById('practiceScaleExpressBtn')?.addEventListener('click', () => {
+          PRACTICE_STATE.sessionScale = 'express';
+          resetTimerForCurrentBlock();
+          renderPracticeCoachCard();
+        });
+        document.getElementById('coachPrevLessonBtn')?.addEventListener('click', () => {
+          if (hasPrevLesson) launchPracticeLesson(pillar.lessons[lessonIndex - 1].id, 0);
+        });
+        document.getElementById('coachNextLessonBtn')?.addEventListener('click', () => {
+          if (hasNextLesson) launchPracticeLesson(pillar.lessons[lessonIndex + 1].id, 0);
+        });
+        document.getElementById('coachSwitchLessonBtn')?.addEventListener('click', () => openPracticeHub('pillars'));
+        document.getElementById('coachCollapseBtn')?.addEventListener('click', () => {
+          PRACTICE_STATE.coachCollapsed = !PRACTICE_STATE.coachCollapsed;
+          renderPracticeCoachCard();
+        });
+        document.getElementById('coachExitRestoreBtn')?.addEventListener('click', () => exitPracticeMode(true));
+      }
+
+      if (practiceBtn) {
+        practiceBtn.addEventListener('click', () => openPracticeHub());
+      }
+      if (practiceHubCloseBtn) {
+        practiceHubCloseBtn.addEventListener('click', () => practiceHubModal.close());
+      }
+      if (practiceTabPillars) {
+        practiceTabPillars.addEventListener('click', () => { PRACTICE_STATE.hubTab = 'pillars'; renderPracticeHub(); });
+      }
+      if (practiceTabDiagnostics) {
+        practiceTabDiagnostics.addEventListener('click', () => { PRACTICE_STATE.hubTab = 'diagnostics'; renderPracticeHub(); });
+      }
+      if (practiceTabReference) {
+        practiceTabReference.addEventListener('click', () => { PRACTICE_STATE.hubTab = 'reference'; renderPracticeHub(); });
+      }
 
       // Initial Boot
       renderDegreePalette();
