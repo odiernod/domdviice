@@ -730,21 +730,21 @@
           id: 'p2-l4-cadence-endings',
           code: 'P2.4',
           level: 'Intermediate',
-          title: 'Masculine vs. Feminine Phrase Endings',
-          summary: 'Control emotional closure by ending on strong beats (1 / 3) vs. suspended upbeats (& of 2 / 3 / 4).',
-          why: () => 'Where you STOP a phrase matters as much as where you start it. Strong-beat endings (Beat 1 or 3) deliver decisive finality, while upbeat endings (& of 2, & of 3, or & of 4) leave ideas suspended in mid-air with forward narrative tension.',
+          title: 'Strong-Beat vs. Weak-Beat Phrase Endings',
+          summary: 'Control emotional closure by ending on strong beats (1 / 3) vs. weak beats / upbeats (& of 2 / 3 / 4).',
+          why: () => 'Where you STOP a phrase matters as much as where you start it. Strong-beat endings (Beat 1 or 3) deliver decisive finality, while weak-beat endings (& of 2, & of 3, or & of 4) leave ideas suspended in mid-air with forward narrative tension.',
           listenFor: () => [
             'Did strong-beat endings (Beat 1 or 3) feel grounded and conclusive?',
-            'Did upbeat endings (& of 2, 3, or 4) create floating suspense that pulled the ear toward your next phrase?'
+            'Did weak-beat endings (& of 2, 3, or 4) create floating suspense that pulled the ear toward your next phrase?'
           ],
           blocks: [
             {
               label: 'Block 1: Constraint',
-              focus: 'Strong-Beat vs. Upbeat Stops',
+              focus: 'Strong-Beat vs. Weak-Beat Stops',
               fullMins: 10,
               expressMins: 4,
-              instructions: () => 'Eighth-note metronome at 84 BPM. First 5 min: start on off-beats and STOP decisively on Beat 1 or Beat 3 (strong endings). Next 5 min: STOP every phrase on the "& of 2", "& of 3", or "& of 4" and hold it suspended.',
-              beatCue: { mode: 'eighth', targets: [0, 4, 3, 5, 7], label: 'Contrast endings: Strong (1, 3) vs. Suspended (& of 2, 3, 4)' },
+              instructions: () => 'Eighth-note metronome at 84 BPM. First 5 min: start on off-beats and STOP decisively on Beat 1 or Beat 3 (strong-beat endings). Next 5 min: STOP every phrase on the "& of 2", "& of 3", or "& of 4" (weak-beat endings) and hold it suspended.',
+              beatCue: { mode: 'eighth', targets: [0, 4, 3, 5, 7], label: 'Contrast endings: Strong Beat (1, 3) vs. Weak Beat (& of 2, 3, 4)' },
               config: {
                 progression: [c(0, 'maj7', 'Imaj7', 2)],
                 bpm: 84,
@@ -765,10 +765,10 @@
             },
             {
               label: 'Block 2: Harmonic Drill',
-              focus: 'Bossa Suspended Endings',
+              focus: 'Bossa Weak-Beat Endings',
               fullMins: 15,
               expressMins: 7,
-              instructions: (k) => `Over this ${k} Bossa Nova groove, end three phrases in a row on upbeat feminine cadences (& of 2, 3, or 4), then deliver one grounded masculine cadence on Beat 1 to release all the built-up suspense.`,
+              instructions: (k) => `Over this ${k} Bossa Nova groove, end three phrases in a row on weak-beat cadences (& of 2, 3, or 4), then deliver one grounded strong-beat cadence on Beat 1 to release all the built-up suspense.`,
               beatCue: { mode: 'eighth', targets: [3, 5, 7], label: 'Suspend phrases on & of 2, 3, or 4 → resolve on Beat 1' },
               config: {
                 progression: [c(0, 'maj7', 'Imaj7', 2), c(2, 'm7', 'iim7'), c(7, '7', 'V7')],
@@ -2946,81 +2946,79 @@
   ];
 
   /* ===========================================================================
-     MASTER REFERENCE & PHILOSOPHY BUILDER (DYNAMICALLY TRANSPOSES TO `key`)
+     MASTER REFERENCE & PHILOSOPHY BUILDER (UNIVERSAL SCALE DEGREES)
      =========================================================================== */
-  function buildReferenceData(key) {
-    const k = CHROMATIC.includes(key) ? key : 'C';
+  function buildReferenceData() {
     return {
-      key: k,
       principles: [
         { title: 'The Motif as Genetic Code', text: 'Anchor the listener with a concise 2–4 note statement rather than flooding every bar with scales.' },
         { title: 'Organic Development Over Novelty', text: 'Treat your opening motif like clay—repeat, stretch, invert, or displace it instead of inventing unrelated ideas.' },
         { title: 'Conversational Syntax', text: 'Balance open-ended ascending Questions (Calls) with grounded descending Answers (Responses) and breathing space.' },
-        { title: 'Metric Liberation', text: 'Break "Downbeat Disease" by launching phrases from all 8 eighth-note slots and contrasting strong vs. upbeat endings.' },
+        { title: 'Metric Liberation', text: 'Break "Downbeat Disease" by launching phrases from all 8 eighth-note slots and contrasting strong-beat vs. weak-beat endings.' },
         { title: 'Harmonic Target Vision', text: 'Outline chord changes effortlessly by voice-leading 3rds and 7ths by half-step, framed with chromatic approaches.' }
       ],
       toneMatrix: [
         {
-          context: `Major Triad (I or IV — e.g., ${chordAt(k, 0, '')}, ${chordAt(k, 5, '')})`,
-          seventh: `Major 7th (${noteAt(k, 11)} over ${chordAt(k, 0, '')}): Lush, floating, modern sheen.`,
-          sixth: `Major 6th (${noteAt(k, 9)} over ${chordAt(k, 0, '')}): Warm, buoyant resting pad; pivots into 3rd of IV.`
+          context: 'Major Triad (I or IV)',
+          seventh: 'Major 7th (degree 7 over I, degree 3 over IV): Lush, floating, modern sheen.',
+          sixth: 'Major 6th (degree 6 over I, degree 2 over IV): Warm, buoyant resting pad; degree 6 of I pivots directly into the 3rd of IV.'
         },
         {
-          context: `Dominant / Blues (V or I7 — e.g., ${chordAt(k, 7, '7')}, ${chordAt(k, 0, '7')})`,
-          seventh: `Minor / ♭7 (${noteAt(k, 5)} over ${chordAt(k, 7, '7')}): Driving bluesy pull and tritone resolution.`,
-          sixth: `Major 6th (${noteAt(k, 4)} over ${chordAt(k, 7, '7')}): Vocal "sweet note" favored in blues & jazz.`
+          context: 'Dominant / Blues (V7 or I7)',
+          seventh: 'Minor / ♭7 (degree 4 over V, degree ♭7 over I7): Driving bluesy pull and tritone resolution.',
+          sixth: 'Major 6th (degree 3 over V, degree 6 over I7): Vocal "sweet note" favored in blues & jazz.'
         },
         {
-          context: `Minor Triad (ii, iii, vi — e.g., ${chordAt(k, 2, 'm')})`,
-          seventh: `Minor 7th (${noteAt(k, 0)} over ${chordAt(k, 2, 'm')}): Soulful, stable, diatonic consonance.`,
-          sixth: `Natural 6th (${noteAt(k, 11)} over ${chordAt(k, 2, 'm')}): Bright Dorian signature; avoids ♭6 friction.`
+          context: 'Minor Triad (ii, iii, vi)',
+          seventh: 'Minor 7th (degree 1 over ii, degree 2 over iii, degree 5 over vi): Soulful, stable, diatonic consonance.',
+          sixth: 'Natural 6th (degree 7 over ii, degree ♯4 over vi): Bright Dorian signature; avoids ♭6 friction against the 5th.'
         },
         {
-          context: `Tonic Minor (i — e.g., ${chordAt(k, 0, 'm')})`,
-          seventh: `Minor 7th (${noteAt(k, 10)}) for modern soul/modal, or Major 7th (${noteAt(k, 11)}) for noir/ballad tension.`,
-          sixth: `Natural 6th (${noteAt(k, 9)}): Melodic minor / Dorian elegance.`
+          context: 'Tonic Minor (i)',
+          seventh: 'Minor 7th (degree ♭7) for modern soul/modal, or Major 7th (degree 7) for noir/ballad tension.',
+          sixth: 'Natural 6th (degree 6): Melodic minor / Dorian elegance.'
         }
       ],
       motifToolkit: [
-        { name: 'Exact Reiteration', role: 'Establishes deliberate intent', example: `${noteAt(k, 0)}–${noteAt(k, 4)}–${noteAt(k, 7)} repeated identically in Bar 2` },
+        { name: 'Exact Reiteration', role: 'Establishes deliberate intent', example: 'Degrees 1 – 3 – 5 repeated identically in Bar 2' },
         { name: 'Metric Displacement', role: 'Shifts rhythmic gravity', example: 'Move the exact same motif from Beat 1 to "& of 2"' },
-        { name: 'Melodic Inversion', role: 'Mirrors vertical contour', example: `Ascending ${noteAt(k, 0)}→${noteAt(k, 4)}→${noteAt(k, 7)} becomes ${noteAt(k, 7)}→${noteAt(k, 4)}→${noteAt(k, 0)}` },
+        { name: 'Melodic Inversion', role: 'Mirrors vertical contour', example: 'Ascending 1 → 3 → 5 becomes descending 5 → 3 → 1' },
         { name: 'Rhythmic Augmentation', role: 'Creates emotional weight', example: 'Stretch quarter notes into wide half notes' },
         { name: 'Rhythmic Diminution', role: 'Injects forward urgency', example: 'Compress quarter notes into crisp eighths or triplets' },
-        { name: 'Intervallic Expansion', role: 'Adds dramatic vocal climax', example: `${noteAt(k, 0)}–${noteAt(k, 4)}–${noteAt(k, 7)} stretched to ${noteAt(k, 0)}–${noteAt(k, 7)}–High ${noteAt(k, 0)}` },
-        { name: 'Enclosure Addition', role: 'Frames targets with tension', example: `Target ${noteAt(k, 4)} preceded by ${noteAt(k, 5)} → ${noteAt(k, 3)} → ${noteAt(k, 4)}` }
+        { name: 'Intervallic Expansion', role: 'Adds dramatic vocal climax', example: 'Degrees 1 – 3 – 5 stretched to 1 – 5 – High 1 (octave leap)' },
+        { name: 'Enclosure Addition', role: 'Frames targets with tension', example: 'Target degree 3 preceded by 4 (diatonic above) → ♭3 (half-step below) → 3' }
       ],
       voiceLeadingMaps: [
         {
-          title: `Standard ii–V–I (${chordAt(k, 2, 'm7')} → ${chordAt(k, 7, '7')} → ${chordAt(k, 0, 'maj7')})`,
+          title: 'Standard ii–V–I (iim7 → V7 → Imaj7)',
           paths: [
-            `Guide-Tone Step-Down: ${noteAt(k, 0)} (7th of ii) → ${noteAt(k, 11)} (3rd of V); ${noteAt(k, 5)} (7th of V) → ${noteAt(k, 4)} (3rd of I).`,
-            `Common-Tone Pivot: ${noteAt(k, 5)} (3rd of ii) holds as 7th of V before dropping to ${noteAt(k, 4)} (3rd of I).`
+            'Guide-Tone Step-Down: Degree 1 (♭7 of ii) steps down a half-step to Degree 7 (3rd of V); Degree 4 (♭7 of V) steps down a half-step to Degree 3 (3rd of I).',
+            'Common-Tone Pivot: Degree 4 (♭3 of ii) holds steady across the barline as ♭7 of V before stepping down to Degree 3 (3rd of I).'
           ]
         },
         {
-          title: `12-Bar Blues Swap (${chordAt(k, 0, '7')} → ${chordAt(k, 5, '7')})`,
+          title: '12-Bar Blues Swap (I7 → IV7)',
           paths: [
-            `Tritone Swap: ${noteAt(k, 4)} (3rd of I7) drops half-step to ${noteAt(k, 3)} (♭7 of IV7), while ${noteAt(k, 10)} (♭7 of I7) drops to ${noteAt(k, 9)} (3rd of IV7).`
+            'Tritone Swap: Degree 3 (3rd of I7) drops a half-step to ♭3 (♭7 of IV7), while ♭7 (♭7 of I7) drops a half-step to Degree 6 (3rd of IV7).'
           ]
         },
         {
-          title: `Rock / Mixolydian (${chordAt(k, 0, '')} → ${chordAt(k, 10, '')} → ${chordAt(k, 5, '')})`,
+          title: 'Rock / Mixolydian (I → ♭VII → IV)',
           paths: [
-            `Falling 3rds: ${noteAt(k, 4)} (3rd of I) → ${noteAt(k, 2)} (3rd of ♭VII) → ${noteAt(k, 0)} (5th of IV) or ${noteAt(k, 9)} (3rd of IV).`,
-            `Flat-7th Slide: ${noteAt(k, 0)} (Root of I) → ${noteAt(k, 10)} (Root of ♭VII) → ${noteAt(k, 9)} (3rd of IV).`
+            'Falling 3rds: Degree 3 (3rd of I) → Degree 2 (3rd of ♭VII) → Degree 1 (5th of IV) or Degree 6 (3rd of IV).',
+            'Flat-7th Slide: Degree 1 (Root of I) → Degree ♭7 (Root of ♭VII) → Degree 6 (3rd of IV).'
           ]
         },
         {
-          title: `Pop / Ballad Cycle (${chordAt(k, 0, '')} → ${chordAt(k, 9, 'm')} → ${chordAt(k, 5, '')} → ${chordAt(k, 7, '')})`,
+          title: 'Pop / Ballad Cycle (I → vi → IV → V)',
           paths: [
-            `Shared Horizon: ${noteAt(k, 0)} holds across I, vi (3rd), and IV (5th) before stepping down to ${noteAt(k, 11)} (3rd of V).`
+            'Shared Horizon: Degree 1 holds steady across I (Root), vi (♭3), and IV (5th) before stepping down a half-step to Degree 7 (3rd of V).'
           ]
         },
         {
-          title: `Andalusian Cadence (${chordAt(k, 0, 'm')} → ${chordAt(k, 10, '')} → ${chordAt(k, 8, 'maj7')} → ${chordAt(k, 7, '7')})`,
+          title: 'Andalusian Cadence (i → ♭VII → ♭VI → V7)',
           paths: [
-            `Leading-Tone Line: ${noteAt(k, 3)} (3rd of i) → ${noteAt(k, 2)} (3rd of ♭VII) → ${noteAt(k, 0)} (3rd of ♭VI) → ${noteAt(k, 11)} (Major 3rd of V7) → snaps up to ${noteAt(k, 0)}!`
+            'Leading-Tone Line: Degree ♭3 (♭3 of i) → Degree 2 (3rd of ♭VII) → Degree 1 (3rd of ♭VI) → Degree 7 (Major 3rd of V7) → snaps up a half-step to Degree 1!'
           ]
         }
       ]

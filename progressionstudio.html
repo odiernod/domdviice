@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>OmniTune — Chord Progression Studio &amp; Multi-Instrument Guide Tone Visualizer</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <style>
     :root {
       --bg: #0b0e14;
@@ -1006,6 +1007,30 @@
       border: 1px solid rgba(245, 158, 11, 0.42);
       color: var(--amber);
     }
+    .practice-key-picker {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      padding: 2px 6px 2px 10px;
+      border-radius: 999px;
+      background: rgba(245, 158, 11, 0.16);
+      border: 1px solid rgba(245, 158, 11, 0.48);
+      color: var(--amber);
+    }
+    .practice-key-picker select {
+      min-height: 24px;
+      padding: 1px 6px;
+      font-size: 11.5px;
+      font-weight: 900;
+      border-radius: 999px;
+      border: 1px solid rgba(245, 158, 11, 0.55);
+      background: var(--card-bg);
+      color: var(--text-main);
+    }
     .practice-hub-tabs {
       display: flex;
       gap: 8px;
@@ -1484,19 +1509,18 @@
     <header class="app-header">
       <div class="brand-area">
         <a href="omnitune.html" class="brand-title">OmniTune</a>
-        <span class="brand-subtitle">Chord Progression Studio &amp; Multi-Instrument Guide Tone Visualizer</span>
+        <span id="brandSubtitle" class="brand-subtitle">Chord Progression Studio &amp; Multi-Instrument Guide Tone Visualizer</span>
       </div>
 
       <div class="header-right">
-        <button type="button" id="guidedPracticeBtn" class="btn-practice btn-sm" aria-haspopup="dialog" title="Open Pillar-Based Guided Practice &amp; Diagnostic Drills">🧭 Guided Practice</button>
+        <button type="button" id="guidedPracticeBtn" class="btn-practice btn-sm" aria-haspopup="dialog" title="Open Improvisation Practice &amp; Diagnostic Drills">🧭 Improvisation Practice</button>
         <button type="button" id="tutorialModeBtn" class="btn-tutorial btn-sm" aria-controls="tutorialPanel" aria-expanded="false" title="Open interactive Settings Tour &amp; Practice Setups">🎓 Tutorial Mode</button>
         <button type="button" id="themeToggleBtn" class="btn-secondary btn-sm" title="Switch Light / Dark Theme">🌙 Dark Theme</button>
 
         <nav class="header-nav" aria-label="Primary navigation">
           <a href="omnitune.html">Compare Instruments</a>
-          <a href="guitarprogression.html">Guitar Progression</a>
-          <a href="progressionstudio.html" class="active-link">Progression Studio</a>
-          <a href="chordchartgenerator.html">Chord Chart Generator</a>
+          <a href="progressionstudio.html" id="navStudioLink" class="active-link">Chord Progression Studio</a>
+          <a href="progressionstudio.html?mode=lessons" id="navLessonsLink">Improvisation Lessons</a>
           <a href="help.html">Help</a>
         </nav>
       </div>
@@ -1899,11 +1923,14 @@
   <dialog id="practiceHubModal" class="practice-hub-modal" closedby="any" aria-labelledby="practiceHubTitle">
     <div class="practice-hub-header">
       <div class="practice-hub-title-group">
-        <h2 id="practiceHubTitle" class="practice-hub-title">🧭 Guided Practice — The Architecture of Melodic Improvisation</h2>
-        <span id="practiceHubKeyBadge" class="practice-key-badge">Active Key: C</span>
+        <h2 id="practiceHubTitle" class="practice-hub-title">🧭 Improvisation Practice — The Architecture of Melodic Improvisation</h2>
+        <label class="practice-key-picker" title="Change the active Song Key">
+          Song Key:
+          <select id="practiceHubKeySelect" aria-label="Change active Song Key"></select>
+        </label>
       </div>
       <div style="display:flex; align-items:center; gap:8px;">
-        <button type="button" id="practiceHubCloseBtn" class="btn-secondary btn-sm" aria-label="Close Guided Practice Hub">✕ Close</button>
+        <button type="button" id="practiceHubCloseBtn" class="btn-secondary btn-sm" aria-label="Close Improvisation Practice Hub">✕ Close</button>
       </div>
     </div>
 
@@ -3982,30 +4009,33 @@
         presetSummary.textContent = `Key of ${STATE.key}: ${chordNames}   (${rnNames})`;
       }
 
+      function setSongKey(newKey) {
+        if (!CHROMATIC.includes(newKey)) return;
+        STATE.key = newKey;
+        document.querySelectorAll('.key-pill').forEach(p => p.classList.toggle('active', p.textContent === newKey));
+        // Clear hardcoded root on diatonic chords so they transpose cleanly with Song Key
+        STATE.progression.forEach(entry => {
+          if (entry.semi !== undefined && !entry.isFixedRoot) {
+            delete entry.root;
+          }
+        });
+        renderDegreePalette();
+        updatePresetSummaryBadge();
+        updateCustomChordButtonLabel();
+        renderProgressionTimeline();
+        renderAllVisualizers();
+        rescheduleIfPlaying();
+        if (typeof window.__syncTutorialDynamicUi === 'function') window.__syncTutorialDynamicUi();
+        if (typeof window.__syncPracticeDynamicUi === 'function') window.__syncPracticeDynamicUi();
+      }
+
       // Populate Key Pills & Custom Root Select
       CHROMATIC.forEach(k => {
         const b = document.createElement('button');
         b.type = 'button';
         b.className = `key-pill ${k === STATE.key ? 'active' : ''}`;
         b.textContent = k;
-        b.addEventListener('click', () => {
-          STATE.key = k;
-          document.querySelectorAll('.key-pill').forEach(p => p.classList.toggle('active', p.textContent === k));
-          // Clear hardcoded root on diatonic chords so they transpose cleanly with Song Key
-          STATE.progression.forEach(entry => {
-            if (entry.semi !== undefined && !entry.isFixedRoot) {
-              delete entry.root;
-            }
-          });
-          renderDegreePalette();
-          updatePresetSummaryBadge();
-          updateCustomChordButtonLabel();
-          renderProgressionTimeline();
-          renderAllVisualizers();
-          rescheduleIfPlaying();
-          if (typeof window.__syncTutorialDynamicUi === 'function') window.__syncTutorialDynamicUi();
-          if (typeof window.__syncPracticeDynamicUi === 'function') window.__syncPracticeDynamicUi();
-        });
+        b.addEventListener('click', () => setSongKey(k));
         keyPills.appendChild(b);
 
         const opt = document.createElement('option');
@@ -5156,8 +5186,14 @@
       const CURRICULUM = window.OMNITUNE_PRACTICE_CURRICULUM || null;
       const practiceBtn = document.getElementById('guidedPracticeBtn');
       const practiceHubModal = document.getElementById('practiceHubModal');
-      const practiceHubKeyBadge = document.getElementById('practiceHubKeyBadge');
+      const practiceHubKeySelect = document.getElementById('practiceHubKeySelect');
       const practiceHubCloseBtn = document.getElementById('practiceHubCloseBtn');
+
+      if (practiceHubKeySelect) {
+        practiceHubKeySelect.innerHTML = CHROMATIC.map(k => `<option value="${k}">${k}</option>`).join('');
+        practiceHubKeySelect.value = STATE.key;
+        practiceHubKeySelect.addEventListener('change', (e) => setSongKey(e.target.value));
+      }
       const practiceTabPillars = document.getElementById('practiceTabPillars');
       const practiceTabDiagnostics = document.getElementById('practiceTabDiagnostics');
       const practiceTabReference = document.getElementById('practiceTabReference');
@@ -5296,8 +5332,8 @@
       window.__syncPracticePlayBtn = syncPracticePlayBtn;
 
       window.__syncPracticeDynamicUi = () => {
-        if (practiceHubKeyBadge) {
-          practiceHubKeyBadge.textContent = `Active Key: ${STATE.key} (Preserved)`;
+        if (practiceHubKeySelect) {
+          practiceHubKeySelect.value = STATE.key;
         }
         if (practiceHubModal && practiceHubModal.open) {
           renderPracticeHub();
@@ -5311,8 +5347,8 @@
         if (!CURRICULUM || !practiceHubModal) return;
         if (initialTab) PRACTICE_STATE.hubTab = initialTab;
         if (TUTORIAL_STATE.isOpen) closeTutorialMode();
-        if (practiceHubKeyBadge) {
-          practiceHubKeyBadge.textContent = `Active Key: ${STATE.key} (Preserved)`;
+        if (practiceHubKeySelect) {
+          practiceHubKeySelect.value = STATE.key;
         }
         renderPracticeHub();
         if (!practiceHubModal.open) {
@@ -5415,12 +5451,12 @@
             });
           });
         } else {
-          const ref = CURRICULUM.buildReferenceData(STATE.key);
+          const ref = CURRICULUM.buildReferenceData();
           practiceHubBody.innerHTML = `
             <div class="ref-section">
               <h3>🧭 Foundational Philosophy &amp; Why Constraints Work</h3>
-              <p style="margin:0 0 8px; font-size:12px; color:var(--text-muted); line-height:1.5;">
-                By imposing deliberate task constraints (like "only 3 notes", "never start on Beat 1", or "leave 2 beats of silence"), you suppress mechanical autopilot and force your musical ear to self-organize. When constraints are lifted, those new instincts remain.
+              <p style="margin:0 0 8px; font-size:12px; color:var(--text-muted); line-height:1.55;">
+                Deliberate constraints—such as limiting yourself to three notes, banning Beat 1, or enforcing two beats of silence—interrupt habitual muscle memory and force your musical ear to take the lead. Just as importantly, constraints dramatically accelerate learning: by narrowing your focus to a single micro-skill, you concentrate practice time into high-volume repetitions with shorter iteration cycles and an immediate feedback loop—giving you dozens of focused chances per minute to hear what works, adjust in real time, and wire new reflexes. Once the constraints are lifted, those instincts stay with you.
               </p>
               <ul class="tutorial-bullets" style="margin-top:6px;">
                 ${ref.principles.map(p => `<li><strong>${p.title}:</strong> ${p.text}</li>`).join('')}
@@ -5428,7 +5464,7 @@
             </div>
 
             <div class="ref-section">
-              <h3>🎨 Quick-Reference Tone Matrix (Key of ${ref.key})</h3>
+              <h3>🎨 Quick-Reference Tone Matrix (Scale Degrees)</h3>
               <table class="ref-table">
                 <thead>
                   <tr><th>Chord Context</th><th>Target 7th &amp; Character</th><th>Target 6th &amp; Role</th></tr>
@@ -5446,7 +5482,7 @@
             </div>
 
             <div class="ref-section">
-              <h3>🧬 Motif Transformation Toolkit (Key of ${ref.key})</h3>
+              <h3>🧬 Motif Transformation Toolkit (Scale Degrees)</h3>
               <table class="ref-table">
                 <thead>
                   <tr><th>Technique</th><th>Musical Function</th><th>Illustration</th></tr>
@@ -5464,7 +5500,7 @@
             </div>
 
             <div class="ref-section">
-              <h3>🛤️ Voice-Leading Progression Maps (Key of ${ref.key})</h3>
+              <h3>🛤️ Voice-Leading Progression Maps (Scale Degrees)</h3>
               <div style="display:flex; flex-direction:column; gap:8px;">
                 ${ref.voiceLeadingMaps.map(m => `
                   <div style="padding:8px 10px; border-radius:8px; background:var(--input-bg); border:1px solid var(--border-subtle);">
@@ -5511,6 +5547,7 @@
         }
         if (practiceBtn) practiceBtn.classList.add('active');
         practiceCoachCard.classList.remove('hidden');
+        setLessonsModeChrome(true, found.lesson.id);
 
         applyCurrentPracticeBlock();
         practiceCoachCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -5524,6 +5561,7 @@
         PRACTICE_STATE.activeBeatSlot = -1;
         practiceCoachCard.classList.add('hidden');
         if (practiceBtn) practiceBtn.classList.remove('active');
+        setLessonsModeChrome(false);
 
         if (restoreStudio && PRACTICE_STATE.snapshot) {
           // Restore studio settings while keeping the user's currently chosen Song Key
@@ -5557,7 +5595,12 @@
             <div class="coach-title-block">
               <span class="coach-pillar-badge">${pillar.icon} Pillar ${pillar.number} • ${lesson.code}</span>
               <h2 class="coach-lesson-title">${lesson.title}</h2>
-              <span class="practice-key-badge">Key: ${key}</span>
+              <label class="practice-key-picker" title="Change the active Song Key">
+                Key:
+                <select id="coachKeySelect" aria-label="Change active Song Key">
+                  ${CHROMATIC.map(kOpt => `<option value="${kOpt}" ${kOpt === key ? 'selected' : ''}>${kOpt}</option>`).join('')}
+                </select>
+              </label>
             </div>
             <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
               <button type="button" id="coachPrevLessonBtn" class="btn-secondary btn-sm" ${!hasPrevLesson ? 'disabled style="opacity:0.45;cursor:not-allowed;"' : ''}>◀ Prev Lesson</button>
@@ -5638,6 +5681,9 @@
         `;
 
         // Wire Coach Card controls
+        document.getElementById('coachKeySelect')?.addEventListener('change', (e) => {
+          setSongKey(e.target.value);
+        });
         practiceCoachCard.querySelectorAll('.coach-block-btn').forEach(btn => {
           btn.addEventListener('click', () => {
             PRACTICE_STATE.activeBlockIndex = Number(btn.dataset.blockIdx) || 0;
@@ -5674,8 +5720,61 @@
         document.getElementById('coachExitRestoreBtn')?.addEventListener('click', () => exitPracticeMode(true));
       }
 
+      const navStudioLink = document.getElementById('navStudioLink');
+      const navLessonsLink = document.getElementById('navLessonsLink');
+      const brandSubtitleEl = document.getElementById('brandSubtitle');
+
+      function setLessonsModeChrome(isLessons, lessonId) {
+        if (navStudioLink) navStudioLink.classList.toggle('active-link', !isLessons);
+        if (navLessonsLink) navLessonsLink.classList.toggle('active-link', isLessons);
+        if (brandSubtitleEl) {
+          brandSubtitleEl.textContent = isLessons
+            ? 'Improvisation Lessons & Multi-Instrument Guide Tone Visualizer'
+            : 'Chord Progression Studio & Multi-Instrument Guide Tone Visualizer';
+        }
+        try {
+          const url = new URL(window.location.href);
+          if (isLessons) {
+            url.searchParams.set('mode', 'lessons');
+            if (lessonId) url.searchParams.set('lesson', lessonId);
+            else url.searchParams.delete('lesson');
+          } else {
+            url.searchParams.delete('mode');
+            url.searchParams.delete('lesson');
+          }
+          window.history.replaceState(null, '', url.toString());
+        } catch (err) {}
+      }
+
       if (practiceBtn) {
-        practiceBtn.addEventListener('click', () => openPracticeHub());
+        practiceBtn.addEventListener('click', () => {
+          setLessonsModeChrome(true, PRACTICE_STATE.activeLessonId);
+          openPracticeHub();
+        });
+      }
+      if (navLessonsLink) {
+        navLessonsLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          setLessonsModeChrome(true, PRACTICE_STATE.activeLessonId);
+          openPracticeHub();
+        });
+      }
+      if (navStudioLink) {
+        navStudioLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (practiceHubModal && practiceHubModal.open) practiceHubModal.close();
+          if (PRACTICE_STATE.activeLessonId) {
+            exitPracticeMode(true);
+          }
+          setLessonsModeChrome(false);
+        });
+      }
+      if (practiceHubModal) {
+        practiceHubModal.addEventListener('close', () => {
+          if (!PRACTICE_STATE.activeLessonId) {
+            setLessonsModeChrome(false);
+          }
+        });
       }
       if (practiceHubCloseBtn) {
         practiceHubCloseBtn.addEventListener('click', () => practiceHubModal.close());
@@ -5694,6 +5793,22 @@
       renderDegreePalette();
       updateCustomChordButtonLabel();
       loadPresetByIndex(0);
+
+      // Auto-activate Improvisation Lessons if navigated via ?mode=lessons (or ?lesson=<id>)
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const modeParam = (params.get('mode') || '').toLowerCase();
+        const lessonParam = params.get('lesson');
+        if (CURRICULUM && (modeParam === 'lessons' || lessonParam)) {
+          if (lessonParam && CURRICULUM.findLessonById(lessonParam)) {
+            setLessonsModeChrome(true, lessonParam);
+            launchPracticeLesson(lessonParam, 0);
+          } else {
+            setLessonsModeChrome(true);
+            openPracticeHub('pillars');
+          }
+        }
+      } catch (err) {}
     });
   </script>
 </body>
